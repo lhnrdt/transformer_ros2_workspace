@@ -17,35 +17,52 @@ class ServoPwmNode : public rclcpp::Node
 {
 public:
   ServoPwmNode()
-      : Node("servo_pwm_gpio6"),
+      : Node("servo_pwm_dual"),
         chip_name_("/dev/gpiochip4"),
-        gpio_line_(6),     // BCM6 (header pin 31)
+        gpio_line1_(6),    // BCM6 (header pin 31)
+        gpio_line2_(27),   // BCM27 (header pin 13)
         period_us_(20000), // 50 Hz -> 20 ms period
         pulse_us_(1500),   // start centered
-        min_us_(1000),
-        max_us_(2000)
+        min_us_(1350),
+        max_us_(2500)
   {
-    // Open GPIO chip and request line as output
+    // Open GPIO chip and request both lines as outputs
     chip_ = gpiod_chip_open(chip_name_.c_str());
     if (!chip_)
     {
       throw std::runtime_error("Failed to open " + chip_name_);
     }
-    line_ = gpiod_chip_get_line(chip_, gpio_line_);
-    if (!line_)
+    
+    line1_ = gpiod_chip_get_line(chip_, gpio_line1_);
+    if (!line1_)
     {
       gpiod_chip_close(chip_);
-      throw std::runtime_error("Failed to get line " + std::to_string(gpio_line_));
+      throw std::runtime_error("Failed to get line " + std::to_string(gpio_line1_));
     }
-    if (gpiod_line_request_output(line_, "servo_pwm_node", 0) < 0)
+    
+    line2_ = gpiod_chip_get_line(chip_, gpio_line2_);
+    if (!line2_)
     {
       gpiod_chip_close(chip_);
-      throw std::runtime_error("Failed to request line as output");
+      throw std::runtime_error("Failed to get line " + std::to_string(gpio_line2_));
+    }
+    
+    if (gpiod_line_request_output(line1_, "servo_pwm_node_gpio6", 0) < 0)
+    {
+      gpiod_chip_close(chip_);
+      throw std::runtime_error("Failed to request GPIO6 as output");
+    }
+    
+    if (gpiod_line_request_output(line2_, "servo_pwm_node_gpio27", 0) < 0)
+    {
+      gpiod_line_release(line1_);
+      gpiod_chip_close(chip_);
+      throw std::runtime_error("Failed to request GPIO27 as output");
     }
 
     RCLCPP_INFO(get_logger(),
-                "Servo PWM on GPIO%d via %s @ 50 Hz. Start pulse: %d us",
-                gpio_line_, chip_name_.c_str(), pulse_us_.load());
+                "Servo PWM on GPIO%d and GPIO%d via %s @ 50 Hz. Start pulse: %d us",
+                gpio_line1_, gpio_line2_, chip_name_.c_str(), pulse_us_.load());
 
     // Start worker threads
     pwm_thread_ = std::thread(&ServoPwmNode::pwmLoop, this);
@@ -69,10 +86,15 @@ public:
       input_thread_.join();
     if (pwm_thread_.joinable())
       pwm_thread_.join();
-    if (line_)
+    if (line1_)
     {
-      gpiod_line_set_value(line_, 0);
-      gpiod_line_release(line_);
+      gpiod_line_set_value(line1_, 0);
+      gpiod_line_release(line1_);
+    }
+    if (line2_)
+    {
+      gpiod_line_set_value(line2_, 0);
+      gpiod_line_release(line2_);
     }
     if (chip_)
       gpiod_chip_close(chip_);
@@ -92,9 +114,14 @@ private:
         high = max_us_;
       int low = period_us_ - high;
 
-      gpiod_line_set_value(line_, 1);
+      // Set both GPIOs high simultaneously
+      gpiod_line_set_value(line1_, 1);
+      gpiod_line_set_value(line2_, 1);
       busySleepMicros(high);
-      gpiod_line_set_value(line_, 0);
+      
+      // Set both GPIOs low simultaneously
+      gpiod_line_set_value(line1_, 0);
+      gpiod_line_set_value(line2_, 0);
       busySleepMicros(low);
     }
   }
@@ -236,14 +263,16 @@ Controls:
 
 private:
   std::string chip_name_;
-  int gpio_line_;
+  int gpio_line1_;
+  int gpio_line2_;
   int period_us_;
   std::atomic<int> pulse_us_;
   const int min_us_;
   const int max_us_;
 
   gpiod_chip *chip_{nullptr};
-  gpiod_line *line_{nullptr};
+  gpiod_line *line1_{nullptr};
+  gpiod_line *line2_{nullptr};
 
   std::thread pwm_thread_;
   std::thread input_thread_;

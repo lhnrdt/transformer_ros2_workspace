@@ -13,6 +13,14 @@ find_package(ament_cmake REQUIRED)
 
 find_package(rclcpp REQUIRED)
 
+find_package(rclcpp_action REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "action/MoveServo.action"
+)
+
+
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GPIOD REQUIRED IMPORTED_TARGET libgpiod)
 
@@ -22,10 +30,15 @@ target_include_directories(software_pwm_node PUBLIC
   $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
 target_compile_features(software_pwm_node PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 
-ament_target_dependencies(software_pwm_node rclcpp)
+ament_target_dependencies(software_pwm_node rclcpp rclcpp_action)
 target_link_libraries(software_pwm_node PkgConfig::GPIOD)
 install(TARGETS software_pwm_node
   DESTINATION lib/${PROJECT_NAME})
+
+
+  rosidl_target_interfaces(software_pwm_node
+  ${PROJECT_NAME} "rosidl_typesupport_cpp"
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
