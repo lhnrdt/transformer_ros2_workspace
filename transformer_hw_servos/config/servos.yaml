@@ -5,13 +5,17 @@ transformer_hw_servos:
     gpio_servo1: 27
     period_us: 20000
     initial_us: 1500
-    min_us: 1350
-    max_us: 2500
-    min_us_servo0: 1350
-    min_us_servo1: 1350
-    max_us_servo0: 2500
-    max_us_servo1: 2500
+    initial_us_servo0: 1550
+    initial_us_servo1: 1000
+    min_us: 600
+    max_us: 3000
+    min_us_servo0: 1550
+    min_us_servo1: 1100
+    max_us_servo0: 3000
+    max_us_servo1: 3000
     use_realtime: true
-    rt_priority: 80
-    cpu_affinity: -1
+    rt_priority: 90
+    cpu_affinity: 2
     tail_spin_us: 100
+    lock_memory: true
+    prefault_mb: 64

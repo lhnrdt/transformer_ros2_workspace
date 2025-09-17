@@ -12,19 +12,20 @@ find_package(rosidl_default_generators REQUIRED)
 # Interface
 rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/SetServoPulse.srv"
+  "srv/SetDualServoPulse.srv"
 )
 
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(GPIOD REQUIRED IMPORTED_TARGET libgpiod)
 find_package(Threads REQUIRED)
+find_library(LGPIO_LIB lgpio REQUIRED)
 
 add_executable(servos_node src/servos_node.cpp)
 target_compile_features(servos_node PUBLIC c_std_99 cxx_std_17)
 target_include_directories(servos_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/rosidl_generator_cpp>
 )
 ament_target_dependencies(servos_node rclcpp)
-target_link_libraries(servos_node PkgConfig::GPIOD)
+target_link_libraries(servos_node ${LGPIO_LIB})
 
 # Link against generated typesupport target (recommended pattern)
 rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")

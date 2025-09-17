@@ -1,114 +1,176 @@
+// Clean lgpio-only implementation controlling two servos via lgTxServo
+
 #include <rclcpp/rclcpp.hpp>
-#include <gpiod.h>
+#include <lgpio.h>
 
 #include <atomic>
-#include <chrono>
-#include <csignal>
-#include <thread>
 #include <string>
 #include <algorithm>
 #include <pthread.h>
+#include <sched.h>
 #include <sys/mman.h>
+#include <unistd.h>
+#include <sys/resource.h>
 
-using namespace std::chrono_literals;
-
-static std::atomic<bool> g_running{true};
-
-// Generated header after rosidl: transformer_hw_servos/srv/set_servo_pulse.hpp
+// Generated headers
 #include "transformer_hw_servos/srv/set_servo_pulse.hpp"
+#include "transformer_hw_servos/srv/set_dual_servo_pulse.hpp"
 
 class DualServoNode : public rclcpp::Node
 {
 public:
     using SetServoPulse = transformer_hw_servos::srv::SetServoPulse;
+    using SetDualServoPulse = transformer_hw_servos::srv::SetDualServoPulse;
 
     DualServoNode()
-        : Node("transformer_hw_servos"),
-          gpiochip_name_(this->declare_parameter<std::string>("gpiochip_name", "gpiochip4")),
-          gpio_servo0_(this->declare_parameter<int>("gpio_servo0", 6)),  // GPIO6
-          gpio_servo1_(this->declare_parameter<int>("gpio_servo1", 27)), // GPIO27
-          period_us_(this->declare_parameter<int>("period_us", 20000))   // 50Hz
+    : Node("transformer_hw_servos"),
+        gpiochip_name_(this->declare_parameter<std::string>("gpiochip_name", "gpiochip4")),
+        gpio_servo0_(this->declare_parameter<int>("gpio_servo0", 6)),   // GPIO6
+        gpio_servo1_(this->declare_parameter<int>("gpio_servo1", 27)),  // GPIO27
+            period_us_(this->declare_parameter<int>("period_us", 20000))    // 50 Hz
     {
-        // Timing control options (optional)
-        use_realtime_ = this->declare_parameter<bool>("use_realtime", false);
-        rt_priority_ = this->declare_parameter<int>("rt_priority", 80);
-        cpu_affinity_ = this->declare_parameter<int>("cpu_affinity", -1);  // -1 = no pinning
-        tail_spin_us_ = this->declare_parameter<int>("tail_spin_us", 100); // busy spin tail duration
-                                                                           // start centered (declare once)
+            // Optional RT and CPU affinity tuning to reduce jitter
+            use_realtime_ = this->declare_parameter<bool>("use_realtime", false);
+            rt_priority_ = this->declare_parameter<int>("rt_priority", 80);
+            lock_memory_ = this->declare_parameter<bool>("lock_memory", true);
+            cpu_affinity_ = this->declare_parameter<int>("cpu_affinity", -1); // -1 disabled
+            // Optional pre-fault buffer to reduce page faults under memory pressure
+            prefault_mb_ = this->declare_parameter<int>("prefault_mb", 0);
+            setup_realtime();
+
+        // Limits and initial values
         min_us_global_ = this->declare_parameter<int>("min_us", 1350);
         max_us_global_ = this->declare_parameter<int>("max_us", 2500);
         min_us_servo_[0] = this->declare_parameter<int>("min_us_servo0", min_us_global_);
         min_us_servo_[1] = this->declare_parameter<int>("min_us_servo1", min_us_global_);
         max_us_servo_[0] = this->declare_parameter<int>("max_us_servo0", max_us_global_);
         max_us_servo_[1] = this->declare_parameter<int>("max_us_servo1", max_us_global_);
+    int initial_us = this->declare_parameter<int>("initial_us", 1500);
+    int initial_us_servo0 = this->declare_parameter<int>("initial_us_servo0", initial_us);
+    int initial_us_servo1 = this->declare_parameter<int>("initial_us_servo1", initial_us);
+    pulse_us_[0].store(clampPulse(0, initial_us_servo0));
+    pulse_us_[1].store(clampPulse(1, initial_us_servo1));
+
+        // Open chip and claim outputs via lgpio
+        int chip_index = parseChipIndex(gpiochip_name_);
+        lg_handle_ = lgGpiochipOpen(chip_index);
+        if (lg_handle_ < 0)
         {
-            int initial_us = this->declare_parameter<int>("initial_us", 1500);
-            pulse_us_[0].store(clampPulse(0, initial_us));
-            pulse_us_[1].store(clampPulse(1, initial_us));
+            RCLCPP_FATAL(get_logger(), "lgpio: Failed to open %s", gpiochip_name_.c_str());
+            throw std::runtime_error("lgpio open failed");
+        }
+        if (lgGpioClaimOutput(lg_handle_, 0, gpio_servo0_, 0) < 0 ||
+                lgGpioClaimOutput(lg_handle_, 0, gpio_servo1_, 0) < 0)
+        {
+            lgGpiochipClose(lg_handle_);
+            lg_handle_ = -1;
+            throw std::runtime_error("lgpio: Failed to claim GPIO as outputs");
         }
 
-        // Open chip and request lines
-        chip_ = gpiod_chip_open_by_name(gpiochip_name_.c_str());
-        if (!chip_)
-        {
-            RCLCPP_FATAL(get_logger(), "Failed to open %s (permissions?)", gpiochip_name_.c_str());
-            throw std::runtime_error("gpiod open failed");
-        }
-        line_[0] = gpiod_chip_get_line(chip_, gpio_servo0_);
-        line_[1] = gpiod_chip_get_line(chip_, gpio_servo1_);
-        if (!line_[0] || !line_[1])
-        {
-            if (line_[0])
-                gpiod_line_release(line_[0]);
-            if (line_[1])
-                gpiod_line_release(line_[1]);
-            gpiod_chip_close(chip_);
-            throw std::runtime_error("Failed to get GPIO lines for servos");
-        }
-        if (gpiod_line_request_output(line_[0], "transformer_hw_servos_0", 0) < 0 ||
-            gpiod_line_request_output(line_[1], "transformer_hw_servos_1", 0) < 0)
-        {
-            if (line_[0])
-                gpiod_line_release(line_[0]);
-            if (line_[1])
-                gpiod_line_release(line_[1]);
-            gpiod_chip_close(chip_);
-            throw std::runtime_error("Failed to request GPIO lines as outputs");
-        }
+        // Compute frequency from period
+        freq_hz_ = (period_us_ > 0) ? static_cast<int>(1000000 / period_us_) : 50;
 
-        // Service for setting pulse widths
-        srv_ = this->create_service<SetServoPulse>(
+        // Start servo pulses at initial positions
+        lgTxServo(lg_handle_, gpio_servo0_, pulse_us_[0].load(), freq_hz_, 0, 0);
+        lgTxServo(lg_handle_, gpio_servo1_, pulse_us_[1].load(), freq_hz_, 0, 0);
+
+        // Services for setting pulse widths
+        srv_single_ = this->create_service<SetServoPulse>(
             "set_servo_pulse",
             std::bind(&DualServoNode::handleSetPulse, this,
-                      std::placeholders::_1, std::placeholders::_2));
+                                std::placeholders::_1, std::placeholders::_2));
 
-        // Spin PWM thread
-        pwm_thread_ = std::thread(&DualServoNode::pwmLoop, this);
+        srv_dual_ = this->create_service<SetDualServoPulse>(
+            "set_dual_servo_pulse",
+            std::bind(&DualServoNode::handleSetDualPulse, this,
+                                std::placeholders::_1, std::placeholders::_2));
 
-        RCLCPP_INFO(get_logger(), "Servos ready on GPIO%d and GPIO%d via %s @ 50Hz",
-                    gpio_servo0_, gpio_servo1_, gpiochip_name_.c_str());
+        RCLCPP_INFO(get_logger(), "Servos ready on GPIO%d and GPIO%d via lgpio (%s) @ %d Hz",
+                                gpio_servo0_, gpio_servo1_, gpiochip_name_.c_str(), freq_hz_);
     }
 
     ~DualServoNode() override
     {
-        g_running = false;
-        if (pwm_thread_.joinable())
-            pwm_thread_.join();
-        for (auto &l : line_)
+        // Stop servo pulses (set width 0) then close
+        if (lg_handle_ >= 0)
         {
-            if (l)
-            {
-                gpiod_line_set_value(l, 0);
-                gpiod_line_release(l);
-            }
+            lgTxServo(lg_handle_, gpio_servo0_, 0, freq_hz_, 0, 0);
+            lgTxServo(lg_handle_, gpio_servo1_, 0, freq_hz_, 0, 0);
+            lgGpiochipClose(lg_handle_);
+            lg_handle_ = -1;
         }
-        if (chip_)
-            gpiod_chip_close(chip_);
     }
 
 private:
+        void setup_realtime()
+        {
+            if (!use_realtime_) return;
+            // Lock memory to avoid page faults
+            if (lock_memory_)
+            {
+                    // Try to raise memlock soft limit to hard limit
+                    struct rlimit rlim;
+                    if (getrlimit(RLIMIT_MEMLOCK, &rlim) == 0)
+                    {
+                        struct rlimit newlim = rlim;
+                        newlim.rlim_cur = rlim.rlim_max; // raise soft to hard
+                        if (setrlimit(RLIMIT_MEMLOCK, &newlim) != 0)
+                        {
+                            RCLCPP_WARN(get_logger(), "setrlimit MEMLOCK failed: %m");
+                        }
+                    }
+
+                if (mlockall(MCL_CURRENT | MCL_FUTURE) != 0)
+                {
+                    RCLCPP_WARN(get_logger(), "mlockall failed: %m");
+                }
+                    // Pre-fault a small buffer if requested
+                    if (prefault_mb_ > 0)
+                    {
+                        size_t bytes = static_cast<size_t>(prefault_mb_) * 1024ULL * 1024ULL;
+                        try {
+                            prefault_buffer_.resize(bytes, 0);
+                            // Touch each page
+                            size_t page = static_cast<size_t>(sysconf(_SC_PAGESIZE));
+                            for (size_t i = 0; i < bytes; i += page) {
+                                prefault_buffer_[i] = static_cast<uint8_t>(i);
+                            }
+                        } catch (const std::exception &e) {
+                            RCLCPP_WARN(get_logger(), "prefault allocation failed: %s", e.what());
+                        }
+                    }
+            }
+
+            // Set SCHED_FIFO priority
+            struct sched_param sp;
+            sp.sched_priority = std::max(1, std::min(99, rt_priority_));
+            int rc = pthread_setschedparam(pthread_self(), SCHED_FIFO, &sp);
+            if (rc != 0)
+            {
+                RCLCPP_WARN(get_logger(), "pthread_setschedparam failed (are you root/cap_sys_nice?): %d", rc);
+            }
+
+            // Set CPU affinity if requested
+            if (cpu_affinity_ >= 0)
+            {
+                cpu_set_t set;
+                CPU_ZERO(&set);
+                int cpu = cpu_affinity_ % std::max(1L, sysconf(_SC_NPROCESSORS_ONLN));
+                CPU_SET(cpu, &set);
+                rc = pthread_setaffinity_np(pthread_self(), sizeof(set), &set);
+                if (rc != 0)
+                {
+                    RCLCPP_WARN(get_logger(), "pthread_setaffinity_np failed: %d", rc);
+                }
+                else
+                {
+                    RCLCPP_INFO(get_logger(), "Bound node thread to CPU %d with SCHED_FIFO prio %d", cpu, sp.sched_priority);
+                }
+            }
+        }
+
     void handleSetPulse(const SetServoPulse::Request::SharedPtr req,
-                        SetServoPulse::Response::SharedPtr res)
+                                            SetServoPulse::Response::SharedPtr res)
     {
         int idx = req->servo_index;
         if (idx < 0 || idx > 1)
@@ -119,102 +181,57 @@ private:
         }
         int us = clampPulse(idx, req->pulse_us);
         pulse_us_[idx].store(us);
+        // Update servo pulse via lgpio
+        int gpio = (idx == 0) ? gpio_servo0_ : gpio_servo1_;
+        if (lg_handle_ >= 0)
+            lgTxServo(lg_handle_, gpio, us, freq_hz_, 0, 0);
         res->success = true;
         res->message = "updated";
     }
 
-    void pwmLoop()
+    void handleSetDualPulse(const SetDualServoPulse::Request::SharedPtr req,
+                            SetDualServoPulse::Response::SharedPtr res)
     {
-        // Optional: upgrade this thread to RT and pin to a CPU to reduce jitter
-        if (use_realtime_)
+        int us0 = clampPulse(0, req->pulse_us0);
+        int us1 = clampPulse(1, req->pulse_us1);
+        pulse_us_[0].store(us0);
+        pulse_us_[1].store(us1);
+        if (lg_handle_ >= 0)
         {
-            // Best-effort: ignore errors, as these depend on privileges
-            mlockall(MCL_CURRENT | MCL_FUTURE);
-            struct sched_param sp;
-            sp.sched_priority = std::max(1, std::min(rt_priority_, 99));
-            pthread_setschedparam(pthread_self(), SCHED_FIFO, &sp);
-            if (cpu_affinity_ >= 0)
-            {
-                cpu_set_t set;
-                CPU_ZERO(&set);
-                CPU_SET(cpu_affinity_, &set);
-                pthread_setaffinity_np(pthread_self(), sizeof(set), &set);
-            }
+            // Back-to-back updates to keep them as close in time as possible
+            lgTxServo(lg_handle_, gpio_servo0_, us0, freq_hz_, 0, 0);
+            lgTxServo(lg_handle_, gpio_servo1_, us1, freq_hz_, 0, 0);
         }
-
-        while (g_running.load())
-        {
-            const int high0 = clampPulse(0, pulse_us_[0].load());
-            const int high1 = clampPulse(1, pulse_us_[1].load());
-            const int high = std::min(high0, high1);
-            const int low = period_us_ - std::max(high0, high1);
-            const int mid_gap = std::abs(high0 - high1);
-
-            // Start both high
-            gpiod_line_set_value(line_[0], 1);
-            gpiod_line_set_value(line_[1], 1);
-            busySleepMicros(high, tail_spin_us_);
-
-            // Drop the one that needs to go low earlier
-            if (high0 < high1)
-            {
-                gpiod_line_set_value(line_[0], 0);
-            }
-            else if (high1 < high0)
-            {
-                gpiod_line_set_value(line_[1], 0);
-            }
-            else
-            {
-                // equal; drop both and finish cycle
-                gpiod_line_set_value(line_[0], 0);
-                gpiod_line_set_value(line_[1], 0);
-                busySleepMicros(period_us_ - high, tail_spin_us_);
-                continue;
-            }
-
-            // Wait until the longer one finishes
-            busySleepMicros(mid_gap, tail_spin_us_);
-            // Now drop the other
-            if (high0 < high1)
-            {
-                gpiod_line_set_value(line_[1], 0);
-            }
-            else
-            {
-                gpiod_line_set_value(line_[0], 0);
-            }
-
-            // Finish the remainder of the period
-            busySleepMicros(low, tail_spin_us_);
-        }
+        res->success = true;
+        res->message = "updated both";
     }
 
-    static void busySleepMicros(int us, int tail_us)
+    static int parseChipIndex(const std::string &name)
     {
-        using clock = std::chrono::steady_clock;
-        auto start = clock::now();
-        auto target = start + std::chrono::microseconds(us);
-        auto sleep_until = target - std::chrono::microseconds(std::max(0, tail_us));
-        if (sleep_until > clock::now())
+        // Expect formats like "gpiochip4" -> 4; fallback to 0
+        int idx = 0;
+        size_t pos = name.find_last_not_of("0123456789");
+        if (pos != std::string::npos && pos + 1 < name.size())
         {
-            std::this_thread::sleep_until(sleep_until);
+            try
+            {
+                idx = std::stoi(name.substr(pos + 1));
+            }
+            catch (...)
+            {
+                idx = 0;
+            }
         }
-        while (clock::now() < target)
-        {
-        }
+        return idx;
     }
 
     int clampPulse(int idx, int us) const
     {
         int mn = min_us_servo_[idx];
         int mx = max_us_servo_[idx];
-        if (mn > mx)
-            std::swap(mn, mx);
-        if (us < mn)
-            return mn;
-        if (us > mx)
-            return mx;
+        if (mn > mx) std::swap(mn, mx);
+        if (us < mn) return mn;
+        if (us > mx) return mx;
         return us;
     }
 
@@ -223,32 +240,28 @@ private:
     int gpio_servo0_;
     int gpio_servo1_;
     int period_us_;
-    bool use_realtime_;
-    int rt_priority_;
-    int cpu_affinity_;
-    int tail_spin_us_;
+    int freq_hz_{50};
     int min_us_global_;
     int max_us_global_;
     int min_us_servo_[2];
     int max_us_servo_[2];
-
     std::atomic<int> pulse_us_[2];
+    int lg_handle_{-1};
 
-    gpiod_chip *chip_{nullptr};
-    gpiod_line *line_[2]{nullptr, nullptr};
+    rclcpp::Service<SetServoPulse>::SharedPtr srv_single_;
+    rclcpp::Service<SetDualServoPulse>::SharedPtr srv_dual_;
 
-    std::thread pwm_thread_;
-    rclcpp::Service<SetServoPulse>::SharedPtr srv_;
+    // RT tuning
+    bool use_realtime_{false};
+    int rt_priority_{80};
+    bool lock_memory_{true};
+    int cpu_affinity_{-1};
+        int prefault_mb_{0};
+        std::vector<uint8_t> prefault_buffer_;
 };
-
-static void sigintHandler(int)
-{
-    g_running = false;
-}
 
 int main(int argc, char **argv)
 {
-    std::signal(SIGINT, sigintHandler);
     rclcpp::init(argc, argv);
     try
     {
