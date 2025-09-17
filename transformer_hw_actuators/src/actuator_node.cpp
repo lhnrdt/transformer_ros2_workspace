@@ -6,6 +6,8 @@
 #include <thread>
 #include <chrono>
 #include <cmath>
+#include <cerrno>
+#include <cstring>
 
 using namespace std::chrono_literals;
 namespace fs = std::filesystem;
@@ -18,6 +20,7 @@ namespace transformer_hw_actuators
     {
         // Parameters with DC motor defaults
         pwmchip_index_ = this->declare_parameter<int>("pwmchip_index", 0);
+        gpiochip_name_ = this->declare_parameter<std::string>("gpiochip_name", "gpiochip4");
 
         // NOTE: integer arrays are int64 in ROS 2 parameters. Declare as int64 and cast.
         auto pwm_channels_i64 = this->declare_parameter<std::vector<int64_t>>("pwm_channels", {1, 0});
@@ -39,11 +42,12 @@ namespace transformer_hw_actuators
 
         chip_path_ = "/sys/class/pwm/pwmchip" + std::to_string(pwmchip_index_);
 
-        // Open GPIO chip and request direction lines
-        gpio_chip_ = gpiod_chip_open_by_name("gpiochip0");
+        // open chosen chip
+        gpio_chip_ = gpiod_chip_open_by_name(gpiochip_name_.c_str());
         if (!gpio_chip_)
         {
-            RCLCPP_FATAL(get_logger(), "Failed to open gpiochip0 (need permissions)");
+            RCLCPP_FATAL(get_logger(), "Failed to open %s (permission or wrong chip?)",
+                         gpiochip_name_.c_str());
             throw std::runtime_error("gpiod open failed");
         }
         dir_lines_.resize(dir_gpios_.size(), nullptr);
@@ -199,7 +203,7 @@ namespace transformer_hw_actuators
         int rv = gpiod_line_set_value(dir_lines_[actuator_idx], level);
         if (rv < 0)
         {
-            err = "gpiod_line_set_value failed";
+            err = std::string("gpiod_line_set_value failed: ") + std::strerror(errno);
             return false;
         }
         return true;

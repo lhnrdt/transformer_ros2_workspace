@@ -21,6 +21,7 @@ public:
 private:
   // Parameters
   int pwmchip_index_;                 // e.g., 0
+  std::string gpiochip_name_;  // e.g., "gpiochip4" on Pi 5 (RP1)
   std::vector<int> pwm_channels_;     // e.g., [1,0] → PWM1 for actuator0, PWM0 for actuator1
   std::vector<int> dir_gpios_;        // e.g., [19,5]
   std::vector<bool> dir_active_high_; // if false, logic is inverted per actuator
