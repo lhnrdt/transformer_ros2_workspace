@@ -33,7 +33,8 @@ namespace transformer_hw_actuators
         dir_active_high_ = this->declare_parameter<std::vector<bool>>("dir_active_high", {true, true});
         period_ns_ = this->declare_parameter<int64_t>("period_ns", 50'000); // 20 kHz
         initial_percent_ = this->declare_parameter<int>("initial_percent", 0);
-        brake_on_zero_ = this->declare_parameter<bool>("brake_on_zero", false);
+    brake_on_zero_ = this->declare_parameter<bool>("brake_on_zero", false);
+    feedback_period_ms_ = this->declare_parameter<int>("feedback_period_ms", 50); // 20 Hz feedback
 
         if (pwm_channels_.size() != dir_gpios_.size())
         {
@@ -216,8 +217,10 @@ namespace transformer_hw_actuators
         const rclcpp_action::GoalUUID & /*uuid*/,
         std::shared_ptr<const MoveActuator::Goal> goal)
     {
-        RCLCPP_INFO(get_logger(), "Received goal request: actuator=%d speed_percent=%d",
-                    goal->actuator, goal->speed_percent);
+        auto now = std::chrono::steady_clock::now();
+        auto now_ms = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
+        RCLCPP_INFO(get_logger(), "[T%lld] handleGoal: actuator=%d speed_percent=%d duration_ms=%d",
+                    static_cast<long long>(now_ms), goal->actuator, goal->speed_percent, goal->duration_ms);
         if (goal->actuator < 0 || goal->actuator >= static_cast<int>(pwm_channels_.size()))
         {
             RCLCPP_WARN(get_logger(), "Rejecting goal: invalid actuator %d", goal->actuator);
@@ -238,12 +241,17 @@ namespace transformer_hw_actuators
 
     void ActuatorNode::handleAccepted(const std::shared_ptr<GoalHandleMove> goal_handle)
     {
+        auto now = std::chrono::steady_clock::now();
+        auto now_ms = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
+        RCLCPP_INFO(get_logger(), "[T%lld] handleAccepted: spinning up execute thread", static_cast<long long>(now_ms));
         std::thread{std::bind(&ActuatorNode::execute, this, goal_handle)}.detach();
     }
 
     void ActuatorNode::execute(const std::shared_ptr<GoalHandleMove> goal_handle)
     {
-        RCLCPP_INFO(get_logger(), "Executing goal");
+        auto t_exec_start = std::chrono::steady_clock::now();
+        auto t_exec_ms = std::chrono::duration_cast<std::chrono::milliseconds>(t_exec_start.time_since_epoch()).count();
+        RCLCPP_INFO(get_logger(), "[T%lld] execute: begin", static_cast<long long>(t_exec_ms));
 
         const auto goal = goal_handle->get_goal();
         auto result = std::make_shared<MoveActuator::Result>();
@@ -255,6 +263,7 @@ namespace transformer_hw_actuators
         int duration_ms = goal->duration_ms;
 
         std::string err;
+        auto t_before_dir = std::chrono::steady_clock::now();
         if (!setDirection(idx, spd >= 0, err))
         {
             result->success = false;
@@ -262,6 +271,8 @@ namespace transformer_hw_actuators
             goal_handle->abort(result);
             return;
         }
+        auto t_after_dir = std::chrono::steady_clock::now();
+        auto t_before_duty = std::chrono::steady_clock::now();
         if (!setDutyPercent(channel, std::abs(spd), err))
         {
             result->success = false;
@@ -269,6 +280,12 @@ namespace transformer_hw_actuators
             goal_handle->abort(result);
             return;
         }
+        auto t_after_duty = std::chrono::steady_clock::now();
+
+        auto dt_dir = std::chrono::duration_cast<std::chrono::microseconds>(t_after_dir - t_before_dir).count();
+        auto dt_duty = std::chrono::duration_cast<std::chrono::microseconds>(t_after_duty - t_before_duty).count();
+        RCLCPP_INFO(get_logger(), "execute: setDirection=%0.3f ms, setDutyPercent=%0.3f ms",
+                    dt_dir / 1000.0, dt_duty / 1000.0);
 
         // If no duration requested, publish one feedback and finish immediately
         if (duration_ms <= 0)
@@ -280,6 +297,9 @@ namespace transformer_hw_actuators
 
             result->success = true;
             result->message = "Speed set (no timing)";
+            auto t_done = std::chrono::steady_clock::now();
+            auto dt_total = std::chrono::duration_cast<std::chrono::milliseconds>(t_done - t_exec_start).count();
+            RCLCPP_INFO(get_logger(), "execute: completed (no timing) in %lld ms", static_cast<long long>(dt_total));
             goal_handle->succeed(result);
             return;
         }
@@ -287,8 +307,8 @@ namespace transformer_hw_actuators
         // Timed execution loop
         auto start = std::chrono::steady_clock::now();
         int elapsed_ms = 0;
-        const int period_ms = 50; // feedback/update period
-        rclcpp::Rate rate(1000ms / period_ms);
+    const int period_ms = std::max(1, feedback_period_ms_);
+    rclcpp::Rate rate(1000ms / period_ms);
 
         while (rclcpp::ok())
         {
@@ -335,6 +355,9 @@ namespace transformer_hw_actuators
 
         result->success = true;
         result->message = "Completed duration";
+        auto t_done = std::chrono::steady_clock::now();
+        auto dt_total = std::chrono::duration_cast<std::chrono::milliseconds>(t_done - t_exec_start).count();
+        RCLCPP_INFO(get_logger(), "execute: completed in %lld ms (requested %d ms)", static_cast<long long>(dt_total), duration_ms);
         goal_handle->succeed(result);
     }
 

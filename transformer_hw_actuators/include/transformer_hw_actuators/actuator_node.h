@@ -28,6 +28,7 @@ private:
   int64_t period_ns_;                 // e.g., 50'000 for 20 kHz (recommended for DC motors)
   int initial_percent_;               // -100..100 startup value (default 0)
   bool brake_on_zero_;                // if true, request braking behavior at 0 (see notes)
+  int feedback_period_ms_;            // execution loop tick for feedback/timeout
 
   // Paths derived from params
   std::string chip_path_;             // /sys/class/pwm/pwmchipX
