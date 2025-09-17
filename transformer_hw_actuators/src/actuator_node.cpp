@@ -8,6 +8,7 @@
 #include <cmath>
 #include <cerrno>
 #include <cstring>
+#include <algorithm>
 
 using namespace std::chrono_literals;
 namespace fs = std::filesystem;
@@ -251,6 +252,7 @@ namespace transformer_hw_actuators
         int idx = goal->actuator;
         int channel = pwm_channels_.at(idx);
         int spd = std::clamp(goal->speed_percent, -100, 100);
+        int duration_ms = goal->duration_ms;
 
         std::string err;
         if (!setDirection(idx, spd >= 0, err))
@@ -268,11 +270,71 @@ namespace transformer_hw_actuators
             return;
         }
 
-        feedback->current_speed_percent = spd; // <-- stays (Feedback)
+        // If no duration requested, publish one feedback and finish immediately
+        if (duration_ms <= 0)
+        {
+            feedback->current_speed_percent = spd;
+            feedback->elapsed_ms = 0;
+            feedback->remaining_ms = 0;
+            goal_handle->publish_feedback(feedback);
+
+            result->success = true;
+            result->message = "Speed set (no timing)";
+            goal_handle->succeed(result);
+            return;
+        }
+
+        // Timed execution loop
+        auto start = std::chrono::steady_clock::now();
+        int elapsed_ms = 0;
+        const int period_ms = 50; // feedback/update period
+        rclcpp::Rate rate(1000ms / period_ms);
+
+        while (rclcpp::ok())
+        {
+            // Check cancel
+            if (goal_handle->is_canceling())
+            {
+                // Stop the motor
+                (void)setDutyPercent(channel, 0, err);
+                feedback->current_speed_percent = 0;
+                auto now = std::chrono::steady_clock::now();
+                elapsed_ms = static_cast<int>(std::chrono::duration_cast<std::chrono::milliseconds>(now - start).count());
+                feedback->elapsed_ms = elapsed_ms;
+                feedback->remaining_ms = std::max(0, duration_ms - elapsed_ms);
+                goal_handle->publish_feedback(feedback);
+
+                auto cancel_result = std::make_shared<MoveActuator::Result>();
+                cancel_result->success = false;
+                cancel_result->message = "Canceled";
+                goal_handle->canceled(cancel_result);
+                RCLCPP_INFO(get_logger(), "Goal canceled");
+                return;
+            }
+
+            auto now = std::chrono::steady_clock::now();
+            elapsed_ms = static_cast<int>(std::chrono::duration_cast<std::chrono::milliseconds>(now - start).count());
+            if (elapsed_ms >= duration_ms)
+                break;
+
+            // Publish feedback
+            feedback->current_speed_percent = spd;
+            feedback->elapsed_ms = elapsed_ms;
+            feedback->remaining_ms = std::max(0, duration_ms - elapsed_ms);
+            goal_handle->publish_feedback(feedback);
+
+            rate.sleep();
+        }
+
+        // Stop the motor at the end of the duration
+        (void)setDutyPercent(channel, 0, err);
+        feedback->current_speed_percent = 0;
+        feedback->elapsed_ms = duration_ms;
+        feedback->remaining_ms = 0;
         goal_handle->publish_feedback(feedback);
 
         result->success = true;
-        result->message = "OK";
+        result->message = "Completed duration";
         goal_handle->succeed(result);
     }
 

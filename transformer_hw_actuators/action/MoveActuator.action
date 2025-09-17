@@ -1,10 +1,15 @@
 # Goal: set actuator speed with sign indicating direction.
 # speed_percent is clamped to [-100, 100]. 0 = stop (coast by default).
+# duration_ms > 0 makes the motor run for that duration and then stop.
+ # If duration_ms <= 0, the motor is set and the action returns immediately.
 
 int32 actuator         # 0 or 1
 int32 speed_percent    # -100..100 (sign = direction)
+int32 duration_ms      # milliseconds to run at speed; <=0 means no timing
 ---
 bool success
 string message
 ---
 int32 current_speed_percent
+int32 elapsed_ms
+int32 remaining_ms
