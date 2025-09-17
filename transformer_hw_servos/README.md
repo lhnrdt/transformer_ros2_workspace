@@ -4,7 +4,7 @@ Dual-servo software PWM controller at 50 Hz using libgpiod, exposing a simple se
 
 - Servo0 on `GPIO6`
 - Servo1 on `GPIO27`
-- Default pulse range: 500–2500 µs (clamped)
+- Default pulse range: 1350–2500 µs (clamped). You can override globally or per servo.
 - Default initial position: 1500 µs (center)
 
 ## Build
@@ -47,3 +47,17 @@ ros2 service call /set_servo_pulse transformer_hw_servos/srv/SetServoPulse '{ser
 
 - This is software PWM; CPU timing jitter may affect precision. For best stability, avoid heavy CPU load.
 - Requires access to `/dev/gpiochip*` (typically run as root or with appropriate udev rules).
+
+## Parameters
+
+- `gpiochip_name` (string, default `gpiochip4`)
+- `gpio_servo0` (int, default 6)
+- `gpio_servo1` (int, default 27)
+- `period_us` (int, default 20000)
+- `initial_us` (int, default 1500)
+- `min_us` (int, default 1350) — global minimum; can be overridden per-servo
+- `max_us` (int, default 2500) — global maximum; can be overridden per-servo
+- `min_us_servo0` (int, default equals `min_us`)
+- `min_us_servo1` (int, default equals `min_us`)
+- `max_us_servo0` (int, default equals `max_us`)
+- `max_us_servo1` (int, default equals `max_us`)

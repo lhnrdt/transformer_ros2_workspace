@@ -36,6 +36,7 @@ target_link_libraries(actuator_node ${GPIOD_LIBRARIES} ${cpp_typesupport_target}
 install(TARGETS actuator_node DESTINATION lib/${PROJECT_NAME})
 install(DIRECTORY include/ DESTINATION include)
 install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
+install(DIRECTORY config DESTINATION share/${PROJECT_NAME}/)
 
 ament_export_dependencies(rosidl_default_runtime)
 ament_package()

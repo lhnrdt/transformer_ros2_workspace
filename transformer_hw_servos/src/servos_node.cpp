@@ -7,6 +7,8 @@
 #include <thread>
 #include <string>
 #include <algorithm>
+#include <pthread.h>
+#include <sys/mman.h>
 
 using namespace std::chrono_literals;
 
@@ -24,15 +26,24 @@ public:
     gpiochip_name_(this->declare_parameter<std::string>("gpiochip_name", "gpiochip4")),
     gpio_servo0_(this->declare_parameter<int>("gpio_servo0", 6)),   // GPIO6
     gpio_servo1_(this->declare_parameter<int>("gpio_servo1", 27)),  // GPIO27
-    period_us_(this->declare_parameter<int>("period_us", 20000)),   // 50Hz
-    min_us_(this->declare_parameter<int>("min_us", 500)),
-    max_us_(this->declare_parameter<int>("max_us", 2500))
+    period_us_(this->declare_parameter<int>("period_us", 20000))   // 50Hz
   {
+    // Timing control options (optional)
+    use_realtime_ = this->declare_parameter<bool>("use_realtime", false);
+    rt_priority_ = this->declare_parameter<int>("rt_priority", 80);
+    cpu_affinity_ = this->declare_parameter<int>("cpu_affinity", -1); // -1 = no pinning
+    tail_spin_us_ = this->declare_parameter<int>("tail_spin_us", 100); // busy spin tail duration
     // start centered (declare once)
+      min_us_global_ = this->declare_parameter<int>("min_us", 1350);
+      max_us_global_ = this->declare_parameter<int>("max_us", 2500);
+      min_us_servo_[0] = this->declare_parameter<int>("min_us_servo0", min_us_global_);
+      min_us_servo_[1] = this->declare_parameter<int>("min_us_servo1", min_us_global_);
+      max_us_servo_[0] = this->declare_parameter<int>("max_us_servo0", max_us_global_);
+      max_us_servo_[1] = this->declare_parameter<int>("max_us_servo1", max_us_global_);
     {
       int initial_us = this->declare_parameter<int>("initial_us", 1500);
-      pulse_us_[0].store(initial_us);
-      pulse_us_[1].store(initial_us);
+        pulse_us_[0].store(clampPulse(0, initial_us));
+        pulse_us_[1].store(clampPulse(1, initial_us));
     }
 
     // Open chip and request lines
@@ -88,16 +99,31 @@ private:
       res->message = "servo_index must be 0 or 1";
       return;
     }
-    int us = std::clamp<int>(req->pulse_us, min_us_, max_us_);
+    int us = clampPulse(idx, req->pulse_us);
     pulse_us_[idx].store(us);
     res->success = true;
     res->message = "updated";
   }
 
   void pwmLoop() {
+    // Optional: upgrade this thread to RT and pin to a CPU to reduce jitter
+    if (use_realtime_) {
+      // Best-effort: ignore errors, as these depend on privileges
+      mlockall(MCL_CURRENT | MCL_FUTURE);
+      struct sched_param sp;
+      sp.sched_priority = std::max(1, std::min(rt_priority_, 99));
+      pthread_setschedparam(pthread_self(), SCHED_FIFO, &sp);
+      if (cpu_affinity_ >= 0) {
+        cpu_set_t set;
+        CPU_ZERO(&set);
+        CPU_SET(cpu_affinity_, &set);
+        pthread_setaffinity_np(pthread_self(), sizeof(set), &set);
+      }
+    }
+
     while (g_running.load()) {
-      const int high0 = clampPulse(pulse_us_[0].load());
-      const int high1 = clampPulse(pulse_us_[1].load());
+      const int high0 = clampPulse(0, pulse_us_[0].load());
+      const int high1 = clampPulse(1, pulse_us_[1].load());
       const int high = std::min(high0, high1);
       const int low = period_us_ - std::max(high0, high1);
       const int mid_gap = std::abs(high0 - high1);
@@ -105,7 +131,7 @@ private:
       // Start both high
       gpiod_line_set_value(line_[0], 1);
       gpiod_line_set_value(line_[1], 1);
-      busySleepMicros(high);
+  busySleepMicros(high, tail_spin_us_);
 
       // Drop the one that needs to go low earlier
       if (high0 < high1) {
@@ -116,12 +142,12 @@ private:
         // equal; drop both and finish cycle
         gpiod_line_set_value(line_[0], 0);
         gpiod_line_set_value(line_[1], 0);
-        busySleepMicros(period_us_ - high);
+        busySleepMicros(period_us_ - high, tail_spin_us_);
         continue;
       }
 
       // Wait until the longer one finishes
-      busySleepMicros(mid_gap);
+  busySleepMicros(mid_gap, tail_spin_us_);
       // Now drop the other
       if (high0 < high1) {
         gpiod_line_set_value(line_[1], 0);
@@ -130,24 +156,27 @@ private:
       }
 
       // Finish the remainder of the period
-      busySleepMicros(low);
+      busySleepMicros(low, tail_spin_us_);
     }
   }
 
-  static void busySleepMicros(int us) {
+  static void busySleepMicros(int us, int tail_us) {
     using clock = std::chrono::steady_clock;
     auto start = clock::now();
     auto target = start + std::chrono::microseconds(us);
-    auto sleep_until = target - std::chrono::microseconds(200);
+    auto sleep_until = target - std::chrono::microseconds(std::max(0, tail_us));
     if (sleep_until > clock::now()) {
       std::this_thread::sleep_until(sleep_until);
     }
     while (clock::now() < target) {}
   }
 
-  int clampPulse(int us) const {
-    if (us < min_us_) return min_us_;
-    if (us > max_us_) return max_us_;
+  int clampPulse(int idx, int us) const {
+    int mn = min_us_servo_[idx];
+    int mx = max_us_servo_[idx];
+    if (mn > mx) std::swap(mn, mx);
+    if (us < mn) return mn;
+    if (us > mx) return mx;
     return us;
   }
 
@@ -156,8 +185,14 @@ private:
   int gpio_servo0_;
   int gpio_servo1_;
   int period_us_;
-  int min_us_;
-  int max_us_;
+  bool use_realtime_;
+  int rt_priority_;
+  int cpu_affinity_;
+  int tail_spin_us_;
+  int min_us_global_;
+  int max_us_global_;
+  int min_us_servo_[2];
+  int max_us_servo_[2];
 
   std::atomic<int> pulse_us_[2];
 

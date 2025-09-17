@@ -1,0 +1,17 @@
+transformer_hw_servos:
+  ros__parameters:
+    gpiochip_name: "gpiochip4"
+    gpio_servo0: 6
+    gpio_servo1: 27
+    period_us: 20000
+    initial_us: 1500
+    min_us: 1350
+    max_us: 2500
+    min_us_servo0: 1350
+    min_us_servo1: 1350
+    max_us_servo0: 2500
+    max_us_servo1: 2500
+    use_realtime: true
+    rt_priority: 80
+    cpu_affinity: -1
+    tail_spin_us: 100
