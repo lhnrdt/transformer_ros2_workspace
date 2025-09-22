@@ -4,3 +4,7 @@
 [submodule "inav_msp_vendor/external/inav"]
 	path = inav_msp_vendor/external/inav
 	url = https://github.com/iNavFlight/inav.git
+	branch = master
+[submodule "external/inav"]
+	path = external/inav
+	url = https://github.com/iNavFlight/inav
