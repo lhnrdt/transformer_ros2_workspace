@@ -25,7 +25,7 @@ def main():
 
     freq = 0.5  # Hz (how fast to oscillate)
     t0 = time.time()
-    print("Sending sinusoidal RC commands on CH1-4. Ctrl+C to stop.")
+    print("Sending sinusoidal RC commands on CH1. Ctrl+C to stop.")
     try:
         while True:
             t = time.time() - t0
@@ -33,15 +33,12 @@ def main():
             amplitude = 500
             offset = 1500
             ch1 = int(offset + amplitude * math.sin(2*math.pi*freq*t + 0))
-            ch2 = int(offset + amplitude * math.sin(2*math.pi*freq*t + math.pi/2))
-            ch3 = int(offset + amplitude * math.sin(2*math.pi*freq*t + math.pi))
-            ch4 = int(offset + amplitude * math.sin(2*math.pi*freq*t + 3*math.pi/2))
-            rc_channels = [ch1, ch2, ch3, ch4] + [1500]*4  # 8 channels total
+            rc_channels = [ch1] + [1500]*4  # 8 channels total
             payload = b''.join(struct.pack('<H', v) for v in rc_channels)
             packet = build_msp_packet(MSP_SET_RAW_RC, payload)
             ser.write(packet)
-            # For debugging, print first 4 channels
-            print(f"\rCH1-4: {ch1} {ch2} {ch3} {ch4}", end='', flush=True)
+            # For debugging, print first channel
+            print(f"\rCH1: {ch1}", end='', flush=True)
             time.sleep(0.02)  # 50Hz
     except KeyboardInterrupt:
         print("\nStopped.")
