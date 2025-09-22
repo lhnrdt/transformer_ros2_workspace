@@ -1,3 +1,6 @@
 [submodule "ros2_wheeltec_n100_imu"]
 	path = ros2_wheeltec_n100_imu
 	url = https://github.com/lhnrdt/ros2_wheeltec_n100_imu
+[submodule "inav_msp_vendor/external/inav"]
+	path = inav_msp_vendor/external/inav
+	url = https://github.com/iNavFlight/inav.git
