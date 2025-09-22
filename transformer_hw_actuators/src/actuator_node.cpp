@@ -22,6 +22,8 @@ namespace transformer_hw_actuators
         // Parameters with DC motor defaults
         pwmchip_index_ = this->declare_parameter<int>("pwmchip_index", 0);
         gpiochip_name_ = this->declare_parameter<std::string>("gpiochip_name", "gpiochip4");
+        stby_gpio_ = this->declare_parameter<int>("stby_gpio", 26);
+        mode_gpio_ = this->declare_parameter<int>("mode_gpio", 0);
 
         // NOTE: integer arrays are int64 in ROS 2 parameters. Declare as int64 and cast.
         auto pwm_channels_i64 = this->declare_parameter<std::vector<int64_t>>("pwm_channels", {1, 0});
@@ -33,8 +35,8 @@ namespace transformer_hw_actuators
         dir_active_high_ = this->declare_parameter<std::vector<bool>>("dir_active_high", {true, true});
         period_ns_ = this->declare_parameter<int64_t>("period_ns", 50'000); // 20 kHz
         initial_percent_ = this->declare_parameter<int>("initial_percent", 0);
-    brake_on_zero_ = this->declare_parameter<bool>("brake_on_zero", false);
-    feedback_period_ms_ = this->declare_parameter<int>("feedback_period_ms", 50); // 20 Hz feedback
+        brake_on_zero_ = this->declare_parameter<bool>("brake_on_zero", false);
+        feedback_period_ms_ = this->declare_parameter<int>("feedback_period_ms", 50); // 20 Hz feedback
 
         if (pwm_channels_.size() != dir_gpios_.size())
         {
@@ -67,6 +69,24 @@ namespace transformer_hw_actuators
                 RCLCPP_FATAL(get_logger(), "Failed to request output for GPIO %d (permission?)", dir_gpios_[i]);
                 throw std::runtime_error("gpiod request failed");
             }
+        }
+
+        // Configure STBY and MODE lines and set high
+        if (stby_gpio_ >= 0)
+        {
+            stby_line_ = gpiod_chip_get_line(gpio_chip_, stby_gpio_);
+            if (!stby_line_)
+                throw std::runtime_error("gpiod get line failed for STBY");
+            if (gpiod_line_request_output(stby_line_, "transformer_hw_actuators", 1) < 0)
+                throw std::runtime_error("gpiod request failed for STBY");
+        }
+        if (mode_gpio_ >= 0)
+        {
+            mode_line_ = gpiod_chip_get_line(gpio_chip_, mode_gpio_);
+            if (!mode_line_)
+                throw std::runtime_error("gpiod get line failed for MODE");
+            if (gpiod_line_request_output(mode_line_, "transformer_hw_actuators", 1) < 0)
+                throw std::runtime_error("gpiod request failed for MODE");
         }
 
         // Initialize each PWM channel
@@ -119,6 +139,10 @@ namespace transformer_hw_actuators
             if (line)
                 gpiod_line_release(line);
         }
+        if (stby_line_)
+            gpiod_line_release(stby_line_);
+        if (mode_line_)
+            gpiod_line_release(mode_line_);
         if (gpio_chip_)
             gpiod_chip_close(gpio_chip_);
     }
@@ -307,8 +331,8 @@ namespace transformer_hw_actuators
         // Timed execution loop
         auto start = std::chrono::steady_clock::now();
         int elapsed_ms = 0;
-    const int period_ms = std::max(1, feedback_period_ms_);
-    rclcpp::Rate rate(1000ms / period_ms);
+        const int period_ms = std::max(1, feedback_period_ms_);
+        rclcpp::Rate rate(1000ms / period_ms);
 
         while (rclcpp::ok())
         {

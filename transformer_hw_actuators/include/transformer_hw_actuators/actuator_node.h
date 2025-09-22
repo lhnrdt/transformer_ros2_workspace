@@ -29,6 +29,8 @@ private:
   int initial_percent_;               // -100..100 startup value (default 0)
   bool brake_on_zero_;                // if true, request braking behavior at 0 (see notes)
   int feedback_period_ms_;            // execution loop tick for feedback/timeout
+  int stby_gpio_;                     // STBY enable pin (must be high to enable output)
+  int mode_gpio_;                     // MODE select pin (must be high for phase input mode)
 
   // Paths derived from params
   std::string chip_path_;             // /sys/class/pwm/pwmchipX
@@ -36,6 +38,8 @@ private:
   // GPIO (libgpiod)
   gpiod_chip* gpio_chip_ = nullptr;
   std::vector<gpiod_line*> dir_lines_;
+  gpiod_line* stby_line_ = nullptr;
+  gpiod_line* mode_line_ = nullptr;
 
   // Action server
   rclcpp_action::Server<MoveActuator>::SharedPtr action_server_;
