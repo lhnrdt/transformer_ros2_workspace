@@ -2,7 +2,7 @@ transformer_hw_servos:
   ros__parameters:
     gpiochip_name: "gpiochip4"
     gpio_servo0: 6
-    gpio_servo1: 27
+    gpio_servo1: 18
     period_us: 20000
     initial_us: 1500
     initial_us_servo0: 1550
@@ -19,3 +19,7 @@ transformer_hw_servos:
     tail_spin_us: 100
     lock_memory: true
     prefault_mb: 64
+  # New: per-servo start offset in microseconds and number of cycles (0=infinite)
+  servo_offset_servo0_us: 0
+  servo_offset_servo1_us: 0
+  servo_cycles: 0

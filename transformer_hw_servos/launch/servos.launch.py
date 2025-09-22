@@ -12,7 +12,8 @@ def generate_launch_description():
         Node(
             package='transformer_hw_servos',
             executable='servos_node',
-            name='servos',
+            # Match the node name used in code (Node("transformer_hw_servos"))
+            name='transformer_hw_servos',
             output='screen',
             parameters=[params_file],
         )
