@@ -182,6 +182,14 @@ if(BUILD_TESTING)
     ament_target_dependencies(test_msp_parser rclcpp)
   endif()
 
+  ament_add_gtest(test_msp_parser_fuzz
+    test/test_msp_parser_fuzz.cpp)
+  if(TARGET test_msp_parser_fuzz)
+    target_link_libraries(test_msp_parser_fuzz msp_protocol)
+    ament_target_dependencies(test_msp_parser_fuzz rclcpp)
+    target_compile_definitions(test_msp_parser_fuzz PRIVATE -DMSP_FUZZ_TEST)
+  endif()
+
   ament_add_gtest(test_crc
     test/test_crc.cpp)
   if(TARGET test_crc)

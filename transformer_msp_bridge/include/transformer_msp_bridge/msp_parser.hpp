@@ -31,6 +31,7 @@ struct MSPParserStats {
 
 using PacketCallback = std::function<void(const MSPPacket&)>;
 
+
 class MSPParser {
 public:
   explicit MSPParser(PacketCallback cb);
@@ -72,6 +73,22 @@ private:
   void emitV1();
   void emitV2();
   void handleTunneledV2();
+  // Per-state handlers (refactored from monolithic input()).
+  void handleIdle(uint8_t byte_value);
+  void handleHeaderStart(uint8_t byte_value);
+  void handleHeaderDir(uint8_t byte_value);
+  void handleV1Size(uint8_t byte_value);
+  void handleV1Command(uint8_t byte_value);
+  void handleV1Payload(uint8_t byte_value);
+  void handleV1Checksum(uint8_t byte_value);
+  void handleV2HeaderDir2(uint8_t byte_value);
+  void handleV2Flags(uint8_t byte_value);
+  void handleV2IdLow(uint8_t byte_value);
+  void handleV2IdHigh(uint8_t byte_value);
+  void handleV2LenLow(uint8_t byte_value);
+  void handleV2LenHigh(uint8_t byte_value);
+  void handleV2Payload(uint8_t byte_value);
+  void handleV2Crc(uint8_t byte_value);
   std::vector<uint8_t> frame_trace_;
   MSPParserStats stats_{};
 };
