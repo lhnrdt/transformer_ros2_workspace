@@ -99,6 +99,13 @@ ros2 topic echo /msp/attitude
 ### Extending
 Additional MSP commands can be introduced by editing `msp_registry.cpp` (add descriptor with build callback) and binding a decode callback in `transformer_msp_bridge_node.cpp` or via a new decoder class. Poll rate and enable state become automatically exposed as parameters on startup.
 
+#### Regenerating Registry Documentation
+The file `REGISTRY.md` can be auto-generated from the compiled registry:
+```bash
+colcon build --packages-select transformer_msp_bridge --cmake-target generate_registry_md
+```
+This builds the helper tool `registry_dump` and rewrites `REGISTRY.md`. Commit the updated file if the registry changed.
+
 ### Roadmap / TODO
 * Bandwidth throttling (byte/token bucket)
 * Priority scheduler (min-heap by next due time)

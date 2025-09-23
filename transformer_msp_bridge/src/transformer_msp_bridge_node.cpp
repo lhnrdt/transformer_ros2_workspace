@@ -76,6 +76,20 @@ class MSPBridgeNode : public rclcpp::Node {
     decoder_registry_.add(std::unique_ptr<IMspDecoder>(new SystemDecoder(*this)));
     decoder_registry_.add(std::unique_ptr<IMspDecoder>(new BatteryDecoder(*this)));
 
+    // Validate decoder coverage: Each actively polled (default rate > 0) entry that is expected to yield
+    // telemetry should have at least one decoder. Exempt pure setting/config write commands (rate 0 by default).
+    size_t uncovered = 0;
+    for (auto &d : registry_) {
+      if (d.poll_rate_hz <= 0.0) continue; // Not auto-polled by default.
+      if (!decoder_registry_.hasDecoder(d.id)) {
+        RCLCPP_WARN(get_logger(), "No decoder registered for polled command id=0x%04X (%s)", d.id, d.name ? d.name : "<unnamed>");
+        ++uncovered;
+      }
+    }
+    if (uncovered == 0) {
+      RCLCPP_INFO(get_logger(), "All default-polled registry commands have decoder coverage.");
+    }
+
     setupPublishersAndSubs();
     declareCommandParameters();
     installParamCallback();
@@ -246,7 +260,7 @@ class MSPBridgeNode : public rclcpp::Node {
       double elapsed = std::chrono::duration<double>(now - bootstrap_completed_time_).count();
       if (elapsed > v2_fallback_timeout_sec_ && !v2_fallback_applied_) {
         for (auto& d : registry_)
-          if (d.requires_v2)
+          if (d.is_v2())
             d.poll_rate_hz = 0.0;
         v2_fallback_applied_ = true;
         RCLCPP_WARN(get_logger(), "No v2 frames within %.1fs -> disabling v2 sensor polling", v2_fallback_timeout_sec_);
@@ -268,17 +282,17 @@ class MSPBridgeNode : public rclcpp::Node {
         continue;
       if (desc->poll_rate_hz <= 0.0)
         continue;
-      if (desc->requires_v2 && !v2_confirmed_) {
+      if (desc->is_v2() && !v2_confirmed_) {
         v2_enabled_attempted_ = true;
         if (v2_fallback_applied_)
           continue;
       }
-      if (desc->build_request_cb) {
-        auto frame = desc->build_request_cb();
+      if (desc->build_request_fn) {
+        auto frame = desc->build_request_fn();
         bool legacy_id = desc->id < 256;
-        if (!desc->requires_v2 && use_v2_for_legacy_ && proto_supports_v2_ && legacy_id && !use_v2_tunnel_)
+        if (!desc->is_v2() && use_v2_for_legacy_ && proto_supports_v2_ && legacy_id && !use_v2_tunnel_)
           frame = buildPacketV2(static_cast<uint16_t>(desc->id), {}, 0);
-        else if (use_v2_tunnel_ && desc->requires_v2)
+        else if (use_v2_tunnel_ && desc->is_v2())
           frame = buildPacketV2OverV1(desc->id, {}, 0);
         if (!frame.empty()) {
           if (frame.size() >= 3 && frame[0] == '$' && frame[1] == 'X')

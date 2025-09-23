@@ -77,6 +77,23 @@ target_link_libraries(transformer_msp_bridge_node ${cpp_typesupport_target})
 add_dependencies(transformer_msp_bridge_node ${PROJECT_NAME}__cpp)
 target_compile_features(transformer_msp_bridge_node PUBLIC cxx_std_17)
 
+# Registry dump generator tool (not installed by default)
+add_executable(registry_dump
+  src/registry_dump.cpp
+)
+target_link_libraries(registry_dump msp_protocol)
+target_compile_features(registry_dump PUBLIC cxx_std_17)
+
+# Custom target to regenerate REGISTRY.md in source tree (opt-in)
+add_custom_command(
+  OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/REGISTRY.md
+  COMMAND registry_dump ${CMAKE_CURRENT_SOURCE_DIR}/REGISTRY.md
+  DEPENDS registry_dump msp_protocol
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+  COMMENT "Regenerating REGISTRY.md from compiled registry"
+  VERBATIM)
+add_custom_target(generate_registry_md DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/REGISTRY.md)
+
 install(TARGETS msp_protocol serial_port ${PROJECT_NAME}_decoders
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib

@@ -17,6 +17,15 @@ public:
     }
     return handled;
   }
+  bool hasDecoder(uint16_t command_id) const {
+    for (auto &d : decoders_) if (d->matches(command_id)) return true; return false;
+  }
+  std::vector<uint16_t> coveredIds() const {
+    // Potentially duplicates if multiple decoders match same id; caller can unique() if needed.
+    std::vector<uint16_t> ids;
+    // We can't enumerate all IDs a decoder might match without probing; we take registry-driven probing elsewhere.
+    return ids; // Placeholder; coverage check will brute-force over registry instead.
+  }
 private:
   std::vector<std::unique_ptr<IMspDecoder>> decoders_;
 };
