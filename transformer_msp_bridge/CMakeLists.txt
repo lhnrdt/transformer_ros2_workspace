@@ -33,6 +33,7 @@ add_library(msp_protocol
   src/msp_parser.cpp
   src/msp_builders.cpp
   src/crc.cpp
+  src/msp_utils.cpp
   src/msp_registry.cpp
 )
 ament_target_dependencies(msp_protocol rclcpp)

@@ -36,7 +36,7 @@ public:
   explicit MSPParser(PacketCallback cb);
   void reset();
   void input(uint8_t byte);
-  const std::vector<uint8_t>& currentFrameBytes() const { return frame_bytes_; }
+  const std::vector<uint8_t>& currentFrameBytes() const { return frame_trace_; }
   const MSPParserStats & stats() const { return stats_; }
 private:
   PacketCallback cb_;
@@ -59,20 +59,20 @@ private:
   } state_{State::Idle};
 
   MSPVersion current_version_{MSPVersion::V1};
-  uint8_t size_{0};
-  uint8_t cmd_v1_{0};
-  uint8_t checksum_{0};
-  std::vector<uint8_t> buf_;
+  uint8_t v1_payload_length_{0};
+  uint8_t v1_command_{0};
+  uint8_t v1_checksum_{0};
+  std::vector<uint8_t> payload_buffer_;
 
   uint8_t v2_flags_{0};
-  uint16_t v2_id_{0};
-  uint16_t v2_len_{0};
-  uint8_t v2_crc_calc_{0};
-  uint8_t v2_crc_recv_{0};
+  uint16_t v2_command_{0};
+  uint16_t v2_payload_length_{0};
+  uint8_t v2_crc_computed_{0};
+  uint8_t v2_crc_received_{0};
   void emitV1();
   void emitV2();
   void handleTunneledV2();
-  std::vector<uint8_t> frame_bytes_;
+  std::vector<uint8_t> frame_trace_;
   MSPParserStats stats_{};
 };
 
