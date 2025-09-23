@@ -40,6 +40,7 @@ public:
   explicit MSPParser(PacketCallback cb);
   void reset();
   void input(uint8_t byte);
+  void feed(const uint8_t* data, size_t length) { for (size_t i=0;i<length;i++) input(data[i]); }
   const std::vector<uint8_t>& currentFrameBytes() const { return frame_trace_; }
   const MSPParserStats & stats() const { return stats_; }
   // Abort current frame parsing (used for streaming abort requirement). Returns true if a frame was in progress.
@@ -51,6 +52,9 @@ public:
   const uint8_t* payloadData() const { return payload_buffer_.empty() ? nullptr : payload_buffer_.data(); }
   size_t payloadSize() const { return payload_buffer_.size(); }
 private:
+  // Frame layout constants (without payload):
+  static constexpr size_t kV1BaseFrameLen = 6; // $ M < size cmd checksum (size=0 case)
+  static constexpr size_t kV2BaseFrameLen = 9; // $ X < flags idL idH lenL lenH crc (len=0 case)
   // Callback invoked when a full packet has been parsed.
   PacketCallback cb_;
 
@@ -64,26 +68,25 @@ private:
   MSPVersion current_version_{MSPVersion::V1};
 
   // Generic frame tracking.
-  bool in_frame_{false};          // True after '$' has been seen.
-  size_t frame_pos_{0};           // 1-based count of bytes collected in current frame.
-  size_t expected_frame_length_{0}; // Total number of bytes expected for this frame (once known).
-  uint16_t max_payload_size_{512};  // Harden: configurable guard.
-  bool abort_requested_{false};
+  bool in_frame_{false};             // True once a '$' start marker has been accepted.
+  size_t frame_pos_{0};              // 1-based index of the current byte within the frame.
+  size_t expected_frame_length_{0};  // Total frame length (including checksum/CRC) once derivable, else 0.
+  uint16_t max_payload_size_{512};   // Hardening limit: payloads larger than this are dropped.
 
   // V1 specific accumulators.
-  uint8_t v1_payload_length_{0};
-  uint8_t v1_command_{0};
-  uint8_t v1_checksum_{0};
+  uint8_t v1_payload_length_{0}; // Declared payload length for v1 frame.
+  uint8_t v1_command_{0};        // Command identifier (1 byte) for v1.
+  uint8_t v1_checksum_{0};       // Running XOR checksum accumulator.
 
   // V2 specific accumulators.
-  uint8_t  v2_flags_{0};
-  uint16_t v2_command_{0};
-  uint16_t v2_payload_length_{0};
-  uint8_t  v2_crc_computed_{0};
-  uint8_t  v2_crc_received_{0};
+  uint8_t  v2_flags_{0};          // Flags field (feature bits / direction info for some implementations).
+  uint16_t v2_command_{0};        // 16-bit little-endian command id.
+  uint16_t v2_payload_length_{0}; // 16-bit little-endian payload length.
+  uint8_t  v2_crc_computed_{0};   // Incrementally computed CRC8 value.
+  uint8_t  v2_crc_received_{0};   // CRC byte extracted from frame tail for comparison.
 
   // Shared payload buffer reused for both versions.
-  std::vector<uint8_t> payload_buffer_;
+  std::vector<uint8_t> payload_buffer_; // Reused buffer storing raw payload bytes (v1 or v2 logical payload).
 
   void emitV1();
   void emitV2();
@@ -91,10 +94,16 @@ private:
   // Lightweight frame factory: centralize packet object construction.
   MSPPacket makePacketV1() const;
   MSPPacket makePacketV2(bool tunneled) const;
+  // Internal byte processors to reduce long if/else chains in input()
+  void processV1Byte(uint8_t byte_value);
+  void processV2Byte(uint8_t byte_value);
+  // Centralized termination handler: ok=true means integrity (checksum/CRC) passed.
+  // is_v2 distinguishes version; handles stats, emission, and reset.
+  void finishFrame(bool ok, bool is_v2);
 
   // Frame trace for diagnostics / tests.
-  std::vector<uint8_t> frame_trace_;
-  MSPParserStats stats_{};
+  std::vector<uint8_t> frame_trace_; // Captures raw frame bytes for diagnostics / tests.
+  MSPParserStats stats_{};           // Aggregated counters for monitoring / tests.
 };
 
 } // namespace transformer_msp_bridge
