@@ -1,8 +1,8 @@
-#include "msp_bridge/msp_registry.hpp"
+#include "transformer_msp_bridge/msp_registry.hpp"
 #include "msp/msp_protocol.h" // external constants (v1 IDs)
 #include "msp/msp_protocol_v2_sensor.h" // v2 sensor IDs
 
-namespace msp_bridge {
+namespace transformer_msp_bridge {
 
 std::vector<CommandDescriptor> build_default_registry() {
   std::vector<CommandDescriptor> regs;
@@ -84,4 +84,4 @@ std::vector<CommandDescriptor> build_default_registry() {
   return regs;
 }
 
-} // namespace msp_bridge
+} // namespace transformer_msp_bridge

@@ -1,4 +1,4 @@
-# msp_bridge
+# transformer_msp_bridge
 
 ROS 2 C++ bridge node for MSP (Multiwii / iNav) flight controller communication.
 
@@ -20,13 +20,13 @@ ROS 2 C++ bridge node for MSP (Multiwii / iNav) flight controller communication.
 ## Build
 ```bash
 cd ~/ros2_ws
-colcon build --packages-select msp_bridge
+colcon build --packages-select transformer_msp_bridge
 source install/setup.bash
 ```
 
 ## Run
 ```bash
-ros2 run msp_bridge msp_bridge_node
+ros2 run transformer_msp_bridge transformer_msp_bridge_node
 ```
 
 Publish RC override example:

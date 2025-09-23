@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(msp_bridge)
+project(transformer_msp_bridge)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -41,20 +41,20 @@ add_library(serial_port
 )
 target_compile_features(serial_port PUBLIC cxx_std_17)
 
-add_executable(msp_bridge_node src/msp_bridge_node.cpp)
-target_link_libraries(msp_bridge_node msp_protocol serial_port)
-ament_target_dependencies(msp_bridge_node rclcpp std_msgs geometry_msgs sensor_msgs)
+add_executable(transformer_msp_bridge_node src/transformer_msp_bridge_node.cpp)
+target_link_libraries(transformer_msp_bridge_node msp_protocol serial_port)
+ament_target_dependencies(transformer_msp_bridge_node rclcpp std_msgs geometry_msgs sensor_msgs)
 rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")
-target_link_libraries(msp_bridge_node ${cpp_typesupport_target})
-add_dependencies(msp_bridge_node ${PROJECT_NAME}__cpp)
-target_compile_features(msp_bridge_node PUBLIC cxx_std_17)
+target_link_libraries(transformer_msp_bridge_node ${cpp_typesupport_target})
+add_dependencies(transformer_msp_bridge_node ${PROJECT_NAME}__cpp)
+target_compile_features(transformer_msp_bridge_node PUBLIC cxx_std_17)
 
 install(TARGETS msp_protocol serial_port
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)
 
-install(TARGETS msp_bridge_node
+install(TARGETS transformer_msp_bridge_node
   RUNTIME DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY include/${PROJECT_NAME}/

@@ -1,11 +1,11 @@
-#include "msp_bridge/msp_protocol.hpp"
+#include "transformer_msp_bridge/msp_protocol.hpp"
 #include <cstring>
 #include "msp/msp_protocol.h" // may or may not expose MSP_V2_FRAME_ID
 #ifndef MSP_V2_FRAME_ID
 #define MSP_V2_FRAME_ID 255
 #endif
 
-namespace msp_bridge {
+namespace transformer_msp_bridge {
 
 MSPParser::MSPParser(PacketCallback cb) : cb_(std::move(cb)) {}
 
@@ -231,4 +231,4 @@ std::vector<uint8_t> buildPacketV2OverV1(uint16_t cmd, const std::vector<uint8_t
   return buildPacketRaw(static_cast<uint8_t>(MSP_V2_FRAME_ID), inner);
 }
 
-} // namespace msp_bridge
+} // namespace transformer_msp_bridge

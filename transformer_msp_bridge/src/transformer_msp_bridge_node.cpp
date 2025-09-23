@@ -3,12 +3,12 @@
 #include <geometry_msgs/msg/vector3.hpp>
 #include <sensor_msgs/msg/battery_state.hpp>
 #include <std_msgs/msg/float32.hpp>
-#include "msp_bridge/msg/msp_inav_status.hpp"
+#include "transformer_msp_bridge/msg/msp_inav_status.hpp"
 #include "msp/msp_protocol_v2_sensor_msg.h" // packed v2 sensor structs
 
-#include "msp_bridge/msp_protocol.hpp"
-#include "msp_bridge/msp_registry.hpp"
-#include "msp_bridge/serial_port.hpp"
+#include "transformer_msp_bridge/msp_protocol.hpp"
+#include "transformer_msp_bridge/msp_registry.hpp"
+#include "transformer_msp_bridge/serial_port.hpp"
 
 #include <thread>
 #include <mutex>
@@ -18,13 +18,13 @@
 
 using std::placeholders::_1;
 
-namespace msp_bridge
+namespace transformer_msp_bridge
 {
 
   class MSPBridgeNode : public rclcpp::Node
   {
   public:
-    MSPBridgeNode() : Node("msp_bridge")
+    MSPBridgeNode() : Node("transformer_msp_bridge")
     {
       port_ = declare_parameter<std::string>("port", "/dev/ttyAMA0");
       baud_ = declare_parameter<int>("baudrate", 115200);
@@ -87,7 +87,7 @@ namespace msp_bridge
       rangefinder_pub_ = create_publisher<std_msgs::msg::Float32>("/msp/rangefinder", 10);
       compass_pub_ = create_publisher<geometry_msgs::msg::Vector3>("/msp/compass", 10);
       barometer_pub_ = create_publisher<std_msgs::msg::Float32>("/msp/barometer", 10);
-  inav_status_pub_ = create_publisher<msp_bridge::msg::MspInavStatus>("/msp/inav_status", 10);
+  inav_status_pub_ = create_publisher<transformer_msp_bridge::msg::MspInavStatus>("/msp/inav_status", 10);
 
       rc_sub_ = create_subscription<std_msgs::msg::UInt16MultiArray>(
           "/msp/rc_override", 10, std::bind(&MSPBridgeNode::rcCallback, this, _1));
@@ -456,7 +456,7 @@ namespace msp_bridge
       size_t mixerProfilePos = pkt.payload.size() - 1;
       uint8_t mixerProfile = pkt.payload[mixerProfilePos];
       size_t activeModesLen = mixerProfilePos - activeModesStart; // could be 0
-      msp_bridge::msg::MspInavStatus msg;
+      transformer_msp_bridge::msg::MspInavStatus msg;
       msg.cycle_time_us = cycleTime;
       msg.i2c_errors = i2cErrors;
       msg.sensor_status = sensorStatus;
@@ -503,7 +503,7 @@ namespace msp_bridge
     rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr rangefinder_pub_;
     rclcpp::Publisher<geometry_msgs::msg::Vector3>::SharedPtr compass_pub_;
     rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr barometer_pub_;
-  rclcpp::Publisher<msp_bridge::msg::MspInavStatus>::SharedPtr inav_status_pub_;
+  rclcpp::Publisher<transformer_msp_bridge::msg::MspInavStatus>::SharedPtr inav_status_pub_;
 
     // First-frame logging flags
     bool logged_rangefinder_{false};
@@ -547,12 +547,12 @@ namespace msp_bridge
     rclcpp::TimerBase::SharedPtr stats_timer_;
   };
 
-} // namespace msp_bridge
+} // namespace transformer_msp_bridge
 
 int main(int argc, char **argv)
 {
   rclcpp::init(argc, argv);
-  auto node = std::make_shared<msp_bridge::MSPBridgeNode>();
+  auto node = std::make_shared<transformer_msp_bridge::MSPBridgeNode>();
   rclcpp::spin(node);
   rclcpp::shutdown();
   return 0;

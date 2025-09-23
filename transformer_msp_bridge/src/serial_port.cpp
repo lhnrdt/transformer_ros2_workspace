@@ -1,4 +1,4 @@
-#include "msp_bridge/serial_port.hpp"
+#include "transformer_msp_bridge/serial_port.hpp"
 #include <termios.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -6,7 +6,7 @@
 #include <cerrno>
 #include <cstring>
 
-namespace msp_bridge {
+namespace transformer_msp_bridge {
 
 namespace {
 int baudToFlag(int baud) {
@@ -63,4 +63,4 @@ bool SerialPort::writeAll(const uint8_t* data, size_t len) {
   return true;
 }
 
-} // namespace msp_bridge
+} // namespace transformer_msp_bridge

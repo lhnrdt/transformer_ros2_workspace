@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <optional>
 
-namespace msp_bridge {
+namespace transformer_msp_bridge {
 
 class SerialPort {
 public:
@@ -21,4 +21,4 @@ private:
   int fd_{-1};
 };
 
-} // namespace msp_bridge
+} // namespace transformer_msp_bridge

@@ -5,9 +5,9 @@
 #include <vector>
 #include <functional>
 
-#include "msp_bridge/msp_protocol.hpp" // for MSPPacket
+#include "transformer_msp_bridge/msp_protocol.hpp" // for MSPPacket
 
-namespace msp_bridge {
+namespace transformer_msp_bridge {
 
 // Simple descriptor for manually maintained MSP command metadata.
 struct CommandDescriptor {
@@ -22,4 +22,4 @@ struct CommandDescriptor {
 // Build a vector of descriptors; node supplies lambdas for decode/publish.
 std::vector<CommandDescriptor> build_default_registry();
 
-} // namespace msp_bridge
+} // namespace transformer_msp_bridge

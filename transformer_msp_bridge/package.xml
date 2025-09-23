@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="3">
-  <name>msp_bridge</name>
+  <name>transformer_msp_bridge</name>
   <version>0.0.1</version>
   <description>MSP (Multiwii/iNav) flight controller ROS 2 bridge</description>
   <maintainer email="j.lehnerdt@tum.de">atvpi</maintainer>

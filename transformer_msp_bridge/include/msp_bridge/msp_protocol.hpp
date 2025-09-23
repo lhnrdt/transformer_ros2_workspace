@@ -5,7 +5,7 @@
 #include <optional>
 #include <string>
 
-namespace msp_bridge {
+namespace transformer_msp_bridge {
 
 // Use external iNav MSP constant definitions instead of redefining IDs.
 #include "msp/msp_protocol.h"
@@ -94,4 +94,4 @@ std::vector<uint8_t> buildPacketV2(uint16_t cmd, const std::vector<uint8_t>& pay
 // Build an MSP v2-over-v1 tunneled packet (MSP_V2_FRAME_ID inside v1 frame).
 std::vector<uint8_t> buildPacketV2OverV1(uint16_t cmd, const std::vector<uint8_t>& payload, uint8_t flags = 0);
 
-} // namespace msp_bridge
+} // namespace transformer_msp_bridge
