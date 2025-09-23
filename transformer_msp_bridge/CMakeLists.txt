@@ -190,6 +190,13 @@ if(BUILD_TESTING)
     target_compile_definitions(test_msp_parser_fuzz PRIVATE -DMSP_FUZZ_TEST)
   endif()
 
+  ament_add_gtest(test_msp_parser_hardening
+    test/test_msp_parser_hardening.cpp)
+  if(TARGET test_msp_parser_hardening)
+    target_link_libraries(test_msp_parser_hardening msp_protocol)
+    ament_target_dependencies(test_msp_parser_hardening rclcpp)
+  endif()
+
   ament_add_gtest(test_crc
     test/test_crc.cpp)
   if(TARGET test_crc)

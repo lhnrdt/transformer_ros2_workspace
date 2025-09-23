@@ -1,4 +1,4 @@
-﻿#include "transformer_msp_bridge/msp_utils.hpp"
+#include "transformer_msp_bridge/msp_utils.hpp"
 
 namespace transformer_msp_bridge {
 
