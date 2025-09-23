@@ -1,24 +1,49 @@
 #pragma once
 
 #include <cstdint>
+#include <functional>
 #include <string>
 #include <vector>
-#include <functional>
 
-#include "transformer_msp_bridge/msp_parser.hpp" // for MSPPacket
+#include "transformer_msp_bridge/msp_parser.hpp"  // for MSPPacket
 
 namespace transformer_msp_bridge {
 
-// Simple descriptor for manually maintained MSP command metadata.
+// CommandDescriptor
+//  Description: Metadata + request frame builder for an MSP command the bridge polls or can issue.
+//  Invariants:
+//   * id must correspond to an upstream-defined MSP_* constant (no local invention except where
+//     upstream has not yet published a symbol; such cases should be rare and clearly commented).
+//   * poll_rate_hz >= 0.0. A value of 0.0 means disabled by default (no periodic polling) but the
+//     command is still exposed via parameters for manual enabling.
+//   * requires_v2 == true for any id > 255 or any command that must use native MSPv2 framing.
+//   * build_request_cb must be deterministic and return a fully framed MSPv1 or MSPv2 request.
+//  Extension procedure (see also comments near kRegistry definition):
+//   1. Add a new entry to kRegistry (keeping category grouping and ordering stable).
+//   2. If the command should auto-poll, choose a conservative poll_rate_hz.
+//   3. Update test `StableEntryCountAndOrder` expected count and any other assertions if needed.
+//   4. Ensure decoding support exists (implement a decoder if telemetry is expected inbound).
+//   5. Avoid large lambdas capturing state; builder lambdas here are non-capturing.
 struct CommandDescriptor {
-  uint16_t id;                 // MSP_* constant from external headers
-  const char * name;           // Human-readable
-  double poll_rate_hz;         // 0 = do not auto-poll
-  std::function<std::vector<uint8_t>()> build_request_cb; // Build outbound frame (no payload typical)
-  bool requires_v2{false};     // Mark commands that need native v2 capability
+  uint16_t id;          // Upstream MSP_* constant.
+  const char* name;     // Human-readable identifier (stable; used for param name derivation).
+  double poll_rate_hz;  // 0 = not auto-polled; otherwise target frequency.
+  std::function<std::vector<uint8_t>()> build_request_cb;  // Deterministic builder for outbound request frame.
+  bool requires_v2{false};                                 // True if command must be sent using MSPv2 native frame.
 };
 
-// Build a vector of descriptors; node supplies lambdas for decode/publish.
-std::vector<CommandDescriptor> build_default_registry();
+struct RegistryView {
+  const CommandDescriptor* data;
+  std::size_t size;
+  const CommandDescriptor* begin() const { return data; }
+  const CommandDescriptor* end() const { return data + size; }
+};
 
-} // namespace transformer_msp_bridge
+// Returns a lightweight view over the immutable static registry array. Copy into a std::vector if
+// mutation (e.g., parameter-driven rate adjustments) is required by the caller.
+RegistryView get_default_registry();
+
+// Number of entries in the default registry (update tests if this changes intentionally).
+constexpr std::size_t kDefaultRegistrySize();
+
+}  // namespace transformer_msp_bridge

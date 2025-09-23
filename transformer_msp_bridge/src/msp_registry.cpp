@@ -1,165 +1,127 @@
 #include "transformer_msp_bridge/msp_registry.hpp"
-#include "transformer_msp_bridge/msp_builders.hpp" // buildPacketRaw / buildPacketV2
-#include "msp/msp_protocol.h" // external constants (v1 IDs)
-#include "msp/msp_protocol_v2_sensor.h" // v2 sensor IDs
+#include "msp/msp_protocol.h"                       // external constants (v1 IDs)
+#include "msp/msp_protocol_v2_sensor.h"             // v2 sensor IDs
+#include "transformer_msp_bridge/msp_builders.hpp"  // buildPacketRaw / buildPacketV2
 
 namespace transformer_msp_bridge {
 
-std::vector<CommandDescriptor> build_default_registry() {
-  std::vector<CommandDescriptor> regs;
-  // ---------------- V1 Core Telemetry ----------------
-  // RAW_IMU (acc, gyro, mag)
-  {
-    CommandDescriptor d;
-    d.id = MSP_RAW_IMU;
-    d.name = "MSP_RAW_IMU";
-    d.poll_rate_hz = 50.0; // high rate for raw IMU
-    d.build_request_cb = [=]() { return buildPacketRaw(static_cast<uint8_t>(d.id), {}); };
-    regs.push_back(d);
-  }
-  // SERVO
-  {
-    CommandDescriptor d; d.id = MSP_SERVO; d.name = "MSP_SERVO"; d.poll_rate_hz = 10.0; d.build_request_cb = [=](){ return buildPacketRaw(static_cast<uint8_t>(MSP_SERVO), {}); }; regs.push_back(d);
-  }
-  // MOTOR
-  {
-    CommandDescriptor d; d.id = MSP_MOTOR; d.name = "MSP_MOTOR"; d.poll_rate_hz = 10.0; d.build_request_cb = [=](){ return buildPacketRaw(static_cast<uint8_t>(MSP_MOTOR), {}); }; regs.push_back(d);
-  }
-  // RC (inbound telemetry of current RC channels)
-  {
-    CommandDescriptor d; d.id = MSP_RC; d.name = "MSP_RC"; d.poll_rate_hz = 5.0; d.build_request_cb = [=](){ return buildPacketRaw(static_cast<uint8_t>(MSP_RC), {}); }; regs.push_back(d);
-  }
-  // RAW_GPS
-  {
-    CommandDescriptor d; d.id = MSP_RAW_GPS; d.name = "MSP_RAW_GPS"; d.poll_rate_hz = 5.0; d.build_request_cb = [=](){ return buildPacketRaw(static_cast<uint8_t>(MSP_RAW_GPS), {}); }; regs.push_back(d);
-  }
-  // COMP_GPS (home vector)
-  {
-    CommandDescriptor d; d.id = MSP_COMP_GPS; d.name = "MSP_COMP_GPS"; d.poll_rate_hz = 2.0; d.build_request_cb = [=](){ return buildPacketRaw(static_cast<uint8_t>(MSP_COMP_GPS), {}); }; regs.push_back(d);
-  }
-  // ATTITUDE (example) - request has no payload
-  CommandDescriptor att;
-  att.id = MSP_ATTITUDE;
-  att.name = "MSP_ATTITUDE";
-  att.poll_rate_hz = 10.0; // default; node can override via params later
-  att.build_request_cb = [=]() {
-    return buildPacketRaw(static_cast<uint8_t>(MSP_ATTITUDE), {});
-  };
-  regs.push_back(att);
-  // ALTITUDE
-  {
-    CommandDescriptor d; d.id = MSP_ALTITUDE; d.name = "MSP_ALTITUDE"; d.poll_rate_hz = 5.0; d.build_request_cb = [=](){ return buildPacketRaw(static_cast<uint8_t>(MSP_ALTITUDE), {}); }; regs.push_back(d);
-  }
+namespace {
 
-  // ANALOG (battery voltage, mAh, RSSI)
-  CommandDescriptor analog;
-  analog.id = MSP_ANALOG;
-  analog.name = "MSP_ANALOG";
-  analog.poll_rate_hz = 2.0; // 2 Hz
-  analog.build_request_cb = [=]() {
-    return buildPacketRaw(static_cast<uint8_t>(MSP_ANALOG), {});
-  };
-  regs.push_back(analog);
-  // RC_TUNING
-  {
-    CommandDescriptor d; d.id = MSP_RC_TUNING; d.name = "MSP_RC_TUNING"; d.poll_rate_hz = 0.2; d.build_request_cb = [=](){ return buildPacketRaw(static_cast<uint8_t>(MSP_RC_TUNING), {}); }; regs.push_back(d);
-  }
-  // BATTERY_STATE (extended)
-  {
-    CommandDescriptor d; d.id = MSP_BATTERY_STATE; d.name = "MSP_BATTERY_STATE"; d.poll_rate_hz = 1.0; d.build_request_cb = [=](){ return buildPacketRaw(static_cast<uint8_t>(MSP_BATTERY_STATE), {}); }; regs.push_back(d);
-  }
-  // RTC (time)
-  {
-    CommandDescriptor d; d.id = MSP_RTC; d.name = "MSP_RTC"; d.poll_rate_hz = 0.5; d.build_request_cb = [=](){ return buildPacketRaw(static_cast<uint8_t>(MSP_RTC), {}); }; regs.push_back(d);
-  }
-  // STATUS_EX (note: some firmwares expose MSP_STATUS, MSP_STATUS_EX may map differently; ensure header availability)
-  {
-    CommandDescriptor d; d.id = MSP_STATUS; d.name = "MSP_STATUS"; d.poll_rate_hz = 2.0; d.build_request_cb = [=](){ return buildPacketRaw(static_cast<uint8_t>(MSP_STATUS), {}); }; regs.push_back(d);
-  }
-  // SENSOR_STATUS (not explicitly defined; using MSP_SENSOR_CONFIG as proxy if needed)
-  {
-    CommandDescriptor d; d.id = MSP_SENSOR_CONFIG; d.name = "MSP_SENSOR_CONFIG"; d.poll_rate_hz = 2.0; d.build_request_cb = [=](){ return buildPacketRaw(static_cast<uint8_t>(MSP_SENSOR_CONFIG), {}); }; regs.push_back(d);
-  }
-  // GPSSTATISTICS (extended telemetry)
-  {
-    CommandDescriptor d; d.id = MSP_GPSSTATISTICS; d.name = "MSP_GPSSTATISTICS"; d.poll_rate_hz = 1.0; d.build_request_cb = [=](){ return buildPacketRaw(static_cast<uint8_t>(MSP_GPSSTATISTICS), {}); }; regs.push_back(d);
-  }
-  
-  // V2 Rangefinder sensor (example of MSP v2 16-bit command)
-  CommandDescriptor rangefinder;
-  rangefinder.id = MSP2_SENSOR_RANGEFINDER; // 0x1F01 (>255 requires v2)
-  rangefinder.name = "MSP2_SENSOR_RANGEFINDER";
-  rangefinder.poll_rate_hz = 5.0; // 5 Hz typical for rangefinder
-  rangefinder.build_request_cb = [=]() {
-    // Empty payload request; flags = 0
-    return buildPacketV2(rangefinder.id, {}, 0);
-  };
-  rangefinder.requires_v2 = true;
-  regs.push_back(rangefinder);
+// Registry Implementation Notes
+// =============================
+// The bridge maintains a fixed ordered table (`kRegistry`) describing each MSP command the node
+// knows how to request/poll. This replaces the previous runtime push_back construction so that:
+//  * Ordering is explicit and stable (important for deterministic parameter name mapping and tests).
+//  * The intent & grouping (MSPv1 core vs MSPv2 sensors vs INAV extensions) is visually apparent.
+//  * Duplicate IDs or incorrect v1/v2 labeling is caught very early (validator below).
+//
+// Formatting: The `kRegistry` array columns are manually aligned for readability across reviews.
+// A clang-format guard is used to prevent automatic reflow; if you must reformat, do so manually.
+//
+// Adding / Modifying Entries
+// --------------------------
+// 1. Ensure the MSP ID macro exists in the upstream headers included from external/inav. Do NOT
+//    introduce new numeric literals unless upstream truly lacks a symbol; if so, add a TODO comment.
+// 2. Choose a conservative poll_rate_hz. High rates (e.g., 50 Hz for IMU) should be justified.
+// 3. Set requires_v2 = true for any id > 255 or if protocol requires MSPv2.
+// 4. Update the EXPECTED COUNT in test `StableEntryCountAndOrder` (test_msp_registry.cpp).
+// 5. Add / update a decoder to interpret responses if telemetry is expected.
+// 6. Keep ordering stable unless there is a strong reason; append new commands at the end of their
+//    logical category block to minimize churn.
+// 7. Run the full test suite; duplicate IDs or mis-labeled requires_v2 will abort at startup.
+//
+// Why not constexpr std::array with compile-time lambda evaluation? Because std::function is not
+// constexpr constructible pre-C++20. We accept static initialization for the small set of lambdas
+// while still making the structural fields (id/name/rate/flag) trivially inspectable.
+//
+// Helper lambdas must be non-capturing so their types remain simple and copyable into std::function.
 
-  // V2 Compass sensor
-  CommandDescriptor compass;
-  compass.id = MSP2_SENSOR_COMPASS; // 0x1F04
-  compass.name = "MSP2_SENSOR_COMPASS";
-  compass.poll_rate_hz = 5.0; // 5 Hz
-  compass.build_request_cb = [=]() {
-    return buildPacketV2(compass.id, {}, 0);
+inline std::function<std::vector<uint8_t>()> make_v1(uint16_t id) {
+  return [id]() {
+    return buildPacketRaw(static_cast<uint8_t>(id), {});
   };
-  compass.requires_v2 = true;
-  regs.push_back(compass);
-
-  // V2 Barometer sensor
-  CommandDescriptor baro;
-  baro.id = MSP2_SENSOR_BAROMETER; // 0x1F05
-  baro.name = "MSP2_SENSOR_BAROMETER";
-  baro.poll_rate_hz = 5.0; // 5 Hz
-  baro.build_request_cb = [=]() {
-    return buildPacketV2(baro.id, {}, 0);
+}
+inline std::function<std::vector<uint8_t>()> make_v2(uint16_t id) {
+  return [id]() {
+    return buildPacketV2(id, {}, 0);
   };
-  baro.requires_v2 = true;
-  regs.push_back(baro);
-
-  // INAV extended status (0x2000) - MSP2_INAV_STATUS
-  CommandDescriptor inav_status;
-  inav_status.id = 0x2000; // MSP2_INAV_STATUS (not in sensor header, manual constant)
-  inav_status.name = "MSP2_INAV_STATUS";
-  inav_status.poll_rate_hz = 2.0; // modest rate
-  inav_status.build_request_cb = [=]() {
-    return buildPacketV2(inav_status.id, {}, 0);
-  };
-  inav_status.requires_v2 = true;
-  regs.push_back(inav_status);
-
-  // INAV Analog (battery flags, VBAT, cells)
-  {
-    CommandDescriptor d; d.id = MSP2_INAV_ANALOG; d.name = "MSP2_INAV_ANALOG"; d.poll_rate_hz = 2.0; d.requires_v2 = true; d.build_request_cb = [=](){ return buildPacketV2(MSP2_INAV_ANALOG, {}, 0); }; regs.push_back(d);
-  }
-  // INAV Battery Config
-  {
-    CommandDescriptor d; d.id = MSP2_INAV_BATTERY_CONFIG; d.name = "MSP2_INAV_BATTERY_CONFIG"; d.poll_rate_hz = 0.05; d.requires_v2 = true; d.build_request_cb = [=](){ return buildPacketV2(MSP2_INAV_BATTERY_CONFIG, {}, 0); }; regs.push_back(d);
-  }
-  // INAV Air Speed
-  {
-    CommandDescriptor d; d.id = MSP2_INAV_AIR_SPEED; d.name = "MSP2_INAV_AIR_SPEED"; d.poll_rate_hz = 5.0; d.requires_v2 = true; d.build_request_cb = [=](){ return buildPacketV2(MSP2_INAV_AIR_SPEED, {}, 0); }; regs.push_back(d);
-  }
-  // INAV Temperatures
-  {
-    CommandDescriptor d; d.id = MSP2_INAV_TEMPERATURES; d.name = "MSP2_INAV_TEMPERATURES"; d.poll_rate_hz = 1.0; d.requires_v2 = true; d.build_request_cb = [=](){ return buildPacketV2(MSP2_INAV_TEMPERATURES, {}, 0); }; regs.push_back(d);
-  }
-  // INAV ESC RPM
-  {
-    CommandDescriptor d; d.id = MSP2_INAV_ESC_RPM; d.name = "MSP2_INAV_ESC_RPM"; d.poll_rate_hz = 5.0; d.requires_v2 = true; d.build_request_cb = [=](){ return buildPacketV2(MSP2_INAV_ESC_RPM, {}, 0); }; regs.push_back(d);
-  }
-
-  // Common Setting (on-demand, not polled by default)
-  {
-    CommandDescriptor d; d.id = MSP2_COMMON_SETTING; d.name = "MSP2_COMMON_SETTING"; d.poll_rate_hz = 0.0; d.requires_v2 = true; d.build_request_cb = [=](){ return buildPacketV2(MSP2_COMMON_SETTING, {}, 0); }; regs.push_back(d);
-  }
-  // Common Set Setting (write)
-  {
-    CommandDescriptor d; d.id = MSP2_COMMON_SET_SETTING; d.name = "MSP2_COMMON_SET_SETTING"; d.poll_rate_hz = 0.0; d.requires_v2 = true; d.build_request_cb = [=](){ return buildPacketV2(MSP2_COMMON_SET_SETTING, {}, 0); }; regs.push_back(d);
-  }
-  return regs;
 }
 
-} // namespace transformer_msp_bridge
+// NOTE: If you add or remove entries:
+// 1. Update tests referencing kDefaultRegistrySize.
+// 2. Keep ordering stable (used by deterministic polling parameter mapping).
+// 3. Ensure ID is defined in external headers (do NOT locally invent IDs).
+// 4. Set requires_v2=true for any id > 255 or native MSPv2 only command.
+
+// clang-format off
+static const CommandDescriptor kRegistry[] = {
+  // ---- MSPv1 Core Telemetry ----
+  {MSP_RAW_IMU,          "MSP_RAW_IMU",          50.0, make_v1(MSP_RAW_IMU), false},
+  {MSP_SERVO,            "MSP_SERVO",            10.0, make_v1(MSP_SERVO), false},
+  {MSP_MOTOR,            "MSP_MOTOR",            10.0, make_v1(MSP_MOTOR), false},
+  {MSP_RC,               "MSP_RC",                5.0, make_v1(MSP_RC), false},
+  {MSP_RAW_GPS,          "MSP_RAW_GPS",           5.0, make_v1(MSP_RAW_GPS), false},
+  {MSP_COMP_GPS,         "MSP_COMP_GPS",          2.0, make_v1(MSP_COMP_GPS), false},
+  {MSP_ATTITUDE,         "MSP_ATTITUDE",         10.0, make_v1(MSP_ATTITUDE), false},
+  {MSP_ALTITUDE,         "MSP_ALTITUDE",          5.0, make_v1(MSP_ALTITUDE), false},
+  {MSP_ANALOG,           "MSP_ANALOG",            2.0, make_v1(MSP_ANALOG), false},
+  {MSP_RC_TUNING,        "MSP_RC_TUNING",         0.2, make_v1(MSP_RC_TUNING), false},
+  {MSP_BATTERY_STATE,    "MSP_BATTERY_STATE",     1.0, make_v1(MSP_BATTERY_STATE), false},
+  {MSP_RTC,              "MSP_RTC",               0.5, make_v1(MSP_RTC), false},
+  {MSP_STATUS,           "MSP_STATUS",            2.0, make_v1(MSP_STATUS), false},
+  {MSP_SENSOR_CONFIG,    "MSP_SENSOR_CONFIG",     2.0, make_v1(MSP_SENSOR_CONFIG), false},
+  {MSP_GPSSTATISTICS,    "MSP_GPSSTATISTICS",     1.0, make_v1(MSP_GPSSTATISTICS), false},
+  // ---- MSPv2 Sensors ----
+  {MSP2_SENSOR_RANGEFINDER,  "MSP2_SENSOR_RANGEFINDER", 5.0, make_v2(MSP2_SENSOR_RANGEFINDER), true},
+  {MSP2_SENSOR_COMPASS,      "MSP2_SENSOR_COMPASS",     5.0, make_v2(MSP2_SENSOR_COMPASS), true},
+  {MSP2_SENSOR_BAROMETER,    "MSP2_SENSOR_BAROMETER",   5.0, make_v2(MSP2_SENSOR_BAROMETER), true},
+  {MSP2_INAV_STATUS,         "MSP2_INAV_STATUS",        2.0, make_v2(MSP2_INAV_STATUS), true},
+  {MSP2_INAV_ANALOG,         "MSP2_INAV_ANALOG",        2.0, make_v2(MSP2_INAV_ANALOG), true},
+  {MSP2_INAV_BATTERY_CONFIG, "MSP2_INAV_BATTERY_CONFIG",0.05,make_v2(MSP2_INAV_BATTERY_CONFIG), true},
+  {MSP2_INAV_AIR_SPEED,      "MSP2_INAV_AIR_SPEED",     5.0, make_v2(MSP2_INAV_AIR_SPEED), true},
+  {MSP2_INAV_TEMPERATURES,   "MSP2_INAV_TEMPERATURES",  1.0, make_v2(MSP2_INAV_TEMPERATURES), true},
+  {MSP2_INAV_ESC_RPM,        "MSP2_INAV_ESC_RPM",       5.0, make_v2(MSP2_INAV_ESC_RPM), true},
+  {MSP2_COMMON_SETTING,      "MSP2_COMMON_SETTING",     0.0, make_v2(MSP2_COMMON_SETTING), true},
+  {MSP2_COMMON_SET_SETTING,  "MSP2_COMMON_SET_SETTING", 0.0, make_v2(MSP2_COMMON_SET_SETTING), true},
+};
+// clang-format on
+
+}  // namespace
+
+// Compile-time size accessor (cannot be constexpr variable with inline due to ODR concerns across TUs before C++17 inline variables; using function instead)
+constexpr std::size_t kDefaultRegistrySize() {
+  return sizeof(kRegistry) / sizeof(kRegistry[0]);
+}
+
+RegistryView get_default_registry() {
+  return RegistryView{kRegistry, kDefaultRegistrySize()};
+}
+
+// Static validation (runtime asserts via if constexpr style not available; manually check uniqueness at startup if desired)
+namespace {
+struct RegistryValidator {
+  RegistryValidator() {
+    // Uniqueness O(N^2) check (N small)
+    for (std::size_t i = 0; i < kDefaultRegistrySize(); ++i) {
+      for (std::size_t j = i + 1; j < kDefaultRegistrySize(); ++j) {
+        if (kRegistry[i].id == kRegistry[j].id) {
+          // Intentional assert style abort; could use throw but this is programming error.
+          fprintf(stderr, "Duplicate MSP command id %u between %s and %s\n", kRegistry[i].id, kRegistry[i].name,
+                  kRegistry[j].name);
+          std::abort();
+        }
+      }
+    }
+    // requires_v2 correctness: any id >255 must have requires_v2 true
+    for (auto& d : kRegistry) {
+      if (d.id > 255 && !d.requires_v2) {
+        fprintf(stderr, "MSP id %u (%s) >255 but requires_v2=false\n", d.id, d.name);
+        std::abort();
+      }
+    }
+  }
+};
+static RegistryValidator g_registry_validator;  // NOLINT
+}  // namespace
+
+}  // namespace transformer_msp_bridge

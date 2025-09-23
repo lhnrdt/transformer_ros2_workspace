@@ -57,7 +57,10 @@ class MSPBridgeNode : public rclcpp::Node {
     }
 
     parser_ = std::make_unique<MSPParser>([this](const MSPPacket& pkt) { dispatchPacket(pkt); });
-    registry_ = build_default_registry();
+    {
+      auto view = get_default_registry();
+      registry_.assign(view.begin(), view.end());
+    }
     bootstrap_cmds_ = {(uint16_t)MSP_IDENT, (uint16_t)MSP_API_VERSION, (uint16_t)MSP_FC_VARIANT,
                        (uint16_t)MSP_FC_VERSION};
 
