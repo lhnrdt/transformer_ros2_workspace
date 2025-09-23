@@ -1,12 +1,13 @@
 #pragma once
 
 #include "transformer_msp_bridge/msp_protocol.hpp"
+#include "transformer_msp_bridge/decoder_base.hpp"
 #include "transformer_msp_bridge/msg/msp_inav_status.hpp"
 #include <rclcpp/rclcpp.hpp>
 
 namespace transformer_msp_bridge {
 
-class InavStatusDecoder {
+class InavStatusDecoder : public IMspDecoder {
 public:
   explicit InavStatusDecoder(rclcpp::Node &node, bool debug): debug_(debug) {
     pub_ = node.create_publisher<transformer_msp_bridge::msg::MspInavStatus>("/msp/inav_status", 10);
@@ -44,6 +45,8 @@ public:
       logged_ = true;
     }
   }
+  bool matches(uint16_t command_id) const override { return command_id == MSP2_INAV_STATUS; }
+  std::string name() const override { return "inav_status"; }
 private:
   bool debug_{false};
   bool logged_{false};

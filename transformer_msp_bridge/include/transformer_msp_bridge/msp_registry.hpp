@@ -14,7 +14,6 @@ struct CommandDescriptor {
   uint16_t id;                 // MSP_* constant from external headers
   const char * name;           // Human-readable
   double poll_rate_hz;         // 0 = do not auto-poll
-  std::function<void(const MSPPacket&)> decode_cb; // Optional decode callback
   std::function<std::vector<uint8_t>()> build_request_cb; // Build outbound frame (no payload typical)
   bool requires_v2{false};     // Mark commands that need native v2 capability
 };

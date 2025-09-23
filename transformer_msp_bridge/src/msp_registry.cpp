@@ -44,7 +44,6 @@ std::vector<CommandDescriptor> build_default_registry() {
   att.build_request_cb = [=]() {
     return buildPacketRaw(static_cast<uint8_t>(MSP_ATTITUDE), {});
   };
-  // decode_cb left empty; node will supply decode handler by wrapping this descriptor
   regs.push_back(att);
   // ALTITUDE
   {

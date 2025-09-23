@@ -1,6 +1,7 @@
 #pragma once
 
 #include "transformer_msp_bridge/msp_protocol.hpp"
+#include "transformer_msp_bridge/decoder_base.hpp"
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/nav_sat_fix.hpp>
 #include <geometry_msgs/msg/twist_stamped.hpp>
@@ -10,7 +11,7 @@
 
 namespace transformer_msp_bridge {
 
-class GpsDecoder {
+class GpsDecoder : public IMspDecoder {
 public:
   explicit GpsDecoder(rclcpp::Node &node) {
     fix_pub_ = node.create_publisher<sensor_msgs::msg::NavSatFix>("/msp/gps/fix", 10);
@@ -51,6 +52,15 @@ public:
     home_vec_pub_->publish(vec);
     std_msgs::msg::Float32 d; d.data = dist; home_dist_pub_->publish(d);
   }
+
+  bool matches(uint16_t command_id) const override {
+    return command_id == MSP_RAW_GPS || command_id == MSP_COMP_GPS;
+  }
+  void decode(const MSPPacket &pkt) override {
+    if (pkt.cmd == MSP_RAW_GPS) decodeRawGps(pkt);
+    else if (pkt.cmd == MSP_COMP_GPS) decodeCompGps(pkt);
+  }
+  std::string name() const override { return "gps"; }
 
 private:
   rclcpp::Publisher<sensor_msgs::msg::NavSatFix>::SharedPtr fix_pub_;

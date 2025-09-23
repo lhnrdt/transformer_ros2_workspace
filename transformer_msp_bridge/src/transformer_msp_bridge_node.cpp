@@ -20,6 +20,7 @@
 #include "transformer_msp_bridge/decoders/rc_decoder.hpp"
 #include "transformer_msp_bridge/decoders/system_decoder.hpp"
 #include "transformer_msp_bridge/decoders/battery_decoder.hpp"
+#include "transformer_msp_bridge/decoder_registry.hpp"
 
 #include <deque>
 #include <queue>
@@ -40,7 +41,6 @@ public:
     baud_ = declare_parameter<int>("baudrate", 115200);
     timeout_ms_ = declare_parameter<int>("timeout_ms", 50);
     rc_channel_count_ = declare_parameter<int>("rc_channel_count", 8);
-    poll_rate_hz_ = declare_parameter<double>("telemetry_poll_rate_hz", 10.0);
     rc_echo_rate_hz_ = declare_parameter<double>("rc_publish_rate_hz", 10.0);
     debug_msp_ = declare_parameter<bool>("debug_msp", false);
     log_msp_tx_ = declare_parameter<bool>("log_msp_tx", false);
@@ -59,19 +59,18 @@ public:
     registry_ = build_default_registry();
     bootstrap_cmds_ = {(uint16_t)MSP_IDENT, (uint16_t)MSP_API_VERSION, (uint16_t)MSP_FC_VARIANT, (uint16_t)MSP_FC_VERSION};
 
-    // Instantiate decoders
-    imu_decoder_ = std::make_unique<ImuDecoder>(*this);
-    gps_decoder_ = std::make_unique<GpsDecoder>(*this);
-    altitude_decoder_ = std::make_unique<AltitudeDecoder>(*this);
-    servo_motor_decoder_ = std::make_unique<ServoMotorDecoder>(*this);
-    sensor_decoder_ = std::make_unique<SensorDecoder>(*this, debug_msp_);
-    inav_status_decoder_ = std::make_unique<InavStatusDecoder>(*this, debug_msp_);
-    attitude_decoder_ = std::make_unique<AttitudeDecoder>(*this);
-    rc_in_decoder_ = std::make_unique<RcDecoder>(*this, std::string("/msp/rc_in"));
-    system_decoder_ = std::make_unique<SystemDecoder>(*this);
-    battery_decoder_ = std::make_unique<BatteryDecoder>(*this);
+    // Register all decoders (interface-based) directly in registry
+    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new ImuDecoder(*this)));
+    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new GpsDecoder(*this)));
+    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new AltitudeDecoder(*this)));
+    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new ServoMotorDecoder(*this)));
+    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new SensorDecoder(*this, debug_msp_)));
+    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new InavStatusDecoder(*this, debug_msp_)));
+    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new AttitudeDecoder(*this)));
+    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new RcDecoder(*this, std::string("/msp/rc_in"))));
+    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new SystemDecoder(*this)));
+    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new BatteryDecoder(*this)));
 
-    assignDecodeCallbacks();
     setupPublishersAndSubs();
     declareCommandParameters();
     installParamCallback();
@@ -87,29 +86,6 @@ private:
     bool operator<(const ScheduleEntry &o) const { return due > o.due; }
   };
 
-  void assignDecodeCallbacks() {
-    for (auto &d : registry_) {
-      if (d.id == MSP_ATTITUDE) d.decode_cb = [this](const MSPPacket &pkt){ attitude_decoder_->decode(pkt); };
-      else if (d.name && std::string(d.name) == "MSP_RAW_IMU") d.decode_cb = [this](const MSPPacket &pkt){ imu_decoder_->decodeRawImu(pkt); };
-      else if (d.name && std::string(d.name) == "MSP_SERVO") d.decode_cb = [this](const MSPPacket &pkt){ servo_motor_decoder_->decodeServo(pkt); };
-      else if (d.name && std::string(d.name) == "MSP_MOTOR") d.decode_cb = [this](const MSPPacket &pkt){ servo_motor_decoder_->decodeMotor(pkt); };
-      else if (d.name && std::string(d.name) == "MSP_RAW_GPS") d.decode_cb = [this](const MSPPacket &pkt){ gps_decoder_->decodeRawGps(pkt); };
-      else if (d.name && std::string(d.name) == "MSP_COMP_GPS") d.decode_cb = [this](const MSPPacket &pkt){ gps_decoder_->decodeCompGps(pkt); };
-      else if (d.name && std::string(d.name) == "MSP_ALTITUDE") d.decode_cb = [this](const MSPPacket &pkt){ altitude_decoder_->decodeAltitude(pkt); };
-      else if (d.id == MSP_RC) d.decode_cb = [this](const MSPPacket &pkt){ rc_in_decoder_->decode(pkt); };
-      else if (d.id == MSP_ANALOG) d.decode_cb = [this](const MSPPacket &pkt){ battery_decoder_->decodeAnalog(pkt); };
-      else if (d.name && std::string(d.name) == "MSP_RC_TUNING") d.decode_cb = [this](const MSPPacket &pkt){ system_decoder_->decodeRcTuning(pkt); };
-      else if (d.name && std::string(d.name) == "MSP_BATTERY_STATE") d.decode_cb = [this](const MSPPacket &pkt){ battery_decoder_->decodeBatteryState(pkt); };
-      else if (d.name && std::string(d.name) == "MSP_RTC") d.decode_cb = [this](const MSPPacket &pkt){ system_decoder_->decodeRtc(pkt); };
-      else if (d.name && std::string(d.name) == "MSP_STATUS_EX") d.decode_cb = [this](const MSPPacket &pkt){ system_decoder_->decodeStatusEx(pkt); };
-      else if (d.name && std::string(d.name) == "MSP_SENSOR_STATUS") d.decode_cb = [this](const MSPPacket &pkt){ system_decoder_->decodeSensorStatus(pkt); };
-      else if (d.name && std::string(d.name) == "MSP_GPSSTATISTICS") d.decode_cb = [this](const MSPPacket &pkt){ system_decoder_->decodeGpsStatistics(pkt); };
-      else if (d.id == 0x1F01) d.decode_cb = [this](const MSPPacket &pkt){ sensor_decoder_->decodeRangefinder(pkt); }; // MSP2_SENSOR_RANGEFINDER
-      else if (d.id == 0x1F04) d.decode_cb = [this](const MSPPacket &pkt){ sensor_decoder_->decodeCompass(pkt); };     // MSP2_SENSOR_COMPASS
-      else if (d.id == 0x1F05) d.decode_cb = [this](const MSPPacket &pkt){ sensor_decoder_->decodeBarometer(pkt); };   // MSP2_SENSOR_BAROMETER
-      else if (d.id == 0x2000) d.decode_cb = [this](const MSPPacket &pkt){ inav_status_decoder_->decode(pkt); };       // MSP2_INAV_STATUS
-    }
-  }
 
   static std::string sanitizeName(const char *raw) {
     if (!raw) return {};
@@ -273,9 +249,8 @@ private:
         if (proto_ver >= 2) proto_supports_v2_ = true; else proto_supports_v2_ = false;
       }
     }
-    // Dispatch to descriptor
-    CommandDescriptor *desc = findDescriptor(pkt.cmd);
-    if (desc && desc->decode_cb) desc->decode_cb(pkt);
+    // Decode polymorphically via registry only (no per-descriptor callbacks)
+    decoder_registry_.dispatch(pkt);
   }
 
   void rcCallback(const std_msgs::msg::UInt16MultiArray::SharedPtr msg) {
@@ -322,7 +297,7 @@ private:
 
   // Members
   std::string port_; int baud_; int timeout_ms_{};
-  int rc_channel_count_{}; double poll_rate_hz_{}; double rc_echo_rate_hz_{};
+  int rc_channel_count_{}; double rc_echo_rate_hz_{};
   bool debug_msp_{}; bool log_msp_tx_{}; bool log_msp_rx_{};
   double v2_fallback_timeout_sec_{}; bool force_msp_v2_{}; bool use_v2_tunnel_{}; bool use_v2_for_legacy_{};
 
@@ -364,17 +339,7 @@ private:
   rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr esc_rpm_pub_;
   rclcpp::Subscription<std_msgs::msg::UInt16MultiArray>::SharedPtr rc_sub_;
 
-  // Decoder objects
-  std::unique_ptr<ImuDecoder> imu_decoder_;
-  std::unique_ptr<GpsDecoder> gps_decoder_;
-  std::unique_ptr<AltitudeDecoder> altitude_decoder_;
-  std::unique_ptr<ServoMotorDecoder> servo_motor_decoder_;
-  std::unique_ptr<SensorDecoder> sensor_decoder_;
-  std::unique_ptr<InavStatusDecoder> inav_status_decoder_;
-  std::unique_ptr<AttitudeDecoder> attitude_decoder_;
-  std::unique_ptr<RcDecoder> rc_in_decoder_;
-  std::unique_ptr<SystemDecoder> system_decoder_;
-  std::unique_ptr<BatteryDecoder> battery_decoder_;
+  DecoderRegistry decoder_registry_;
 };
 
 } // namespace transformer_msp_bridge

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "transformer_msp_bridge/msp_protocol.hpp"
+#include "transformer_msp_bridge/decoder_base.hpp"
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/imu.hpp>
 #include <sensor_msgs/msg/magnetic_field.hpp>
@@ -8,7 +9,7 @@
 
 namespace transformer_msp_bridge {
 
-class ImuDecoder {
+class ImuDecoder : public IMspDecoder {
 public:
   explicit ImuDecoder(rclcpp::Node &node) {
     imu_pub_ = node.create_publisher<sensor_msgs::msg::Imu>("/msp/imu", 10);
@@ -36,6 +37,10 @@ public:
     mag.magnetic_field.z = mz * 1e-6;
     mag_pub_->publish(mag);
   }
+
+  bool matches(uint16_t command_id) const override { return command_id == MSP_RAW_IMU; }
+  void decode(const MSPPacket &pkt) override { if (pkt.cmd == MSP_RAW_IMU) decodeRawImu(pkt); }
+  std::string name() const override { return "imu"; }
 
 private:
   rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu_pub_;

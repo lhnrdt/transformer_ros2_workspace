@@ -2,8 +2,9 @@
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/u_int16_multi_array.hpp>
 #include "transformer_msp_bridge/msp_protocol.hpp"
+#include "transformer_msp_bridge/decoder_base.hpp"
 namespace transformer_msp_bridge {
-class RcDecoder {
+class RcDecoder : public IMspDecoder {
 public:
   RcDecoder(rclcpp::Node &node, const std::string &topic) : node_(node) {
     pub_ = node_.create_publisher<std_msgs::msg::UInt16MultiArray>(topic, 10);
@@ -16,6 +17,8 @@ public:
     }
     std_msgs::msg::UInt16MultiArray m; m.data = std::move(chans); pub_->publish(m);
   }
+  bool matches(uint16_t command_id) const override { return command_id == MSP_RC; }
+  std::string name() const override { return "rc"; }
 private:
   rclcpp::Node &node_;
   rclcpp::Publisher<std_msgs::msg::UInt16MultiArray>::SharedPtr pub_;

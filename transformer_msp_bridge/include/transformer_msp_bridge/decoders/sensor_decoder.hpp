@@ -1,6 +1,7 @@
 #pragma once
 
 #include "transformer_msp_bridge/msp_protocol.hpp"
+#include "transformer_msp_bridge/decoder_base.hpp"
 #include "msp/msp_protocol_v2_sensor_msg.h"
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/float32.hpp>
@@ -9,7 +10,7 @@
 
 namespace transformer_msp_bridge {
 
-class SensorDecoder {
+class SensorDecoder : public IMspDecoder {
 public:
   explicit SensorDecoder(rclcpp::Node &node, bool debug): debug_(debug) {
     rangefinder_pub_ = node.create_publisher<std_msgs::msg::Float32>("/msp/rangefinder", 10);
@@ -31,6 +32,15 @@ public:
   void decodeBarometer(const MSPPacket &pkt) {
     mspSensorBaroDataMessage_t b{}; if(!decodeStruct(pkt,b)) return; std_msgs::msg::Float32 m; m.data=b.pressurePa; barometer_pub_->publish(m); if(debug_ && !logged_baro_) { RCLCPP_INFO(rclcpp::get_logger("SensorDecoder"), "Barometer first frame: inst=%u pressure=%.2fPa temp=%.2fC", b.instance,b.pressurePa,b.temp/100.0f); logged_baro_=true; }
   }
+  bool matches(uint16_t command_id) const override {
+    return command_id == 0x1F01 || command_id == 0x1F04 || command_id == 0x1F05; // MSP2 sensor IDs
+  }
+  void decode(const MSPPacket &pkt) override {
+    if (pkt.cmd == 0x1F01) decodeRangefinder(pkt);
+    else if (pkt.cmd == 0x1F04) decodeCompass(pkt);
+    else if (pkt.cmd == 0x1F05) decodeBarometer(pkt);
+  }
+  std::string name() const override { return "sensor"; }
 private:
   bool debug_{false};
   bool logged_rangefinder_{false};
