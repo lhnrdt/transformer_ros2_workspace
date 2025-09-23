@@ -79,10 +79,12 @@ class MSPBridgeNode : public rclcpp::Node {
     // Validate decoder coverage: Each actively polled (default rate > 0) entry that is expected to yield
     // telemetry should have at least one decoder. Exempt pure setting/config write commands (rate 0 by default).
     size_t uncovered = 0;
-    for (auto &d : registry_) {
-      if (d.poll_rate_hz <= 0.0) continue; // Not auto-polled by default.
+    for (auto& d : registry_) {
+      if (d.poll_rate_hz <= 0.0)
+        continue;  // Not auto-polled by default.
       if (!decoder_registry_.hasDecoder(d.id)) {
-        RCLCPP_WARN(get_logger(), "No decoder registered for polled command id=0x%04X (%s)", d.id, d.name ? d.name : "<unnamed>");
+        RCLCPP_WARN(get_logger(), "No decoder registered for polled command id=0x%04X (%s)", d.id,
+                    d.name ? d.name : "<unnamed>");
         ++uncovered;
       }
     }

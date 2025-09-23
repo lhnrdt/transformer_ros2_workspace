@@ -40,22 +40,22 @@ ros2 param set /transformer_msp_bridge command.msp_rc_tuning.enabled true
 ```
 
 ### Core Parameters
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `port` | string | `/dev/ttyAMA0` | Serial device path |
-| `baudrate` | int | 115200 | Serial baud rate |
-| `timeout_ms` | int | 50 | Serial read timeout |
-| `rc_channel_count` | int | 8 | Number of RC channels handled |
-| `rc_publish_rate_hz` | double | 10.0 | Rate to echo RC output |
-| `debug_msp` | bool | false | Verbose internal statistics logging |
-| `log_msp_tx` | bool | false | Log raw hex TX frames |
-| `log_msp_rx` | bool | false | Log raw hex RX frames |
-| `v2_fallback_timeout_sec` | double | 5.0 | Time before disabling v2-only polling if no v2 frames seen |
-| `force_msp_v2` | bool | false | Keep v2 polling even without confirmation |
-| `use_v2_tunnel` | bool | false | Use v2-over-v1 tunnel for v2 commands |
-| `use_v2_for_legacy` | bool | false | Attempt native v2 for legacy (<256) IDs when supported |
-| `command.*.enabled` | bool | registry dependent | Per-command on/off |
-| `command.*.rate_hz` | double | registry dependent | Per-command polling rate |
+| Name                      | Type   | Default            | Description                                                |
+| ------------------------- | ------ | ------------------ | ---------------------------------------------------------- |
+| `port`                    | string | `/dev/ttyAMA0`     | Serial device path                                         |
+| `baudrate`                | int    | 115200             | Serial baud rate                                           |
+| `timeout_ms`              | int    | 50                 | Serial read timeout                                        |
+| `rc_channel_count`        | int    | 8                  | Number of RC channels handled                              |
+| `rc_publish_rate_hz`      | double | 10.0               | Rate to echo RC output                                     |
+| `debug_msp`               | bool   | false              | Verbose internal statistics logging                        |
+| `log_msp_tx`              | bool   | false              | Log raw hex TX frames                                      |
+| `log_msp_rx`              | bool   | false              | Log raw hex RX frames                                      |
+| `v2_fallback_timeout_sec` | double | 5.0                | Time before disabling v2-only polling if no v2 frames seen |
+| `force_msp_v2`            | bool   | false              | Keep v2 polling even without confirmation                  |
+| `use_v2_tunnel`           | bool   | false              | Use v2-over-v1 tunnel for v2 commands                      |
+| `use_v2_for_legacy`       | bool   | false              | Attempt native v2 for legacy (<256) IDs when supported     |
+| `command.*.enabled`       | bool   | registry dependent | Per-command on/off                                         |
+| `command.*.rate_hz`       | double | registry dependent | Per-command polling rate                                   |
 
 ### Build
 ```bash
