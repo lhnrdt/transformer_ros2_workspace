@@ -64,6 +64,23 @@ colcon build --packages-select transformer_msp_bridge
 source install/setup.bash
 ```
 
+### Tests
+Unit tests (Google Test) are provided for initial decoder coverage (battery & system decoders).
+
+Build & run tests:
+```bash
+colcon build --packages-select transformer_msp_bridge --cmake-args -DBUILD_TESTING=ON
+colcon test --packages-select transformer_msp_bridge
+colcon test-result --verbose
+```
+
+Run a single test binary manually (after build):
+```bash
+./install/transformer_msp_bridge/lib/transformer_msp_bridge/test_battery_decoder
+```
+
+Add new decoder tests under `test/` and register them in the package `CMakeLists.txt` using `ament_add_gtest()` linking against `${PROJECT_NAME}_decoders`.
+
 ### Basic Run (defaults)
 ```bash
 ros2 run transformer_msp_bridge transformer_msp_bridge_node
@@ -85,7 +102,7 @@ Additional MSP commands can be introduced by editing `msp_registry.cpp` (add des
 ### Roadmap / TODO
 * Bandwidth throttling (byte/token bucket)
 * Priority scheduler (min-heap by next due time)
-* Implement remaining placeholder decoders (RC tuning, extended battery, RTC, STATUS_EX, SENSOR_STATUS, GPS statistics)
+* Expand unit test coverage to remaining decoders (IMU, GPS, altitude, attitude, RC, battery edge cases, RTC) and parser logic
 * Documentation of message semantics and frames
 
 ### License

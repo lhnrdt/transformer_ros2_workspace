@@ -9,24 +9,13 @@ namespace transformer_msp_bridge {
 
 class ServoMotorDecoder : public IMspDecoder {
 public:
-  explicit ServoMotorDecoder(rclcpp::Node &node) {
-    servo_pub_ = node.create_publisher<sensor_msgs::msg::JointState>("/msp/servo", 10);
-    motor_pub_ = node.create_publisher<sensor_msgs::msg::JointState>("/msp/motor", 10);
-  }
-  void decodeServo(const MSPPacket &pkt) {
-    size_t n = pkt.payload.size()/2; if(!n) return; sensor_msgs::msg::JointState js; js.position.reserve(n);
-    for(size_t i=0;i<n;i++){ uint16_t v = pkt.payload[2*i] | (pkt.payload[2*i+1]<<8); js.position.push_back(static_cast<double>(v)); }
-    servo_pub_->publish(js);
-  }
-  void decodeMotor(const MSPPacket &pkt) {
-    size_t n = pkt.payload.size()/2; if(!n) return; sensor_msgs::msg::JointState js; js.velocity.reserve(n);
-    for(size_t i=0;i<n;i++){ uint16_t v = pkt.payload[2*i] | (pkt.payload[2*i+1]<<8); js.velocity.push_back(static_cast<double>(v)); }
-    motor_pub_->publish(js);
-  }
-  bool matches(uint16_t command_id) const override { return command_id == MSP_SERVO || command_id == MSP_MOTOR; }
-  void decode(const MSPPacket &pkt) override { if (pkt.cmd == MSP_SERVO) decodeServo(pkt); else if (pkt.cmd == MSP_MOTOR) decodeMotor(pkt); }
-  std::string name() const override { return "servo_motor"; }
+  explicit ServoMotorDecoder(rclcpp::Node &node);
+  void decode(const MSPPacket &pkt) override;
+  bool matches(uint16_t command_id) const override;
+  std::string name() const override;
 private:
+  void decodeServo(const MSPPacket &pkt);
+  void decodeMotor(const MSPPacket &pkt);
   rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr servo_pub_;
   rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr motor_pub_;
 };
