@@ -80,9 +80,9 @@ std::vector<CommandDescriptor> build_default_registry() {
   {
     CommandDescriptor d; d.id = MSP_SENSOR_CONFIG; d.name = "MSP_SENSOR_CONFIG"; d.poll_rate_hz = 2.0; d.build_request_cb = [=](){ return buildPacketRaw(static_cast<uint8_t>(MSP_SENSOR_CONFIG), {}); }; regs.push_back(d);
   }
-  // GPSSTATISTICS (no direct macro in header at provided lines; keep numeric or define if available)
+  // GPSSTATISTICS (extended telemetry)
   {
-    CommandDescriptor d; d.id = 166; d.name = "MSP_GPSSTATISTICS"; d.poll_rate_hz = 1.0; d.build_request_cb = [=](){ return buildPacketRaw(166, {}); }; regs.push_back(d);
+    CommandDescriptor d; d.id = MSP_GPSSTATISTICS; d.name = "MSP_GPSSTATISTICS"; d.poll_rate_hz = 1.0; d.build_request_cb = [=](){ return buildPacketRaw(static_cast<uint8_t>(MSP_GPSSTATISTICS), {}); }; regs.push_back(d);
   }
   
   // V2 Rangefinder sensor (example of MSP v2 16-bit command)

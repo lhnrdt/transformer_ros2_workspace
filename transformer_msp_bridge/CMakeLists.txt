@@ -202,6 +202,13 @@ if(BUILD_TESTING)
   if(TARGET test_crc)
     target_link_libraries(test_crc msp_protocol)
   endif()
+
+  ament_add_gtest(test_msp_registry
+    test/test_msp_registry.cpp)
+  if(TARGET test_msp_registry)
+    target_link_libraries(test_msp_registry msp_protocol)
+    ament_target_dependencies(test_msp_registry rclcpp)
+  endif()
 endif()
 
 ament_package()

@@ -1,4 +1,5 @@
 #include "transformer_msp_bridge/decoders/sensor_decoder.hpp"
+#include "msp/msp_protocol_v2_sensor.h" // MSP2_SENSOR_RANGEFINDER, COMPASS, BAROMETER
 #include <cstring>
 
 namespace transformer_msp_bridge {
@@ -10,15 +11,15 @@ SensorDecoder::SensorDecoder(rclcpp::Node &node, bool debug): debug_(debug) {
 }
 
 bool SensorDecoder::matches(uint16_t command_id) const {
-  return command_id == 0x1F01 || command_id == 0x1F04 || command_id == 0x1F05; // MSP2 sensor IDs
+  return command_id == MSP2_SENSOR_RANGEFINDER || command_id == MSP2_SENSOR_COMPASS || command_id == MSP2_SENSOR_BAROMETER;
 }
 
 std::string SensorDecoder::name() const { return "sensor"; }
 
 void SensorDecoder::decode(const MSPPacket &pkt) {
-  if (pkt.cmd == 0x1F01) decodeRangefinder(pkt);
-  else if (pkt.cmd == 0x1F04) decodeCompass(pkt);
-  else if (pkt.cmd == 0x1F05) decodeBarometer(pkt);
+  if (pkt.cmd == MSP2_SENSOR_RANGEFINDER) decodeRangefinder(pkt);
+  else if (pkt.cmd == MSP2_SENSOR_COMPASS) decodeCompass(pkt);
+  else if (pkt.cmd == MSP2_SENSOR_BAROMETER) decodeBarometer(pkt);
 }
 
 template<typename T>
