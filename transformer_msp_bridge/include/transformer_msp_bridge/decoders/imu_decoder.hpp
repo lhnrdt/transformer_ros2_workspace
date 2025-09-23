@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "transformer_msp_bridge/msp_protocol.hpp"
 #include <rclcpp/rclcpp.hpp>
