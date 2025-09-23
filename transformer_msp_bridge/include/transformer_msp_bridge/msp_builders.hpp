@@ -11,7 +11,7 @@ namespace transformer_msp_bridge {
 
 std::vector<uint8_t> buildPacket(uint8_t cmd, const std::vector<uint16_t>& rc_values);
 std::vector<uint8_t> buildPacketRaw(uint8_t cmd, const std::vector<uint8_t>& payload);
-std::vector<uint8_t> buildPacketV2(uint16_t cmd, const std::vector<uint8_t>& payload, uint8_t flags = 0);
-std::vector<uint8_t> buildPacketV2OverV1(uint16_t cmd, const std::vector<uint8_t>& payload, uint8_t flags = 0);
+std::vector<uint8_t> buildPacketV2(uint16_t command, const std::vector<uint8_t>& payload, uint8_t flags = 0);
+std::vector<uint8_t> buildPacketV2OverV1(uint16_t command, const std::vector<uint8_t>& payload, uint8_t flags = 0);
 
 } // namespace transformer_msp_bridge

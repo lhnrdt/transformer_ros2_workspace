@@ -71,7 +71,6 @@ private:
   uint8_t v2_crc_recv_{0};
   void emitV1();
   void emitV2();
-  static uint8_t crc8_dvb_s2_update(uint8_t crc, uint8_t data);
   void handleTunneledV2();
   std::vector<uint8_t> frame_bytes_;
   MSPParserStats stats_{};

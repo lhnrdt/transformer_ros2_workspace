@@ -32,6 +32,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../external/inav/src/main)
 add_library(msp_protocol
   src/msp_parser.cpp
   src/msp_builders.cpp
+  src/crc.cpp
   src/msp_registry.cpp
 )
 ament_target_dependencies(msp_protocol rclcpp)
@@ -178,6 +179,12 @@ if(BUILD_TESTING)
   if(TARGET test_msp_parser)
     target_link_libraries(test_msp_parser msp_protocol)
     ament_target_dependencies(test_msp_parser rclcpp)
+  endif()
+
+  ament_add_gtest(test_crc
+    test/test_crc.cpp)
+  if(TARGET test_crc)
+    target_link_libraries(test_crc msp_protocol)
   endif()
 endif()
 
