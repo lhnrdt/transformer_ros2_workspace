@@ -44,8 +44,8 @@ target_compile_features(serial_port PUBLIC cxx_std_17)
 
 add_executable(transformer_msp_bridge_node
   src/transformer_msp_bridge_node.cpp
-  src/battery_decoder.cpp
-  src/system_decoder.cpp
+  src/decoders/battery_decoder.cpp
+  src/decoders/system_decoder.cpp
 )
 target_link_libraries(transformer_msp_bridge_node msp_protocol serial_port)
 ament_target_dependencies(transformer_msp_bridge_node rclcpp std_msgs geometry_msgs sensor_msgs diagnostic_msgs)
