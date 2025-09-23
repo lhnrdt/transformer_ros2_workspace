@@ -1,6 +1,6 @@
 #pragma once
 
-#include "transformer_msp_bridge/msp_protocol.hpp"
+#include "transformer_msp_bridge/msp_parser.hpp"
 #include "transformer_msp_bridge/decoder_base.hpp"
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/float32.hpp>

@@ -1,7 +1,7 @@
 #pragma once
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/u_int16_multi_array.hpp>
-#include "transformer_msp_bridge/msp_protocol.hpp"
+#include "transformer_msp_bridge/msp_parser.hpp"
 #include "transformer_msp_bridge/decoder_base.hpp"
 namespace transformer_msp_bridge {
 class RcDecoder : public IMspDecoder {

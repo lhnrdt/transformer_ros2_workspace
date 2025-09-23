@@ -2,7 +2,7 @@
 #include <rclcpp/rclcpp.hpp>
 #include <diagnostic_msgs/msg/diagnostic_array.hpp>
 #include <diagnostic_msgs/msg/diagnostic_status.hpp>
-#include "transformer_msp_bridge/msp_protocol.hpp"
+#include "transformer_msp_bridge/msp_parser.hpp"
 #include "transformer_msp_bridge/decoder_base.hpp"
 namespace transformer_msp_bridge {
 class SystemDecoder : public IMspDecoder {

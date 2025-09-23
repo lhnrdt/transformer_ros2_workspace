@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <rclcpp/rclcpp.hpp>
-#include "transformer_msp_bridge/msp_protocol.hpp"
+#include "transformer_msp_bridge/msp_parser.hpp"
 #include "transformer_msp_bridge/decoders/inav_status_decoder.hpp"
 #include "transformer_msp_bridge/msg/msp_inav_status.hpp"
 

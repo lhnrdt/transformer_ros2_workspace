@@ -30,7 +30,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../external/inav/src/main)
 
 add_library(msp_protocol
-  src/msp_protocol.cpp
+  src/msp_parser.cpp
+  src/msp_builders.cpp
   src/msp_registry.cpp
 )
 ament_target_dependencies(msp_protocol rclcpp)
@@ -170,6 +171,13 @@ if(BUILD_TESTING)
   if(TARGET test_system_decoder_extended)
     target_link_libraries(test_system_decoder_extended ${PROJECT_NAME}_decoders msp_protocol)
     ament_target_dependencies(test_system_decoder_extended rclcpp diagnostic_msgs)
+  endif()
+
+  ament_add_gtest(test_msp_parser
+    test/test_msp_parser.cpp)
+  if(TARGET test_msp_parser)
+    target_link_libraries(test_msp_parser msp_protocol)
+    ament_target_dependencies(test_msp_parser rclcpp)
   endif()
 endif()
 

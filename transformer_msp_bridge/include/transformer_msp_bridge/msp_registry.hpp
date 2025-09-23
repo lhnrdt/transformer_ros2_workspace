@@ -5,7 +5,7 @@
 #include <vector>
 #include <functional>
 
-#include "transformer_msp_bridge/msp_protocol.hpp" // for MSPPacket
+#include "transformer_msp_bridge/msp_parser.hpp" // for MSPPacket
 
 namespace transformer_msp_bridge {
 

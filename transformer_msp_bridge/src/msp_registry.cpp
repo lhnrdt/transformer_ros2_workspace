@@ -1,4 +1,5 @@
 #include "transformer_msp_bridge/msp_registry.hpp"
+#include "transformer_msp_bridge/msp_builders.hpp" // buildPacketRaw / buildPacketV2
 #include "msp/msp_protocol.h" // external constants (v1 IDs)
 #include "msp/msp_protocol_v2_sensor.h" // v2 sensor IDs
 

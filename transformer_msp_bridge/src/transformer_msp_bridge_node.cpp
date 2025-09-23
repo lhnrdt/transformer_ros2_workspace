@@ -7,7 +7,8 @@
 #include <diagnostic_msgs/msg/diagnostic_status.hpp>
 
 #include "transformer_msp_bridge/serial_port.hpp"
-#include "transformer_msp_bridge/msp_protocol.hpp"
+#include "transformer_msp_bridge/msp_parser.hpp"
+#include "transformer_msp_bridge/msp_builders.hpp"
 #include "transformer_msp_bridge/msp_registry.hpp"
 
 #include "transformer_msp_bridge/decoders/imu_decoder.hpp"

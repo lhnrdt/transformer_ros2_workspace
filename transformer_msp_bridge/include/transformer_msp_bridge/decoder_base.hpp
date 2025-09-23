@@ -2,7 +2,7 @@
 
 #include <string>
 #include <cstdint>
-#include "transformer_msp_bridge/msp_protocol.hpp"
+#include "transformer_msp_bridge/msp_parser.hpp" // MSPPacket
 
 namespace transformer_msp_bridge {
 
