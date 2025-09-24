@@ -15,8 +15,12 @@ find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(diagnostic_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
+find_package(ament_index_cpp REQUIRED)
 
 include_directories(include)
+
+# YAML runtime loader
+find_package(yaml-cpp REQUIRED)
 
 set(MSG_FILES
   "msg/MspInavStatus.msg"
@@ -34,9 +38,11 @@ add_library(msp_protocol
   src/msp_builders.cpp
   src/crc.cpp
   src/msp_utils.cpp
+  src/registry_loader.cpp
   src/msp_registry.cpp
 )
-ament_target_dependencies(msp_protocol rclcpp)
+ament_target_dependencies(msp_protocol rclcpp ament_index_cpp)
+target_link_libraries(msp_protocol yaml-cpp)
 target_compile_features(msp_protocol PUBLIC cxx_std_17)
 target_include_directories(msp_protocol PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../external/inav/src/main)
 
@@ -55,6 +61,7 @@ add_library(${PROJECT_NAME}_decoders
   src/decoders/altitude_decoder.cpp
   src/decoders/inav_status_decoder.cpp
   src/decoders/sensor_decoder.cpp
+  src/decoders/inav_generic_decoder.cpp
   src/decoders/servo_motor_decoder.cpp
 )
 target_link_libraries(${PROJECT_NAME}_decoders msp_protocol)
@@ -76,30 +83,21 @@ rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typ
 target_link_libraries(transformer_msp_bridge_node ${cpp_typesupport_target})
 add_dependencies(transformer_msp_bridge_node ${PROJECT_NAME}__cpp)
 target_compile_features(transformer_msp_bridge_node PUBLIC cxx_std_17)
-
-# Registry dump generator tool (not installed by default)
-add_executable(registry_dump
-  src/registry_dump.cpp
+# CLI probe utility
+add_executable(msp_probe
+  src/msp_probe.cpp
 )
-target_link_libraries(registry_dump msp_protocol)
-target_compile_features(registry_dump PUBLIC cxx_std_17)
+target_link_libraries(msp_probe msp_protocol serial_port)
+target_compile_features(msp_probe PUBLIC cxx_std_17)
 
-# Custom target to regenerate REGISTRY.md in source tree (opt-in)
-add_custom_command(
-  OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/REGISTRY.md
-  COMMAND registry_dump ${CMAKE_CURRENT_SOURCE_DIR}/REGISTRY.md
-  DEPENDS registry_dump msp_protocol
-  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-  COMMENT "Regenerating REGISTRY.md from compiled registry"
-  VERBATIM)
-add_custom_target(generate_registry_md DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/REGISTRY.md)
+
 
 install(TARGETS msp_protocol serial_port ${PROJECT_NAME}_decoders
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)
 
-install(TARGETS transformer_msp_bridge_node
+install(TARGETS transformer_msp_bridge_node msp_probe
   RUNTIME DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY include/${PROJECT_NAME}/
@@ -225,6 +223,25 @@ if(BUILD_TESTING)
   if(TARGET test_msp_registry)
     target_link_libraries(test_msp_registry msp_protocol)
     ament_target_dependencies(test_msp_registry rclcpp)
+  endif()
+
+  # Ensure decoder coverage for default-polled v1 commands (YAML-only, no ROS init)
+  ament_add_gtest(test_decoder_coverage
+    test/test_decoder_coverage.cpp)
+  if(TARGET test_decoder_coverage)
+    target_link_libraries(test_decoder_coverage yaml-cpp)
+    ament_target_dependencies(test_decoder_coverage ament_index_cpp)
+  endif()
+
+  # (Removed) Legacy FC probe test superseded by test_msp_probe_cli
+
+  # Probe integrated test: iterate default-polled commands directly (no external executable).
+  ament_add_gtest(test_msp_probe
+    test/test_msp_probe.cpp)
+  if(TARGET test_msp_probe)
+    target_compile_features(test_msp_probe PUBLIC cxx_std_17)
+    target_link_libraries(test_msp_probe msp_protocol serial_port)
+    ament_target_dependencies(test_msp_probe rclcpp)
   endif()
 endif()
 

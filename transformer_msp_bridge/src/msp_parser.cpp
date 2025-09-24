@@ -94,7 +94,11 @@ void MSPParser::handleTunneledV2() {
   const size_t cmd_index = 1;    // little-endian 2 bytes
   const size_t len_index = 3;    // little-endian 2 bytes
   const size_t header_size = 5;  // flags + cmd(2) + len(2)
-  uint16_t inner_len = readUint16LE(payload_buffer_, len_index);
+  uint16_t inner_len = 0;
+  if (!readU16LE(payload_buffer_, len_index, inner_len)) {
+    emitV1();
+    return;
+  }
   const size_t expected_total = header_size + inner_len + 1;  // +crc
   if (payload_buffer_.size() != expected_total) {
     emitV1();
@@ -112,7 +116,14 @@ void MSPParser::handleTunneledV2() {
   pkt.version = MSPVersion::V2;
   pkt.tunneled = true;
   pkt.flags = payload_buffer_[flags_index];
-  pkt.cmd = readUint16LE(payload_buffer_, cmd_index);
+  {
+    uint16_t cmd_le = 0;
+    if (!readU16LE(payload_buffer_, cmd_index, cmd_le)) {
+      emitV1();
+      return;
+    }
+    pkt.cmd = cmd_le;
+  }
   pkt.payload.assign(payload_buffer_.begin() + header_size, payload_buffer_.begin() + header_size + inner_len);
   if (cb_)
     cb_(pkt);

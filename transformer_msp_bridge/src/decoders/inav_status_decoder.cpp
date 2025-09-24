@@ -2,18 +2,26 @@
 
 namespace transformer_msp_bridge {
 
-InavStatusDecoder::InavStatusDecoder(rclcpp::Node &node, bool debug): debug_(debug) {
+InavStatusDecoder::InavStatusDecoder(rclcpp::Node& node, bool debug) : debug_(debug) {
   pub_ = node.create_publisher<transformer_msp_bridge::msg::MspInavStatus>("/msp/inav_status", 10);
 }
 
-bool InavStatusDecoder::matches(uint16_t command_id) const { return command_id == MSP2_INAV_STATUS; }
-std::string InavStatusDecoder::name() const { return "inav_status"; }
+bool InavStatusDecoder::matches(uint16_t command_id) const {
+  return command_id == MSP2_INAV_STATUS;
+}
+std::string InavStatusDecoder::name() const {
+  return "inav_status";
+}
 
-void InavStatusDecoder::decode(const MSPPacket &pkt) {
-  if (pkt.cmd != MSP2_INAV_STATUS) return;
-  if (pkt.payload.size() < 2+2+2+2+1+4+1) return;
-  const uint8_t *p = pkt.payload.data();
-  auto rd16 = [&](size_t off){ return (uint16_t)(p[off] | (p[off+1] << 8)); };
+void InavStatusDecoder::decode(const MSPPacket& pkt) {
+  if (pkt.cmd != MSP2_INAV_STATUS)
+    return;
+  if (pkt.payload.size() < 2 + 2 + 2 + 2 + 1 + 4 + 1)
+    return;
+  const uint8_t* p = pkt.payload.data();
+  auto rd16 = [&](size_t off) {
+    return (uint16_t)(p[off] | (p[off + 1] << 8));
+  };
   uint16_t cycleTime = rd16(0);
   uint16_t i2cErrors = rd16(2);
   uint16_t sensorStatus = rd16(4);
@@ -21,7 +29,8 @@ void InavStatusDecoder::decode(const MSPPacket &pkt) {
   uint8_t profileAndBatt = p[8];
   uint32_t armingFlags = (uint32_t)p[9] | ((uint32_t)p[10] << 8) | ((uint32_t)p[11] << 16) | ((uint32_t)p[12] << 24);
   size_t activeModesStart = 13;
-  if (pkt.payload.size() <= activeModesStart) return;
+  if (pkt.payload.size() <= activeModesStart)
+    return;
   size_t mixerProfilePos = pkt.payload.size() - 1;
   uint8_t mixerProfile = pkt.payload[mixerProfilePos];
   size_t activeModesLen = mixerProfilePos - activeModesStart;
@@ -35,13 +44,17 @@ void InavStatusDecoder::decode(const MSPPacket &pkt) {
   msg.mixer_profile = mixerProfile;
   msg.arming_flags = armingFlags;
   if (activeModesLen > 0) {
-    msg.active_modes.assign(pkt.payload.begin() + activeModesStart, pkt.payload.begin() + activeModesStart + activeModesLen);
+    msg.active_modes.assign(pkt.payload.begin() + activeModesStart,
+                            pkt.payload.begin() + activeModesStart + activeModesLen);
   }
   pub_->publish(msg);
   if (debug_ && !logged_) {
-    RCLCPP_INFO(rclcpp::get_logger("InavStatusDecoder"), "INAV_STATUS: cycle=%u cpu=%u%% i2c=%u sensorMask=0x%04X modes=%zu profile=%u batt=%u mixer=%u", cycleTime, cpuLoad, i2cErrors, sensorStatus, activeModesLen, (unsigned)(profileAndBatt & 0x0F), (unsigned)((profileAndBatt >> 4) & 0x0F), mixerProfile);
+    RCLCPP_INFO(rclcpp::get_logger("InavStatusDecoder"),
+                "INAV_STATUS: cycle=%u cpu=%u%% i2c=%u sensorMask=0x%04X modes=%zu profile=%u batt=%u mixer=%u",
+                cycleTime, cpuLoad, i2cErrors, sensorStatus, activeModesLen, (unsigned)(profileAndBatt & 0x0F),
+                (unsigned)((profileAndBatt >> 4) & 0x0F), mixerProfile);
     logged_ = true;
   }
 }
 
-} // namespace transformer_msp_bridge
+}  // namespace transformer_msp_bridge

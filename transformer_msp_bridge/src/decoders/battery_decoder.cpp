@@ -1,26 +1,29 @@
 #include "transformer_msp_bridge/decoders/battery_decoder.hpp"
 #include <limits>
+#include "transformer_msp_bridge/msp_registry.hpp"
 
 namespace transformer_msp_bridge {
 
-void BatteryDecoder::decodeAnalog(const MSPPacket &pkt) {
-  if (pkt.payload.size() < 1) {
+void BatteryDecoder::decodeAnalog(const MSPPacket& pkt) {
+  if (pkt.cmd != MSP_ANALOG)
     return;
-  }
-
-  uint8_t vbat_raw = pkt.payload[0];
-  float voltage = vbat_raw / 10.0f;
-
   sensor_msgs::msg::BatteryState b;
-  b.voltage = voltage;
-  b.present = true;
-  b.percentage = std::numeric_limits<float>::quiet_NaN();
-  b.current = std::numeric_limits<float>::quiet_NaN();
-  b.charge = std::numeric_limits<float>::quiet_NaN();
-  analog_pub_->publish(b);
+  bool published = false;
+  if (!pkt.payload.empty()) {
+    uint8_t vbat_deciv = pkt.payload[0];
+    b.voltage = vbat_deciv / 10.0f;
+    published = true;
+  }
+  if (published) {
+    b.present = true;
+    b.percentage = std::numeric_limits<float>::quiet_NaN();
+    b.current = std::numeric_limits<float>::quiet_NaN();
+    b.charge = std::numeric_limits<float>::quiet_NaN();
+    analog_pub_->publish(b);
+  }
 }
 
-void BatteryDecoder::decodeBatteryState(const MSPPacket &pkt) {
+void BatteryDecoder::decodeBatteryState(const MSPPacket& pkt) {
   if (pkt.payload.size() < 1) {
     return;
   }
@@ -30,7 +33,8 @@ void BatteryDecoder::decodeBatteryState(const MSPPacket &pkt) {
     return o < pkt.payload.size() ? pkt.payload[o] : 0;
   };
   auto rd16 = [&](size_t o) -> uint16_t {
-    if (pkt.payload.size() < o + 2) return 0;
+    if (pkt.payload.size() < o + 2)
+      return 0;
     return static_cast<uint16_t>(pkt.payload[o] | (pkt.payload[o + 1] << 8));
   };
 
@@ -66,4 +70,4 @@ void BatteryDecoder::decodeBatteryState(const MSPPacket &pkt) {
   extended_pub_->publish(b);
 }
 
-} // namespace transformer_msp_bridge
+}  // namespace transformer_msp_bridge

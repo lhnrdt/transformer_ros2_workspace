@@ -1,9 +1,150 @@
 #include "transformer_msp_bridge/msp_registry.hpp"
+#include <cstddef>
+#include <stdexcept>
 #include "msp/msp_protocol.h"                       // external constants (v1 IDs)
 #include "msp/msp_protocol_v2_sensor.h"             // v2 sensor IDs
 #include "transformer_msp_bridge/msp_builders.hpp"  // buildPacketRaw / buildPacketV2
+#include "transformer_msp_bridge/msp_utils.hpp"     // LE readers for validators
+#include "transformer_msp_bridge/registry_loader.hpp"
 
 namespace transformer_msp_bridge {
+
+namespace {
+// Schema helpers implementation
+static inline std::size_t field_type_size(FieldType t) {
+  switch (t) {
+    case FieldType::U8:
+    case FieldType::I8:
+      return 1;
+    case FieldType::U16:
+    case FieldType::I16:
+      return 2;
+    case FieldType::U32:
+    case FieldType::I32:
+      return 4;
+    default:
+      return 0;
+  }
+}
+
+static bool read_primitive(FieldType t, const std::vector<uint8_t>& p, std::size_t off, double scale, double& out_val) {
+  switch (t) {
+    case FieldType::U8: {
+      uint8_t v;
+      if (!readU8(p, off, v))
+        return false;
+      out_val = static_cast<double>(v) * scale;
+      return true;
+    }
+    case FieldType::I8: {
+      int8_t v;
+      if (!readI8(p, off, v))
+        return false;
+      out_val = static_cast<double>(v) * scale;
+      return true;
+    }
+    case FieldType::U16: {
+      uint16_t v;
+      if (!readU16LE(p, off, v))
+        return false;
+      out_val = static_cast<double>(v) * scale;
+      return true;
+    }
+    case FieldType::I16: {
+      int16_t v;
+      if (!readI16LE(p, off, v))
+        return false;
+      out_val = static_cast<double>(v) * scale;
+      return true;
+    }
+    case FieldType::U32: {
+      uint32_t v;
+      if (!readU32LE(p, off, v))
+        return false;
+      out_val = static_cast<double>(v) * scale;
+      return true;
+    }
+    case FieldType::I32: {
+      int32_t v;
+      if (!readI32LE(p, off, v))
+        return false;
+      out_val = static_cast<double>(v) * scale;
+      return true;
+    }
+  }
+  return false;
+}
+
+}  // namespace
+
+// Implement schema helpers in the transformer_msp_bridge namespace scope
+bool schema_fixed_size_bytes(const ResponseSchema& schema, std::size_t& out_size) {
+  std::size_t total = 0;
+  for (std::size_t i = 0; i < schema.count; ++i) {
+    const FieldSpec& f = schema.fields[i];
+    const std::size_t elem = field_type_size(f.type);
+    if (elem == 0 || f.repeat == 0)
+      return false;
+    if (total > SIZE_MAX / elem)
+      return false;
+    const std::size_t add = elem * f.repeat;
+    if (total > SIZE_MAX - add)
+      return false;
+    total += add;
+  }
+  out_size = total;
+  return true;
+}
+
+bool parse_to_flat_list(const ResponseSchema& schema, const std::vector<uint8_t>& payload,
+                        std::vector<double>& out_values, std::vector<std::string>* out_names, std::string* err) {
+  std::size_t need = 0;
+  if (!schema_fixed_size_bytes(schema, need)) {
+    if (err)
+      *err = "invalid schema";
+    return false;
+  }
+  if (payload.size() < need) {
+    if (err)
+      *err = "payload too short for schema";
+    return false;
+  }
+  out_values.clear();
+  if (out_names)
+    out_names->clear();
+  std::size_t off = 0;
+  for (std::size_t i = 0; i < schema.count; ++i) {
+    const FieldSpec& f = schema.fields[i];
+    const std::size_t elem_size = field_type_size(f.type);
+    for (std::size_t r = 0; r < f.repeat; ++r) {
+      double v{};
+      if (!read_primitive(f.type, payload, off, f.scale, v)) {
+        if (err)
+          *err = "failed to read field";
+        return false;
+      }
+      out_values.push_back(v);
+      if (out_names) {
+        if (f.repeat == 1) {
+          out_names->emplace_back(f.name);
+        } else {
+          out_names->emplace_back(std::string(f.name) + "[" + std::to_string(r) + "]");
+        }
+      }
+      off += elem_size;
+    }
+  }
+  return true;
+}
+
+// Public helper: find descriptor by id
+const CommandDescriptor* find_descriptor(uint16_t id) {
+  auto view = get_default_registry();
+  for (std::size_t i = 0; i < view.size; ++i)
+    if (view.data[i].id == id)
+      return &view.data[i];
+  return nullptr;
+}
 
 namespace {
 
@@ -43,53 +184,28 @@ template <uint16_t Id>
 std::vector<uint8_t> build_v2() {
   return buildPacketV2(Id, {}, 0);
 }
+template <uint16_t Id>
+std::vector<uint8_t> build_v2_sensor() {
+  return buildPacketV2(Id, {}, 0);
+}
 
-// NOTE: If you add or remove entries:
-// 1. Update tests referencing kDefaultRegistrySize.
-// 2. Keep ordering stable (used by deterministic polling parameter mapping).
-// 3. Ensure ID is defined in external headers (do NOT locally invent IDs).
-// 4. No requires_v2 field to set; MSPv2 is inferred by (id > 255).
-
-// clang-format off
-static constexpr CommandDescriptor kRegistry[] = {
-  // ---- MSPv1 Core Telemetry ----
-  {MSP_RAW_IMU,          "MSP_RAW_IMU",          50.0, &build_v1<MSP_RAW_IMU>},
-  {MSP_SERVO,            "MSP_SERVO",            10.0, &build_v1<MSP_SERVO>},
-  {MSP_MOTOR,            "MSP_MOTOR",            10.0, &build_v1<MSP_MOTOR>},
-  {MSP_RC,               "MSP_RC",                5.0, &build_v1<MSP_RC>},
-  {MSP_RAW_GPS,          "MSP_RAW_GPS",           5.0, &build_v1<MSP_RAW_GPS>},
-  {MSP_COMP_GPS,         "MSP_COMP_GPS",          2.0, &build_v1<MSP_COMP_GPS>},
-  {MSP_ATTITUDE,         "MSP_ATTITUDE",         10.0, &build_v1<MSP_ATTITUDE>},
-  {MSP_ALTITUDE,         "MSP_ALTITUDE",          5.0, &build_v1<MSP_ALTITUDE>},
-  {MSP_ANALOG,           "MSP_ANALOG",            2.0, &build_v1<MSP_ANALOG>},
-  {MSP_RC_TUNING,        "MSP_RC_TUNING",         0.2, &build_v1<MSP_RC_TUNING>},
-  {MSP_BATTERY_STATE,    "MSP_BATTERY_STATE",     1.0, &build_v1<MSP_BATTERY_STATE>},
-  {MSP_RTC,              "MSP_RTC",               0.5, &build_v1<MSP_RTC>},
-  {MSP_STATUS,           "MSP_STATUS",            2.0, &build_v1<MSP_STATUS>},
-  {MSP_SENSOR_CONFIG,    "MSP_SENSOR_CONFIG",     2.0, &build_v1<MSP_SENSOR_CONFIG>},
-  {MSP_GPSSTATISTICS,    "MSP_GPSSTATISTICS",     1.0, &build_v1<MSP_GPSSTATISTICS>},
-  // ---- MSPv2 Sensors ----
-  {MSP2_SENSOR_RANGEFINDER,  "MSP2_SENSOR_RANGEFINDER", 5.0, &build_v2<MSP2_SENSOR_RANGEFINDER>},
-  {MSP2_SENSOR_COMPASS,      "MSP2_SENSOR_COMPASS",     5.0, &build_v2<MSP2_SENSOR_COMPASS>},
-  {MSP2_SENSOR_BAROMETER,    "MSP2_SENSOR_BAROMETER",   5.0, &build_v2<MSP2_SENSOR_BAROMETER>},
-  {MSP2_INAV_STATUS,         "MSP2_INAV_STATUS",        2.0, &build_v2<MSP2_INAV_STATUS>},
-  {MSP2_INAV_ANALOG,         "MSP2_INAV_ANALOG",        2.0, &build_v2<MSP2_INAV_ANALOG>},
-  {MSP2_INAV_BATTERY_CONFIG, "MSP2_INAV_BATTERY_CONFIG",0.05,&build_v2<MSP2_INAV_BATTERY_CONFIG>},
-  {MSP2_INAV_AIR_SPEED,      "MSP2_INAV_AIR_SPEED",     5.0, &build_v2<MSP2_INAV_AIR_SPEED>},
-  {MSP2_INAV_TEMPERATURES,   "MSP2_INAV_TEMPERATURES",  1.0, &build_v2<MSP2_INAV_TEMPERATURES>},
-  {MSP2_INAV_ESC_RPM,        "MSP2_INAV_ESC_RPM",       5.0, &build_v2<MSP2_INAV_ESC_RPM>},
-  {MSP2_COMMON_SETTING,      "MSP2_COMMON_SETTING",     0.0, &build_v2<MSP2_COMMON_SETTING>},
-  {MSP2_COMMON_SET_SETTING,  "MSP2_COMMON_SET_SETTING", 0.0, &build_v2<MSP2_COMMON_SET_SETTING>},
-};
-// clang-format on
+// Runtime registry: loaded from YAML at first use. No fallback.
+static const RuntimeRegistry& runtime_registry() {
+  static const RuntimeRegistry rr = [] {
+    const std::string path = resolve_default_registry_yaml_path();
+    if (path.empty()) {
+      throw std::runtime_error("No registry.yaml found (and no TRANSFORMER_MSP_REGISTRY_YAML set)");
+    }
+    return RuntimeRegistry::from_yaml_file(path);
+  }();
+  return rr;
+}
 
 }  // namespace
 
-// Size accessor now provided inline in header (kDefaultRegistrySize). Ensure header value matches array length.
-static_assert(kDefaultRegistrySize() == (sizeof(kRegistry) / sizeof(kRegistry[0])), "kDefaultRegistrySize mismatch");
-
 RegistryView get_default_registry() {
-  return RegistryView{kRegistry, kDefaultRegistrySize()};
+  const auto& rr = runtime_registry();
+  return rr.view();
 }
 
 // Static validation (runtime asserts via if constexpr style not available; manually check uniqueness at startup if desired)
@@ -105,7 +221,8 @@ constexpr bool ids_unique(const CommandDescriptor (&arr)[N]) {
   return true;
 }
 
-static_assert(ids_unique(kRegistry), "Duplicate MSP command id detected in registry");
+// NOTE: Can't static_assert uniqueness with non-constexpr std::function in runtime registry.
+// Consider adding a runtime check in debug builds if needed.
 // No explicit requires_v2 field anymore; correctness is implicit via CommandDescriptor::is_v2().
 
 }  // namespace transformer_msp_bridge

@@ -17,6 +17,7 @@
 #include "transformer_msp_bridge/decoders/battery_decoder.hpp"
 #include "transformer_msp_bridge/decoders/gps_decoder.hpp"
 #include "transformer_msp_bridge/decoders/imu_decoder.hpp"
+#include "transformer_msp_bridge/decoders/inav_generic_decoder.hpp"
 #include "transformer_msp_bridge/decoders/inav_status_decoder.hpp"
 #include "transformer_msp_bridge/decoders/rc_decoder.hpp"
 #include "transformer_msp_bridge/decoders/sensor_decoder.hpp"
@@ -71,6 +72,7 @@ class MSPBridgeNode : public rclcpp::Node {
     decoder_registry_.add(std::unique_ptr<IMspDecoder>(new ServoMotorDecoder(*this)));
     decoder_registry_.add(std::unique_ptr<IMspDecoder>(new SensorDecoder(*this, debug_msp_)));
     decoder_registry_.add(std::unique_ptr<IMspDecoder>(new InavStatusDecoder(*this, debug_msp_)));
+    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new InavGenericDecoder(*this)));
     decoder_registry_.add(std::unique_ptr<IMspDecoder>(new AttitudeDecoder(*this)));
     decoder_registry_.add(std::unique_ptr<IMspDecoder>(new RcDecoder(*this, std::string("/msp/rc_in"))));
     decoder_registry_.add(std::unique_ptr<IMspDecoder>(new SystemDecoder(*this)));
