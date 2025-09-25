@@ -1,354 +1,520 @@
-// Clean lgpio-only implementation controlling two servos via lgTxServo
+// Single-channel servo controller node (currently one logical channel exposed).
+// Adds support for per-channel mechanical position offsets (additive pulse microseconds) and
+// an optional startup move (profiled) to apply the offset after powering up at the un-offset position.
 
+#include <cmath>
+#include <memory>
 #include <rclcpp/rclcpp.hpp>
-#include <lgpio.h>
-
-#include <atomic>
+#include <rclcpp_action/rclcpp_action.hpp>
 #include <string>
-#include <algorithm>
-#include <pthread.h>
-#include <sched.h>
-#include <sys/mman.h>
-#include <unistd.h>
-#include <sys/resource.h>
+#include <thread>
 
-// Generated headers
-#include "transformer_hw_servos/srv/set_servo_pulse.hpp"
-#include "transformer_hw_servos/srv/set_dual_servo_pulse.hpp"
+#include "transformer_hw_servos/action/move_servo.hpp"
+#include "transformer_hw_servos/servo_backend.hpp"
 
-class DualServoNode : public rclcpp::Node
-{
-public:
-    using SetServoPulse = transformer_hw_servos::srv::SetServoPulse;
-    using SetDualServoPulse = transformer_hw_servos::srv::SetDualServoPulse;
+#define HARDWARE_US_MIN 400
+#define HARDWARE_US_MAX 2500
+#define HARDWARE_HZ_MIN 40
+#define HARDWARE_HZ_MAX 400
 
-    DualServoNode()
-        : Node("transformer_hw_servos"),
-          gpiochip_name_(this->declare_parameter<std::string>("gpiochip_name", "gpiochip4")),
-          gpio_servo0_(this->declare_parameter<int>("gpio_servo0", 6)),  // GPIO6
-          gpio_servo1_(this->declare_parameter<int>("gpio_servo1", 18)), // GPIO18
-          period_us_(this->declare_parameter<int>("period_us", 20000))   // 50 Hz
+class ServoControllerNode : public rclcpp::Node {
+ public:
+  using MoveServo = transformer_hw_servos::action::MoveServo;
+  using GoalHandleMove = rclcpp_action::ServerGoalHandle<MoveServo>;
+
+  ServoControllerNode() : Node("transformer_hw_servos") {
+    backend_type_ = this->declare_parameter<std::string>("backend_type", "pca9685");
+    period_us_ = this->declare_parameter<int>("period_us", 20000);  // 50Hz default
+    min_us_ = this->declare_parameter<int>("min_us", 1350);
+    max_us_ = this->declare_parameter<int>("max_us", 2500);
+    initial_us_ = this->declare_parameter<int>("initial_us", 1500);
+    // Additive mechanical position offsets (logical -> physical = logical + offset).
+    // Length may be 0..16; we only consume index 0 for now (channel 1).
+    channels_in_use_ = this->declare_parameter<int>("channels_in_use", 1);
+    if (channels_in_use_ < 1)
+      channels_in_use_ = 1;
+    if (channels_in_use_ > 16)
+      channels_in_use_ = 16;
     {
-        // Optional RT and CPU affinity tuning to reduce jitter
-        use_realtime_ = this->declare_parameter<bool>("use_realtime", false);
-        rt_priority_ = this->declare_parameter<int>("rt_priority", 80);
-        lock_memory_ = this->declare_parameter<bool>("lock_memory", true);
-        cpu_affinity_ = this->declare_parameter<int>("cpu_affinity", -1); // -1 disabled
-        // Optional pre-fault buffer to reduce page faults under memory pressure
-        prefault_mb_ = this->declare_parameter<int>("prefault_mb", 0);
-        setup_realtime();
+      auto raw_offsets = this->declare_parameter<std::vector<int64_t>>("position_offsets_us", std::vector<int64_t>{});
+      position_offsets_us_.assign(raw_offsets.begin(), raw_offsets.end());
+      if (position_offsets_us_.size() < static_cast<size_t>(channels_in_use_))
+        position_offsets_us_.resize(channels_in_use_, 0);
+    }
+    // Optional profiled startup move from logical initial pulse (physical without offset) to
+    // physical initial pulse WITH offset. If disabled we apply offset instantly.
+    startup_enable_ = this->declare_parameter<bool>("startup_move.enable", false);
+    startup_speed_ = this->declare_parameter<int>("startup_move.speed_us_per_s", 4000);  // reasonable default
+    startup_accel_ = this->declare_parameter<int>("startup_move.accel_us_per_s2", 0);    // heuristic if 0
+    startup_use_trapezoid_ = this->declare_parameter<bool>("startup_move.use_trapezoid", true);
+    // Trapezoidal profile parameters (optional). If disabled we use constant velocity (current behavior).
+    enable_trapezoid_ =
+        this->declare_parameter<bool>("enable_trapezoid", false);  // default profile flag (can be overridden per-goal)
+    accel_us_per_s2_ = this->declare_parameter<int>("accel_us_per_s2", 0);  // default accel if goal doesn't specify
 
-        // Limits and initial values
-        min_us_global_ = this->declare_parameter<int>("min_us", 1350);
-        max_us_global_ = this->declare_parameter<int>("max_us", 2500);
-        min_us_servo_[0] = this->declare_parameter<int>("min_us_servo0", min_us_global_);
-        min_us_servo_[1] = this->declare_parameter<int>("min_us_servo1", min_us_global_);
-        max_us_servo_[0] = this->declare_parameter<int>("max_us_servo0", max_us_global_);
-        max_us_servo_[1] = this->declare_parameter<int>("max_us_servo1", max_us_global_);
-        // Per-servo start offset in microseconds (0..period)
-        servo_offset_us_[0] = this->declare_parameter<int>("servo_offset_servo0_us", 0);
-        servo_offset_us_[1] = this->declare_parameter<int>("servo_offset_servo1_us", 0);
-        // Number of pulses to send (0=infinite)
-        servo_cycles_ = this->declare_parameter<int>("servo_cycles", 0);
-        // lgpio's lgTxServo supports ~[500, 2500] us. Clamp config to backend limits and warn.
-        const int kBackendMinUs = 500;
-        const int kBackendMaxUs = 2500;
-        auto clamp_to_backend = [&](int &mn, int &mx, const char *label){
-            int old_mn = mn, old_mx = mx;
-            if (mn < kBackendMinUs) mn = kBackendMinUs;
-            if (mx > kBackendMaxUs) mx = kBackendMaxUs;
-            if (mn != old_mn || mx != old_mx)
-            {
-                RCLCPP_WARN(get_logger(),
-                    "%s limits adjusted to backend range [%d,%d] (was [%d,%d])",
-                    label, kBackendMinUs, kBackendMaxUs, old_mn, old_mx);
-            }
-        };
-        clamp_to_backend(min_us_global_, max_us_global_, "global");
-        clamp_to_backend(min_us_servo_[0], max_us_servo_[0], "servo0");
-        clamp_to_backend(min_us_servo_[1], max_us_servo_[1], "servo1");
-        int initial_us = this->declare_parameter<int>("initial_us", 1500);
-        int initial_us_servo0 = this->declare_parameter<int>("initial_us_servo0", initial_us);
-        int initial_us_servo1 = this->declare_parameter<int>("initial_us_servo1", initial_us);
-        pulse_us_[0].store(clampPulse(0, initial_us_servo0));
-        pulse_us_[1].store(clampPulse(1, initial_us_servo1));
+    if (min_us_ < HARDWARE_US_MIN)
+      min_us_ = HARDWARE_US_MIN;
+    if (max_us_ > HARDWARE_US_MAX)
+      max_us_ = HARDWARE_US_MAX;
+    if (min_us_ > max_us_)
+      std::swap(min_us_, max_us_);
 
-    RCLCPP_INFO(get_logger(),
-            "Params: gpiochip=%s, servos=(%d,%d), period_us=%d, freq_hz=%d",
-            gpiochip_name_.c_str(), gpio_servo0_, gpio_servo1_, period_us_,
-            period_us_ > 0 ? (int)(1000000 / period_us_) : 50);
-    RCLCPP_INFO(get_logger(),
-            "Limits: global=[%d,%d], servo0=[%d,%d], servo1=[%d,%d]",
-            min_us_global_, max_us_global_, min_us_servo_[0], max_us_servo_[0],
-            min_us_servo_[1], max_us_servo_[1]);
-    RCLCPP_INFO(get_logger(),
-            "Initial: servo0=%d(us)->%d(us), servo1=%d(us)->%d(us)",
-            initial_us_servo0, pulse_us_[0].load(), initial_us_servo1, pulse_us_[1].load());
-
-        // Open chip and claim outputs via lgpio
-        int chip_index = parseChipIndex(gpiochip_name_);
-        lg_handle_ = lgGpiochipOpen(chip_index);
-        if (lg_handle_ < 0)
-        {
-            RCLCPP_FATAL(get_logger(), "lgpio: Failed to open %s", gpiochip_name_.c_str());
-            throw std::runtime_error("lgpio open failed");
-        }
-        if (lgGpioClaimOutput(lg_handle_, 0, gpio_servo0_, 0) < 0 ||
-            lgGpioClaimOutput(lg_handle_, 0, gpio_servo1_, 0) < 0)
-        {
-            lgGpiochipClose(lg_handle_);
-            lg_handle_ = -1;
-            throw std::runtime_error("lgpio: Failed to claim GPIO as outputs");
-        }
-
-        // Compute frequency from period and clamp to lgTxServo range [40, 500] Hz
-        freq_hz_ = (period_us_ > 0) ? static_cast<int>(1000000 / period_us_) : 50;
-        int orig_freq = freq_hz_;
-        if (freq_hz_ < 40) { freq_hz_ = 40; }
-        if (freq_hz_ > 500) { freq_hz_ = 500; }
-        if (freq_hz_ != orig_freq)
-        {
-            RCLCPP_WARN(get_logger(), "Requested period %dus implies %d Hz; clamped to %d Hz per lgTxServo",
-                        period_us_, orig_freq, freq_hz_);
-        }
-        // Clamp/normalize offsets against the effective period derived from frequency
-        int effective_period_us = 1000000 / std::max(1, freq_hz_);
-        for (int i = 0; i < 2; ++i)
-        {
-            int old = servo_offset_us_[i];
-            if (servo_offset_us_[i] < 0) servo_offset_us_[i] = 0;
-            if (effective_period_us > 0)
-            {
-                // keep within [0, effective_period_us)
-                if (servo_offset_us_[i] >= effective_period_us)
-                {
-                    servo_offset_us_[i] = servo_offset_us_[i] % effective_period_us;
-                }
-            }
-            if (servo_offset_us_[i] != old)
-            {
-                RCLCPP_WARN(get_logger(), "servo%d offset adjusted to %dus within [0,%d)", i, servo_offset_us_[i], effective_period_us);
-            }
-        }
-        if (servo_cycles_ < 0)
-        {
-            RCLCPP_WARN(get_logger(), "servo_cycles was negative; setting to 0 (infinite)");
-            servo_cycles_ = 0;
-        }
-
-    // Start servo pulses at initial positions (with configured offset and cycles)
-    lgTxServo(lg_handle_, gpio_servo0_, pulse_us_[0].load(), freq_hz_, servo_offset_us_[0], servo_cycles_);
-    lgTxServo(lg_handle_, gpio_servo1_, pulse_us_[1].load(), freq_hz_, servo_offset_us_[1], servo_cycles_);
-
-        // Services for setting pulse widths
-        srv_single_ = this->create_service<SetServoPulse>(
-            "set_servo_pulse",
-            std::bind(&DualServoNode::handleSetPulse, this,
-                      std::placeholders::_1, std::placeholders::_2));
-
-        srv_dual_ = this->create_service<SetDualServoPulse>(
-            "set_dual_servo_pulse",
-            std::bind(&DualServoNode::handleSetDualPulse, this,
-                      std::placeholders::_1, std::placeholders::_2));
-
-    RCLCPP_INFO(get_logger(), "Servos ready on GPIO%d and GPIO%d via lgpio (%s) @ %d Hz; offsets=(%dus,%dus), cycles=%d",
-            gpio_servo0_, gpio_servo1_, gpiochip_name_.c_str(), freq_hz_,
-            servo_offset_us_[0], servo_offset_us_[1], servo_cycles_);
+    freq_hz_ = period_us_ > 0 ? static_cast<int>(1000000 / period_us_) : 50;
+    int orig = freq_hz_;
+    if (freq_hz_ < HARDWARE_HZ_MIN)
+      freq_hz_ = HARDWARE_HZ_MIN;
+    if (freq_hz_ > HARDWARE_HZ_MAX)
+      freq_hz_ = HARDWARE_HZ_MAX;
+    if (freq_hz_ != orig) {
+      RCLCPP_WARN(get_logger(), "Requested frequency %dHz clamped to %dHz", orig, freq_hz_);
     }
 
-    ~DualServoNode() override
-    {
-        // Stop servo pulses (set width 0) then close
-        if (lg_handle_ >= 0)
-        {
-            lgTxServo(lg_handle_, gpio_servo0_, 0, freq_hz_, 0, 0);
-            lgTxServo(lg_handle_, gpio_servo1_, 0, freq_hz_, 0, 0);
-            lgGpiochipClose(lg_handle_);
-            lg_handle_ = -1;
-        }
+    // Store initial logical pulses (user-clamped). Physical pulses (with offset) are applied later.
+    logical_pulses_.assign(channels_in_use_, clampLogical(initial_us_));
+
+    transformer_hw_servos::ServoBackendConfig
+        cfg;  // Provide uniform values; backend may support >1 channels internally.
+    cfg.freq_hz = freq_hz_;
+    // Backend should always be given the true hardware-safe range so that physical values that
+    // exceed the user logical bounds (due to mechanical offsets) are still permitted.
+    cfg.min_us_global = HARDWARE_US_MIN;
+    cfg.max_us_global = HARDWARE_US_MAX;
+    cfg.channels_in_use = channels_in_use_;
+    for (int i = 0; i < channels_in_use_ && i < 16; i++) {
+      cfg.min_us_per_servo[i] = HARDWARE_US_MIN;
+      cfg.max_us_per_servo[i] = HARDWARE_US_MAX;
+      cfg.offset_us[i] = 0;  // backend phase offset (not position offset)
+      cfg.initial_pulse_us[i] = clampHardware(logical_pulses_[i]);
     }
 
-private:
-    void setup_realtime()
-    {
-        if (!use_realtime_)
-            return;
-        // Lock memory to avoid page faults
-        if (lock_memory_)
-        {
-            // Try to raise memlock soft limit to hard limit
-            struct rlimit rlim;
-            if (getrlimit(RLIMIT_MEMLOCK, &rlim) == 0)
-            {
-                struct rlimit newlim = rlim;
-                newlim.rlim_cur = rlim.rlim_max; // raise soft to hard
-                if (setrlimit(RLIMIT_MEMLOCK, &newlim) != 0)
-                {
-                    RCLCPP_WARN(get_logger(), "setrlimit MEMLOCK failed: %m");
-                }
-            }
+    if (backend_type_ == "lgpio")
+      backend_ = transformer_hw_servos::create_lgpio_backend();
+    else if (backend_type_ == "pca9685")
+      backend_ = transformer_hw_servos::create_pca9685_backend();
+    else
+      throw std::runtime_error("Unsupported backend_type: " + backend_type_);
+    if (!backend_->init(cfg))
+      throw std::runtime_error("Backend init failed");
 
-            if (mlockall(MCL_CURRENT | MCL_FUTURE) != 0)
-            {
-                RCLCPP_WARN(get_logger(), "mlockall failed: %m");
-            }
-            // Pre-fault a small buffer if requested
-            if (prefault_mb_ > 0)
-            {
-                size_t bytes = static_cast<size_t>(prefault_mb_) * 1024ULL * 1024ULL;
-                try
-                {
-                    prefault_buffer_.resize(bytes, 0);
-                    // Touch each page
-                    size_t page = static_cast<size_t>(sysconf(_SC_PAGESIZE));
-                    for (size_t i = 0; i < bytes; i += page)
-                    {
-                        prefault_buffer_[i] = static_cast<uint8_t>(i);
-                    }
-                }
-                catch (const std::exception &e)
-                {
-                    RCLCPP_WARN(get_logger(), "prefault allocation failed: %s", e.what());
-                }
-            }
-        }
+    action_server_ = rclcpp_action::create_server<MoveServo>(
+        this, "move_servo",
+        std::bind(&ServoControllerNode::handle_goal, this, std::placeholders::_1, std::placeholders::_2),
+        std::bind(&ServoControllerNode::handle_cancel, this, std::placeholders::_1),
+        std::bind(&ServoControllerNode::handle_accepted, this, std::placeholders::_1));
 
-        // Set SCHED_FIFO priority
-        struct sched_param sp;
-        sp.sched_priority = std::max(1, std::min(99, rt_priority_));
-        int rc = pthread_setschedparam(pthread_self(), SCHED_FIFO, &sp);
-        if (rc != 0)
-        {
-            RCLCPP_WARN(get_logger(), "pthread_setschedparam failed (are you root/cap_sys_nice?): %d", rc);
-        }
+    RCLCPP_INFO(get_logger(), "Servo controller ready backend=%s freq=%dHz channels=%d startup_move=%s",
+                backend_type_.c_str(), freq_hz_, channels_in_use_, startup_enable_ ? "on" : "off");
 
-        // Set CPU affinity if requested
-        if (cpu_affinity_ >= 0)
-        {
-            cpu_set_t set;
-            CPU_ZERO(&set);
-            int cpu = cpu_affinity_ % std::max(1L, sysconf(_SC_NPROCESSORS_ONLN));
-            CPU_SET(cpu, &set);
-            rc = pthread_setaffinity_np(pthread_self(), sizeof(set), &set);
-            if (rc != 0)
-            {
-                RCLCPP_WARN(get_logger(), "pthread_setaffinity_np failed: %d", rc);
-            }
-            else
-            {
-                RCLCPP_INFO(get_logger(), "Bound node thread to CPU %d with SCHED_FIFO prio %d", cpu, sp.sched_priority);
-            }
+    // Optional startup profiled move to apply mechanical offset smoothly.
+    if (startup_enable_) {
+      RCLCPP_INFO(get_logger(), "Startup move enabled: speed=%dus/s accel=%dus/s^2 profile=%s", startup_speed_,
+                  startup_accel_, startup_use_trapezoid_ ? "trapezoid" : "linear");
+      for (int ch = 0; ch < channels_in_use_; ++ch) {
+        int logical_start = logical_pulses_[ch];
+        int offset = get_position_offset(ch);
+        int physical_start = clampHardware(logical_start);  // logical_start already user-clamped
+        int physical_target = clampHardware(logical_start + offset);
+        int distance = physical_target - physical_start;
+        if (physical_target != physical_start) {
+          RCLCPP_INFO(get_logger(),
+                      "Startup ch=%d logical_start=%d offset=%d physical_start=%d physical_target=%d distance=%d",
+                      ch + 1, logical_start, offset, physical_start, physical_target, distance);
+          std::thread(&ServoControllerNode::run_startup_move, this, ch, physical_start, physical_target).detach();
+        } else if (offset != 0) {
+          RCLCPP_INFO(get_logger(), "Startup ch=%d offset=%d instantaneous apply to %d (no distance)", ch + 1, offset,
+                      physical_target);
+          backend_->setPulse(ch, physical_target);
+        } else {
+          RCLCPP_DEBUG(get_logger(), "Startup ch=%d no offset", ch + 1);
         }
+      }
+    } else {
+      for (int ch = 0; ch < channels_in_use_; ++ch) {
+        int offset = get_position_offset(ch);
+        if (offset != 0)
+          backend_->setPulse(ch, clampHardware(logical_pulses_[ch] + offset));
+      }
+    }
+  }
+
+  ~ServoControllerNode() override {
+    if (backend_)
+      backend_->shutdown();
+  }
+
+ private:
+  rclcpp_action::GoalResponse handle_goal(const rclcpp_action::GoalUUID&, std::shared_ptr<const MoveServo::Goal> goal) {
+    if (goal->channels.empty())
+      return rclcpp_action::GoalResponse::REJECT;
+    // Validate uniqueness and bounds
+    std::vector<int32_t> seen;
+    seen.reserve(goal->channels.size());
+    for (auto ch : goal->channels) {
+      if (ch < 1 || ch > channels_in_use_)
+        return rclcpp_action::GoalResponse::REJECT;
+      if (std::find(seen.begin(), seen.end(), ch) != seen.end())
+        return rclcpp_action::GoalResponse::REJECT;
+      seen.push_back(ch);
+    }
+    return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
+  }
+  rclcpp_action::CancelResponse handle_cancel(const std::shared_ptr<GoalHandleMove>&) {
+    return rclcpp_action::CancelResponse::ACCEPT;
+  }
+  void handle_accepted(const std::shared_ptr<GoalHandleMove> gh) {
+    std::thread(&ServoControllerNode::execute_goal, this, gh).detach();
+  }
+
+  void execute_goal(const std::shared_ptr<GoalHandleMove> gh) {
+    auto goal = gh->get_goal();
+    // Normalize and prepare channel list
+    std::vector<int> indices;
+    indices.reserve(goal->channels.size());
+    for (auto ch : goal->channels)
+      indices.push_back(ch - 1);  // convert to 0-based
+    int logical_target = clampLogical(goal->pulse_us);
+    int speed = goal->speed_us_per_s;
+    bool use_trap = goal->use_trapezoid || (!goal->use_trapezoid && enable_trapezoid_);
+    int goal_accel = goal->accel_us_per_s2 > 0 ? goal->accel_us_per_s2 : accel_us_per_s2_;
+
+    struct ChannelState {
+      int logical_start;
+      int physical_start;
+      int physical_target;
+      int offset;
+      double distance;
+      double dir;
+    };
+    std::vector<ChannelState> cs;
+    cs.reserve(indices.size());
+    double worst = 0.0;
+    for (int idx : indices) {
+      int logical_start = logical_pulses_[idx];
+      int offset = get_position_offset(idx);
+      int physical_start = clampHardware(logical_start + offset);
+      int physical_target = clampHardware(logical_target + offset);
+      double dist = static_cast<double>(physical_target - physical_start);
+      double absd = std::abs(dist);
+      worst = std::max(worst, absd);
+      cs.push_back({logical_start, physical_start, physical_target, offset, absd, dist > 0 ? 1.0 : -1.0});
     }
 
-    void handleSetPulse(const SetServoPulse::Request::SharedPtr req,
-                        SetServoPulse::Response::SharedPtr res)
-    {
-        int idx = req->servo_index;
-        if (idx < 0 || idx > 1)
-        {
-            res->success = false;
-            res->message = "servo_index must be 0 or 1";
-            return;
+    if (speed <= 0 || worst < 0.5) {
+      // Instant apply
+      auto res = std::make_shared<MoveServo::Result>();
+      res->success = true;
+      res->message = (worst < 0.5 ? "already at target" : "applied instantly");
+      res->final_pulses_us.resize(indices.size());
+      for (size_t i = 0; i < cs.size(); ++i) {
+        logical_pulses_[indices[i]] = logical_target;
+        backend_->setPulse(indices[i], cs[i].physical_target);
+        res->final_pulses_us[i] = cs[i].physical_target;  // physical value
+      }
+      res->total_estimated_duration_s = 0.0f;
+      gh->succeed(res);
+      return;
+    }
+
+    struct Profile {
+      bool trapezoid{false};
+      bool triangular{false};
+      double accel{0};
+      double cruise{0};
+      double t_accel{0};
+      double t_cruise{0};
+      double total{0};
+    } p;
+    p.trapezoid = use_trap;
+    double est_duration = 0.0;
+    if (!use_trap) {
+      est_duration = worst / speed;
+    } else {
+      p.cruise = speed;
+      p.accel = goal_accel > 0 ? static_cast<double>(goal_accel) : std::max(p.cruise / 0.2, p.cruise * 5.0);
+      p.t_accel = p.cruise / p.accel;
+      double dist_accel = 0.5 * p.accel * p.t_accel * p.t_accel;
+      if (2 * dist_accel >= worst) {
+        p.triangular = true;
+        p.t_accel = std::sqrt(worst / p.accel);
+        p.total = 2 * p.t_accel;
+        est_duration = p.total;
+        p.cruise = p.accel * p.t_accel;
+      } else {
+        double dist_cruise = worst - 2 * dist_accel;
+        p.t_cruise = dist_cruise / p.cruise;
+        p.total = 2 * p.t_accel + p.t_cruise;
+        est_duration = p.total;
+      }
+    }
+
+    RCLCPP_INFO(get_logger(), "Move request channels=%zu worst=%.1f speed=%d profile=%s est=%.3fs", indices.size(),
+                worst, speed, use_trap ? (p.triangular ? "triangular" : "trapezoid") : "linear", est_duration);
+
+    auto fb = std::make_shared<MoveServo::Feedback>();
+    fb->current_pulses_us.resize(indices.size());
+    const double rate_hz = 50.0;
+    rclcpp::Rate rate(rate_hz);
+    double elapsed = 0.0;
+    std::string phase = use_trap ? "accel" : "linear";
+
+    auto apply_fraction = [&](double f) {
+      if (f > 1.0)
+        f = 1.0;
+      for (size_t i = 0; i < cs.size(); ++i) {
+        double local_target_dist = cs[i].distance;  // full dist for channel i
+        double traveled = local_target_dist * f;    // ensure synchronous completion
+        double phys = cs[i].physical_start + (cs[i].dir * traveled);
+        int phys_i = clampHardware(static_cast<int>(std::round(phys)));
+        backend_->setPulse(indices[i], phys_i);
+        logical_pulses_[indices[i]] = clampLogical(phys_i - cs[i].offset);  // keep stored logical within user limits
+        fb->current_pulses_us[i] = phys_i;                                  // report physical value actually sent
+      }
+      fb->progress = static_cast<float>(f);
+      fb->estimated_remaining_s = static_cast<float>(std::max(0.0, est_duration - elapsed));
+      fb->phase = phase;
+      gh->publish_feedback(fb);
+    };
+
+    if (!use_trap) {
+      double step = static_cast<double>(speed) / rate_hz;
+      double traveled = 0.0;
+      while (rclcpp::ok() && traveled < worst - 0.5) {
+        if (gh->is_canceling()) {
+          auto res = std::make_shared<MoveServo::Result>();
+          res->success = false;
+          res->message = "canceled";
+          res->total_estimated_duration_s = static_cast<float>(est_duration);
+          res->final_pulses_us.resize(indices.size());
+          for (size_t i = 0; i < indices.size(); ++i) {
+            int phys_cur = clampHardware(logical_pulses_[indices[i]] + cs[i].offset);
+            res->final_pulses_us[i] = phys_cur;
+          }
+          gh->canceled(res);
+          return;
         }
-        int us = clampPulse(idx, req->pulse_us);
-        pulse_us_[idx].store(us);
-        // Update servo pulse via lgpio
-        int gpio = (idx == 0) ? gpio_servo0_ : gpio_servo1_;
-        if (lg_handle_ >= 0)
-            lgTxServo(lg_handle_, gpio, us, freq_hz_, servo_offset_us_[idx], servo_cycles_);
-        res->success = true;
-        res->message = "updated";
-    }
-
-    void handleSetDualPulse(const SetDualServoPulse::Request::SharedPtr req,
-                            SetDualServoPulse::Response::SharedPtr res)
-    {
-        int us0 = clampPulse(0, req->pulse_us0);
-        int us1 = clampPulse(1, req->pulse_us1);
-        pulse_us_[0].store(us0);
-        pulse_us_[1].store(us1);
-        if (lg_handle_ >= 0)
-        {
-            // Back-to-back updates to keep them as close in time as possible
-            lgTxServo(lg_handle_, gpio_servo0_, us0, freq_hz_, servo_offset_us_[0], servo_cycles_);
-            lgTxServo(lg_handle_, gpio_servo1_, us1, freq_hz_, servo_offset_us_[1], servo_cycles_);
+        double adv = std::min(step, worst - traveled);
+        traveled += adv;
+        apply_fraction(traveled / worst);
+        rate.sleep();
+        elapsed += 1.0 / rate_hz;
+      }
+    } else {
+      while (rclcpp::ok()) {
+        if (gh->is_canceling()) {
+          auto res = std::make_shared<MoveServo::Result>();
+          res->success = false;
+          res->message = "canceled";
+          res->total_estimated_duration_s = static_cast<float>(est_duration);
+          res->final_pulses_us.resize(indices.size());
+          for (size_t i = 0; i < indices.size(); ++i) {
+            int phys_cur = clampHardware(logical_pulses_[indices[i]] + cs[i].offset);
+            res->final_pulses_us[i] = phys_cur;
+          }
+          gh->canceled(res);
+          return;
         }
-        res->success = true;
-        res->message = "updated both";
-    }
-
-    static int parseChipIndex(const std::string &name)
-    {
-        // Expect formats like "gpiochip4" -> 4; fallback to 0
-        int idx = 0;
-        size_t pos = name.find_last_not_of("0123456789");
-        if (pos != std::string::npos && pos + 1 < name.size())
-        {
-            try
-            {
-                idx = std::stoi(name.substr(pos + 1));
-            }
-            catch (...)
-            {
-                idx = 0;
-            }
+        double f = 0.0;
+        if (!p.triangular) {
+          if (elapsed < p.t_accel) {
+            phase = "accel";
+            double d = 0.5 * p.accel * elapsed * elapsed;
+            f = d / worst;
+          } else if (elapsed < (p.t_accel + p.t_cruise)) {
+            phase = "cruise";
+            double d_acc = 0.5 * p.accel * p.t_accel * p.t_accel;
+            double t_c = elapsed - p.t_accel;
+            double d = d_acc + p.cruise * t_c;
+            f = d / worst;
+          } else if (elapsed < p.total) {
+            phase = "decel";
+            double t_dec = elapsed - (p.t_accel + p.t_cruise);
+            double d_acc = 0.5 * p.accel * p.t_accel * p.t_accel;
+            double d_cr = p.cruise * p.t_cruise;
+            double v_start = p.cruise;
+            double d_dec = v_start * t_dec - 0.5 * p.accel * t_dec * t_dec;
+            double d = d_acc + d_cr + d_dec;
+            f = d / worst;
+          } else {
+            phase = "done";
+            break;
+          }
+        } else {
+          if (elapsed < p.t_accel) {
+            phase = "accel";
+            double d = 0.5 * p.accel * elapsed * elapsed;
+            f = d / worst;
+          } else if (elapsed < p.total) {
+            phase = "decel";
+            double t_dec = elapsed - p.t_accel;
+            double d_acc = 0.5 * p.accel * p.t_accel * p.t_accel;
+            double v_peak = p.accel * p.t_accel;
+            double d_dec = v_peak * t_dec - 0.5 * p.accel * t_dec * t_dec;
+            double d = d_acc + d_dec;
+            f = d / worst;
+          } else {
+            phase = "done";
+            break;
+          }
         }
-        return idx;
+        if (f > 1.0)
+          f = 1.0;
+        apply_fraction(f);
+        if (f >= 1.0)
+          break;
+        rate.sleep();
+        elapsed += 1.0 / rate_hz;
+      }
     }
 
-    int clampPulse(int idx, int us) const
-    {
-        int mn = min_us_servo_[idx];
-        int mx = max_us_servo_[idx];
-        if (mn > mx)
-            std::swap(mn, mx);
-        if (us < mn)
-            return mn;
-        if (us > mx)
-            return mx;
-        return us;
+    // Finalize
+    for (size_t i = 0; i < cs.size(); ++i) {
+      backend_->setPulse(indices[i], cs[i].physical_target);
+      logical_pulses_[indices[i]] = logical_target;
     }
+    auto res = std::make_shared<MoveServo::Result>();
+    res->success = true;
+    char msg[128];
+    std::snprintf(msg, sizeof(msg), "completed est=%.3fs profile=%s", est_duration,
+                  use_trap ? (p.triangular ? "triangular" : "trapezoid") : "linear");
+    res->message = msg;
+    res->final_pulses_us.resize(indices.size());
+    for (size_t i = 0; i < cs.size(); ++i)
+      res->final_pulses_us[i] = cs[i].physical_target;
+    res->total_estimated_duration_s = static_cast<float>(est_duration);
+    gh->succeed(res);
+  }
 
-private:
-    std::string gpiochip_name_;
-    int gpio_servo0_;
-    int gpio_servo1_;
-    int period_us_;
-    int freq_hz_{50};
-    int min_us_global_;
-    int max_us_global_;
-    int min_us_servo_[2];
-    int max_us_servo_[2];
-    std::atomic<int> pulse_us_[2];
-    int servo_offset_us_[2]{0,0};
-    int servo_cycles_{0};
-    int lg_handle_{-1};
+  // Clamp a logical (user-facing) pulse using configured user min/max.
+  int clampLogical(int us) const {
+    if (us < min_us_)
+      return min_us_;
+    if (us > max_us_)
+      return max_us_;
+    return us;
+  }
 
-    rclcpp::Service<SetServoPulse>::SharedPtr srv_single_;
-    rclcpp::Service<SetDualServoPulse>::SharedPtr srv_dual_;
+  // Clamp a physical (offset-applied) pulse strictly to hardware safe limits only.
+  int clampHardware(int us) const {
+    if (us < HARDWARE_US_MIN)
+      return HARDWARE_US_MIN;
+    if (us > HARDWARE_US_MAX)
+      return HARDWARE_US_MAX;
+    return us;
+  }
 
-    // RT tuning
-    bool use_realtime_{false};
-    int rt_priority_{80};
-    bool lock_memory_{true};
-    int cpu_affinity_{-1};
-    int prefault_mb_{0};
-    std::vector<uint8_t> prefault_buffer_;
+  int get_position_offset(int channel_index) const {
+    if (channel_index >= 0 && channel_index < static_cast<int>(position_offsets_us_.size()))
+      return static_cast<int>(position_offsets_us_[channel_index]);
+    return 0;
+  }
+
+  void run_startup_move(int channel_index, int physical_start, int physical_target) {
+    // Simple reuse of motion planning (subset). Distances are physical pulses.
+    int speed = startup_speed_;
+    bool use_trap = startup_use_trapezoid_;
+    int accel = startup_accel_ > 0 ? startup_accel_ : (speed > 0 ? std::max(speed / 0.2, speed * 5.0) : 0);
+    if (speed <= 0 || physical_start == physical_target) {
+      backend_->setPulse(channel_index, physical_target);
+      return;
+    }
+    double distance = static_cast<double>(physical_target - physical_start);
+    double dir = distance > 0 ? 1.0 : -1.0;
+    double remaining = std::abs(distance);
+    const double rate_hz = 50.0;
+    rclcpp::Rate rate(rate_hz);
+    double elapsed = 0.0;
+    struct P {
+      bool trapezoid{false};
+      bool triangular{false};
+      double accel{0};
+      double cruise_speed{0};
+      double t_accel{0};
+      double t_cruise{0};
+      double total_time{0};
+    } p;
+    p.trapezoid = use_trap;
+    double current = physical_start;
+    if (!use_trap) {
+      double step = static_cast<double>(speed) / rate_hz;
+      while (rclcpp::ok() && remaining > 0.5) {
+        double adv = std::min(step, remaining);
+        current += dir * adv;
+        remaining -= adv;
+        backend_->setPulse(channel_index, clampHardware(static_cast<int>(std::round(current))));
+        rate.sleep();
+      }
+    } else {
+      p.accel = accel;
+      p.cruise_speed = speed;
+      p.t_accel = p.cruise_speed / p.accel;
+      double dist_accel = 0.5 * p.accel * p.t_accel * p.t_accel;
+      if (2 * dist_accel >= remaining) {
+        p.triangular = true;
+        p.t_accel = std::sqrt(remaining / p.accel);
+        p.total_time = 2 * p.t_accel;
+        p.cruise_speed = p.accel * p.t_accel;
+      } else {
+        double dist_cruise = remaining - 2 * dist_accel;
+        p.t_cruise = dist_cruise / p.cruise_speed;
+        p.total_time = 2 * p.t_accel + p.t_cruise;
+      }
+      while (rclcpp::ok()) {
+        double vel = 0.0;
+        if (elapsed < p.t_accel) {
+          vel = p.accel * elapsed;
+        } else if (!p.triangular && elapsed < (p.t_accel + p.t_cruise)) {
+          vel = p.cruise_speed;
+        } else if (elapsed < p.total_time) {
+          double t_dec = elapsed - (p.triangular ? p.t_accel : (p.t_accel + p.t_cruise));
+          vel = p.cruise_speed - p.accel * t_dec;
+          if (vel < 0)
+            vel = 0;
+        } else {
+          break;
+        }
+        double adv = vel / rate_hz;
+        if (adv > remaining)
+          adv = remaining;
+        current += dir * adv;
+        remaining -= adv;
+        backend_->setPulse(channel_index, clampHardware(static_cast<int>(std::round(current))));
+        if (remaining <= 0.5)
+          break;
+        rate.sleep();
+        elapsed += 1.0 / rate_hz;
+      }
+    }
+    backend_->setPulse(channel_index, clampHardware(physical_target));
+  }
+
+  std::string backend_type_;
+  int period_us_{};
+  int freq_hz_{};
+  int min_us_{};
+  int max_us_{};
+  int initial_us_{};
+  int channels_in_use_{1};
+  std::vector<int> logical_pulses_{};  // last logical pulse per channel
+  bool enable_trapezoid_{false};
+  int accel_us_per_s2_{0};
+  std::vector<int64_t> position_offsets_us_{};  // additive per-channel logical->physical offsets (param raw type)
+  // Startup move configuration
+  bool startup_enable_{false};
+  int startup_speed_{0};
+  int startup_accel_{0};
+  bool startup_use_trapezoid_{true};
+  std::unique_ptr<transformer_hw_servos::IServoBackend> backend_;
+  rclcpp_action::Server<MoveServo>::SharedPtr action_server_;
 };
 
-int main(int argc, char **argv)
-{
-    rclcpp::init(argc, argv);
-    try
-    {
-        auto node = std::make_shared<DualServoNode>();
-        rclcpp::spin(node);
-    }
-    catch (const std::exception &e)
-    {
-        RCLCPP_FATAL(rclcpp::get_logger("transformer_hw_servos"), "Fatal: %s", e.what());
-    }
-    rclcpp::shutdown();
-    return 0;
+int main(int argc, char** argv) {
+  rclcpp::init(argc, argv);
+  try {
+    auto node = std::make_shared<ServoControllerNode>();
+    rclcpp::spin(node);
+  } catch (const std::exception& e) {
+    RCLCPP_FATAL(rclcpp::get_logger("transformer_hw_servos"), "Fatal: %s", e.what());
+  }
+  rclcpp::shutdown();
+  return 0;
 }

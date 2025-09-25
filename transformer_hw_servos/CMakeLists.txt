@@ -7,24 +7,28 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_action REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
-# Interface
+# Interface (action definition)
 rosidl_generate_interfaces(${PROJECT_NAME}
-  "srv/SetServoPulse.srv"
-  "srv/SetDualServoPulse.srv"
+  "action/MoveServo.action"
 )
 
 find_package(Threads REQUIRED)
 find_library(LGPIO_LIB lgpio REQUIRED)
 
-add_executable(servos_node src/servos_node.cpp)
+add_executable(servos_node
+  src/servos_node.cpp
+  src/backends/lgpio_backend.cpp
+  src/backends/pca9685_backend.cpp
+)
 target_compile_features(servos_node PUBLIC c_std_99 cxx_std_17)
 target_include_directories(servos_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/rosidl_generator_cpp>
 )
-ament_target_dependencies(servos_node rclcpp)
+ament_target_dependencies(servos_node rclcpp rclcpp_action)
 target_link_libraries(servos_node ${LGPIO_LIB})
 
 # Link against generated typesupport target (recommended pattern)

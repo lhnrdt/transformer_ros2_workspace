@@ -1,5 +1,0 @@
-int32 pulse_us0
-int32 pulse_us1
----
-bool success
-string message
