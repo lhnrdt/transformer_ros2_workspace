@@ -1,15 +1,16 @@
-# Goal: set actuator speed with sign indicating direction.
-# speed_percent is clamped to [-100, 100]. 0 = stop (coast by default).
-# duration_ms > 0 makes the motor run for that duration and then stop.
- # If duration_ms <= 0, the motor is set and the action returns immediately.
+# Goal: synchronously command one or more actuators.
+# actuators: list of actuator indices to command together (unique, valid indices)
+# speed_percents: same length as actuators, signed speeds (-100..100)
+# duration_ms: optional per-actuator durations; if length==1 apply to all; if length==0 treat as immediate (set speed & return); if provided with length==actuators.size() each actuator runs that long then stops.
+# If an actuator has duration <=0 it is treated as immediate.
 
-int32 actuator         # 0 or 1
-int32 speed_percent    # -100..100 (sign = direction)
-int32 duration_ms      # milliseconds to run at speed; <=0 means no timing
+int32[] actuators
+int32[] speed_percents
+int32[] duration_ms
 ---
 bool success
 string message
 ---
-int32 current_speed_percent
-int32 elapsed_ms
-int32 remaining_ms
+int32[] current_speed_percents
+int32[] elapsed_ms
+int32[] remaining_ms

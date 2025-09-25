@@ -1,9 +1,12 @@
-// Single-channel servo controller node (currently one logical channel exposed).
-// Adds support for per-channel mechanical position offsets (additive pulse microseconds) and
-// an optional startup move (profiled) to apply the offset after powering up at the un-offset position.
+// Single-channel (configurable multi-channel) servo controller node.
+// Simplified: removes previous optional profiled startup move logic. We assume hardware powers up
+// and reaches its initial commanded position autonomously. We just wait a fixed delay before
+// advertising the action server so the transformer_controller can reliably connect.
 
+#include <atomic>
 #include <cmath>
 #include <memory>
+#include <mutex>
 #include <rclcpp/rclcpp.hpp>
 #include <rclcpp_action/rclcpp_action.hpp>
 #include <string>
@@ -41,16 +44,13 @@ class ServoControllerNode : public rclcpp::Node {
       if (position_offsets_us_.size() < static_cast<size_t>(channels_in_use_))
         position_offsets_us_.resize(channels_in_use_, 0);
     }
-    // Optional profiled startup move from logical initial pulse (physical without offset) to
-    // physical initial pulse WITH offset. If disabled we apply offset instantly.
-    startup_enable_ = this->declare_parameter<bool>("startup_move.enable", false);
-    startup_speed_ = this->declare_parameter<int>("startup_move.speed_us_per_s", 4000);  // reasonable default
-    startup_accel_ = this->declare_parameter<int>("startup_move.accel_us_per_s2", 0);    // heuristic if 0
-    startup_use_trapezoid_ = this->declare_parameter<bool>("startup_move.use_trapezoid", true);
-    // Trapezoidal profile parameters (optional). If disabled we use constant velocity (current behavior).
-    enable_trapezoid_ =
-        this->declare_parameter<bool>("enable_trapezoid", false);  // default profile flag (can be overridden per-goal)
-    accel_us_per_s2_ = this->declare_parameter<int>("accel_us_per_s2", 0);  // default accel if goal doesn't specify
+    // Remove all startup_move parameters (deprecated). Any provided values are ignored.
+    (void)this->declare_parameter<bool>("startup_move.enable", false);
+    (void)this->declare_parameter<int>("startup_move.speed_us_per_s", 0);
+    (void)this->declare_parameter<int>("startup_move.accel_us_per_s2", 0);
+    (void)this->declare_parameter<bool>("startup_move.use_trapezoid", false);
+    enable_trapezoid_ = this->declare_parameter<bool>("enable_trapezoid", false);
+    accel_us_per_s2_ = this->declare_parameter<int>("accel_us_per_s2", 0);
 
     if (min_us_ < HARDWARE_US_MIN)
       min_us_ = HARDWARE_US_MIN;
@@ -96,50 +96,43 @@ class ServoControllerNode : public rclcpp::Node {
     if (!backend_->init(cfg))
       throw std::runtime_error("Backend init failed");
 
-    action_server_ = rclcpp_action::create_server<MoveServo>(
-        this, "move_servo",
-        std::bind(&ServoControllerNode::handle_goal, this, std::placeholders::_1, std::placeholders::_2),
-        std::bind(&ServoControllerNode::handle_cancel, this, std::placeholders::_1),
-        std::bind(&ServoControllerNode::handle_accepted, this, std::placeholders::_1));
+    // Fixed delay before advertising the action server (replaces earlier startup move gating).
+    gate_action_server_ = true;  // now always gated for a fixed delay
+    settle_delay_ms_ = 1000;     // 1 second as requested
 
-    RCLCPP_INFO(get_logger(), "Servo controller ready backend=%s freq=%dHz channels=%d startup_move=%s",
-                backend_type_.c_str(), freq_hz_, channels_in_use_, startup_enable_ ? "on" : "off");
+    RCLCPP_INFO(get_logger(),
+                "Servo controller (pre-advertise) backend=%s freq=%dHz channels=%d fixed_delay_before_advertise=%dms",
+                backend_type_.c_str(), freq_hz_, channels_in_use_, settle_delay_ms_);
 
-    // Optional startup profiled move to apply mechanical offset smoothly.
-    if (startup_enable_) {
-      RCLCPP_INFO(get_logger(), "Startup move enabled: speed=%dus/s accel=%dus/s^2 profile=%s", startup_speed_,
-                  startup_accel_, startup_use_trapezoid_ ? "trapezoid" : "linear");
-      for (int ch = 0; ch < channels_in_use_; ++ch) {
-        int logical_start = logical_pulses_[ch];
-        int offset = get_position_offset(ch);
-        int physical_start = clampHardware(logical_start);  // logical_start already user-clamped
-        int physical_target = clampHardware(logical_start + offset);
-        int distance = physical_target - physical_start;
-        if (physical_target != physical_start) {
-          RCLCPP_INFO(get_logger(),
-                      "Startup ch=%d logical_start=%d offset=%d physical_start=%d physical_target=%d distance=%d",
-                      ch + 1, logical_start, offset, physical_start, physical_target, distance);
-          std::thread(&ServoControllerNode::run_startup_move, this, ch, physical_start, physical_target).detach();
-        } else if (offset != 0) {
-          RCLCPP_INFO(get_logger(), "Startup ch=%d offset=%d instantaneous apply to %d (no distance)", ch + 1, offset,
-                      physical_target);
-          backend_->setPulse(ch, physical_target);
-        } else {
-          RCLCPP_DEBUG(get_logger(), "Startup ch=%d no offset", ch + 1);
-        }
-      }
-    } else {
-      for (int ch = 0; ch < channels_in_use_; ++ch) {
-        int offset = get_position_offset(ch);
-        if (offset != 0)
-          backend_->setPulse(ch, clampHardware(logical_pulses_[ch] + offset));
+    // Apply any static offsets immediately.
+    for (int ch = 0; ch < channels_in_use_; ++ch) {
+      int offset = get_position_offset(ch);
+      if (offset != 0) {
+        backend_->setPulse(ch, clampHardware(logical_pulses_[ch] + offset));
       }
     }
+    startup_completed_ = true;
+    startup_done_time_ms_ = now_ms();
+
+    // Single timer: after 1s advertise the action server.
+    monitor_timer_ = this->create_wall_timer(std::chrono::milliseconds(50), [this]() {
+      if (action_server_)
+        return;
+      if ((now_ms() - startup_done_time_ms_) < settle_delay_ms_)
+        return;
+      create_action_server();
+    });
+
+    // Register shutdown hook (Ctrl+C) to ensure we abort any active goal and put servos in safe state.
+    rclcpp::on_shutdown([this]() { begin_shutdown(); });
   }
 
   ~ServoControllerNode() override {
-    if (backend_)
+    // Destructor should already be post-shutdown hook, but call again defensively.
+    begin_shutdown();
+    if (backend_) {
       backend_->shutdown();
+    }
   }
 
  private:
@@ -162,10 +155,29 @@ class ServoControllerNode : public rclcpp::Node {
     return rclcpp_action::CancelResponse::ACCEPT;
   }
   void handle_accepted(const std::shared_ptr<GoalHandleMove> gh) {
-    std::thread(&ServoControllerNode::execute_goal, this, gh).detach();
+    if (shutting_down_.load()) {
+      auto res = std::make_shared<MoveServo::Result>();
+      res->success = false;
+      res->message = "shutdown in progress";
+      gh->abort(res);
+      return;
+    }
+    {
+      std::lock_guard<std::mutex> lk(active_mutex_);
+      active_goal_ = gh;
+    }
+    worker_thread_ = std::thread(&ServoControllerNode::execute_goal, this, gh);
   }
 
   void execute_goal(const std::shared_ptr<GoalHandleMove> gh) {
+    if (shutting_down_.load()) {
+      auto res = std::make_shared<MoveServo::Result>();
+      res->success = false;
+      res->message = "node shutting down";
+      gh->abort(res);
+      clear_active_goal();
+      return;
+    }
     auto goal = gh->get_goal();
     // Normalize and prepare channel list
     std::vector<int> indices;
@@ -382,6 +394,51 @@ class ServoControllerNode : public rclcpp::Node {
       res->final_pulses_us[i] = cs[i].physical_target;
     res->total_estimated_duration_s = static_cast<float>(est_duration);
     gh->succeed(res);
+    clear_active_goal();
+  }
+
+  void clear_active_goal() {
+    std::lock_guard<std::mutex> lk(active_mutex_);
+    active_goal_.reset();
+  }
+
+  void cancel_active_goal_for_shutdown() {
+    std::shared_ptr<GoalHandleMove> gh;
+    {
+      std::lock_guard<std::mutex> lk(active_mutex_);
+      gh = active_goal_;
+    }
+    if (gh) {
+      auto res = std::make_shared<MoveServo::Result>();
+      res->success = false;
+      res->message = "aborted due to shutdown";
+      gh->abort(res);
+    }
+    clear_active_goal();
+  }
+
+  void begin_shutdown() {
+    bool expected = false;
+    if (!shutting_down_.compare_exchange_strong(expected, true))
+      return;  // already running
+    RCLCPP_INFO(get_logger(), "Servo node beginning shutdown: aborting active goal, neutralizing outputs");
+    cancel_active_goal_for_shutdown();
+    // Put all used channels to a neutral pulse (initial logical + offset) or clamp.
+    if (backend_) {
+      for (int ch = 0; ch < channels_in_use_; ++ch) {
+        int logical = logical_pulses_.size() > static_cast<size_t>(ch) ? logical_pulses_[ch] : initial_us_;
+        int phys = clampHardware(logical + get_position_offset(ch));
+        backend_->setPulse(ch, phys);
+      }
+    }
+    if (worker_thread_.joinable()) {
+      if (worker_thread_.get_id() == std::this_thread::get_id()) {
+        RCLCPP_WARN(get_logger(), "Worker thread is current thread during shutdown; not joining to avoid deadlock");
+      } else {
+        worker_thread_.join();
+      }
+    }
+    RCLCPP_INFO(get_logger(), "Servo node shutdown complete");
   }
 
   // Clamp a logical (user-facing) pulse using configured user min/max.
@@ -408,83 +465,22 @@ class ServoControllerNode : public rclcpp::Node {
     return 0;
   }
 
-  void run_startup_move(int channel_index, int physical_start, int physical_target) {
-    // Simple reuse of motion planning (subset). Distances are physical pulses.
-    int speed = startup_speed_;
-    bool use_trap = startup_use_trapezoid_;
-    int accel = startup_accel_ > 0 ? startup_accel_ : (speed > 0 ? std::max(speed / 0.2, speed * 5.0) : 0);
-    if (speed <= 0 || physical_start == physical_target) {
-      backend_->setPulse(channel_index, physical_target);
+  // Removed run_startup_move* functions (no longer needed with fixed delay)
+
+  void create_action_server() {
+    if (action_server_)
       return;
-    }
-    double distance = static_cast<double>(physical_target - physical_start);
-    double dir = distance > 0 ? 1.0 : -1.0;
-    double remaining = std::abs(distance);
-    const double rate_hz = 50.0;
-    rclcpp::Rate rate(rate_hz);
-    double elapsed = 0.0;
-    struct P {
-      bool trapezoid{false};
-      bool triangular{false};
-      double accel{0};
-      double cruise_speed{0};
-      double t_accel{0};
-      double t_cruise{0};
-      double total_time{0};
-    } p;
-    p.trapezoid = use_trap;
-    double current = physical_start;
-    if (!use_trap) {
-      double step = static_cast<double>(speed) / rate_hz;
-      while (rclcpp::ok() && remaining > 0.5) {
-        double adv = std::min(step, remaining);
-        current += dir * adv;
-        remaining -= adv;
-        backend_->setPulse(channel_index, clampHardware(static_cast<int>(std::round(current))));
-        rate.sleep();
-      }
-    } else {
-      p.accel = accel;
-      p.cruise_speed = speed;
-      p.t_accel = p.cruise_speed / p.accel;
-      double dist_accel = 0.5 * p.accel * p.t_accel * p.t_accel;
-      if (2 * dist_accel >= remaining) {
-        p.triangular = true;
-        p.t_accel = std::sqrt(remaining / p.accel);
-        p.total_time = 2 * p.t_accel;
-        p.cruise_speed = p.accel * p.t_accel;
-      } else {
-        double dist_cruise = remaining - 2 * dist_accel;
-        p.t_cruise = dist_cruise / p.cruise_speed;
-        p.total_time = 2 * p.t_accel + p.t_cruise;
-      }
-      while (rclcpp::ok()) {
-        double vel = 0.0;
-        if (elapsed < p.t_accel) {
-          vel = p.accel * elapsed;
-        } else if (!p.triangular && elapsed < (p.t_accel + p.t_cruise)) {
-          vel = p.cruise_speed;
-        } else if (elapsed < p.total_time) {
-          double t_dec = elapsed - (p.triangular ? p.t_accel : (p.t_accel + p.t_cruise));
-          vel = p.cruise_speed - p.accel * t_dec;
-          if (vel < 0)
-            vel = 0;
-        } else {
-          break;
-        }
-        double adv = vel / rate_hz;
-        if (adv > remaining)
-          adv = remaining;
-        current += dir * adv;
-        remaining -= adv;
-        backend_->setPulse(channel_index, clampHardware(static_cast<int>(std::round(current))));
-        if (remaining <= 0.5)
-          break;
-        rate.sleep();
-        elapsed += 1.0 / rate_hz;
-      }
-    }
-    backend_->setPulse(channel_index, clampHardware(physical_target));
+    action_server_ = rclcpp_action::create_server<MoveServo>(
+        this, "move_servo",
+        std::bind(&ServoControllerNode::handle_goal, this, std::placeholders::_1, std::placeholders::_2),
+        std::bind(&ServoControllerNode::handle_cancel, this, std::placeholders::_1),
+        std::bind(&ServoControllerNode::handle_accepted, this, std::placeholders::_1));
+    RCLCPP_INFO(get_logger(), "Servo action server advertised (ready) backend=%s", backend_type_.c_str());
+  }
+
+  int64_t now_ms() const {
+    return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch())
+        .count();
   }
 
   std::string backend_type_;
@@ -498,13 +494,20 @@ class ServoControllerNode : public rclcpp::Node {
   bool enable_trapezoid_{false};
   int accel_us_per_s2_{0};
   std::vector<int64_t> position_offsets_us_{};  // additive per-channel logical->physical offsets (param raw type)
-  // Startup move configuration
-  bool startup_enable_{false};
-  int startup_speed_{0};
-  int startup_accel_{0};
-  bool startup_use_trapezoid_{true};
+  // Startup move configuration removed
   std::unique_ptr<transformer_hw_servos::IServoBackend> backend_;
   rclcpp_action::Server<MoveServo>::SharedPtr action_server_;
+  bool gate_action_server_{true};
+  int settle_delay_ms_{300};
+  std::atomic<int> pending_startup_moves_{0};
+  std::atomic<bool> startup_completed_{false};
+  int64_t startup_done_time_ms_{0};
+  rclcpp::TimerBase::SharedPtr monitor_timer_{};
+  // Shutdown / goal tracking
+  std::atomic<bool> shutting_down_{false};
+  std::mutex active_mutex_;
+  std::shared_ptr<GoalHandleMove> active_goal_{};
+  std::thread worker_thread_{};
 };
 
 int main(int argc, char** argv) {

@@ -11,29 +11,29 @@
 namespace transformer_hw_actuators {
 
 class ActuatorNode : public rclcpp::Node {
-public:
+ public:
   using MoveActuator = transformer_hw_actuators::action::MoveActuator;
   using GoalHandleMove = rclcpp_action::ServerGoalHandle<MoveActuator>;
 
-  explicit ActuatorNode(const rclcpp::NodeOptions &options = rclcpp::NodeOptions());
+  explicit ActuatorNode(const rclcpp::NodeOptions& options = rclcpp::NodeOptions());
   ~ActuatorNode() override;
 
-private:
+ private:
   // Parameters
-  int pwmchip_index_;                 // e.g., 0
-  std::string gpiochip_name_;  // e.g., "gpiochip4" on Pi 5 (RP1)
-  std::vector<int> pwm_channels_;     // e.g., [1,0] → PWM1 for actuator0, PWM0 for actuator1
-  std::vector<int> dir_gpios_;        // e.g., [19,5]
-  std::vector<bool> dir_active_high_; // if false, logic is inverted per actuator
-  int64_t period_ns_;                 // e.g., 50'000 for 20 kHz (recommended for DC motors)
-  int initial_percent_;               // -100..100 startup value (default 0)
-  bool brake_on_zero_;                // if true, request braking behavior at 0 (see notes)
-  int feedback_period_ms_;            // execution loop tick for feedback/timeout
-  int stby_gpio_;                     // STBY enable pin (must be high to enable output)
-  int mode_gpio_;                     // MODE select pin (must be high for phase input mode)
+  int pwmchip_index_;                  // e.g., 0
+  std::string gpiochip_name_;          // e.g., "gpiochip4" on Pi 5 (RP1)
+  std::vector<int> pwm_channels_;      // e.g., [1,0] → PWM1 for actuator0, PWM0 for actuator1
+  std::vector<int> dir_gpios_;         // e.g., [19,5]
+  std::vector<bool> dir_active_high_;  // if false, logic is inverted per actuator
+  int64_t period_ns_;                  // e.g., 50'000 for 20 kHz (recommended for DC motors)
+  int initial_percent_;                // -100..100 startup value (default 0)
+  bool brake_on_zero_;                 // if true, request braking behavior at 0 (see notes)
+  int feedback_period_ms_;             // execution loop tick for feedback/timeout
+  int stby_gpio_;                      // STBY enable pin (must be high to enable output)
+  int mode_gpio_;                      // MODE select pin (must be high for phase input mode)
 
   // Paths derived from params
-  std::string chip_path_;             // /sys/class/pwm/pwmchipX
+  std::string chip_path_;  // /sys/class/pwm/pwmchipX
 
   // GPIO (libgpiod)
   gpiod_chip* gpio_chip_ = nullptr;
@@ -44,26 +44,36 @@ private:
   // Action server
   rclcpp_action::Server<MoveActuator>::SharedPtr action_server_;
 
+  // Shutdown / lifecycle helpers
+  std::atomic<bool> shutting_down_{false};
+  std::mutex active_goal_mutex_;
+  std::shared_ptr<GoalHandleMove> active_goal_;
+  std::mutex threads_mutex_;
+  std::vector<std::thread> worker_threads_;
+
+  void begin_shutdown();
+  void cancel_active_goal_for_shutdown();
+
   // Core helpers
-  static bool writeFile(const std::string &path, const std::string &value, std::string &err);
-  static bool pathExists(const std::string &path);
-  std::string chPath(int channel, const std::string &leaf) const;
+  static bool writeFile(const std::string& path, const std::string& value, std::string& err);
+  static bool pathExists(const std::string& path);
+  std::string chPath(int channel, const std::string& leaf) const;
 
   // PWM init/control
-  bool exportChannel(int channel, std::string &err);
-  bool ensurePeriod(int channel, std::string &err);
-  bool enableChannel(int channel, bool enable, std::string &err);
-  bool setDutyPercent(int channel, int percent, std::string &err); // 0..100
+  bool exportChannel(int channel, std::string& err);
+  bool ensurePeriod(int channel, std::string& err);
+  bool enableChannel(int channel, bool enable, std::string& err);
+  bool setDutyPercent(int channel, int percent, std::string& err);  // 0..100
 
   // Direction control
-  bool setDirection(size_t actuator_idx, bool forward, std::string &err);
+  bool setDirection(size_t actuator_idx, bool forward, std::string& err);
 
   // Action callbacks
-  rclcpp_action::GoalResponse handleGoal(const rclcpp_action::GoalUUID &uuid,
+  rclcpp_action::GoalResponse handleGoal(const rclcpp_action::GoalUUID& uuid,
                                          std::shared_ptr<const MoveActuator::Goal> goal);
   rclcpp_action::CancelResponse handleCancel(const std::shared_ptr<GoalHandleMove> goal_handle);
   void handleAccepted(const std::shared_ptr<GoalHandleMove> goal_handle);
   void execute(const std::shared_ptr<GoalHandleMove> goal_handle);
 };
 
-} // namespace transformer_hw_actuators
+}  // namespace transformer_hw_actuators
