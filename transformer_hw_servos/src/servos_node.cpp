@@ -140,17 +140,17 @@ class ServoControllerNode : public rclcpp::Node {
     if (goal->channels.empty()) {
       return rclcpp_action::GoalResponse::REJECT;
     }
-      if (shutting_down_.load()) {
-        RCLCPP_WARN(get_logger(), "Rejecting servo goal: shutting down");
+    if (shutting_down_.load()) {
+      RCLCPP_WARN(get_logger(), "Rejecting servo goal: shutting down");
+      return rclcpp_action::GoalResponse::REJECT;
+    }
+    {
+      std::lock_guard<std::mutex> lk(active_mutex_);
+      if (active_goal_) {
+        RCLCPP_WARN(get_logger(), "Rejecting servo goal: another goal active");
         return rclcpp_action::GoalResponse::REJECT;
       }
-      {
-        std::lock_guard<std::mutex> lk(active_mutex_);
-        if (active_goal_) {
-          RCLCPP_WARN(get_logger(), "Rejecting servo goal: another goal active");
-          return rclcpp_action::GoalResponse::REJECT;
-        }
-      }
+    }
     // Validate uniqueness and bounds
     std::vector<int32_t> seen;
     seen.reserve(goal->channels.size());
