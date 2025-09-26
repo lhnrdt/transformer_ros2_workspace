@@ -306,6 +306,13 @@ void ActuatorNode::execute(const std::shared_ptr<GoalHandleMove> goal_handle) {
     res->success = false;
     res->message = "Shutting down";
     goal_handle->abort(res);
+    // Clear active goal if this was it
+    {
+      std::lock_guard<std::mutex> lk(active_goal_mutex_);
+      if (active_goal_.get() == goal_handle.get()) {
+        active_goal_.reset();
+      }
+    }
     return;
   }
   auto t_exec_start = std::chrono::steady_clock::now();
@@ -393,6 +400,13 @@ void ActuatorNode::execute(const std::shared_ptr<GoalHandleMove> goal_handle) {
     result->success = true;
     result->message = "Speeds set (no timing)";
     goal_handle->succeed(result);
+    // Clear active goal for untimed immediate success
+    {
+      std::lock_guard<std::mutex> lk(active_goal_mutex_);
+      if (active_goal_.get() == goal_handle.get()) {
+        active_goal_.reset();
+      }
+    }
     return;
   }
 
@@ -481,6 +495,7 @@ void ActuatorNode::begin_shutdown() {
     worker_threads_.clear();
   }
   RCLCPP_INFO(get_logger(), "Shutdown: actuator threads joined, duty=0");
+  RCLCPP_INFO(get_logger(), "Shutdown: actuator complete");
 }
 
 void ActuatorNode::cancel_active_goal_for_shutdown() {

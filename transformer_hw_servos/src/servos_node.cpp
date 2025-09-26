@@ -137,8 +137,20 @@ class ServoControllerNode : public rclcpp::Node {
 
  private:
   rclcpp_action::GoalResponse handle_goal(const rclcpp_action::GoalUUID&, std::shared_ptr<const MoveServo::Goal> goal) {
-    if (goal->channels.empty())
+    if (goal->channels.empty()) {
       return rclcpp_action::GoalResponse::REJECT;
+    }
+      if (shutting_down_.load()) {
+        RCLCPP_WARN(get_logger(), "Rejecting servo goal: shutting down");
+        return rclcpp_action::GoalResponse::REJECT;
+      }
+      {
+        std::lock_guard<std::mutex> lk(active_mutex_);
+        if (active_goal_) {
+          RCLCPP_WARN(get_logger(), "Rejecting servo goal: another goal active");
+          return rclcpp_action::GoalResponse::REJECT;
+        }
+      }
     // Validate uniqueness and bounds
     std::vector<int32_t> seen;
     seen.reserve(goal->channels.size());
@@ -165,6 +177,10 @@ class ServoControllerNode : public rclcpp::Node {
     {
       std::lock_guard<std::mutex> lk(active_mutex_);
       active_goal_ = gh;
+    }
+    if (worker_thread_.joinable()) {
+      RCLCPP_WARN(get_logger(), "Joining previous servo worker thread before starting new");
+      worker_thread_.join();
     }
     worker_thread_ = std::thread(&ServoControllerNode::execute_goal, this, gh);
   }
@@ -224,6 +240,7 @@ class ServoControllerNode : public rclcpp::Node {
       }
       res->total_estimated_duration_s = 0.0f;
       gh->succeed(res);
+      clear_active_goal();
       return;
     }
 
@@ -438,7 +455,7 @@ class ServoControllerNode : public rclcpp::Node {
         worker_thread_.join();
       }
     }
-    RCLCPP_INFO(get_logger(), "Servo node shutdown complete");
+    RCLCPP_INFO(get_logger(), "Shutdown: servos complete");
   }
 
   // Clamp a logical (user-facing) pulse using configured user min/max.

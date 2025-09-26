@@ -54,7 +54,7 @@ class TransformerControllerNode : public rclcpp::Node {
         RCLCPP_INFO(get_logger(), "[INIT] Action servers ready. Retracting actuators (%d ms @ %d%%).", retract_time_ms_,
                     retract_speed_percent_);
         startup_motion_active_.store(true);
-        std::thread([this]() {
+        startup_thread_ = std::thread([this]() {
           bool ok = retract_actuators_blocking();
           startup_motion_active_.store(false);
           if (!ok) {
@@ -79,7 +79,7 @@ class TransformerControllerNode : public rclcpp::Node {
               std::bind(&TransformerControllerNode::handle_cancel, this, std::placeholders::_1),
               std::bind(&TransformerControllerNode::handle_accepted, this, std::placeholders::_1));
           RCLCPP_INFO(get_logger(), "Transform action server advertised.");
-        }).detach();
+        });
       }
     });
 
@@ -363,6 +363,7 @@ class TransformerControllerNode : public rclcpp::Node {
   std::mutex active_mutex_;
   std::shared_ptr<TransformHandle> active_transform_goal_{};  // only one at a time
   std::thread worker_thread_{};
+  std::thread startup_thread_{};  // track INIT retract thread
 
   int64_t now_steady_ms() const {
     return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch())
@@ -412,6 +413,14 @@ void TransformerControllerNode::begin_shutdown() {
     }
   }
   RCLCPP_INFO(get_logger(), "Controller shutdown complete");
+  if (startup_thread_.joinable()) {
+    if (startup_thread_.get_id() == std::this_thread::get_id()) {
+      RCLCPP_WARN(get_logger(), "Startup thread is current thread during shutdown; skipping join");
+    } else {
+      startup_thread_.join();
+    }
+  }
+  RCLCPP_INFO(get_logger(), "Shutdown: controller complete");
 }
 
 int main(int argc, char** argv) {
