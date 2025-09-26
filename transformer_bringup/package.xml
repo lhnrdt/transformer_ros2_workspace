@@ -10,6 +10,8 @@
   <depend>transformer_hw_actuators</depend>
   <depend>transformer_hw_servos</depend>
   <depend>transformer_controller</depend>
+  <depend>transformer_msp_bridge</depend>
+  <depend>transformer_rc_mode_switch</depend>
   <export>
     <build_type>ament_cmake</build_type>
   </export>

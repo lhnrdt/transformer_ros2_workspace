@@ -104,6 +104,14 @@ class TransformerControllerNode : public rclcpp::Node {
       RCLCPP_WARN(get_logger(), "Rejecting transform goal while startup motion active");
       return rclcpp_action::GoalResponse::REJECT;
     }
+    // New: reject immediately if another transform is active (clean REJECT instead of accept+abort later)
+    {
+      std::lock_guard<std::mutex> lk(active_mutex_);
+      if (active_transform_goal_) {
+        RCLCPP_WARN(get_logger(), "Rejecting transform goal: another transform already active");
+        return rclcpp_action::GoalResponse::REJECT;
+      }
+    }
     if (goal->target_mode != "drive" && goal->target_mode != "flight")
       return rclcpp_action::GoalResponse::REJECT;
     if (goal->target_mode == current_mode_)

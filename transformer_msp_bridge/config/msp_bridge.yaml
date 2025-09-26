@@ -20,7 +20,7 @@ transformer_msp_bridge:
 
     # Per-command polling (generated from registry names; adjust as needed)
     # Set enabled=false OR rate_hz=0.0 to disable polling.
-    command.msp_raw_imu.enabled: true
+    command.msp_raw_imu.enabled: false
     command.msp_raw_imu.rate_hz: 50.0
     command.msp_servo.enabled: true
     command.msp_servo.rate_hz: 10.0

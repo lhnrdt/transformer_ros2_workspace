@@ -19,7 +19,7 @@ registry:
     }
   - { id: MSP_SERVO, name: MSP_SERVO, poll_rate_hz: 10.0 }
   - { id: MSP_MOTOR, name: MSP_MOTOR, poll_rate_hz: 10.0 }
-  - { id: MSP_RC, name: MSP_RC, poll_rate_hz: 5.0 }
+  - { id: MSP_RC, name: MSP_RC, poll_rate_hz: 50.0 }
   - {
       id: MSP_RAW_GPS,
       name: MSP_RAW_GPS,
