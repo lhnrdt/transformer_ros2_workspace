@@ -1,17 +1,17 @@
+#include <algorithm>
 #include <rclcpp/rclcpp.hpp>
 #include <rclcpp_action/rclcpp_action.hpp>
 #include <std_msgs/msg/u_int16_multi_array.hpp>
-#include <transformer_controller/action/transform_mode.hpp>
-#include <algorithm>
 #include <string>
+#include <transformer_controller/action/transform_mode.hpp>
 
 class RcModeSwitchNode : public rclcpp::Node {
-public:
+ public:
   using TransformMode = transformer_controller::action::TransformMode;
   using TransformHandle = rclcpp_action::ClientGoalHandle<TransformMode>;
 
   RcModeSwitchNode() : Node("rc_mode_switch") {
-    channel_index_ = declare_parameter<int>("channel_index", 5); // CH6 -> index 5 (0-based)
+    channel_index_ = declare_parameter<int>("channel_index", 5);  // CH6 -> index 5 (0-based)
     drive_high_ = declare_parameter<int>("drive_high_center", 2000);
     flight_low_ = declare_parameter<int>("flight_low_center", 1000);
     tolerance_ = declare_parameter<int>("tolerance", 300);
@@ -21,16 +21,17 @@ public:
 
     transform_client_ = rclcpp_action::create_client<TransformMode>(this, "transform_mode");
 
-  rc_sub_ = create_subscription<std_msgs::msg::UInt16MultiArray>(
-    rc_topic_, 10, std::bind(&RcModeSwitchNode::rcCallback, this, std::placeholders::_1));
+    rc_sub_ = create_subscription<std_msgs::msg::UInt16MultiArray>(
+        rc_topic_, 10, std::bind(&RcModeSwitchNode::rcCallback, this, std::placeholders::_1));
 
-    RCLCPP_INFO(get_logger(), "RC Mode Switch node started. CH index=%d drive_center=%d flight_center=%d tol=%d", channel_index_, drive_high_, flight_low_, tolerance_);
+    RCLCPP_INFO(get_logger(), "RC Mode Switch node started. CH index=%d drive_center=%d flight_center=%d tol=%d",
+                channel_index_, drive_high_, flight_low_, tolerance_);
   }
 
-private:
+ private:
   void rcCallback(const std_msgs::msg::UInt16MultiArray::SharedPtr msg) {
     if ((int)msg->data.size() < std::max(min_publish_channels_, channel_index_ + 1)) {
-      return; // not enough channels yet
+      return;  // not enough channels yet
     }
     int value = msg->data[channel_index_];
     auto now = std::chrono::steady_clock::now();
@@ -64,7 +65,8 @@ private:
 
     TransformMode::Goal goal;
     goal.target_mode = desired;
-    RCLCPP_INFO(get_logger(), "Sending transform goal to mode=%s (rc ch%d value=%d)", desired.c_str(), channel_index_ + 1, value);
+    RCLCPP_INFO(get_logger(), "Sending transform goal to mode=%s (rc ch%d value=%d)", desired.c_str(),
+                channel_index_ + 1, value);
     auto send_future = transform_client_->async_send_goal(goal);
     last_goal_time_ = now;
     last_sent_mode_ = desired;
@@ -88,7 +90,7 @@ private:
   rclcpp::Subscription<std_msgs::msg::UInt16MultiArray>::SharedPtr rc_sub_;
 };
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
   rclcpp::init(argc, argv);
   auto node = std::make_shared<RcModeSwitchNode>();
   rclcpp::spin(node);
