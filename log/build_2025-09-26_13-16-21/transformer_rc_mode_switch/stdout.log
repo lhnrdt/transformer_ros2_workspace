@@ -1,0 +1,23 @@
+[ 50%] [32mBuilding CXX object CMakeFiles/rc_mode_switch_node.dir/src/rc_mode_switch_node.cpp.o[0m
+[100%] [32m[1mLinking CXX executable rc_mode_switch_node[0m
+[100%] Built target rc_mode_switch_node
+-- Install configuration: ""
+-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/lib/transformer_rc_mode_switch/rc_mode_switch_node
+-- Set non-toolchain portion of runtime path of "/home/atvpi/ros2_ws/install/transformer_rc_mode_switch/lib/transformer_rc_mode_switch/rc_mode_switch_node" to ""
+-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/launch
+-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/launch/rc_mode_switch.launch.py
+-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/ament_index/resource_index/package_run_dependencies/transformer_rc_mode_switch
+-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/ament_index/resource_index/parent_prefix_path/transformer_rc_mode_switch
+-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/environment/ament_prefix_path.sh
+-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/environment/path.sh
+-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/environment/path.dsv
+-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/local_setup.bash
+-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/local_setup.sh
+-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/local_setup.zsh
+-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/local_setup.dsv
+-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/package.dsv
+-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/ament_index/resource_index/packages/transformer_rc_mode_switch
+-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/cmake/transformer_rc_mode_switchConfig.cmake
+-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/cmake/transformer_rc_mode_switchConfig-version.cmake
+-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/package.xml

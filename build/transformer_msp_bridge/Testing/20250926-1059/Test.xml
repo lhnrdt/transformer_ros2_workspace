@@ -1,0 +1,935 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="(empty)"
+	BuildStamp="20250926-1059-Experimental"
+	Name="atvpi"
+	Generator="ctest-3.28.3"
+	CompilerName="/usr/bin/c++"
+	CompilerVersion="13.3.0"
+	OSName="Linux"
+	Hostname="atvpi"
+	OSRelease="6.8.0-1038-raspi"
+	OSVersion="#42-Ubuntu SMP PREEMPT_DYNAMIC Tue Sep  9 09:14:56 UTC 2025"
+	OSPlatform="aarch64"
+	Is64Bits="1"
+	VendorString=""
+	VendorID="Unknown Manufacturer"
+	FamilyID="8"
+	ModelID="0"
+	ProcessorCacheSize="0"
+	NumberOfLogicalCPU="4"
+	NumberOfPhysicalCPU="1"
+	TotalVirtualMemory="0"
+	TotalPhysicalMemory="7937"
+	LogicalProcessorsPerPhysical="4"
+	ProcessorClockFrequency="0"
+	>
+	<Testing>
+		<StartDateTime>Sep 26 12:59 CEST</StartDateTime>
+		<StartTestTime>1758884346</StartTestTime>
+		<TestList>
+			<Test>./test_battery_decoder</Test>
+			<Test>./test_system_decoder</Test>
+			<Test>./test_attitude_decoder</Test>
+			<Test>./test_imu_decoder</Test>
+			<Test>./test_gps_decoder</Test>
+			<Test>./test_rc_decoder</Test>
+			<Test>./test_altitude_decoder</Test>
+			<Test>./test_inav_status_decoder</Test>
+			<Test>./test_sensor_decoder</Test>
+			<Test>./test_servo_motor_decoder</Test>
+			<Test>./test_system_decoder_extended</Test>
+			<Test>./test_msp_parser</Test>
+			<Test>./test_msp_parser_fuzz</Test>
+			<Test>./test_msp_parser_hardening</Test>
+			<Test>./test_crc</Test>
+			<Test>./test_msp_registry</Test>
+			<Test>./test_decoder_coverage</Test>
+			<Test>./test_msp_probe</Test>
+		</TestList>
+		<Test Status="passed">
+			<Name>test_battery_decoder</Name>
+			<Path>.</Path>
+			<FullName>./test_battery_decoder</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_battery_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_battery_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_battery_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_battery_decoder.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.570017</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_battery_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_battery_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_battery_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_battery_decoder.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_battery_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_battery_decoder.gtest.xml
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from BatteryDecoder
+[ RUN      ] BatteryDecoder.AnalogBasic
+[       OK ] BatteryDecoder.AnalogBasic (238 ms)
+[ RUN      ] BatteryDecoder.ExtendedState
+[       OK ] BatteryDecoder.ExtendedState (66 ms)
+[----------] 2 tests from BatteryDecoder (304 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (304 ms total)
+[  PASSED  ] 2 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_battery_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_battery_decoder.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_system_decoder</Name>
+			<Path>.</Path>
+			<FullName>./test_system_decoder</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_system_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_system_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.405436</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_system_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_system_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_system_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder.gtest.xml
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from SystemDecoder
+[ RUN      ] SystemDecoder.StatusExBasic
+[       OK ] SystemDecoder.StatusExBasic (80 ms)
+[ RUN      ] SystemDecoder.SensorStatusMasks
+[       OK ] SystemDecoder.SensorStatusMasks (70 ms)
+[----------] 2 tests from SystemDecoder (150 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (150 ms total)
+[  PASSED  ] 2 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_attitude_decoder</Name>
+			<Path>.</Path>
+			<FullName>./test_attitude_decoder</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_attitude_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_attitude_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_attitude_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_attitude_decoder.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.327952</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_attitude_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_attitude_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_attitude_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_attitude_decoder.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_attitude_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_attitude_decoder.gtest.xml
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from AttitudeDecoder
+[ RUN      ] AttitudeDecoder.BasicScaling
+[       OK ] AttitudeDecoder.BasicScaling (78 ms)
+[----------] 1 test from AttitudeDecoder (78 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (78 ms total)
+[  PASSED  ] 1 test.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_attitude_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_attitude_decoder.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_imu_decoder</Name>
+			<Path>.</Path>
+			<FullName>./test_imu_decoder</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_imu_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_imu_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_imu_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_imu_decoder.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.419655</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_imu_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_imu_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_imu_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_imu_decoder.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_imu_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_imu_decoder.gtest.xml
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from ImuDecoder
+[ RUN      ] ImuDecoder.RawImuScaling
+[       OK ] ImuDecoder.RawImuScaling (92 ms)
+[ RUN      ] ImuDecoder.ShortPayloadIgnored
+[       OK ] ImuDecoder.ShortPayloadIgnored (77 ms)
+[----------] 2 tests from ImuDecoder (169 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (169 ms total)
+[  PASSED  ] 2 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_imu_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_imu_decoder.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_gps_decoder</Name>
+			<Path>.</Path>
+			<FullName>./test_gps_decoder</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_gps_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_gps_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_gps_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_gps_decoder.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.467576</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_gps_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_gps_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_gps_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_gps_decoder.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_gps_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_gps_decoder.gtest.xml
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from GpsDecoder
+[ RUN      ] GpsDecoder.RawGpsBasic
+[       OK ] GpsDecoder.RawGpsBasic (114 ms)
+[ RUN      ] GpsDecoder.CompGpsVector
+[       OK ] GpsDecoder.CompGpsVector (98 ms)
+[----------] 2 tests from GpsDecoder (213 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (213 ms total)
+[  PASSED  ] 2 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_gps_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_gps_decoder.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_rc_decoder</Name>
+			<Path>.</Path>
+			<FullName>./test_rc_decoder</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_rc_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_rc_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_rc_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_rc_decoder.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.412667</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_rc_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_rc_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_rc_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_rc_decoder.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_rc_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_rc_decoder.gtest.xml
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from RcDecoder
+[ RUN      ] RcDecoder.RcChannelsBasic
+[       OK ] RcDecoder.RcChannelsBasic (88 ms)
+[ RUN      ] RcDecoder.ShortPayloadIgnored
+[       OK ] RcDecoder.ShortPayloadIgnored (75 ms)
+[----------] 2 tests from RcDecoder (163 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (163 ms total)
+[  PASSED  ] 2 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_rc_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_rc_decoder.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_altitude_decoder</Name>
+			<Path>.</Path>
+			<FullName>./test_altitude_decoder</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_altitude_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_altitude_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_altitude_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_altitude_decoder.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.41878</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_altitude_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_altitude_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_altitude_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_altitude_decoder.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_altitude_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_altitude_decoder.gtest.xml
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from AltitudeDecoder
+[ RUN      ] AltitudeDecoder.BasicScaling
+[       OK ] AltitudeDecoder.BasicScaling (91 ms)
+[ RUN      ] AltitudeDecoder.ShortPayloadIgnored
+[       OK ] AltitudeDecoder.ShortPayloadIgnored (76 ms)
+[----------] 2 tests from AltitudeDecoder (167 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (168 ms total)
+[  PASSED  ] 2 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_altitude_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_altitude_decoder.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_inav_status_decoder</Name>
+			<Path>.</Path>
+			<FullName>./test_inav_status_decoder</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_inav_status_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_inav_status_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_inav_status_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_inav_status_decoder.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.399222</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_inav_status_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_inav_status_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_inav_status_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_inav_status_decoder.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_inav_status_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_inav_status_decoder.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from InavStatusDecoderFixture
+[ RUN      ] InavStatusDecoderFixture.BasicDecoding
+[       OK ] InavStatusDecoderFixture.BasicDecoding (91 ms)
+[ RUN      ] InavStatusDecoderFixture.ShortPayloadIgnored
+[       OK ] InavStatusDecoderFixture.ShortPayloadIgnored (65 ms)
+[----------] 2 tests from InavStatusDecoderFixture (157 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (157 ms total)
+[  PASSED  ] 2 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_inav_status_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_inav_status_decoder.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_sensor_decoder</Name>
+			<Path>.</Path>
+			<FullName>./test_sensor_decoder</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_sensor_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_sensor_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_sensor_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_sensor_decoder.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.582343</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_sensor_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_sensor_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_sensor_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_sensor_decoder.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_sensor_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_sensor_decoder.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 4 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 4 tests from SensorDecoderFixture
+[ RUN      ] SensorDecoderFixture.RangefinderValidAndInvalid
+[       OK ] SensorDecoderFixture.RangefinderValidAndInvalid (141 ms)
+[ RUN      ] SensorDecoderFixture.CompassVector
+[       OK ] SensorDecoderFixture.CompassVector (67 ms)
+[ RUN      ] SensorDecoderFixture.BarometerPressure
+[       OK ] SensorDecoderFixture.BarometerPressure (66 ms)
+[ RUN      ] SensorDecoderFixture.ShortPayloadIgnored
+[       OK ] SensorDecoderFixture.ShortPayloadIgnored (65 ms)
+[----------] 4 tests from SensorDecoderFixture (340 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 1 test suite ran. (340 ms total)
+[  PASSED  ] 4 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_sensor_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_sensor_decoder.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_servo_motor_decoder</Name>
+			<Path>.</Path>
+			<FullName>./test_servo_motor_decoder</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_servo_motor_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_servo_motor_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_servo_motor_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_servo_motor_decoder.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.488558</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_servo_motor_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_servo_motor_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_servo_motor_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_servo_motor_decoder.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_servo_motor_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_servo_motor_decoder.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 3 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 3 tests from ServoMotorDecoderFixture
+[ RUN      ] ServoMotorDecoderFixture.ServoPositionsDecoded
+[       OK ] ServoMotorDecoderFixture.ServoPositionsDecoded (90 ms)
+[ RUN      ] ServoMotorDecoderFixture.MotorVelocitiesDecoded
+[       OK ] ServoMotorDecoderFixture.MotorVelocitiesDecoded (92 ms)
+[ RUN      ] ServoMotorDecoderFixture.ShortPayloadIgnored
+[       OK ] ServoMotorDecoderFixture.ShortPayloadIgnored (65 ms)
+[----------] 3 tests from ServoMotorDecoderFixture (249 ms total)
+
+[----------] Global test environment tear-down
+[==========] 3 tests from 1 test suite ran. (249 ms total)
+[  PASSED  ] 3 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_servo_motor_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_servo_motor_decoder.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_system_decoder_extended</Name>
+			<Path>.</Path>
+			<FullName>./test_system_decoder_extended</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder_extended.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_system_decoder_extended.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_system_decoder_extended" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder_extended.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.491088</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder_extended.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_system_decoder_extended.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_system_decoder_extended" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder_extended.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_system_decoder_extended --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder_extended.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 3 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 3 tests from SystemDecoderExtendedFixture
+[ RUN      ] SystemDecoderExtendedFixture.RcTuningDecoding
+[       OK ] SystemDecoderExtendedFixture.RcTuningDecoding (99 ms)
+[ RUN      ] SystemDecoderExtendedFixture.GpsStatisticsDecoding
+[       OK ] SystemDecoderExtendedFixture.GpsStatisticsDecoding (76 ms)
+[ RUN      ] SystemDecoderExtendedFixture.RtcDecoding
+[       OK ] SystemDecoderExtendedFixture.RtcDecoding (74 ms)
+[----------] 3 tests from SystemDecoderExtendedFixture (251 ms total)
+
+[----------] Global test environment tear-down
+[==========] 3 tests from 1 test suite ran. (251 ms total)
+[  PASSED  ] 3 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder_extended.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder_extended.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_msp_parser</Name>
+			<Path>.</Path>
+			<FullName>./test_msp_parser</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_msp_parser.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.118736</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_msp_parser.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 7 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 7 tests from MSPParserFixture
+[ RUN      ] MSPParserFixture.V1SimplePacket
+[       OK ] MSPParserFixture.V1SimplePacket (0 ms)
+[ RUN      ] MSPParserFixture.V2NativePacket
+[       OK ] MSPParserFixture.V2NativePacket (0 ms)
+[ RUN      ] MSPParserFixture.V2TunneledPacket
+[       OK ] MSPParserFixture.V2TunneledPacket (0 ms)
+[ RUN      ] MSPParserFixture.NativeV2CrcFailure
+[       OK ] MSPParserFixture.NativeV2CrcFailure (0 ms)
+[ RUN      ] MSPParserFixture.TunneledV2CrcFailure
+[       OK ] MSPParserFixture.TunneledV2CrcFailure (0 ms)
+[ RUN      ] MSPParserFixture.PartialFrameNoEmit
+[       OK ] MSPParserFixture.PartialFrameNoEmit (0 ms)
+[ RUN      ] MSPParserFixture.MultipleFramesSequence
+[       OK ] MSPParserFixture.MultipleFramesSequence (0 ms)
+[----------] 7 tests from MSPParserFixture (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 7 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 7 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_msp_parser_fuzz</Name>
+			<Path>.</Path>
+			<FullName>./test_msp_parser_fuzz</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_fuzz.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_msp_parser_fuzz.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser_fuzz" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_fuzz.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.114239</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_fuzz.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_msp_parser_fuzz.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser_fuzz" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_fuzz.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser_fuzz --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_fuzz.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from MSPParserFuzz
+[ RUN      ] MSPParserFuzz.RandomNoiseDoesNotCrash
+[       OK ] MSPParserFuzz.RandomNoiseDoesNotCrash (0 ms)
+[ RUN      ] MSPParserFuzz.MixedValidAndNoise
+[       OK ] MSPParserFuzz.MixedValidAndNoise (0 ms)
+[----------] 2 tests from MSPParserFuzz (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 2 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_fuzz.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_fuzz.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_msp_parser_hardening</Name>
+			<Path>.</Path>
+			<FullName>./test_msp_parser_hardening</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_hardening.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_msp_parser_hardening.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser_hardening" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_hardening.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.115911</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_hardening.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_msp_parser_hardening.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser_hardening" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_hardening.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser_hardening --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_hardening.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 4 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 4 tests from MSPParserHardening
+[ RUN      ] MSPParserHardening.MaxPayloadV1Rejected
+[       OK ] MSPParserHardening.MaxPayloadV1Rejected (0 ms)
+[ RUN      ] MSPParserHardening.MaxPayloadV2Rejected
+[       OK ] MSPParserHardening.MaxPayloadV2Rejected (0 ms)
+[ RUN      ] MSPParserHardening.AbortMidFrame
+[       OK ] MSPParserHardening.AbortMidFrame (0 ms)
+[ RUN      ] MSPParserHardening.ZeroCopyPayloadDuringAccumulation
+[       OK ] MSPParserHardening.ZeroCopyPayloadDuringAccumulation (0 ms)
+[----------] 4 tests from MSPParserHardening (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 4 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_hardening.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_hardening.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_crc</Name>
+			<Path>.</Path>
+			<FullName>./test_crc</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_crc.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_crc.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_crc" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_crc.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.115521</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_crc.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_crc.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_crc" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_crc.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_crc --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_crc.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 4 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 4 tests from CRCTest
+[ RUN      ] CRCTest.KnownVector
+[       OK ] CRCTest.KnownVector (0 ms)
+[ RUN      ] CRCTest.EmptyBuffer
+[       OK ] CRCTest.EmptyBuffer (0 ms)
+[ RUN      ] CRCTest.SeededConsistency
+[       OK ] CRCTest.SeededConsistency (0 ms)
+[ RUN      ] CRCTest.SingleByteAllValues
+[       OK ] CRCTest.SingleByteAllValues (0 ms)
+[----------] 4 tests from CRCTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 4 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_crc.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_crc.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_msp_registry</Name>
+			<Path>.</Path>
+			<FullName>./test_msp_registry</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_registry.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_msp_registry.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_registry" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_registry.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.118203</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_registry.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_msp_registry.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_registry" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_registry.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_registry --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_registry.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 11 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 11 tests from MSPRegistry
+[ RUN      ] MSPRegistry.ContainsExpectedCoreV1Ids
+[       OK ] MSPRegistry.ContainsExpectedCoreV1Ids (1 ms)
+[ RUN      ] MSPRegistry.ContainsExpectedV2Ids
+[       OK ] MSPRegistry.ContainsExpectedV2Ids (0 ms)
+[ RUN      ] MSPRegistry.V2InferenceMatchesIdRange
+[       OK ] MSPRegistry.V2InferenceMatchesIdRange (0 ms)
+[ RUN      ] MSPRegistry.BuildCallbacksReturnNonEmptyFrame
+[       OK ] MSPRegistry.BuildCallbacksReturnNonEmptyFrame (0 ms)
+[ RUN      ] MSPRegistry.NoDuplicateIds
+[       OK ] MSPRegistry.NoDuplicateIds (0 ms)
+[ RUN      ] MSPRegistry.PollRateNonNegative
+[       OK ] MSPRegistry.PollRateNonNegative (0 ms)
+[ RUN      ] MSPRegistry.VersionFramingMatchesInference
+[       OK ] MSPRegistry.VersionFramingMatchesInference (0 ms)
+[ RUN      ] MSPRegistry.DeterministicBuilders
+[       OK ] MSPRegistry.DeterministicBuilders (0 ms)
+[ RUN      ] MSPRegistry.UniqueNames
+[       OK ] MSPRegistry.UniqueNames (0 ms)
+[ RUN      ] MSPRegistry.GpsStatisticsPresentAndNamed
+[       OK ] MSPRegistry.GpsStatisticsPresentAndNamed (0 ms)
+[ RUN      ] MSPRegistry.FrameMinimalStructure
+[       OK ] MSPRegistry.FrameMinimalStructure (0 ms)
+[----------] 11 tests from MSPRegistry (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 11 tests from 1 test suite ran. (2 ms total)
+[  PASSED  ] 11 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_registry.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_registry.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_decoder_coverage</Name>
+			<Path>.</Path>
+			<FullName>./test_decoder_coverage</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_decoder_coverage.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_decoder_coverage.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_decoder_coverage" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_decoder_coverage.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.121703</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_decoder_coverage.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_decoder_coverage.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_decoder_coverage" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_decoder_coverage.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_decoder_coverage --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_decoder_coverage.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from DecoderCoverage
+[ RUN      ] DecoderCoverage.DefaultPolledCommandsHaveDecoders
+[       OK ] DecoderCoverage.DefaultPolledCommandsHaveDecoders (1 ms)
+[----------] 1 test from DecoderCoverage (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1 ms total)
+[  PASSED  ] 1 test.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_decoder_coverage.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_decoder_coverage.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_msp_probe</Name>
+			<Path>.</Path>
+			<FullName>./test_msp_probe</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_probe.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_msp_probe.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_probe" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_probe.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.118289</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_probe.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_msp_probe.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_probe" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_probe.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_probe --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_probe.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from MspProbe
+[ RUN      ] MspProbe.AllDefaultPolledRespondAndValidate
+/home/atvpi/ros2_ws/src/transformer_msp_bridge/test/test_msp_probe.cpp:22: Skipped
+MSP_TEST_PORT/MSP_TEST_BAUD not set; skipping probe test
+
+[  SKIPPED ] MspProbe.AllDefaultPolledRespondAndValidate (0 ms)
+[----------] 1 test from MspProbe (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  SKIPPED ] 1 test, listed below:
+[  SKIPPED ] MspProbe.AllDefaultPolledRespondAndValidate
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_probe.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_probe.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<EndDateTime>Sep 26 12:59 CEST</EndDateTime>
+		<EndTestTime>1758884352</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

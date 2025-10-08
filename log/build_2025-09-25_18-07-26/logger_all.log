@@ -1,0 +1,446 @@
+[0.187s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--packages-select', 'transformer_hw_actuators', 'transformer_hw_servos', 'transformer_controller']
+[0.187s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=4, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=['transformer_hw_actuators', 'transformer_hw_servos', 'transformer_controller'], packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0xffff98030620>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0xffff981e0c80>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0xffff981e0c80>>, mixin_verb=('build',))
+[0.288s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.288s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.288s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.288s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.288s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.288s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.289s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/atvpi/ros2_ws'
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.345s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.345s] Level 1:colcon.colcon_core.package_identification:_identify(Testing) by extensions ['ignore', 'ignore_ament_install']
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(Testing) by extension 'ignore'
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(Testing) by extension 'ignore_ament_install'
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(Testing) by extensions ['colcon_pkg']
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(Testing) by extension 'colcon_pkg'
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(Testing) by extensions ['colcon_meta']
+[0.347s] Level 1:colcon.colcon_core.package_identification:_identify(Testing) by extension 'colcon_meta'
+[0.347s] Level 1:colcon.colcon_core.package_identification:_identify(Testing) by extensions ['ros']
+[0.347s] Level 1:colcon.colcon_core.package_identification:_identify(Testing) by extension 'ros'
+[0.347s] Level 1:colcon.colcon_core.package_identification:_identify(Testing) by extensions ['cmake', 'python']
+[0.347s] Level 1:colcon.colcon_core.package_identification:_identify(Testing) by extension 'cmake'
+[0.347s] Level 1:colcon.colcon_core.package_identification:_identify(Testing) by extension 'python'
+[0.347s] Level 1:colcon.colcon_core.package_identification:_identify(Testing) by extensions ['python_setup_py']
+[0.347s] Level 1:colcon.colcon_core.package_identification:_identify(Testing) by extension 'python_setup_py'
+[0.347s] Level 1:colcon.colcon_core.package_identification:_identify(Testing/Temporary) by extensions ['ignore', 'ignore_ament_install']
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(Testing/Temporary) by extension 'ignore'
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(Testing/Temporary) by extension 'ignore_ament_install'
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(Testing/Temporary) by extensions ['colcon_pkg']
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(Testing/Temporary) by extension 'colcon_pkg'
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(Testing/Temporary) by extensions ['colcon_meta']
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(Testing/Temporary) by extension 'colcon_meta'
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(Testing/Temporary) by extensions ['ros']
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(Testing/Temporary) by extension 'ros'
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(Testing/Temporary) by extensions ['cmake', 'python']
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(Testing/Temporary) by extension 'cmake'
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(Testing/Temporary) by extension 'python'
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(Testing/Temporary) by extensions ['python_setup_py']
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(Testing/Temporary) by extension 'python_setup_py'
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.349s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.349s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.349s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.349s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.349s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.349s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.349s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.349s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.350s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.350s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.350s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.350s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.350s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.350s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.350s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.350s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.350s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.350s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.350s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.350s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.350s] Level 1:colcon.colcon_core.package_identification:_identify(src/external) by extensions ['ignore', 'ignore_ament_install']
+[0.350s] Level 1:colcon.colcon_core.package_identification:_identify(src/external) by extension 'ignore'
+[0.351s] Level 1:colcon.colcon_core.package_identification:_identify(src/external) by extension 'ignore_ament_install'
+[0.351s] Level 1:colcon.colcon_core.package_identification:_identify(src/external) by extensions ['colcon_pkg']
+[0.351s] Level 1:colcon.colcon_core.package_identification:_identify(src/external) by extension 'colcon_pkg'
+[0.351s] Level 1:colcon.colcon_core.package_identification:_identify(src/external) by extensions ['colcon_meta']
+[0.351s] Level 1:colcon.colcon_core.package_identification:_identify(src/external) by extension 'colcon_meta'
+[0.351s] Level 1:colcon.colcon_core.package_identification:_identify(src/external) by extensions ['ros']
+[0.351s] Level 1:colcon.colcon_core.package_identification:_identify(src/external) by extension 'ros'
+[0.351s] Level 1:colcon.colcon_core.package_identification:_identify(src/external) by extensions ['cmake', 'python']
+[0.351s] Level 1:colcon.colcon_core.package_identification:_identify(src/external) by extension 'cmake'
+[0.351s] Level 1:colcon.colcon_core.package_identification:_identify(src/external) by extension 'python'
+[0.351s] Level 1:colcon.colcon_core.package_identification:_identify(src/external) by extensions ['python_setup_py']
+[0.351s] Level 1:colcon.colcon_core.package_identification:_identify(src/external) by extension 'python_setup_py'
+[0.351s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav) by extensions ['ignore', 'ignore_ament_install']
+[0.351s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav) by extension 'ignore'
+[0.351s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav) by extension 'ignore_ament_install'
+[0.351s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav) by extensions ['colcon_pkg']
+[0.351s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav) by extension 'colcon_pkg'
+[0.351s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav) by extensions ['colcon_meta']
+[0.352s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav) by extension 'colcon_meta'
+[0.352s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav) by extensions ['ros']
+[0.352s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav) by extension 'ros'
+[0.352s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav) by extensions ['cmake', 'python']
+[0.352s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav) by extension 'cmake'
+[0.352s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav) by extension 'python'
+[0.352s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav) by extensions ['python_setup_py']
+[0.352s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav) by extension 'python_setup_py'
+[0.352s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src) by extensions ['ignore', 'ignore_ament_install']
+[0.352s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src) by extension 'ignore'
+[0.352s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src) by extension 'ignore_ament_install'
+[0.352s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src) by extensions ['colcon_pkg']
+[0.352s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src) by extension 'colcon_pkg'
+[0.352s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src) by extensions ['colcon_meta']
+[0.352s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src) by extension 'colcon_meta'
+[0.352s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src) by extensions ['ros']
+[0.352s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src) by extension 'ros'
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src) by extensions ['cmake', 'python']
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src) by extension 'cmake'
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src) by extension 'python'
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src) by extensions ['python_setup_py']
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src) by extension 'python_setup_py'
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main) by extensions ['ignore', 'ignore_ament_install']
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main) by extension 'ignore'
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main) by extension 'ignore_ament_install'
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main) by extensions ['colcon_pkg']
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main) by extension 'colcon_pkg'
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main) by extensions ['colcon_meta']
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main) by extension 'colcon_meta'
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main) by extensions ['ros']
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main) by extension 'ros'
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main) by extensions ['cmake', 'python']
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main) by extension 'cmake'
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main) by extension 'python'
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main) by extensions ['python_setup_py']
+[0.354s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main) by extension 'python_setup_py'
+[0.354s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main/msp) by extensions ['ignore', 'ignore_ament_install']
+[0.354s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main/msp) by extension 'ignore'
+[0.354s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main/msp) by extension 'ignore_ament_install'
+[0.354s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main/msp) by extensions ['colcon_pkg']
+[0.354s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main/msp) by extension 'colcon_pkg'
+[0.354s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main/msp) by extensions ['colcon_meta']
+[0.354s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main/msp) by extension 'colcon_meta'
+[0.354s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main/msp) by extensions ['ros']
+[0.354s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main/msp) by extension 'ros'
+[0.354s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main/msp) by extensions ['cmake', 'python']
+[0.354s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main/msp) by extension 'cmake'
+[0.355s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main/msp) by extension 'python'
+[0.355s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main/msp) by extensions ['python_setup_py']
+[0.355s] Level 1:colcon.colcon_core.package_identification:_identify(src/external/inav/src/main/msp) by extension 'python_setup_py'
+[0.355s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros2_wheeltec_n100_imu) by extensions ['ignore', 'ignore_ament_install']
+[0.355s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros2_wheeltec_n100_imu) by extension 'ignore'
+[0.355s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros2_wheeltec_n100_imu) by extension 'ignore_ament_install'
+[0.355s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros2_wheeltec_n100_imu) by extensions ['colcon_pkg']
+[0.355s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros2_wheeltec_n100_imu) by extension 'colcon_pkg'
+[0.355s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros2_wheeltec_n100_imu) by extensions ['colcon_meta']
+[0.355s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros2_wheeltec_n100_imu) by extension 'colcon_meta'
+[0.355s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros2_wheeltec_n100_imu) by extensions ['ros']
+[0.355s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros2_wheeltec_n100_imu) by extension 'ros'
+[0.359s] DEBUG:colcon.colcon_core.package_identification:Package 'src/ros2_wheeltec_n100_imu' with type 'ros.ament_cmake' and name 'wheeltec_n100_imu'
+[0.360s] Level 1:colcon.colcon_core.package_identification:_identify(src/serial-ros2) by extensions ['ignore', 'ignore_ament_install']
+[0.360s] Level 1:colcon.colcon_core.package_identification:_identify(src/serial-ros2) by extension 'ignore'
+[0.360s] Level 1:colcon.colcon_core.package_identification:_identify(src/serial-ros2) by extension 'ignore_ament_install'
+[0.361s] Level 1:colcon.colcon_core.package_identification:_identify(src/serial-ros2) by extensions ['colcon_pkg']
+[0.361s] Level 1:colcon.colcon_core.package_identification:_identify(src/serial-ros2) by extension 'colcon_pkg'
+[0.361s] Level 1:colcon.colcon_core.package_identification:_identify(src/serial-ros2) by extensions ['colcon_meta']
+[0.361s] Level 1:colcon.colcon_core.package_identification:_identify(src/serial-ros2) by extension 'colcon_meta'
+[0.361s] Level 1:colcon.colcon_core.package_identification:_identify(src/serial-ros2) by extensions ['ros']
+[0.361s] Level 1:colcon.colcon_core.package_identification:_identify(src/serial-ros2) by extension 'ros'
+[0.362s] DEBUG:colcon.colcon_core.package_identification:Package 'src/serial-ros2' with type 'ros.ament_cmake' and name 'serial'
+[0.362s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_bringup) by extensions ['ignore', 'ignore_ament_install']
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_bringup) by extension 'ignore'
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_bringup) by extension 'ignore_ament_install'
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_bringup) by extensions ['colcon_pkg']
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_bringup) by extension 'colcon_pkg'
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_bringup) by extensions ['colcon_meta']
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_bringup) by extension 'colcon_meta'
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_bringup) by extensions ['ros']
+[0.363s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_bringup) by extension 'ros'
+[0.364s] DEBUG:colcon.colcon_core.package_identification:Package 'src/transformer_bringup' with type 'ros.ament_cmake' and name 'transformer_bringup'
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_controller) by extensions ['ignore', 'ignore_ament_install']
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_controller) by extension 'ignore'
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_controller) by extension 'ignore_ament_install'
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_controller) by extensions ['colcon_pkg']
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_controller) by extension 'colcon_pkg'
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_controller) by extensions ['colcon_meta']
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_controller) by extension 'colcon_meta'
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_controller) by extensions ['ros']
+[0.365s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_controller) by extension 'ros'
+[0.366s] DEBUG:colcon.colcon_core.package_identification:Package 'src/transformer_controller' with type 'ros.ament_cmake' and name 'transformer_controller'
+[0.366s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_hw_actuators) by extensions ['ignore', 'ignore_ament_install']
+[0.366s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_hw_actuators) by extension 'ignore'
+[0.366s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_hw_actuators) by extension 'ignore_ament_install'
+[0.366s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_hw_actuators) by extensions ['colcon_pkg']
+[0.366s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_hw_actuators) by extension 'colcon_pkg'
+[0.366s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_hw_actuators) by extensions ['colcon_meta']
+[0.366s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_hw_actuators) by extension 'colcon_meta'
+[0.367s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_hw_actuators) by extensions ['ros']
+[0.367s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_hw_actuators) by extension 'ros'
+[0.368s] DEBUG:colcon.colcon_core.package_identification:Package 'src/transformer_hw_actuators' with type 'ros.ament_cmake' and name 'transformer_hw_actuators'
+[0.368s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_hw_servos) by extensions ['ignore', 'ignore_ament_install']
+[0.368s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_hw_servos) by extension 'ignore'
+[0.368s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_hw_servos) by extension 'ignore_ament_install'
+[0.368s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_hw_servos) by extensions ['colcon_pkg']
+[0.368s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_hw_servos) by extension 'colcon_pkg'
+[0.368s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_hw_servos) by extensions ['colcon_meta']
+[0.368s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_hw_servos) by extension 'colcon_meta'
+[0.368s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_hw_servos) by extensions ['ros']
+[0.368s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_hw_servos) by extension 'ros'
+[0.369s] DEBUG:colcon.colcon_core.package_identification:Package 'src/transformer_hw_servos' with type 'ros.ament_cmake' and name 'transformer_hw_servos'
+[0.369s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_msp_bridge) by extensions ['ignore', 'ignore_ament_install']
+[0.369s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_msp_bridge) by extension 'ignore'
+[0.369s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_msp_bridge) by extension 'ignore_ament_install'
+[0.370s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_msp_bridge) by extensions ['colcon_pkg']
+[0.370s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_msp_bridge) by extension 'colcon_pkg'
+[0.370s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_msp_bridge) by extensions ['colcon_meta']
+[0.370s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_msp_bridge) by extension 'colcon_meta'
+[0.370s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_msp_bridge) by extensions ['ros']
+[0.370s] Level 1:colcon.colcon_core.package_identification:_identify(src/transformer_msp_bridge) by extension 'ros'
+[0.371s] DEBUG:colcon.colcon_core.package_identification:Package 'src/transformer_msp_bridge' with type 'ros.ament_cmake' and name 'transformer_msp_bridge'
+[0.371s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.371s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.371s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.371s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.371s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.404s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'serial' in 'src/serial-ros2'
+[0.404s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'transformer_msp_bridge' in 'src/transformer_msp_bridge'
+[0.404s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'wheeltec_n100_imu' in 'src/ros2_wheeltec_n100_imu'
+[0.404s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'transformer_bringup' in 'src/transformer_bringup'
+[0.404s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.404s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.407s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 7 installed packages in /home/atvpi/ros2_ws/install
+[0.409s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 209 installed packages in /opt/ros/jazzy
+[0.412s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.462s] WARNING:colcon.colcon_core.package_selection:Some selected packages are already built in one or more underlay workspaces:
+	'transformer_controller' is in: /home/atvpi/ros2_ws/install/transformer_controller
+	'transformer_hw_actuators' is in: /home/atvpi/ros2_ws/install/transformer_hw_actuators
+	'transformer_hw_servos' is in: /home/atvpi/ros2_ws/install/transformer_hw_servos
+If a package in a merged underlay workspace is overridden and it installs headers, then all packages in the overlay must sort their include directories by workspace order. Failure to do so may result in build failures or undefined behavior at run time.
+If the overridden package is used by another package in any underlay, then the overriding package in the overlay must be API and ABI compatible or undefined behavior at run time may occur.
+
+If you understand the risks and want to override a package anyways, add the following to the command line:
+	--allow-overriding transformer_controller transformer_hw_actuators transformer_hw_servos
+
+This may be promoted to an error in a future release of colcon-override-check.
+[0.463s] Level 5:colcon.colcon_core.verb:set package 'transformer_hw_actuators' build argument 'cmake_args' from command line to 'None'
+[0.463s] Level 5:colcon.colcon_core.verb:set package 'transformer_hw_actuators' build argument 'cmake_target' from command line to 'None'
+[0.463s] Level 5:colcon.colcon_core.verb:set package 'transformer_hw_actuators' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.463s] Level 5:colcon.colcon_core.verb:set package 'transformer_hw_actuators' build argument 'cmake_clean_cache' from command line to 'False'
+[0.463s] Level 5:colcon.colcon_core.verb:set package 'transformer_hw_actuators' build argument 'cmake_clean_first' from command line to 'False'
+[0.463s] Level 5:colcon.colcon_core.verb:set package 'transformer_hw_actuators' build argument 'cmake_force_configure' from command line to 'False'
+[0.463s] Level 5:colcon.colcon_core.verb:set package 'transformer_hw_actuators' build argument 'ament_cmake_args' from command line to 'None'
+[0.463s] Level 5:colcon.colcon_core.verb:set package 'transformer_hw_actuators' build argument 'catkin_cmake_args' from command line to 'None'
+[0.464s] Level 5:colcon.colcon_core.verb:set package 'transformer_hw_actuators' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.464s] DEBUG:colcon.colcon_core.verb:Building package 'transformer_hw_actuators' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/atvpi/ros2_ws/build/transformer_hw_actuators', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/atvpi/ros2_ws/install/transformer_hw_actuators', 'merge_install': False, 'path': '/home/atvpi/ros2_ws/src/transformer_hw_actuators', 'symlink_install': False, 'test_result_base': None}
+[0.464s] Level 5:colcon.colcon_core.verb:set package 'transformer_hw_servos' build argument 'cmake_args' from command line to 'None'
+[0.464s] Level 5:colcon.colcon_core.verb:set package 'transformer_hw_servos' build argument 'cmake_target' from command line to 'None'
+[0.464s] Level 5:colcon.colcon_core.verb:set package 'transformer_hw_servos' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.464s] Level 5:colcon.colcon_core.verb:set package 'transformer_hw_servos' build argument 'cmake_clean_cache' from command line to 'False'
+[0.464s] Level 5:colcon.colcon_core.verb:set package 'transformer_hw_servos' build argument 'cmake_clean_first' from command line to 'False'
+[0.464s] Level 5:colcon.colcon_core.verb:set package 'transformer_hw_servos' build argument 'cmake_force_configure' from command line to 'False'
+[0.464s] Level 5:colcon.colcon_core.verb:set package 'transformer_hw_servos' build argument 'ament_cmake_args' from command line to 'None'
+[0.464s] Level 5:colcon.colcon_core.verb:set package 'transformer_hw_servos' build argument 'catkin_cmake_args' from command line to 'None'
+[0.464s] Level 5:colcon.colcon_core.verb:set package 'transformer_hw_servos' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.464s] DEBUG:colcon.colcon_core.verb:Building package 'transformer_hw_servos' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/atvpi/ros2_ws/build/transformer_hw_servos', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/atvpi/ros2_ws/install/transformer_hw_servos', 'merge_install': False, 'path': '/home/atvpi/ros2_ws/src/transformer_hw_servos', 'symlink_install': False, 'test_result_base': None}
+[0.465s] Level 5:colcon.colcon_core.verb:set package 'transformer_controller' build argument 'cmake_args' from command line to 'None'
+[0.465s] Level 5:colcon.colcon_core.verb:set package 'transformer_controller' build argument 'cmake_target' from command line to 'None'
+[0.465s] Level 5:colcon.colcon_core.verb:set package 'transformer_controller' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.465s] Level 5:colcon.colcon_core.verb:set package 'transformer_controller' build argument 'cmake_clean_cache' from command line to 'False'
+[0.465s] Level 5:colcon.colcon_core.verb:set package 'transformer_controller' build argument 'cmake_clean_first' from command line to 'False'
+[0.465s] Level 5:colcon.colcon_core.verb:set package 'transformer_controller' build argument 'cmake_force_configure' from command line to 'False'
+[0.465s] Level 5:colcon.colcon_core.verb:set package 'transformer_controller' build argument 'ament_cmake_args' from command line to 'None'
+[0.465s] Level 5:colcon.colcon_core.verb:set package 'transformer_controller' build argument 'catkin_cmake_args' from command line to 'None'
+[0.465s] Level 5:colcon.colcon_core.verb:set package 'transformer_controller' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.465s] DEBUG:colcon.colcon_core.verb:Building package 'transformer_controller' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/atvpi/ros2_ws/build/transformer_controller', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/atvpi/ros2_ws/install/transformer_controller', 'merge_install': False, 'path': '/home/atvpi/ros2_ws/src/transformer_controller', 'symlink_install': False, 'test_result_base': None}
+[0.465s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.467s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.468s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/atvpi/ros2_ws/src/transformer_hw_actuators' with build type 'ament_cmake'
+[0.468s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/atvpi/ros2_ws/src/transformer_hw_actuators'
+[0.471s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.472s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.472s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.478s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/atvpi/ros2_ws/src/transformer_hw_servos' with build type 'ament_cmake'
+[0.479s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/atvpi/ros2_ws/src/transformer_hw_servos'
+[0.480s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.480s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.494s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/atvpi/ros2_ws/build/transformer_hw_actuators': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/atvpi/ros2_ws/build/transformer_hw_actuators -- -j4 -l4
+[0.509s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/atvpi/ros2_ws/build/transformer_hw_servos': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/atvpi/ros2_ws/build/transformer_hw_servos -- -j4 -l4
+[1.969s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/atvpi/ros2_ws/build/transformer_hw_servos' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/atvpi/ros2_ws/build/transformer_hw_servos -- -j4 -l4
+[1.992s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/atvpi/ros2_ws/build/transformer_hw_servos': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /home/atvpi/ros2_ws/build/transformer_hw_servos
+[2.274s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(transformer_hw_servos)
+[2.276s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/atvpi/ros2_ws/build/transformer_hw_servos' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /home/atvpi/ros2_ws/build/transformer_hw_servos
+[2.280s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_servos' for CMake module files
+[2.288s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_servos' for CMake config files
+[2.289s] Level 1:colcon.colcon_core.shell:create_environment_hook('transformer_hw_servos', 'cmake_prefix_path')
+[2.292s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/hook/cmake_prefix_path.ps1'
+[2.293s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/hook/cmake_prefix_path.dsv'
+[2.298s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/hook/cmake_prefix_path.sh'
+[2.304s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_servos/lib'
+[2.305s] Level 1:colcon.colcon_core.shell:create_environment_hook('transformer_hw_servos', 'ld_library_path_lib')
+[2.306s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/hook/ld_library_path_lib.ps1'
+[2.307s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/hook/ld_library_path_lib.dsv'
+[2.310s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/hook/ld_library_path_lib.sh'
+[2.312s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_servos/bin'
+[2.313s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/pkgconfig/transformer_hw_servos.pc'
+[2.314s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages'
+[2.317s] Level 1:colcon.colcon_core.shell:create_environment_hook('transformer_hw_servos', 'pythonpath')
+[2.317s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/hook/pythonpath.ps1'
+[2.318s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/hook/pythonpath.dsv'
+[2.320s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/hook/pythonpath.sh'
+[2.323s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_servos/bin'
+[2.324s] INFO:colcon.colcon_core.shell:Creating package script '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/package.ps1'
+[2.326s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/package.dsv'
+[2.327s] INFO:colcon.colcon_core.shell:Creating package script '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/package.sh'
+[2.329s] INFO:colcon.colcon_core.shell:Creating package script '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/package.bash'
+[2.331s] INFO:colcon.colcon_core.shell:Creating package script '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/package.zsh'
+[2.332s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/atvpi/ros2_ws/install/transformer_hw_servos/share/colcon-core/packages/transformer_hw_servos)
+[2.335s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(transformer_hw_servos)
+[2.335s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_servos' for CMake module files
+[2.336s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_servos' for CMake config files
+[2.336s] Level 1:colcon.colcon_core.shell:create_environment_hook('transformer_hw_servos', 'cmake_prefix_path')
+[2.337s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/hook/cmake_prefix_path.ps1'
+[2.337s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/hook/cmake_prefix_path.dsv'
+[2.339s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/hook/cmake_prefix_path.sh'
+[2.341s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_servos/lib'
+[2.341s] Level 1:colcon.colcon_core.shell:create_environment_hook('transformer_hw_servos', 'ld_library_path_lib')
+[2.341s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/hook/ld_library_path_lib.ps1'
+[2.342s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/hook/ld_library_path_lib.dsv'
+[2.343s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/hook/ld_library_path_lib.sh'
+[2.345s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_servos/bin'
+[2.345s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/pkgconfig/transformer_hw_servos.pc'
+[2.346s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages'
+[2.346s] Level 1:colcon.colcon_core.shell:create_environment_hook('transformer_hw_servos', 'pythonpath')
+[2.346s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/hook/pythonpath.ps1'
+[2.347s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/hook/pythonpath.dsv'
+[2.349s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/hook/pythonpath.sh'
+[2.351s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_servos/bin'
+[2.351s] INFO:colcon.colcon_core.shell:Creating package script '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/package.ps1'
+[2.352s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/package.dsv'
+[2.353s] INFO:colcon.colcon_core.shell:Creating package script '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/package.sh'
+[2.355s] INFO:colcon.colcon_core.shell:Creating package script '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/package.bash'
+[2.356s] INFO:colcon.colcon_core.shell:Creating package script '/home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/package.zsh'
+[2.358s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/atvpi/ros2_ws/install/transformer_hw_servos/share/colcon-core/packages/transformer_hw_servos)
+[2.362s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/atvpi/ros2_ws/build/transformer_hw_actuators' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/atvpi/ros2_ws/build/transformer_hw_actuators -- -j4 -l4
+[2.365s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/atvpi/ros2_ws/build/transformer_hw_actuators': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /home/atvpi/ros2_ws/build/transformer_hw_actuators
+[2.539s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(transformer_hw_actuators)
+[2.540s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_actuators' for CMake module files
+[2.541s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_actuators' for CMake config files
+[2.542s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/atvpi/ros2_ws/build/transformer_hw_actuators' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /home/atvpi/ros2_ws/build/transformer_hw_actuators
+[2.543s] Level 1:colcon.colcon_core.shell:create_environment_hook('transformer_hw_actuators', 'cmake_prefix_path')
+[2.544s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/hook/cmake_prefix_path.ps1'
+[2.549s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/hook/cmake_prefix_path.dsv'
+[2.550s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/hook/cmake_prefix_path.sh'
+[2.552s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib'
+[2.552s] Level 1:colcon.colcon_core.shell:create_environment_hook('transformer_hw_actuators', 'ld_library_path_lib')
+[2.553s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/hook/ld_library_path_lib.ps1'
+[2.554s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/hook/ld_library_path_lib.dsv'
+[2.555s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/hook/ld_library_path_lib.sh'
+[2.557s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_actuators/bin'
+[2.557s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/pkgconfig/transformer_hw_actuators.pc'
+[2.558s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages'
+[2.558s] Level 1:colcon.colcon_core.shell:create_environment_hook('transformer_hw_actuators', 'pythonpath')
+[2.559s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/hook/pythonpath.ps1'
+[2.560s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/hook/pythonpath.dsv'
+[2.563s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/hook/pythonpath.sh'
+[2.565s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_actuators/bin'
+[2.565s] INFO:colcon.colcon_core.shell:Creating package script '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/package.ps1'
+[2.566s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/package.dsv'
+[2.568s] INFO:colcon.colcon_core.shell:Creating package script '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/package.sh'
+[2.571s] INFO:colcon.colcon_core.shell:Creating package script '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/package.bash'
+[2.572s] INFO:colcon.colcon_core.shell:Creating package script '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/package.zsh'
+[2.574s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/colcon-core/packages/transformer_hw_actuators)
+[2.577s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(transformer_hw_actuators)
+[2.577s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_actuators' for CMake module files
+[2.578s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_actuators' for CMake config files
+[2.579s] Level 1:colcon.colcon_core.shell:create_environment_hook('transformer_hw_actuators', 'cmake_prefix_path')
+[2.579s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/hook/cmake_prefix_path.ps1'
+[2.580s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/hook/cmake_prefix_path.dsv'
+[2.582s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/hook/cmake_prefix_path.sh'
+[2.584s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib'
+[2.584s] Level 1:colcon.colcon_core.shell:create_environment_hook('transformer_hw_actuators', 'ld_library_path_lib')
+[2.585s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/hook/ld_library_path_lib.ps1'
+[2.586s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/hook/ld_library_path_lib.dsv'
+[2.589s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/hook/ld_library_path_lib.sh'
+[2.590s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_actuators/bin'
+[2.590s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/pkgconfig/transformer_hw_actuators.pc'
+[2.591s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages'
+[2.591s] Level 1:colcon.colcon_core.shell:create_environment_hook('transformer_hw_actuators', 'pythonpath')
+[2.591s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/hook/pythonpath.ps1'
+[2.592s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/hook/pythonpath.dsv'
+[2.594s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/hook/pythonpath.sh'
+[2.602s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_hw_actuators/bin'
+[2.603s] INFO:colcon.colcon_core.shell:Creating package script '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/package.ps1'
+[2.604s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/package.dsv'
+[2.606s] INFO:colcon.colcon_core.shell:Creating package script '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/package.sh'
+[2.608s] INFO:colcon.colcon_core.shell:Creating package script '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/package.bash'
+[2.611s] INFO:colcon.colcon_core.shell:Creating package script '/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/package.zsh'
+[2.612s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/atvpi/ros2_ws/install/transformer_hw_actuators/share/colcon-core/packages/transformer_hw_actuators)
+[2.614s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/atvpi/ros2_ws/src/transformer_controller' with build type 'ament_cmake'
+[2.614s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/atvpi/ros2_ws/src/transformer_controller'
+[2.615s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.616s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.648s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/atvpi/ros2_ws/build/transformer_controller': CMAKE_PREFIX_PATH=/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy LD_LIBRARY_PATH=/home/atvpi/ros2_ws/install/transformer_hw_servos/lib:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib:/home/atvpi/ros2_ws/install/transformer_controller/lib:/home/atvpi/ros2_ws/install/serial/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/lib PYTHONPATH=/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/cmake --build /home/atvpi/ros2_ws/build/transformer_controller -- -j4 -l4
+[2.833s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete was interrupted
+[2.834s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete again
+[2.847s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(transformer_controller)
+[2.849s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_controller' for CMake module files
+[2.848s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/atvpi/ros2_ws/build/transformer_controller' returned '-2': CMAKE_PREFIX_PATH=/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy LD_LIBRARY_PATH=/home/atvpi/ros2_ws/install/transformer_hw_servos/lib:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib:/home/atvpi/ros2_ws/install/transformer_controller/lib:/home/atvpi/ros2_ws/install/serial/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/lib PYTHONPATH=/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/cmake --build /home/atvpi/ros2_ws/build/transformer_controller -- -j4 -l4
+[2.852s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_controller' for CMake config files
+[2.853s] Level 1:colcon.colcon_core.shell:create_environment_hook('transformer_controller', 'cmake_prefix_path')
+[2.854s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/hook/cmake_prefix_path.ps1'
+[2.855s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/hook/cmake_prefix_path.dsv'
+[2.858s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/hook/cmake_prefix_path.sh'
+[2.859s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_controller/lib'
+[2.859s] Level 1:colcon.colcon_core.shell:create_environment_hook('transformer_controller', 'ld_library_path_lib')
+[2.860s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/hook/ld_library_path_lib.ps1'
+[2.861s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/hook/ld_library_path_lib.dsv'
+[2.863s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/hook/ld_library_path_lib.sh'
+[2.865s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_controller/bin'
+[2.865s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_controller/lib/pkgconfig/transformer_controller.pc'
+[2.866s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages'
+[2.866s] Level 1:colcon.colcon_core.shell:create_environment_hook('transformer_controller', 'pythonpath')
+[2.867s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/hook/pythonpath.ps1'
+[2.869s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/hook/pythonpath.dsv'
+[2.870s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/hook/pythonpath.sh'
+[2.872s] Level 1:colcon.colcon_core.environment:checking '/home/atvpi/ros2_ws/install/transformer_controller/bin'
+[2.873s] INFO:colcon.colcon_core.shell:Creating package script '/home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/package.ps1'
+[2.875s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/package.dsv'
+[2.877s] INFO:colcon.colcon_core.shell:Creating package script '/home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/package.sh'
+[2.879s] INFO:colcon.colcon_core.shell:Creating package script '/home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/package.bash'
+[2.880s] INFO:colcon.colcon_core.shell:Creating package script '/home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/package.zsh'
+[2.881s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/atvpi/ros2_ws/install/transformer_controller/share/colcon-core/packages/transformer_controller)
+[2.894s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished
+[2.894s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[2.894s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[2.895s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[2.905s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.notify_send': Could not find 'notify-send'
+[2.906s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[2.906s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[2.906s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[2.909s] DEBUG:colcon.colcon_notification.desktop_notification.notify2:Failed to initialize notify2: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.Notifications was not provided by any .service files
+[2.910s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[2.910s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/atvpi/ros2_ws/install/local_setup.ps1'
+[2.912s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/atvpi/ros2_ws/install/_local_setup_util_ps1.py'
+[2.914s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/atvpi/ros2_ws/install/setup.ps1'
+[2.916s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/atvpi/ros2_ws/install/local_setup.sh'
+[2.918s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/atvpi/ros2_ws/install/_local_setup_util_sh.py'
+[2.919s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/atvpi/ros2_ws/install/setup.sh'
+[2.921s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/atvpi/ros2_ws/install/local_setup.bash'
+[2.923s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/atvpi/ros2_ws/install/setup.bash'
+[2.925s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/atvpi/ros2_ws/install/local_setup.zsh'
+[2.926s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/atvpi/ros2_ws/install/setup.zsh'

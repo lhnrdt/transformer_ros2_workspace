@@ -1,0 +1,16 @@
+/home/atvpi/ros2_ws/install/transformer_bringup/share/transformer_bringup/launch/transformer_bringup.launch.py
+/home/atvpi/ros2_ws/install/transformer_bringup/share/ament_index/resource_index/package_run_dependencies/transformer_bringup
+/home/atvpi/ros2_ws/install/transformer_bringup/share/ament_index/resource_index/parent_prefix_path/transformer_bringup
+/home/atvpi/ros2_ws/install/transformer_bringup/share/transformer_bringup/environment/ament_prefix_path.sh
+/home/atvpi/ros2_ws/install/transformer_bringup/share/transformer_bringup/environment/ament_prefix_path.dsv
+/home/atvpi/ros2_ws/install/transformer_bringup/share/transformer_bringup/environment/path.sh
+/home/atvpi/ros2_ws/install/transformer_bringup/share/transformer_bringup/environment/path.dsv
+/home/atvpi/ros2_ws/install/transformer_bringup/share/transformer_bringup/local_setup.bash
+/home/atvpi/ros2_ws/install/transformer_bringup/share/transformer_bringup/local_setup.sh
+/home/atvpi/ros2_ws/install/transformer_bringup/share/transformer_bringup/local_setup.zsh
+/home/atvpi/ros2_ws/install/transformer_bringup/share/transformer_bringup/local_setup.dsv
+/home/atvpi/ros2_ws/install/transformer_bringup/share/transformer_bringup/package.dsv
+/home/atvpi/ros2_ws/install/transformer_bringup/share/ament_index/resource_index/packages/transformer_bringup
+/home/atvpi/ros2_ws/install/transformer_bringup/share/transformer_bringup/cmake/transformer_bringupConfig.cmake
+/home/atvpi/ros2_ws/install/transformer_bringup/share/transformer_bringup/cmake/transformer_bringupConfig-version.cmake
+/home/atvpi/ros2_ws/install/transformer_bringup/share/transformer_bringup/package.xml

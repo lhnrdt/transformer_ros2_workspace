@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>transformer_msp_bridge</name>
+  <version>0.0.1</version>
+  <description>MSP (Multiwii/iNav) flight controller ROS 2 bridge</description>
+  <maintainer email="j.lehnerdt@tum.de">atvpi</maintainer>
+  <license>BSD-3-Clause</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>diagnostic_msgs</depend>
+  <depend>yaml-cpp</depend>
+  <depend>ament_index_cpp</depend>
+  <build_depend>rosidl_default_generators</build_depend>
+  <build_export_depend>rosidl_default_generators</build_export_depend>
+  <exec_depend>rosidl_default_generators</exec_depend>
+  <exec_depend>rosidl_default_runtime</exec_depend>
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

@@ -1,0 +1,251 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-4af8c22cead818f78c91.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19
+					]
+				},
+				{
+					"build" : "transformer_controller__py",
+					"jsonFile" : "directory-transformer_controller__py-5f91bb2e6f6eab0d2bfe.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/atvpi/ros2_ws/build/transformer_controller/transformer_controller__py",
+					"targetIndexes" : 
+					[
+						4
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "transformer_controller",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_transformer_controller_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_transformer_controller_egg-78478c76df20cd676f2e.json",
+					"name" : "ament_cmake_python_build_transformer_controller_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_copy_transformer_controller::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_copy_transformer_controller-fc5dfa37b7cad24f7923.json",
+					"name" : "ament_cmake_python_copy_transformer_controller",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_controller::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_controller-ca5fbde944ca182a70f5.json",
+					"name" : "transformer_controller",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_controller__cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_controller__cpp-7d8d43fb1b7e7d8bc6d7.json",
+					"name" : "transformer_controller__cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "transformer_controller__py::@c0a039a61a276525c019",
+					"jsonFile" : "target-transformer_controller__py-46d574f3d18911d7a6c9.json",
+					"name" : "transformer_controller__py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_controller__rosidl_generator_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_controller__rosidl_generator_c-cfb94de79d772deb608b.json",
+					"name" : "transformer_controller__rosidl_generator_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_controller__rosidl_generator_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_controller__rosidl_generator_py-97b062efdd113dc7fea9.json",
+					"name" : "transformer_controller__rosidl_generator_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_controller__rosidl_generator_type_description::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_controller__rosidl_generator_type_description-e514d062d19a246acdca.json",
+					"name" : "transformer_controller__rosidl_generator_type_description",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_controller__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_controller__rosidl_typesupport_c-7c492a07ce66af1bb64b.json",
+					"name" : "transformer_controller__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_controller__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_controller__rosidl_typesupport_cpp-8bb849c5017f3a9920cf.json",
+					"name" : "transformer_controller__rosidl_typesupport_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_controller__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_controller__rosidl_typesupport_fastrtps_c-859304897d27055aa3fb.json",
+					"name" : "transformer_controller__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_controller__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_controller__rosidl_typesupport_fastrtps_cpp-da7d634696dac96adad3.json",
+					"name" : "transformer_controller__rosidl_typesupport_fastrtps_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_controller__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_controller__rosidl_typesupport_introspection_c-65ba0208eb35408f6b39.json",
+					"name" : "transformer_controller__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_controller__rosidl_typesupport_introspection_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_controller__rosidl_typesupport_introspection_cpp-967f67d2027e7480a12c.json",
+					"name" : "transformer_controller__rosidl_typesupport_introspection_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_controller_node::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_controller_node-74cdd764df9ce3effd07.json",
+					"name" : "transformer_controller_node",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_controller_s__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_controller_s__rosidl_typesupport_c-8ed5185d44e5afc1a482.json",
+					"name" : "transformer_controller_s__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_controller_s__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_controller_s__rosidl_typesupport_fastrtps_c-3e4d051121f1c36dbbd5.json",
+					"name" : "transformer_controller_s__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_controller_s__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_controller_s__rosidl_typesupport_introspection_c-864077119df8310a1362.json",
+					"name" : "transformer_controller_s__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_controller_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_controller_uninstall-06407a31411ac3a732e2.json",
+					"name" : "transformer_controller_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-3672af11d19db8682aa8.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/atvpi/ros2_ws/build/transformer_controller",
+		"source" : "/home/atvpi/ros2_ws/src/transformer_controller"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

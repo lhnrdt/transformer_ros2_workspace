@@ -1,0 +1,13 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/transformer_controller__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/transformer_controller/action/detail/transform_mode__type_support.c.o"
+  "CMakeFiles/transformer_controller__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/transformer_controller/action/detail/transform_mode__type_support.c.o.d"
+  "libtransformer_controller__rosidl_typesupport_introspection_c.pdb"
+  "libtransformer_controller__rosidl_typesupport_introspection_c.so"
+  "rosidl_typesupport_introspection_c/transformer_controller/action/detail/transform_mode__rosidl_typesupport_introspection_c.h"
+  "rosidl_typesupport_introspection_c/transformer_controller/action/detail/transform_mode__type_support.c"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang C)
+  include(CMakeFiles/transformer_controller__rosidl_typesupport_introspection_c.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

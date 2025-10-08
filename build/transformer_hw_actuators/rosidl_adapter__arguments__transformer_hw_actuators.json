@@ -1,0 +1,6 @@
+{
+  "package_name": "transformer_hw_actuators",
+  "non_idl_tuples": [
+    "/home/atvpi/ros2_ws/src/transformer_hw_actuators:action/MoveActuator.action"
+  ]
+}

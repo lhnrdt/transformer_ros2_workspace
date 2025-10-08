@@ -1,0 +1,40 @@
+[0.015s] Invoking command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /home/atvpi/ros2_ws/src/transformer_msp_bridge -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/atvpi/ros2_ws/install/transformer_msp_bridge
+[0.038s] -- Found ament_cmake: 2.5.4 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.079s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[0.205s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.221s] -- Found rclcpp: 28.1.12 (/opt/ros/jazzy/share/rclcpp/cmake)
+[0.254s] -- Found rosidl_generator_c: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.268s] -- Found rosidl_generator_cpp: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.289s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.312s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.396s] -- Found rmw_implementation_cmake: 7.3.2 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.398s] -- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.498s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.588s] -- Found std_msgs: 5.3.6 (/opt/ros/jazzy/share/std_msgs/cmake)
+[0.608s] -- Found geometry_msgs: 5.3.6 (/opt/ros/jazzy/share/geometry_msgs/cmake)
+[0.631s] -- Found sensor_msgs: 5.3.6 (/opt/ros/jazzy/share/sensor_msgs/cmake)
+[0.663s] -- Found diagnostic_msgs: 5.3.6 (/opt/ros/jazzy/share/diagnostic_msgs/cmake)
+[0.686s] -- Found rosidl_default_generators: 1.6.0 (/opt/ros/jazzy/share/rosidl_default_generators/cmake)
+[0.699s] -- Found rosidl_adapter: 4.6.6 (/opt/ros/jazzy/share/rosidl_adapter/cmake)
+[1.143s] -- Found ament_cmake_ros: 0.12.0 (/opt/ros/jazzy/share/ament_cmake_ros/cmake)
+[1.501s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.644s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.646s] -- Found python_cmake_module: 0.11.1 (/opt/ros/jazzy/share/python_cmake_module/cmake)
+[2.102s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter Development NumPy Development.Module Development.Embed 
+[2.156s] -- Found gtest sources under '/opt/ros/jazzy/src/gtest_vendor': C++ tests using 'Google Test' will be built
+[2.241s] -- Configuring done (2.2s)
+[2.624s] -- Generating done (0.3s)
+[2.781s] -- Build files have been written to: /home/atvpi/ros2_ws/build/transformer_msp_bridge
+[2.821s] Invoked command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /home/atvpi/ros2_ws/src/transformer_msp_bridge -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/atvpi/ros2_ws/install/transformer_msp_bridge
+[2.825s] Invoking command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/atvpi/ros2_ws/build/transformer_msp_bridge -- -j4 -l4
+[2.934s] failed to create symbolic link '/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_python/transformer_msp_bridge/transformer_msp_bridge' because existing path cannot be removed: Is a directory
+[2.934s] [  1%] Built target transformer_msp_bridge__rosidl_generator_type_description
+[2.937s] gmake[2]: *** [CMakeFiles/ament_cmake_python_symlink_transformer_msp_bridge.dir/build.make:70: CMakeFiles/ament_cmake_python_symlink_transformer_msp_bridge] Error 1
+[2.937s] gmake[1]: *** [CMakeFiles/Makefile2:517: CMakeFiles/ament_cmake_python_symlink_transformer_msp_bridge.dir/all] Error 2
+[2.937s] gmake[1]: *** Waiting for unfinished jobs....
+[2.939s] [  3%] Built target serial_port
+[2.958s] [  4%] [32m[1mLinking CXX shared library libmsp_protocol.so[0m
+[3.008s] [  6%] Built target gtest_main
+[3.293s] [ 12%] Built target msp_protocol
+[3.296s] gmake: *** [Makefile:146: all] Error 2
+[3.300s] Invoked command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/atvpi/ros2_ws/build/transformer_msp_bridge -- -j4 -l4

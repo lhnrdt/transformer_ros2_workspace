@@ -1,0 +1,235 @@
+[0.000000] (-) TimerEvent: {}
+[0.000530] (-) JobUnselected: {'identifier': 'serial'}
+[0.000704] (-) JobUnselected: {'identifier': 'transformer_bringup'}
+[0.000731] (-) JobUnselected: {'identifier': 'transformer_controller'}
+[0.000751] (-) JobUnselected: {'identifier': 'transformer_hw_actuators'}
+[0.000780] (-) JobUnselected: {'identifier': 'transformer_hw_servos'}
+[0.000945] (-) JobUnselected: {'identifier': 'transformer_msp_bridge'}
+[0.000967] (-) JobUnselected: {'identifier': 'wheeltec_n100_imu'}
+[0.000990] (transformer_rc_mode_switch) JobQueued: {'identifier': 'transformer_rc_mode_switch', 'dependencies': OrderedDict({'transformer_hw_actuators': '/home/atvpi/ros2_ws/install/transformer_hw_actuators', 'transformer_hw_servos': '/home/atvpi/ros2_ws/install/transformer_hw_servos', 'transformer_controller': '/home/atvpi/ros2_ws/install/transformer_controller'})}
+[0.001120] (transformer_rc_mode_switch) JobStarted: {'identifier': 'transformer_rc_mode_switch'}
+[0.023310] (transformer_rc_mode_switch) JobProgress: {'identifier': 'transformer_rc_mode_switch', 'progress': 'cmake'}
+[0.024127] (transformer_rc_mode_switch) Command: {'cmd': ['/usr/bin/cmake', '/home/atvpi/ros2_ws/src/transformer_rc_mode_switch', '-Wno-dev', '-DCMAKE_INSTALL_PREFIX=/home/atvpi/ros2_ws/install/transformer_rc_mode_switch'], 'cwd': '/home/atvpi/ros2_ws/build/transformer_rc_mode_switch', 'env': OrderedDict({'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'atvpi', 'SSH_CLIENT': '192.168.8.2 54660 22', 'LC_TIME': 'C.UTF-8', 'XDG_SESSION_TYPE': 'tty', 'GIT_ASKPASS': '/home/atvpi/.vscode-server/cli/servers/Stable-f220831ea2d946c0dcb0f3eaa480eb435a2c1260/server/extensions/git/dist/askpass.sh', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/home/atvpi/ros2_ws/install/transformer_controller/lib:/home/atvpi/ros2_ws/install/transformer_hw_servos/lib:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib:/home/atvpi/ros2_ws/install/serial/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/lib', 'BROWSER': '/home/atvpi/.vscode-server/cli/servers/Stable-f220831ea2d946c0dcb0f3eaa480eb435a2c1260/server/bin/helpers/browser.sh', 'HOME': '/home/atvpi', 'TERM_PROGRAM_VERSION': '1.104.0', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-aab9565f-a32e-429b-b5b2-e59ee1af381b.sock', 'ROS_PYTHON_VERSION': '3', 'VSCODE_GIT_ASKPASS_MAIN': '/home/atvpi/.vscode-server/cli/servers/Stable-f220831ea2d946c0dcb0f3eaa480eb435a2c1260/server/extensions/git/dist/askpass-main.js', 'LC_MONETARY': 'C.UTF-8', 'VSCODE_GIT_ASKPASS_NODE': '/home/atvpi/.vscode-server/cli/servers/Stable-f220831ea2d946c0dcb0f3eaa480eb435a2c1260/server/node', 'SSL_CERT_FILE': '/usr/lib/ssl/cert.pem', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'COLCON_PREFIX_PATH': '/home/atvpi/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'atvpi', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '3', 'PATH': '/opt/ros/jazzy/bin:/home/atvpi/.vscode-server/cli/servers/Stable-f220831ea2d946c0dcb0f3eaa480eb435a2c1260/server/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/scripts/noConfigScripts:/home/atvpi/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand', 'LC_ADDRESS': 'C.UTF-8', 'XDG_RUNTIME_DIR': '/run/user/1000', 'SSL_CERT_DIR': '/usr/lib/ssl/certs', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/.noConfigDebugAdapterEndpoints/endpoint-2ce8f189d80fdeae.txt', 'LANG': 'C.UTF-8', 'PYTHONSTARTUP': '/home/atvpi/.vscode-server/data/User/workspaceStorage/84379da00451a1f583396cdf944b4c1a/ms-python.python/pythonrc.py', 'LC_TELEPHONE': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-39d0eca28d.sock', 'TERM_PROGRAM': 'vscode', 'AMENT_PREFIX_PATH': '/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'C.UTF-8', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LC_MEASUREMENT': 'C.UTF-8', 'LC_IDENTIFICATION': 'C.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'PWD': '/home/atvpi/ros2_ws/build/transformer_rc_mode_switch', 'SSH_CONNECTION': '192.168.8.2 54660 192.168.8.1 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'LC_NUMERIC': 'C.UTF-8', 'LC_PAPER': 'C.UTF-8', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy'}), 'shell': False}
+[0.099634] (-) TimerEvent: {}
+[0.126268] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- The C compiler identification is GNU 13.3.0\n'}
+[0.200636] (-) TimerEvent: {}
+[0.246888] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 13.3.0\n'}
+[0.283701] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.300797] (-) TimerEvent: {}
+[0.402043] (-) TimerEvent: {}
+[0.503020] (-) TimerEvent: {}
+[0.578234] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.604883] (-) TimerEvent: {}
+[0.606485] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.607639] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.610018] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.632190] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.705228] (-) TimerEvent: {}
+[0.806869] (-) TimerEvent: {}
+[0.907282] (-) TimerEvent: {}
+[1.007746] (-) TimerEvent: {}
+[1.013956] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[1.055065] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[1.058804] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[1.059279] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[1.070884] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Found ament_cmake: 2.5.4 (/opt/ros/jazzy/share/ament_cmake/cmake)\n'}
+[1.107887] (-) TimerEvent: {}
+[1.208774] (-) TimerEvent: {}
+[1.312794] (-) TimerEvent: {}
+[1.413446] (-) TimerEvent: {}
+[1.445174] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter \n'}
+[1.513592] (-) TimerEvent: {}
+[1.614187] (-) TimerEvent: {}
+[1.693303] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Found rclcpp: 28.1.12 (/opt/ros/jazzy/share/rclcpp/cmake)\n'}
+[1.716886] (-) TimerEvent: {}
+[1.761137] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Found rosidl_generator_c: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)\n'}
+[1.789923] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)\n'}
+[1.814517] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.817059] (-) TimerEvent: {}
+[1.847087] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.918875] (-) TimerEvent: {}
+[1.988836] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 7.3.2 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)\n'}
+[1.993471] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)\n'}
+[2.019005] (-) TimerEvent: {}
+[2.119402] (-) TimerEvent: {}
+[2.148943] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.0.13")  \n'}
+[2.176265] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") \n'}
+[2.220984] (transformer_rc_mode_switch) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[2.221383] (-) TimerEvent: {}
+[2.321708] (-) TimerEvent: {}
+[2.327155] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Found rclcpp_action: 28.1.12 (/opt/ros/jazzy/share/rclcpp_action/cmake)\n'}
+[2.388413] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Found std_msgs: 5.3.6 (/opt/ros/jazzy/share/std_msgs/cmake)\n'}
+[2.406818] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Found transformer_controller: 0.0.1 (/home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake)\n'}
+[2.421828] (-) TimerEvent: {}
+[2.522200] (-) TimerEvent: {}
+[2.587078] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Configuring done (2.5s)\n'}
+[2.607304] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Generating done (0.0s)\n'}
+[2.613729] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Build files have been written to: /home/atvpi/ros2_ws/build/transformer_rc_mode_switch\n'}
+[2.622321] (-) TimerEvent: {}
+[2.632886] (transformer_rc_mode_switch) CommandEnded: {'returncode': 0}
+[2.633670] (transformer_rc_mode_switch) JobProgress: {'identifier': 'transformer_rc_mode_switch', 'progress': 'build'}
+[2.634400] (transformer_rc_mode_switch) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/atvpi/ros2_ws/build/transformer_rc_mode_switch', '--', '-j4', '-l4'], 'cwd': '/home/atvpi/ros2_ws/build/transformer_rc_mode_switch', 'env': OrderedDict({'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'atvpi', 'SSH_CLIENT': '192.168.8.2 54660 22', 'LC_TIME': 'C.UTF-8', 'XDG_SESSION_TYPE': 'tty', 'GIT_ASKPASS': '/home/atvpi/.vscode-server/cli/servers/Stable-f220831ea2d946c0dcb0f3eaa480eb435a2c1260/server/extensions/git/dist/askpass.sh', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/home/atvpi/ros2_ws/install/transformer_controller/lib:/home/atvpi/ros2_ws/install/transformer_hw_servos/lib:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib:/home/atvpi/ros2_ws/install/serial/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/lib', 'BROWSER': '/home/atvpi/.vscode-server/cli/servers/Stable-f220831ea2d946c0dcb0f3eaa480eb435a2c1260/server/bin/helpers/browser.sh', 'HOME': '/home/atvpi', 'TERM_PROGRAM_VERSION': '1.104.0', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-aab9565f-a32e-429b-b5b2-e59ee1af381b.sock', 'ROS_PYTHON_VERSION': '3', 'VSCODE_GIT_ASKPASS_MAIN': '/home/atvpi/.vscode-server/cli/servers/Stable-f220831ea2d946c0dcb0f3eaa480eb435a2c1260/server/extensions/git/dist/askpass-main.js', 'LC_MONETARY': 'C.UTF-8', 'VSCODE_GIT_ASKPASS_NODE': '/home/atvpi/.vscode-server/cli/servers/Stable-f220831ea2d946c0dcb0f3eaa480eb435a2c1260/server/node', 'SSL_CERT_FILE': '/usr/lib/ssl/cert.pem', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'COLCON_PREFIX_PATH': '/home/atvpi/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'atvpi', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '3', 'PATH': '/opt/ros/jazzy/bin:/home/atvpi/.vscode-server/cli/servers/Stable-f220831ea2d946c0dcb0f3eaa480eb435a2c1260/server/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/scripts/noConfigScripts:/home/atvpi/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand', 'LC_ADDRESS': 'C.UTF-8', 'XDG_RUNTIME_DIR': '/run/user/1000', 'SSL_CERT_DIR': '/usr/lib/ssl/certs', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/.noConfigDebugAdapterEndpoints/endpoint-2ce8f189d80fdeae.txt', 'LANG': 'C.UTF-8', 'PYTHONSTARTUP': '/home/atvpi/.vscode-server/data/User/workspaceStorage/84379da00451a1f583396cdf944b4c1a/ms-python.python/pythonrc.py', 'LC_TELEPHONE': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-39d0eca28d.sock', 'TERM_PROGRAM': 'vscode', 'AMENT_PREFIX_PATH': '/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'C.UTF-8', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LC_MEASUREMENT': 'C.UTF-8', 'LC_IDENTIFICATION': 'C.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'PWD': '/home/atvpi/ros2_ws/build/transformer_rc_mode_switch', 'SSH_CONNECTION': '192.168.8.2 54660 192.168.8.1 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'LC_NUMERIC': 'C.UTF-8', 'LC_PAPER': 'C.UTF-8', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy'}), 'shell': False}
+[2.722433] (-) TimerEvent: {}
+[2.724322] (transformer_rc_mode_switch) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/rc_mode_switch_node.dir/src/rc_mode_switch_node.cpp.o\x1b[0m\n'}
+[2.824893] (-) TimerEvent: {}
+[2.925290] (-) TimerEvent: {}
+[3.025656] (-) TimerEvent: {}
+[3.126027] (-) TimerEvent: {}
+[3.226373] (-) TimerEvent: {}
+[3.326732] (-) TimerEvent: {}
+[3.427087] (-) TimerEvent: {}
+[3.527438] (-) TimerEvent: {}
+[3.627798] (-) TimerEvent: {}
+[3.728141] (-) TimerEvent: {}
+[3.828504] (-) TimerEvent: {}
+[3.928855] (-) TimerEvent: {}
+[4.029191] (-) TimerEvent: {}
+[4.129538] (-) TimerEvent: {}
+[4.229921] (-) TimerEvent: {}
+[4.330299] (-) TimerEvent: {}
+[4.430678] (-) TimerEvent: {}
+[4.531041] (-) TimerEvent: {}
+[4.631417] (-) TimerEvent: {}
+[4.731790] (-) TimerEvent: {}
+[4.832134] (-) TimerEvent: {}
+[4.932497] (-) TimerEvent: {}
+[5.032868] (-) TimerEvent: {}
+[5.133244] (-) TimerEvent: {}
+[5.233589] (-) TimerEvent: {}
+[5.333953] (-) TimerEvent: {}
+[5.434301] (-) TimerEvent: {}
+[5.534654] (-) TimerEvent: {}
+[5.635154] (-) TimerEvent: {}
+[5.735597] (-) TimerEvent: {}
+[5.835969] (-) TimerEvent: {}
+[5.936329] (-) TimerEvent: {}
+[6.036709] (-) TimerEvent: {}
+[6.137082] (-) TimerEvent: {}
+[6.237444] (-) TimerEvent: {}
+[6.337824] (-) TimerEvent: {}
+[6.438439] (-) TimerEvent: {}
+[6.538819] (-) TimerEvent: {}
+[6.639208] (-) TimerEvent: {}
+[6.739576] (-) TimerEvent: {}
+[6.839949] (-) TimerEvent: {}
+[6.940311] (-) TimerEvent: {}
+[7.040669] (-) TimerEvent: {}
+[7.141054] (-) TimerEvent: {}
+[7.241411] (-) TimerEvent: {}
+[7.341841] (-) TimerEvent: {}
+[7.442209] (-) TimerEvent: {}
+[7.542575] (-) TimerEvent: {}
+[7.642987] (-) TimerEvent: {}
+[7.743340] (-) TimerEvent: {}
+[7.843696] (-) TimerEvent: {}
+[7.944083] (-) TimerEvent: {}
+[8.044451] (-) TimerEvent: {}
+[8.144824] (-) TimerEvent: {}
+[8.245175] (-) TimerEvent: {}
+[8.345529] (-) TimerEvent: {}
+[8.445898] (-) TimerEvent: {}
+[8.546260] (-) TimerEvent: {}
+[8.646612] (-) TimerEvent: {}
+[8.747004] (-) TimerEvent: {}
+[8.847354] (-) TimerEvent: {}
+[8.947715] (-) TimerEvent: {}
+[9.048089] (-) TimerEvent: {}
+[9.148443] (-) TimerEvent: {}
+[9.248790] (-) TimerEvent: {}
+[9.349136] (-) TimerEvent: {}
+[9.449529] (-) TimerEvent: {}
+[9.549955] (-) TimerEvent: {}
+[9.650328] (-) TimerEvent: {}
+[9.750686] (-) TimerEvent: {}
+[9.851068] (-) TimerEvent: {}
+[9.951439] (-) TimerEvent: {}
+[10.051890] (-) TimerEvent: {}
+[10.152252] (-) TimerEvent: {}
+[10.252646] (-) TimerEvent: {}
+[10.353132] (-) TimerEvent: {}
+[10.453557] (-) TimerEvent: {}
+[10.553934] (-) TimerEvent: {}
+[10.654639] (-) TimerEvent: {}
+[10.755007] (-) TimerEvent: {}
+[10.855353] (-) TimerEvent: {}
+[10.955695] (-) TimerEvent: {}
+[11.056084] (-) TimerEvent: {}
+[11.156436] (-) TimerEvent: {}
+[11.256788] (-) TimerEvent: {}
+[11.357131] (-) TimerEvent: {}
+[11.457472] (-) TimerEvent: {}
+[11.557826] (-) TimerEvent: {}
+[11.658176] (-) TimerEvent: {}
+[11.758526] (-) TimerEvent: {}
+[11.858871] (-) TimerEvent: {}
+[11.959213] (-) TimerEvent: {}
+[12.059546] (-) TimerEvent: {}
+[12.159891] (-) TimerEvent: {}
+[12.260229] (-) TimerEvent: {}
+[12.360569] (-) TimerEvent: {}
+[12.460939] (-) TimerEvent: {}
+[12.561283] (-) TimerEvent: {}
+[12.661633] (-) TimerEvent: {}
+[12.761985] (-) TimerEvent: {}
+[12.862327] (-) TimerEvent: {}
+[12.962664] (-) TimerEvent: {}
+[13.063020] (-) TimerEvent: {}
+[13.163355] (-) TimerEvent: {}
+[13.263699] (-) TimerEvent: {}
+[13.364070] (-) TimerEvent: {}
+[13.464425] (-) TimerEvent: {}
+[13.564782] (-) TimerEvent: {}
+[13.665114] (-) TimerEvent: {}
+[13.765442] (-) TimerEvent: {}
+[13.865787] (-) TimerEvent: {}
+[13.966113] (-) TimerEvent: {}
+[14.066479] (-) TimerEvent: {}
+[14.166851] (-) TimerEvent: {}
+[14.267340] (-) TimerEvent: {}
+[14.368006] (-) TimerEvent: {}
+[14.468530] (-) TimerEvent: {}
+[14.568925] (-) TimerEvent: {}
+[14.669312] (-) TimerEvent: {}
+[14.769706] (-) TimerEvent: {}
+[14.870124] (-) TimerEvent: {}
+[14.970576] (-) TimerEvent: {}
+[15.070974] (-) TimerEvent: {}
+[15.171378] (-) TimerEvent: {}
+[15.220363] (transformer_rc_mode_switch) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable rc_mode_switch_node\x1b[0m\n'}
+[15.271512] (-) TimerEvent: {}
+[15.371984] (-) TimerEvent: {}
+[15.472596] (-) TimerEvent: {}
+[15.573547] (-) TimerEvent: {}
+[15.674549] (-) TimerEvent: {}
+[15.775541] (-) TimerEvent: {}
+[15.876406] (-) TimerEvent: {}
+[15.976843] (-) TimerEvent: {}
+[16.077200] (-) TimerEvent: {}
+[16.079418] (transformer_rc_mode_switch) StdoutLine: {'line': b'[100%] Built target rc_mode_switch_node\n'}
+[16.100006] (transformer_rc_mode_switch) CommandEnded: {'returncode': 0}
+[16.100857] (transformer_rc_mode_switch) JobProgress: {'identifier': 'transformer_rc_mode_switch', 'progress': 'install'}
+[16.117239] (transformer_rc_mode_switch) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/atvpi/ros2_ws/build/transformer_rc_mode_switch'], 'cwd': '/home/atvpi/ros2_ws/build/transformer_rc_mode_switch', 'env': OrderedDict({'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'atvpi', 'SSH_CLIENT': '192.168.8.2 54660 22', 'LC_TIME': 'C.UTF-8', 'XDG_SESSION_TYPE': 'tty', 'GIT_ASKPASS': '/home/atvpi/.vscode-server/cli/servers/Stable-f220831ea2d946c0dcb0f3eaa480eb435a2c1260/server/extensions/git/dist/askpass.sh', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/home/atvpi/ros2_ws/install/transformer_controller/lib:/home/atvpi/ros2_ws/install/transformer_hw_servos/lib:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib:/home/atvpi/ros2_ws/install/serial/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/lib', 'BROWSER': '/home/atvpi/.vscode-server/cli/servers/Stable-f220831ea2d946c0dcb0f3eaa480eb435a2c1260/server/bin/helpers/browser.sh', 'HOME': '/home/atvpi', 'TERM_PROGRAM_VERSION': '1.104.0', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-aab9565f-a32e-429b-b5b2-e59ee1af381b.sock', 'ROS_PYTHON_VERSION': '3', 'VSCODE_GIT_ASKPASS_MAIN': '/home/atvpi/.vscode-server/cli/servers/Stable-f220831ea2d946c0dcb0f3eaa480eb435a2c1260/server/extensions/git/dist/askpass-main.js', 'LC_MONETARY': 'C.UTF-8', 'VSCODE_GIT_ASKPASS_NODE': '/home/atvpi/.vscode-server/cli/servers/Stable-f220831ea2d946c0dcb0f3eaa480eb435a2c1260/server/node', 'SSL_CERT_FILE': '/usr/lib/ssl/cert.pem', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'COLCON_PREFIX_PATH': '/home/atvpi/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'atvpi', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '3', 'PATH': '/opt/ros/jazzy/bin:/home/atvpi/.vscode-server/cli/servers/Stable-f220831ea2d946c0dcb0f3eaa480eb435a2c1260/server/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/scripts/noConfigScripts:/home/atvpi/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand', 'LC_ADDRESS': 'C.UTF-8', 'XDG_RUNTIME_DIR': '/run/user/1000', 'SSL_CERT_DIR': '/usr/lib/ssl/certs', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/.noConfigDebugAdapterEndpoints/endpoint-2ce8f189d80fdeae.txt', 'LANG': 'C.UTF-8', 'PYTHONSTARTUP': '/home/atvpi/.vscode-server/data/User/workspaceStorage/84379da00451a1f583396cdf944b4c1a/ms-python.python/pythonrc.py', 'LC_TELEPHONE': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-39d0eca28d.sock', 'TERM_PROGRAM': 'vscode', 'AMENT_PREFIX_PATH': '/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'C.UTF-8', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LC_MEASUREMENT': 'C.UTF-8', 'LC_IDENTIFICATION': 'C.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'PWD': '/home/atvpi/ros2_ws/build/transformer_rc_mode_switch', 'SSH_CONNECTION': '192.168.8.2 54660 192.168.8.1 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'LC_NUMERIC': 'C.UTF-8', 'LC_PAPER': 'C.UTF-8', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy'}), 'shell': False}
+[16.133059] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[16.133371] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/lib/transformer_rc_mode_switch/rc_mode_switch_node\n'}
+[16.143519] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/atvpi/ros2_ws/install/transformer_rc_mode_switch/lib/transformer_rc_mode_switch/rc_mode_switch_node" to ""\n'}
+[16.143772] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/launch\n'}
+[16.143911] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/launch/rc_mode_switch.launch.py\n'}
+[16.144158] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/ament_index/resource_index/package_run_dependencies/transformer_rc_mode_switch\n'}
+[16.144400] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/ament_index/resource_index/parent_prefix_path/transformer_rc_mode_switch\n'}
+[16.144645] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/environment/ament_prefix_path.sh\n'}
+[16.144807] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/environment/ament_prefix_path.dsv\n'}
+[16.144979] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/environment/path.sh\n'}
+[16.145141] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/environment/path.dsv\n'}
+[16.145305] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/local_setup.bash\n'}
+[16.145473] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/local_setup.sh\n'}
+[16.145653] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/local_setup.zsh\n'}
+[16.145840] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/local_setup.dsv\n'}
+[16.146003] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/package.dsv\n'}
+[16.146215] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/ament_index/resource_index/packages/transformer_rc_mode_switch\n'}
+[16.146416] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/cmake/transformer_rc_mode_switchConfig.cmake\n'}
+[16.146551] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/cmake/transformer_rc_mode_switchConfig-version.cmake\n'}
+[16.146706] (transformer_rc_mode_switch) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_rc_mode_switch/share/transformer_rc_mode_switch/package.xml\n'}
+[16.149469] (transformer_rc_mode_switch) CommandEnded: {'returncode': 0}
+[16.177274] (-) TimerEvent: {}
+[16.178230] (transformer_rc_mode_switch) JobEnded: {'identifier': 'transformer_rc_mode_switch', 'rc': 0}
+[16.179241] (-) EventReactorShutdown: {}

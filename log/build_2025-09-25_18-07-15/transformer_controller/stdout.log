@@ -1,0 +1,23 @@
+[  2%] Built target transformer_controller__rosidl_generator_type_description
+[  2%] Built target ament_cmake_python_copy_transformer_controller
+[  8%] Built target transformer_controller__cpp
+[ 19%] Built target transformer_controller__rosidl_generator_c
+[ 27%] Built target transformer_controller__rosidl_typesupport_fastrtps_c
+[ 36%] Built target transformer_controller__rosidl_typesupport_fastrtps_cpp
+[ 44%] Built target transformer_controller__rosidl_typesupport_cpp
+[ 52%] Built target transformer_controller__rosidl_typesupport_introspection_c
+[ 61%] Built target transformer_controller__rosidl_typesupport_c
+[ 69%] Built target transformer_controller__rosidl_typesupport_introspection_cpp
+[ 69%] Built target transformer_controller
+[ 72%] Built target transformer_controller__py
+[ 75%] [32mBuilding CXX object CMakeFiles/transformer_controller_node.dir/src/transformer_controller_node.cpp.o[0m
+[ 80%] Built target transformer_controller__rosidl_generator_py
+[ 86%] Built target transformer_controller_s__rosidl_typesupport_fastrtps_c
+[ 91%] Built target transformer_controller_s__rosidl_typesupport_introspection_c
+[ 97%] Built target transformer_controller_s__rosidl_typesupport_c
+running egg_info
+writing transformer_controller.egg-info/PKG-INFO
+writing dependency_links to transformer_controller.egg-info/dependency_links.txt
+writing top-level names to transformer_controller.egg-info/top_level.txt
+reading manifest file 'transformer_controller.egg-info/SOURCES.txt'
+writing manifest file 'transformer_controller.egg-info/SOURCES.txt'

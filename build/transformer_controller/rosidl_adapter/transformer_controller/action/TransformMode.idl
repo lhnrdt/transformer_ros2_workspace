@@ -1,0 +1,31 @@
+// generated from rosidl_adapter/resource/action.idl.em
+// with input from transformer_controller/action/TransformMode.action
+// generated code does not contain a copyright notice
+
+
+module transformer_controller {
+  module action {
+    @verbatim (language="comment", text=
+      "Goal" "\n"
+      "target_mode: \"drive\" or \"flight\"")
+    struct TransformMode_Goal {
+      string target_mode;
+    };
+    struct TransformMode_Result {
+      boolean success;
+
+      string message;
+
+      string final_mode;
+    };
+    struct TransformMode_Feedback {
+      @verbatim (language="comment", text=
+        "0..1 overall")
+      float progress;
+
+      @verbatim (language="comment", text=
+        "e.g. retracting_actuators, moving_servos, extending_actuators, done")
+      string phase;
+    };
+  };
+};

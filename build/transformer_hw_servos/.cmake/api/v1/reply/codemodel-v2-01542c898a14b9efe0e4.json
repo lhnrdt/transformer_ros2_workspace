@@ -1,0 +1,251 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-28dd05c39a14a4018a86.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19
+					]
+				},
+				{
+					"build" : "transformer_hw_servos__py",
+					"jsonFile" : "directory-transformer_hw_servos__py-6d30ec7b21a72bb83e23.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/atvpi/ros2_ws/build/transformer_hw_servos/transformer_hw_servos__py",
+					"targetIndexes" : 
+					[
+						5
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "transformer_hw_servos",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_transformer_hw_servos_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_transformer_hw_servos_egg-3f6949d002bdf5e569db.json",
+					"name" : "ament_cmake_python_build_transformer_hw_servos_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_copy_transformer_hw_servos::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_copy_transformer_hw_servos-0ec0f60ff24f88d86693.json",
+					"name" : "ament_cmake_python_copy_transformer_hw_servos",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "servos_node::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-servos_node-def9aa867ea3fc04e335.json",
+					"name" : "servos_node",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_hw_servos::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_hw_servos-f37dd94b3a271afd23d1.json",
+					"name" : "transformer_hw_servos",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_hw_servos__cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_hw_servos__cpp-bb863410bf9330f59e34.json",
+					"name" : "transformer_hw_servos__cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "transformer_hw_servos__py::@8c6c2fe3b21541fa7da0",
+					"jsonFile" : "target-transformer_hw_servos__py-26e4bdd6a429759aa23c.json",
+					"name" : "transformer_hw_servos__py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_hw_servos__rosidl_generator_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_hw_servos__rosidl_generator_c-b3199868ab21f9986d96.json",
+					"name" : "transformer_hw_servos__rosidl_generator_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_hw_servos__rosidl_generator_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_hw_servos__rosidl_generator_py-768dbf41003eab46f673.json",
+					"name" : "transformer_hw_servos__rosidl_generator_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_hw_servos__rosidl_generator_type_description::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_hw_servos__rosidl_generator_type_description-858cae329dabd7408a78.json",
+					"name" : "transformer_hw_servos__rosidl_generator_type_description",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_hw_servos__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_hw_servos__rosidl_typesupport_c-cc8b6b901e8158c8abef.json",
+					"name" : "transformer_hw_servos__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_hw_servos__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_hw_servos__rosidl_typesupport_cpp-6f3826542abf34838863.json",
+					"name" : "transformer_hw_servos__rosidl_typesupport_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_hw_servos__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_hw_servos__rosidl_typesupport_fastrtps_c-df905bd4b94170408fc3.json",
+					"name" : "transformer_hw_servos__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_hw_servos__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_hw_servos__rosidl_typesupport_fastrtps_cpp-c5137b39fe42b727a749.json",
+					"name" : "transformer_hw_servos__rosidl_typesupport_fastrtps_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_hw_servos__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_hw_servos__rosidl_typesupport_introspection_c-3a45c9729979ef0e964c.json",
+					"name" : "transformer_hw_servos__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_hw_servos__rosidl_typesupport_introspection_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_hw_servos__rosidl_typesupport_introspection_cpp-b652911364df52769fc3.json",
+					"name" : "transformer_hw_servos__rosidl_typesupport_introspection_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_hw_servos_s__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_hw_servos_s__rosidl_typesupport_c-e2d441eb26f7edf2e02a.json",
+					"name" : "transformer_hw_servos_s__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_hw_servos_s__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_hw_servos_s__rosidl_typesupport_fastrtps_c-89c0a39a6ea1e8230152.json",
+					"name" : "transformer_hw_servos_s__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_hw_servos_s__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_hw_servos_s__rosidl_typesupport_introspection_c-4db0ddb387d3ccad9a77.json",
+					"name" : "transformer_hw_servos_s__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "transformer_hw_servos_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-transformer_hw_servos_uninstall-7696d2174b52ceb4f174.json",
+					"name" : "transformer_hw_servos_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-509fe8ac10de9eb3d3b8.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/atvpi/ros2_ws/build/transformer_hw_servos",
+		"source" : "/home/atvpi/ros2_ws/src/transformer_hw_servos"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

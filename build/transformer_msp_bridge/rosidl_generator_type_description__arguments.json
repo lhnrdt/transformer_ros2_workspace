@@ -1,0 +1,11 @@
+{
+  "package_name": "transformer_msp_bridge",
+  "output_dir": "/home/atvpi/ros2_ws/build/transformer_msp_bridge/rosidl_generator_type_description/transformer_msp_bridge",
+  "idl_tuples": [
+    "/home/atvpi/ros2_ws/build/transformer_msp_bridge/rosidl_adapter/transformer_msp_bridge:msg/MspInavStatus.idl"
+  ],
+  "include_paths": [
+    "std_msgs:/opt/ros/jazzy/share/std_msgs",
+    "builtin_interfaces:/opt/ros/jazzy/share/builtin_interfaces"
+  ]
+}

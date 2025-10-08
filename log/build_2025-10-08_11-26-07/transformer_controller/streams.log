@@ -1,0 +1,158 @@
+[0.018s] Invoking command in '/home/atvpi/ros2_ws/build/transformer_controller': CMAKE_PREFIX_PATH=/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_rc_mode_switch:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy LD_LIBRARY_PATH=/home/atvpi/ros2_ws/install/transformer_hw_servos/lib:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib:/home/atvpi/ros2_ws/install/transformer_controller/lib:/home/atvpi/ros2_ws/install/serial/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/lib PYTHONPATH=/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/cmake --build /home/atvpi/ros2_ws/build/transformer_controller -- -j4 -l4
+[0.114s] [  2%] Built target transformer_controller__rosidl_generator_type_description
+[0.137s] [  2%] Built target ament_cmake_python_copy_transformer_controller
+[0.163s] [  5%] Built target transformer_controller__cpp
+[0.185s] [ 19%] Built target transformer_controller__rosidl_generator_c
+[0.285s] [ 27%] Built target transformer_controller__rosidl_typesupport_fastrtps_cpp
+[0.313s] [ 36%] Built target transformer_controller__rosidl_typesupport_fastrtps_c
+[0.317s] [ 44%] Built target transformer_controller__rosidl_typesupport_cpp
+[0.348s] [ 52%] Built target transformer_controller__rosidl_typesupport_introspection_c
+[0.401s] [ 61%] Built target transformer_controller__rosidl_typesupport_c
+[0.422s] [ 69%] Built target transformer_controller__rosidl_typesupport_introspection_cpp
+[0.487s] [ 69%] Built target transformer_controller
+[0.545s] [ 72%] Built target transformer_controller__py
+[0.599s] [ 77%] Built target transformer_controller_node
+[0.628s] [ 83%] Built target transformer_controller__rosidl_generator_py
+[0.712s] [ 88%] Built target transformer_controller_s__rosidl_typesupport_fastrtps_c
+[0.722s] [ 94%] Built target transformer_controller_s__rosidl_typesupport_c
+[0.722s] [100%] Built target transformer_controller_s__rosidl_typesupport_introspection_c
+[0.775s] running egg_info
+[0.824s] writing transformer_controller.egg-info/PKG-INFO
+[0.825s] writing dependency_links to transformer_controller.egg-info/dependency_links.txt
+[0.829s] writing top-level names to transformer_controller.egg-info/top_level.txt
+[0.972s] reading manifest file 'transformer_controller.egg-info/SOURCES.txt'
+[0.972s] writing manifest file 'transformer_controller.egg-info/SOURCES.txt'
+[1.082s] [100%] Built target ament_cmake_python_build_transformer_controller_egg
+[1.121s] Invoked command in '/home/atvpi/ros2_ws/build/transformer_controller' returned '0': CMAKE_PREFIX_PATH=/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_rc_mode_switch:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy LD_LIBRARY_PATH=/home/atvpi/ros2_ws/install/transformer_hw_servos/lib:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib:/home/atvpi/ros2_ws/install/transformer_controller/lib:/home/atvpi/ros2_ws/install/serial/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/lib PYTHONPATH=/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/cmake --build /home/atvpi/ros2_ws/build/transformer_controller -- -j4 -l4
+[1.124s] Invoking command in '/home/atvpi/ros2_ws/build/transformer_controller': CMAKE_PREFIX_PATH=/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_rc_mode_switch:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy LD_LIBRARY_PATH=/home/atvpi/ros2_ws/install/transformer_hw_servos/lib:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib:/home/atvpi/ros2_ws/install/transformer_controller/lib:/home/atvpi/ros2_ws/install/serial/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/lib PYTHONPATH=/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/cmake --install /home/atvpi/ros2_ws/build/transformer_controller
+[1.148s] -- Install configuration: ""
+[1.148s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/ament_index/resource_index/rosidl_interfaces/transformer_controller
+[1.149s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/action/TransformMode.json
+[1.149s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller
+[1.149s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/msg
+[1.149s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/msg/rosidl_generator_c__visibility_control.h
+[1.149s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action
+[1.149s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/transform_mode.h
+[1.150s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail
+[1.150s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__functions.h
+[1.150s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__struct.h
+[1.150s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__functions.c
+[1.150s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__type_support.c
+[1.150s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__description.c
+[1.150s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__type_support.h
+[1.151s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/environment/library_path.sh
+[1.151s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/environment/library_path.dsv
+[1.151s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/libtransformer_controller__rosidl_generator_c.so
+[1.151s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller
+[1.151s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/msg
+[1.153s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[1.153s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action
+[1.153s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail
+[1.153s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__rosidl_typesupport_fastrtps_c.h
+[1.153s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/libtransformer_controller__rosidl_typesupport_fastrtps_c.so
+[1.154s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller
+[1.154s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/msg
+[1.154s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/msg/rosidl_generator_cpp__visibility_control.hpp
+[1.154s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action
+[1.154s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/transform_mode.hpp
+[1.154s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail
+[1.154s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__traits.hpp
+[1.154s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__type_support.hpp
+[1.154s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__builder.hpp
+[1.155s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__struct.hpp
+[1.155s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller
+[1.155s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/msg
+[1.155s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[1.155s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action
+[1.155s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail
+[1.155s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/dds_fastrtps
+[1.155s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__rosidl_typesupport_fastrtps_cpp.hpp
+[1.158s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/libtransformer_controller__rosidl_typesupport_fastrtps_cpp.so
+[1.159s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller
+[1.159s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/msg
+[1.159s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[1.160s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action
+[1.160s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail
+[1.161s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__rosidl_typesupport_introspection_c.h
+[1.162s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__type_support.c
+[1.162s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/libtransformer_controller__rosidl_typesupport_introspection_c.so
+[1.163s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/libtransformer_controller__rosidl_typesupport_c.so
+[1.163s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller
+[1.163s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action
+[1.163s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail
+[1.163s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__type_support.cpp
+[1.163s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__rosidl_typesupport_introspection_cpp.hpp
+[1.163s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/libtransformer_controller__rosidl_typesupport_introspection_cpp.so
+[1.163s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/libtransformer_controller__rosidl_typesupport_cpp.so
+[1.163s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/environment/pythonpath.sh
+[1.163s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/environment/pythonpath.dsv
+[1.167s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller-0.0.1-py3.12.egg-info
+[1.167s] -- Installing: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller-0.0.1-py3.12.egg-info/SOURCES.txt
+[1.167s] -- Installing: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller-0.0.1-py3.12.egg-info/top_level.txt
+[1.168s] -- Installing: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller-0.0.1-py3.12.egg-info/PKG-INFO
+[1.168s] -- Installing: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller-0.0.1-py3.12.egg-info/dependency_links.txt
+[1.168s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller
+[1.168s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/_transformer_controller_s.ep.rosidl_typesupport_introspection_c.c
+[1.168s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/transformer_controller_s__rosidl_typesupport_c.so
+[1.168s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/_transformer_controller_s.ep.rosidl_typesupport_c.c
+[1.169s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/transformer_controller_s__rosidl_typesupport_fastrtps_c.so
+[1.169s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/_transformer_controller_s.ep.rosidl_typesupport_fastrtps_c.c
+[1.169s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/__init__.py
+[1.169s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/action
+[1.170s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/action/_transform_mode_s.c
+[1.170s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/action/__init__.py
+[1.170s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/action/_transform_mode.py
+[1.173s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/transformer_controller_s__rosidl_typesupport_introspection_c.so
+[1.246s] Listing '/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller'...
+[1.246s] Listing '/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/action'...
+[1.262s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/transformer_controller_s__rosidl_typesupport_fastrtps_c.so
+[1.263s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/transformer_controller_s__rosidl_typesupport_introspection_c.so
+[1.264s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/transformer_controller_s__rosidl_typesupport_c.so
+[1.265s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/libtransformer_controller__rosidl_generator_py.so
+[1.265s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/action/TransformMode.idl
+[1.268s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/action/TransformMode.action
+[1.270s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/transformer_controller/transformer_controller_node
+[1.270s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/action
+[1.270s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/action/TransformMode.action
+[1.271s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/launch
+[1.271s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/launch/transformer_controller.launch.py
+[1.271s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/ament_index/resource_index/package_run_dependencies/transformer_controller
+[1.272s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/ament_index/resource_index/parent_prefix_path/transformer_controller
+[1.273s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/environment/ament_prefix_path.sh
+[1.274s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/environment/ament_prefix_path.dsv
+[1.275s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/environment/path.sh
+[1.275s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/environment/path.dsv
+[1.277s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/local_setup.bash
+[1.277s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/local_setup.sh
+[1.277s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/local_setup.zsh
+[1.277s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/local_setup.dsv
+[1.277s] -- Installing: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/package.dsv
+[1.277s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/ament_index/resource_index/packages/transformer_controller
+[1.277s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/export_transformer_controller__rosidl_generator_cExport.cmake
+[1.278s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/export_transformer_controller__rosidl_generator_cExport-noconfig.cmake
+[1.278s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/export_transformer_controller__rosidl_typesupport_fastrtps_cExport.cmake
+[1.278s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/export_transformer_controller__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[1.278s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/export_transformer_controller__rosidl_generator_cppExport.cmake
+[1.278s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/export_transformer_controller__rosidl_typesupport_fastrtps_cppExport.cmake
+[1.278s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/export_transformer_controller__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[1.278s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/transformer_controller__rosidl_typesupport_introspection_cExport.cmake
+[1.283s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/transformer_controller__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[1.283s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/transformer_controller__rosidl_typesupport_cExport.cmake
+[1.286s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/transformer_controller__rosidl_typesupport_cExport-noconfig.cmake
+[1.286s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/transformer_controller__rosidl_typesupport_introspection_cppExport.cmake
+[1.286s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/transformer_controller__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[1.286s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/transformer_controller__rosidl_typesupport_cppExport.cmake
+[1.286s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/transformer_controller__rosidl_typesupport_cppExport-noconfig.cmake
+[1.287s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/export_transformer_controller__rosidl_generator_pyExport.cmake
+[1.287s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/export_transformer_controller__rosidl_generator_pyExport-noconfig.cmake
+[1.287s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/rosidl_cmake-extras.cmake
+[1.287s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/ament_cmake_export_dependencies-extras.cmake
+[1.287s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/ament_cmake_export_include_directories-extras.cmake
+[1.287s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/ament_cmake_export_libraries-extras.cmake
+[1.288s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/ament_cmake_export_targets-extras.cmake
+[1.288s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[1.288s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[1.288s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/transformer_controllerConfig.cmake
+[1.288s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/transformer_controllerConfig-version.cmake
+[1.288s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/package.xml
+[1.294s] Invoked command in '/home/atvpi/ros2_ws/build/transformer_controller' returned '0': CMAKE_PREFIX_PATH=/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_rc_mode_switch:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy LD_LIBRARY_PATH=/home/atvpi/ros2_ws/install/transformer_hw_servos/lib:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib:/home/atvpi/ros2_ws/install/transformer_controller/lib:/home/atvpi/ros2_ws/install/serial/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/lib PYTHONPATH=/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/cmake --install /home/atvpi/ros2_ws/build/transformer_controller

@@ -1,0 +1,1 @@
+/home/atvpi/ros2_ws/build/transformer_msp_bridge/rosidl_typesupport_introspection_c/transformer_msp_bridge/msg/detail/msp_inav_status__rosidl_typesupport_introspection_c.h

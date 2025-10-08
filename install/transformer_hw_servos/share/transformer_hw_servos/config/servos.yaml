@@ -1,0 +1,50 @@
+transformer_hw_servos:
+  ros__parameters:
+    # Backend selection: pca9685 (I2C hardware PWM, default) or lgpio (software PWM)
+    backend_type: "pca9685"
+
+    # lgpio backend parameters
+    gpiochip_name: "gpiochip4"
+    gpio_servo0: 6
+    gpio_servo1: 18
+
+    # PCA9685 backend parameters (used when backend_type==pca9685)
+    i2c_bus: "/dev/i2c-1"
+    pca9685_address: 0x40
+    pca9685_servo0_channel: 0
+    pca9685_servo1_channel: 1
+
+    # Common timing
+    period_us: 20000 # 50 Hz
+    initial_us: 450
+    channels_in_use: 2
+
+    # Additive mechanical position offsets (logical -> physical = logical + offset) per channel (1-based in docs, 0-based here)
+    position_offsets_us: [0, 50]
+
+    # Ranges [WARNING: Changing these values to incorrect ones may damage hardware]
+    min_us: 400
+    max_us: 2200
+
+    # Default motion profile behavior (can be overridden per action goal)
+    enable_trapezoid: true # If goal.use_trapezoid is false, this can still enable trapezoid globally
+    accel_us_per_s2: 30000 # Heuristic if 0 or goal.accel_us_per_s2 <= 0
+
+    # Startup move: smoothly apply offsets from initial_us (logical) to (initial_us + offset)
+    startup_move.enable: true
+    startup_move.speed_us_per_s: 500
+    startup_move.accel_us_per_s2: 4000
+    startup_move.use_trapezoid: true
+
+    # Real-time tuning (mainly relevant for lgpio software PWM)
+    use_realtime: true
+    rt_priority: 90
+    cpu_affinity: 2
+    lock_memory: true
+    prefault_mb: 64
+
+    # Number of pulses to send (0 = infinite; lgpio backend only)
+    servo_cycles: 0
+
+    # tail_spin_us parameter looked unused in refactored code; retained here only if future logic needs it
+    # tail_spin_us: 100

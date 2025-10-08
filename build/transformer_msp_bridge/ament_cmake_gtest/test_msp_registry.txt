@@ -1,0 +1,39 @@
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_registry --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_registry.gtest.xml
+
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 11 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 11 tests from MSPRegistry
+[ RUN      ] MSPRegistry.ContainsExpectedCoreV1Ids
+[       OK ] MSPRegistry.ContainsExpectedCoreV1Ids (1 ms)
+[ RUN      ] MSPRegistry.ContainsExpectedV2Ids
+[       OK ] MSPRegistry.ContainsExpectedV2Ids (0 ms)
+[ RUN      ] MSPRegistry.V2InferenceMatchesIdRange
+[       OK ] MSPRegistry.V2InferenceMatchesIdRange (0 ms)
+[ RUN      ] MSPRegistry.BuildCallbacksReturnNonEmptyFrame
+[       OK ] MSPRegistry.BuildCallbacksReturnNonEmptyFrame (0 ms)
+[ RUN      ] MSPRegistry.NoDuplicateIds
+[       OK ] MSPRegistry.NoDuplicateIds (0 ms)
+[ RUN      ] MSPRegistry.PollRateNonNegative
+[       OK ] MSPRegistry.PollRateNonNegative (0 ms)
+[ RUN      ] MSPRegistry.VersionFramingMatchesInference
+[       OK ] MSPRegistry.VersionFramingMatchesInference (0 ms)
+[ RUN      ] MSPRegistry.DeterministicBuilders
+[       OK ] MSPRegistry.DeterministicBuilders (0 ms)
+[ RUN      ] MSPRegistry.UniqueNames
+[       OK ] MSPRegistry.UniqueNames (0 ms)
+[ RUN      ] MSPRegistry.GpsStatisticsPresentAndNamed
+[       OK ] MSPRegistry.GpsStatisticsPresentAndNamed (0 ms)
+[ RUN      ] MSPRegistry.FrameMinimalStructure
+[       OK ] MSPRegistry.FrameMinimalStructure (0 ms)
+[----------] 11 tests from MSPRegistry (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 11 tests from 1 test suite ran. (2 ms total)
+[  PASSED  ] 11 tests.
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_registry.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_registry.gtest.xml'

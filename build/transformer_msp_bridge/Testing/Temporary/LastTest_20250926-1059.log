@@ -1,0 +1,636 @@
+Start testing: Sep 26 12:59 CEST
+----------------------------------------------------------
+1/18 Testing: test_battery_decoder
+1/18 Test: test_battery_decoder
+Command: "/usr/bin/python3" "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_battery_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_battery_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_battery_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_battery_decoder.gtest.xml"
+Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge
+"test_battery_decoder" start time: Sep 26 12:59 CEST
+Output:
+----------------------------------------------------------
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_battery_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_battery_decoder.gtest.xml
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from BatteryDecoder
+[ RUN      ] BatteryDecoder.AnalogBasic
+[       OK ] BatteryDecoder.AnalogBasic (238 ms)
+[ RUN      ] BatteryDecoder.ExtendedState
+[       OK ] BatteryDecoder.ExtendedState (66 ms)
+[----------] 2 tests from BatteryDecoder (304 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (304 ms total)
+[  PASSED  ] 2 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_battery_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_battery_decoder.gtest.xml'
+<end of output>
+Test time =   0.57 sec
+----------------------------------------------------------
+Test Passed.
+"test_battery_decoder" end time: Sep 26 12:59 CEST
+"test_battery_decoder" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/18 Testing: test_system_decoder
+2/18 Test: test_system_decoder
+Command: "/usr/bin/python3" "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_system_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_system_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder.gtest.xml"
+Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge
+"test_system_decoder" start time: Sep 26 12:59 CEST
+Output:
+----------------------------------------------------------
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_system_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder.gtest.xml
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from SystemDecoder
+[ RUN      ] SystemDecoder.StatusExBasic
+[       OK ] SystemDecoder.StatusExBasic (80 ms)
+[ RUN      ] SystemDecoder.SensorStatusMasks
+[       OK ] SystemDecoder.SensorStatusMasks (70 ms)
+[----------] 2 tests from SystemDecoder (150 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (150 ms total)
+[  PASSED  ] 2 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder.gtest.xml'
+<end of output>
+Test time =   0.41 sec
+----------------------------------------------------------
+Test Passed.
+"test_system_decoder" end time: Sep 26 12:59 CEST
+"test_system_decoder" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/18 Testing: test_attitude_decoder
+3/18 Test: test_attitude_decoder
+Command: "/usr/bin/python3" "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_attitude_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_attitude_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_attitude_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_attitude_decoder.gtest.xml"
+Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge
+"test_attitude_decoder" start time: Sep 26 12:59 CEST
+Output:
+----------------------------------------------------------
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_attitude_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_attitude_decoder.gtest.xml
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from AttitudeDecoder
+[ RUN      ] AttitudeDecoder.BasicScaling
+[       OK ] AttitudeDecoder.BasicScaling (78 ms)
+[----------] 1 test from AttitudeDecoder (78 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (78 ms total)
+[  PASSED  ] 1 test.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_attitude_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_attitude_decoder.gtest.xml'
+<end of output>
+Test time =   0.33 sec
+----------------------------------------------------------
+Test Passed.
+"test_attitude_decoder" end time: Sep 26 12:59 CEST
+"test_attitude_decoder" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/18 Testing: test_imu_decoder
+4/18 Test: test_imu_decoder
+Command: "/usr/bin/python3" "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_imu_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_imu_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_imu_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_imu_decoder.gtest.xml"
+Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge
+"test_imu_decoder" start time: Sep 26 12:59 CEST
+Output:
+----------------------------------------------------------
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_imu_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_imu_decoder.gtest.xml
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from ImuDecoder
+[ RUN      ] ImuDecoder.RawImuScaling
+[       OK ] ImuDecoder.RawImuScaling (92 ms)
+[ RUN      ] ImuDecoder.ShortPayloadIgnored
+[       OK ] ImuDecoder.ShortPayloadIgnored (77 ms)
+[----------] 2 tests from ImuDecoder (169 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (169 ms total)
+[  PASSED  ] 2 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_imu_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_imu_decoder.gtest.xml'
+<end of output>
+Test time =   0.42 sec
+----------------------------------------------------------
+Test Passed.
+"test_imu_decoder" end time: Sep 26 12:59 CEST
+"test_imu_decoder" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/18 Testing: test_gps_decoder
+5/18 Test: test_gps_decoder
+Command: "/usr/bin/python3" "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_gps_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_gps_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_gps_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_gps_decoder.gtest.xml"
+Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge
+"test_gps_decoder" start time: Sep 26 12:59 CEST
+Output:
+----------------------------------------------------------
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_gps_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_gps_decoder.gtest.xml
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from GpsDecoder
+[ RUN      ] GpsDecoder.RawGpsBasic
+[       OK ] GpsDecoder.RawGpsBasic (114 ms)
+[ RUN      ] GpsDecoder.CompGpsVector
+[       OK ] GpsDecoder.CompGpsVector (98 ms)
+[----------] 2 tests from GpsDecoder (213 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (213 ms total)
+[  PASSED  ] 2 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_gps_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_gps_decoder.gtest.xml'
+<end of output>
+Test time =   0.47 sec
+----------------------------------------------------------
+Test Passed.
+"test_gps_decoder" end time: Sep 26 12:59 CEST
+"test_gps_decoder" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/18 Testing: test_rc_decoder
+6/18 Test: test_rc_decoder
+Command: "/usr/bin/python3" "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_rc_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_rc_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_rc_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_rc_decoder.gtest.xml"
+Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge
+"test_rc_decoder" start time: Sep 26 12:59 CEST
+Output:
+----------------------------------------------------------
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_rc_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_rc_decoder.gtest.xml
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from RcDecoder
+[ RUN      ] RcDecoder.RcChannelsBasic
+[       OK ] RcDecoder.RcChannelsBasic (88 ms)
+[ RUN      ] RcDecoder.ShortPayloadIgnored
+[       OK ] RcDecoder.ShortPayloadIgnored (75 ms)
+[----------] 2 tests from RcDecoder (163 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (163 ms total)
+[  PASSED  ] 2 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_rc_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_rc_decoder.gtest.xml'
+<end of output>
+Test time =   0.41 sec
+----------------------------------------------------------
+Test Passed.
+"test_rc_decoder" end time: Sep 26 12:59 CEST
+"test_rc_decoder" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/18 Testing: test_altitude_decoder
+7/18 Test: test_altitude_decoder
+Command: "/usr/bin/python3" "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_altitude_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_altitude_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_altitude_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_altitude_decoder.gtest.xml"
+Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge
+"test_altitude_decoder" start time: Sep 26 12:59 CEST
+Output:
+----------------------------------------------------------
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_altitude_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_altitude_decoder.gtest.xml
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from AltitudeDecoder
+[ RUN      ] AltitudeDecoder.BasicScaling
+[       OK ] AltitudeDecoder.BasicScaling (91 ms)
+[ RUN      ] AltitudeDecoder.ShortPayloadIgnored
+[       OK ] AltitudeDecoder.ShortPayloadIgnored (76 ms)
+[----------] 2 tests from AltitudeDecoder (167 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (168 ms total)
+[  PASSED  ] 2 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_altitude_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_altitude_decoder.gtest.xml'
+<end of output>
+Test time =   0.42 sec
+----------------------------------------------------------
+Test Passed.
+"test_altitude_decoder" end time: Sep 26 12:59 CEST
+"test_altitude_decoder" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/18 Testing: test_inav_status_decoder
+8/18 Test: test_inav_status_decoder
+Command: "/usr/bin/python3" "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_inav_status_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_inav_status_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_inav_status_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_inav_status_decoder.gtest.xml"
+Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge
+"test_inav_status_decoder" start time: Sep 26 12:59 CEST
+Output:
+----------------------------------------------------------
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_inav_status_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_inav_status_decoder.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from InavStatusDecoderFixture
+[ RUN      ] InavStatusDecoderFixture.BasicDecoding
+[       OK ] InavStatusDecoderFixture.BasicDecoding (91 ms)
+[ RUN      ] InavStatusDecoderFixture.ShortPayloadIgnored
+[       OK ] InavStatusDecoderFixture.ShortPayloadIgnored (65 ms)
+[----------] 2 tests from InavStatusDecoderFixture (157 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (157 ms total)
+[  PASSED  ] 2 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_inav_status_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_inav_status_decoder.gtest.xml'
+<end of output>
+Test time =   0.40 sec
+----------------------------------------------------------
+Test Passed.
+"test_inav_status_decoder" end time: Sep 26 12:59 CEST
+"test_inav_status_decoder" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/18 Testing: test_sensor_decoder
+9/18 Test: test_sensor_decoder
+Command: "/usr/bin/python3" "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_sensor_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_sensor_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_sensor_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_sensor_decoder.gtest.xml"
+Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge
+"test_sensor_decoder" start time: Sep 26 12:59 CEST
+Output:
+----------------------------------------------------------
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_sensor_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_sensor_decoder.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 4 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 4 tests from SensorDecoderFixture
+[ RUN      ] SensorDecoderFixture.RangefinderValidAndInvalid
+[       OK ] SensorDecoderFixture.RangefinderValidAndInvalid (141 ms)
+[ RUN      ] SensorDecoderFixture.CompassVector
+[       OK ] SensorDecoderFixture.CompassVector (67 ms)
+[ RUN      ] SensorDecoderFixture.BarometerPressure
+[       OK ] SensorDecoderFixture.BarometerPressure (66 ms)
+[ RUN      ] SensorDecoderFixture.ShortPayloadIgnored
+[       OK ] SensorDecoderFixture.ShortPayloadIgnored (65 ms)
+[----------] 4 tests from SensorDecoderFixture (340 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 1 test suite ran. (340 ms total)
+[  PASSED  ] 4 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_sensor_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_sensor_decoder.gtest.xml'
+<end of output>
+Test time =   0.58 sec
+----------------------------------------------------------
+Test Passed.
+"test_sensor_decoder" end time: Sep 26 12:59 CEST
+"test_sensor_decoder" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/18 Testing: test_servo_motor_decoder
+10/18 Test: test_servo_motor_decoder
+Command: "/usr/bin/python3" "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_servo_motor_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_servo_motor_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_servo_motor_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_servo_motor_decoder.gtest.xml"
+Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge
+"test_servo_motor_decoder" start time: Sep 26 12:59 CEST
+Output:
+----------------------------------------------------------
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_servo_motor_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_servo_motor_decoder.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 3 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 3 tests from ServoMotorDecoderFixture
+[ RUN      ] ServoMotorDecoderFixture.ServoPositionsDecoded
+[       OK ] ServoMotorDecoderFixture.ServoPositionsDecoded (90 ms)
+[ RUN      ] ServoMotorDecoderFixture.MotorVelocitiesDecoded
+[       OK ] ServoMotorDecoderFixture.MotorVelocitiesDecoded (92 ms)
+[ RUN      ] ServoMotorDecoderFixture.ShortPayloadIgnored
+[       OK ] ServoMotorDecoderFixture.ShortPayloadIgnored (65 ms)
+[----------] 3 tests from ServoMotorDecoderFixture (249 ms total)
+
+[----------] Global test environment tear-down
+[==========] 3 tests from 1 test suite ran. (249 ms total)
+[  PASSED  ] 3 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_servo_motor_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_servo_motor_decoder.gtest.xml'
+<end of output>
+Test time =   0.49 sec
+----------------------------------------------------------
+Test Passed.
+"test_servo_motor_decoder" end time: Sep 26 12:59 CEST
+"test_servo_motor_decoder" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/18 Testing: test_system_decoder_extended
+11/18 Test: test_system_decoder_extended
+Command: "/usr/bin/python3" "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder_extended.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_system_decoder_extended.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_system_decoder_extended" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder_extended.gtest.xml"
+Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge
+"test_system_decoder_extended" start time: Sep 26 12:59 CEST
+Output:
+----------------------------------------------------------
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_system_decoder_extended --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder_extended.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 3 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 3 tests from SystemDecoderExtendedFixture
+[ RUN      ] SystemDecoderExtendedFixture.RcTuningDecoding
+[       OK ] SystemDecoderExtendedFixture.RcTuningDecoding (99 ms)
+[ RUN      ] SystemDecoderExtendedFixture.GpsStatisticsDecoding
+[       OK ] SystemDecoderExtendedFixture.GpsStatisticsDecoding (76 ms)
+[ RUN      ] SystemDecoderExtendedFixture.RtcDecoding
+[       OK ] SystemDecoderExtendedFixture.RtcDecoding (74 ms)
+[----------] 3 tests from SystemDecoderExtendedFixture (251 ms total)
+
+[----------] Global test environment tear-down
+[==========] 3 tests from 1 test suite ran. (251 ms total)
+[  PASSED  ] 3 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder_extended.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder_extended.gtest.xml'
+<end of output>
+Test time =   0.49 sec
+----------------------------------------------------------
+Test Passed.
+"test_system_decoder_extended" end time: Sep 26 12:59 CEST
+"test_system_decoder_extended" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/18 Testing: test_msp_parser
+12/18 Test: test_msp_parser
+Command: "/usr/bin/python3" "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_msp_parser.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser.gtest.xml"
+Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge
+"test_msp_parser" start time: Sep 26 12:59 CEST
+Output:
+----------------------------------------------------------
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 7 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 7 tests from MSPParserFixture
+[ RUN      ] MSPParserFixture.V1SimplePacket
+[       OK ] MSPParserFixture.V1SimplePacket (0 ms)
+[ RUN      ] MSPParserFixture.V2NativePacket
+[       OK ] MSPParserFixture.V2NativePacket (0 ms)
+[ RUN      ] MSPParserFixture.V2TunneledPacket
+[       OK ] MSPParserFixture.V2TunneledPacket (0 ms)
+[ RUN      ] MSPParserFixture.NativeV2CrcFailure
+[       OK ] MSPParserFixture.NativeV2CrcFailure (0 ms)
+[ RUN      ] MSPParserFixture.TunneledV2CrcFailure
+[       OK ] MSPParserFixture.TunneledV2CrcFailure (0 ms)
+[ RUN      ] MSPParserFixture.PartialFrameNoEmit
+[       OK ] MSPParserFixture.PartialFrameNoEmit (0 ms)
+[ RUN      ] MSPParserFixture.MultipleFramesSequence
+[       OK ] MSPParserFixture.MultipleFramesSequence (0 ms)
+[----------] 7 tests from MSPParserFixture (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 7 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 7 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser.gtest.xml'
+<end of output>
+Test time =   0.12 sec
+----------------------------------------------------------
+Test Passed.
+"test_msp_parser" end time: Sep 26 12:59 CEST
+"test_msp_parser" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/18 Testing: test_msp_parser_fuzz
+13/18 Test: test_msp_parser_fuzz
+Command: "/usr/bin/python3" "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_fuzz.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_msp_parser_fuzz.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser_fuzz" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_fuzz.gtest.xml"
+Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge
+"test_msp_parser_fuzz" start time: Sep 26 12:59 CEST
+Output:
+----------------------------------------------------------
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser_fuzz --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_fuzz.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from MSPParserFuzz
+[ RUN      ] MSPParserFuzz.RandomNoiseDoesNotCrash
+[       OK ] MSPParserFuzz.RandomNoiseDoesNotCrash (0 ms)
+[ RUN      ] MSPParserFuzz.MixedValidAndNoise
+[       OK ] MSPParserFuzz.MixedValidAndNoise (0 ms)
+[----------] 2 tests from MSPParserFuzz (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 2 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_fuzz.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_fuzz.gtest.xml'
+<end of output>
+Test time =   0.11 sec
+----------------------------------------------------------
+Test Passed.
+"test_msp_parser_fuzz" end time: Sep 26 12:59 CEST
+"test_msp_parser_fuzz" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/18 Testing: test_msp_parser_hardening
+14/18 Test: test_msp_parser_hardening
+Command: "/usr/bin/python3" "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_hardening.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_msp_parser_hardening.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser_hardening" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_hardening.gtest.xml"
+Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge
+"test_msp_parser_hardening" start time: Sep 26 12:59 CEST
+Output:
+----------------------------------------------------------
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser_hardening --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_hardening.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 4 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 4 tests from MSPParserHardening
+[ RUN      ] MSPParserHardening.MaxPayloadV1Rejected
+[       OK ] MSPParserHardening.MaxPayloadV1Rejected (0 ms)
+[ RUN      ] MSPParserHardening.MaxPayloadV2Rejected
+[       OK ] MSPParserHardening.MaxPayloadV2Rejected (0 ms)
+[ RUN      ] MSPParserHardening.AbortMidFrame
+[       OK ] MSPParserHardening.AbortMidFrame (0 ms)
+[ RUN      ] MSPParserHardening.ZeroCopyPayloadDuringAccumulation
+[       OK ] MSPParserHardening.ZeroCopyPayloadDuringAccumulation (0 ms)
+[----------] 4 tests from MSPParserHardening (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 4 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_hardening.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_hardening.gtest.xml'
+<end of output>
+Test time =   0.12 sec
+----------------------------------------------------------
+Test Passed.
+"test_msp_parser_hardening" end time: Sep 26 12:59 CEST
+"test_msp_parser_hardening" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/18 Testing: test_crc
+15/18 Test: test_crc
+Command: "/usr/bin/python3" "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_crc.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_crc.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_crc" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_crc.gtest.xml"
+Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge
+"test_crc" start time: Sep 26 12:59 CEST
+Output:
+----------------------------------------------------------
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_crc --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_crc.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 4 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 4 tests from CRCTest
+[ RUN      ] CRCTest.KnownVector
+[       OK ] CRCTest.KnownVector (0 ms)
+[ RUN      ] CRCTest.EmptyBuffer
+[       OK ] CRCTest.EmptyBuffer (0 ms)
+[ RUN      ] CRCTest.SeededConsistency
+[       OK ] CRCTest.SeededConsistency (0 ms)
+[ RUN      ] CRCTest.SingleByteAllValues
+[       OK ] CRCTest.SingleByteAllValues (0 ms)
+[----------] 4 tests from CRCTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 4 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_crc.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_crc.gtest.xml'
+<end of output>
+Test time =   0.12 sec
+----------------------------------------------------------
+Test Passed.
+"test_crc" end time: Sep 26 12:59 CEST
+"test_crc" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/18 Testing: test_msp_registry
+16/18 Test: test_msp_registry
+Command: "/usr/bin/python3" "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_registry.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_msp_registry.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_registry" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_registry.gtest.xml"
+Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge
+"test_msp_registry" start time: Sep 26 12:59 CEST
+Output:
+----------------------------------------------------------
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_registry --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_registry.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 11 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 11 tests from MSPRegistry
+[ RUN      ] MSPRegistry.ContainsExpectedCoreV1Ids
+[       OK ] MSPRegistry.ContainsExpectedCoreV1Ids (1 ms)
+[ RUN      ] MSPRegistry.ContainsExpectedV2Ids
+[       OK ] MSPRegistry.ContainsExpectedV2Ids (0 ms)
+[ RUN      ] MSPRegistry.V2InferenceMatchesIdRange
+[       OK ] MSPRegistry.V2InferenceMatchesIdRange (0 ms)
+[ RUN      ] MSPRegistry.BuildCallbacksReturnNonEmptyFrame
+[       OK ] MSPRegistry.BuildCallbacksReturnNonEmptyFrame (0 ms)
+[ RUN      ] MSPRegistry.NoDuplicateIds
+[       OK ] MSPRegistry.NoDuplicateIds (0 ms)
+[ RUN      ] MSPRegistry.PollRateNonNegative
+[       OK ] MSPRegistry.PollRateNonNegative (0 ms)
+[ RUN      ] MSPRegistry.VersionFramingMatchesInference
+[       OK ] MSPRegistry.VersionFramingMatchesInference (0 ms)
+[ RUN      ] MSPRegistry.DeterministicBuilders
+[       OK ] MSPRegistry.DeterministicBuilders (0 ms)
+[ RUN      ] MSPRegistry.UniqueNames
+[       OK ] MSPRegistry.UniqueNames (0 ms)
+[ RUN      ] MSPRegistry.GpsStatisticsPresentAndNamed
+[       OK ] MSPRegistry.GpsStatisticsPresentAndNamed (0 ms)
+[ RUN      ] MSPRegistry.FrameMinimalStructure
+[       OK ] MSPRegistry.FrameMinimalStructure (0 ms)
+[----------] 11 tests from MSPRegistry (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 11 tests from 1 test suite ran. (2 ms total)
+[  PASSED  ] 11 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_registry.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_registry.gtest.xml'
+<end of output>
+Test time =   0.12 sec
+----------------------------------------------------------
+Test Passed.
+"test_msp_registry" end time: Sep 26 12:59 CEST
+"test_msp_registry" time elapsed: 00:00:00
+----------------------------------------------------------
+
+17/18 Testing: test_decoder_coverage
+17/18 Test: test_decoder_coverage
+Command: "/usr/bin/python3" "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_decoder_coverage.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_decoder_coverage.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_decoder_coverage" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_decoder_coverage.gtest.xml"
+Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge
+"test_decoder_coverage" start time: Sep 26 12:59 CEST
+Output:
+----------------------------------------------------------
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_decoder_coverage --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_decoder_coverage.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from DecoderCoverage
+[ RUN      ] DecoderCoverage.DefaultPolledCommandsHaveDecoders
+[       OK ] DecoderCoverage.DefaultPolledCommandsHaveDecoders (1 ms)
+[----------] 1 test from DecoderCoverage (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1 ms total)
+[  PASSED  ] 1 test.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_decoder_coverage.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_decoder_coverage.gtest.xml'
+<end of output>
+Test time =   0.12 sec
+----------------------------------------------------------
+Test Passed.
+"test_decoder_coverage" end time: Sep 26 12:59 CEST
+"test_decoder_coverage" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/18 Testing: test_msp_probe
+18/18 Test: test_msp_probe
+Command: "/usr/bin/python3" "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_probe.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_msp_probe.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_probe" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_probe.gtest.xml"
+Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge
+"test_msp_probe" start time: Sep 26 12:59 CEST
+Output:
+----------------------------------------------------------
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_probe --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_probe.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from MspProbe
+[ RUN      ] MspProbe.AllDefaultPolledRespondAndValidate
+/home/atvpi/ros2_ws/src/transformer_msp_bridge/test/test_msp_probe.cpp:22: Skipped
+MSP_TEST_PORT/MSP_TEST_BAUD not set; skipping probe test
+
+[  SKIPPED ] MspProbe.AllDefaultPolledRespondAndValidate (0 ms)
+[----------] 1 test from MspProbe (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  SKIPPED ] 1 test, listed below:
+[  SKIPPED ] MspProbe.AllDefaultPolledRespondAndValidate
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_probe.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_probe.gtest.xml'
+<end of output>
+Test time =   0.12 sec
+----------------------------------------------------------
+Test Passed.
+"test_msp_probe" end time: Sep 26 12:59 CEST
+"test_msp_probe" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Sep 26 12:59 CEST
+
+gtest =   5.81 sec*proc
+

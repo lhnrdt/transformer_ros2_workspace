@@ -1,0 +1,575 @@
+[0.000000] (-) TimerEvent: {}
+[0.000351] (transformer_msp_bridge) JobQueued: {'identifier': 'transformer_msp_bridge', 'dependencies': OrderedDict({'transformer_msp_bridge': '/home/atvpi/ros2_ws/install/transformer_msp_bridge'})}
+[0.000660] (transformer_msp_bridge) JobStarted: {'identifier': 'transformer_msp_bridge'}
+[0.099759] (-) TimerEvent: {}
+[0.158795] (transformer_msp_bridge) Command: {'cmd': ['/usr/bin/ctest', '-C', 'Release', '-D', 'ExperimentalTest', '--no-compress-output', '-V', '--force-new-ctest-process'], 'cwd': '/home/atvpi/ros2_ws/build/transformer_msp_bridge', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'atvpi', 'SSH_CLIENT': '192.168.8.2 40298 22', 'LC_TIME': 'C.UTF-8', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib:/home/atvpi/ros2_ws/install/transformer_controller/lib:/home/atvpi/ros2_ws/install/transformer_hw_servos/lib:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib:/home/atvpi/ros2_ws/install/serial/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/lib', 'HOME': '/home/atvpi', 'OLDPWD': '/home/atvpi', 'SSH_TTY': '/dev/pts/0', 'ROS_PYTHON_VERSION': '3', 'LC_MONETARY': 'C.UTF-8', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLCON_PREFIX_PATH': '/home/atvpi/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'atvpi', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '1', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'LC_ADDRESS': 'C.UTF-8', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'C.UTF-8', 'LC_TELEPHONE': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'AMENT_PREFIX_PATH': '/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'C.UTF-8', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LC_MEASUREMENT': 'C.UTF-8', 'LC_IDENTIFICATION': 'C.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'PWD': '/home/atvpi/ros2_ws/build/transformer_msp_bridge', 'SSH_CONNECTION': '192.168.8.2 40298 192.168.8.1 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'LC_NUMERIC': 'C.UTF-8', 'LC_PAPER': 'C.UTF-8', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/serial'}), 'shell': False}
+[0.179172] (transformer_msp_bridge) StdoutLine: {'line': b'UpdateCTestConfiguration  from :/home/atvpi/ros2_ws/build/transformer_msp_bridge/CTestConfiguration.ini\n'}
+[0.179561] (transformer_msp_bridge) StdoutLine: {'line': b'Parse Config file:/home/atvpi/ros2_ws/build/transformer_msp_bridge/CTestConfiguration.ini\n'}
+[0.179720] (transformer_msp_bridge) StdoutLine: {'line': b'   Site: atvpi\n'}
+[0.179828] (transformer_msp_bridge) StdoutLine: {'line': b'   Build name: (empty)\n'}
+[0.179923] (transformer_msp_bridge) StdoutLine: {'line': b' Add coverage exclude regular expressions.\n'}
+[0.180061] (transformer_msp_bridge) StdoutLine: {'line': b'Create new tag: 20250926-1059 - Experimental\n'}
+[0.180201] (transformer_msp_bridge) StdoutLine: {'line': b'UpdateCTestConfiguration  from :/home/atvpi/ros2_ws/build/transformer_msp_bridge/CTestConfiguration.ini\n'}
+[0.180291] (transformer_msp_bridge) StdoutLine: {'line': b'Parse Config file:/home/atvpi/ros2_ws/build/transformer_msp_bridge/CTestConfiguration.ini\n'}
+[0.180374] (transformer_msp_bridge) StdoutLine: {'line': b'Test project /home/atvpi/ros2_ws/build/transformer_msp_bridge\n'}
+[0.180488] (transformer_msp_bridge) StdoutLine: {'line': b'Constructing a list of tests\n'}
+[0.181166] (transformer_msp_bridge) StdoutLine: {'line': b'Done constructing a list of tests\n'}
+[0.181314] (transformer_msp_bridge) StdoutLine: {'line': b'Updating test list for fixtures\n'}
+[0.181469] (transformer_msp_bridge) StdoutLine: {'line': b'Added 0 tests to meet fixture requirements\n'}
+[0.181568] (transformer_msp_bridge) StdoutLine: {'line': b'Checking test dependency graph...\n'}
+[0.181660] (transformer_msp_bridge) StdoutLine: {'line': b'Checking test dependency graph end\n'}
+[0.181795] (transformer_msp_bridge) StdoutLine: {'line': b'test 1\n'}
+[0.181933] (transformer_msp_bridge) StdoutLine: {'line': b'      Start  1: test_battery_decoder\n'}
+[0.182016] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[0.182097] (transformer_msp_bridge) StdoutLine: {'line': b'1: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_battery_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_battery_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_battery_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_battery_decoder.gtest.xml"\n'}
+[0.182185] (transformer_msp_bridge) StdoutLine: {'line': b'1: Working Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge\n'}
+[0.182265] (transformer_msp_bridge) StdoutLine: {'line': b'1: Test timeout computed to be: 60\n'}
+[0.199836] (-) TimerEvent: {}
+[0.274943] (transformer_msp_bridge) StdoutLine: {'line': b"1: -- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':\n"}
+[0.275215] (transformer_msp_bridge) StdoutLine: {'line': b'1:  - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_battery_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_battery_decoder.gtest.xml\n'}
+[0.299958] (-) TimerEvent: {}
+[0.314524] (transformer_msp_bridge) StdoutLine: {'line': b'1: [==========] Running 2 tests from 1 test suite.\n'}
+[0.314818] (transformer_msp_bridge) StdoutLine: {'line': b'1: [----------] Global test environment set-up.\n'}
+[0.314924] (transformer_msp_bridge) StdoutLine: {'line': b'1: [----------] 2 tests from BatteryDecoder\n'}
+[0.315015] (transformer_msp_bridge) StdoutLine: {'line': b'1: [ RUN      ] BatteryDecoder.AnalogBasic\n'}
+[0.400081] (-) TimerEvent: {}
+[0.500495] (-) TimerEvent: {}
+[0.552715] (transformer_msp_bridge) StdoutLine: {'line': b'1: [       OK ] BatteryDecoder.AnalogBasic (238 ms)\n'}
+[0.553041] (transformer_msp_bridge) StdoutLine: {'line': b'1: [ RUN      ] BatteryDecoder.ExtendedState\n'}
+[0.600611] (-) TimerEvent: {}
+[0.618820] (transformer_msp_bridge) StdoutLine: {'line': b'1: [       OK ] BatteryDecoder.ExtendedState (66 ms)\n'}
+[0.619205] (transformer_msp_bridge) StdoutLine: {'line': b'1: [----------] 2 tests from BatteryDecoder (304 ms total)\n'}
+[0.619415] (transformer_msp_bridge) StdoutLine: {'line': b'1: \n'}
+[0.619595] (transformer_msp_bridge) StdoutLine: {'line': b'1: [----------] Global test environment tear-down\n'}
+[0.619893] (transformer_msp_bridge) StdoutLine: {'line': b'1: [==========] 2 tests from 1 test suite ran. (304 ms total)\n'}
+[0.620069] (transformer_msp_bridge) StdoutLine: {'line': b'1: [  PASSED  ] 2 tests.\n'}
+[0.700731] (-) TimerEvent: {}
+[0.726336] (transformer_msp_bridge) StdoutLine: {'line': b'1: -- run_test.py: return code 0\n'}
+[0.726769] (transformer_msp_bridge) StdoutLine: {'line': b"1: -- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_battery_decoder.gtest.xml'\n"}
+[0.727036] (transformer_msp_bridge) StdoutLine: {'line': b"1: -- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_battery_decoder.gtest.xml'\n"}
+[0.752104] (transformer_msp_bridge) StdoutLine: {'line': b' 1/18 Test  #1: test_battery_decoder .............   Passed    0.57 sec\n'}
+[0.752553] (transformer_msp_bridge) StdoutLine: {'line': b'test 2\n'}
+[0.752681] (transformer_msp_bridge) StdoutLine: {'line': b'      Start  2: test_system_decoder\n'}
+[0.752772] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[0.752856] (transformer_msp_bridge) StdoutLine: {'line': b'2: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_system_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_system_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder.gtest.xml"\n'}
+[0.752982] (transformer_msp_bridge) StdoutLine: {'line': b'2: Working Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge\n'}
+[0.753070] (transformer_msp_bridge) StdoutLine: {'line': b'2: Test timeout computed to be: 60\n'}
+[0.800830] (-) TimerEvent: {}
+[0.839083] (transformer_msp_bridge) StdoutLine: {'line': b"2: -- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':\n"}
+[0.839390] (transformer_msp_bridge) StdoutLine: {'line': b'2:  - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_system_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder.gtest.xml\n'}
+[0.875071] (transformer_msp_bridge) StdoutLine: {'line': b'2: [==========] Running 2 tests from 1 test suite.\n'}
+[0.875359] (transformer_msp_bridge) StdoutLine: {'line': b'2: [----------] Global test environment set-up.\n'}
+[0.875513] (transformer_msp_bridge) StdoutLine: {'line': b'2: [----------] 2 tests from SystemDecoder\n'}
+[0.875612] (transformer_msp_bridge) StdoutLine: {'line': b'2: [ RUN      ] SystemDecoder.StatusExBasic\n'}
+[0.900942] (-) TimerEvent: {}
+[0.955417] (transformer_msp_bridge) StdoutLine: {'line': b'2: [       OK ] SystemDecoder.StatusExBasic (80 ms)\n'}
+[0.955818] (transformer_msp_bridge) StdoutLine: {'line': b'2: [ RUN      ] SystemDecoder.SensorStatusMasks\n'}
+[1.001059] (-) TimerEvent: {}
+[1.026318] (transformer_msp_bridge) StdoutLine: {'line': b'2: [       OK ] SystemDecoder.SensorStatusMasks (70 ms)\n'}
+[1.027390] (transformer_msp_bridge) StdoutLine: {'line': b'2: [----------] 2 tests from SystemDecoder (150 ms total)\n'}
+[1.027559] (transformer_msp_bridge) StdoutLine: {'line': b'2: \n'}
+[1.027656] (transformer_msp_bridge) StdoutLine: {'line': b'2: [----------] Global test environment tear-down\n'}
+[1.027742] (transformer_msp_bridge) StdoutLine: {'line': b'2: [==========] 2 tests from 1 test suite ran. (150 ms total)\n'}
+[1.027829] (transformer_msp_bridge) StdoutLine: {'line': b'2: [  PASSED  ] 2 tests.\n'}
+[1.101183] (-) TimerEvent: {}
+[1.133416] (transformer_msp_bridge) StdoutLine: {'line': b'2: -- run_test.py: return code 0\n'}
+[1.133852] (transformer_msp_bridge) StdoutLine: {'line': b"2: -- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder.gtest.xml'\n"}
+[1.134098] (transformer_msp_bridge) StdoutLine: {'line': b"2: -- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder.gtest.xml'\n"}
+[1.157985] (transformer_msp_bridge) StdoutLine: {'line': b' 2/18 Test  #2: test_system_decoder ..............   Passed    0.41 sec\n'}
+[1.158361] (transformer_msp_bridge) StdoutLine: {'line': b'test 3\n'}
+[1.158481] (transformer_msp_bridge) StdoutLine: {'line': b'      Start  3: test_attitude_decoder\n'}
+[1.158578] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[1.158661] (transformer_msp_bridge) StdoutLine: {'line': b'3: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_attitude_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_attitude_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_attitude_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_attitude_decoder.gtest.xml"\n'}
+[1.158752] (transformer_msp_bridge) StdoutLine: {'line': b'3: Working Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge\n'}
+[1.158833] (transformer_msp_bridge) StdoutLine: {'line': b'3: Test timeout computed to be: 60\n'}
+[1.201282] (-) TimerEvent: {}
+[1.246100] (transformer_msp_bridge) StdoutLine: {'line': b"3: -- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':\n"}
+[1.246384] (transformer_msp_bridge) StdoutLine: {'line': b'3:  - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_attitude_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_attitude_decoder.gtest.xml\n'}
+[1.278346] (transformer_msp_bridge) StdoutLine: {'line': b'3: [==========] Running 1 test from 1 test suite.\n'}
+[1.278648] (transformer_msp_bridge) StdoutLine: {'line': b'3: [----------] Global test environment set-up.\n'}
+[1.278761] (transformer_msp_bridge) StdoutLine: {'line': b'3: [----------] 1 test from AttitudeDecoder\n'}
+[1.278856] (transformer_msp_bridge) StdoutLine: {'line': b'3: [ RUN      ] AttitudeDecoder.BasicScaling\n'}
+[1.301391] (-) TimerEvent: {}
+[1.356486] (transformer_msp_bridge) StdoutLine: {'line': b'3: [       OK ] AttitudeDecoder.BasicScaling (78 ms)\n'}
+[1.356868] (transformer_msp_bridge) StdoutLine: {'line': b'3: [----------] 1 test from AttitudeDecoder (78 ms total)\n'}
+[1.357052] (transformer_msp_bridge) StdoutLine: {'line': b'3: \n'}
+[1.357209] (transformer_msp_bridge) StdoutLine: {'line': b'3: [----------] Global test environment tear-down\n'}
+[1.357463] (transformer_msp_bridge) StdoutLine: {'line': b'3: [==========] 1 test from 1 test suite ran. (78 ms total)\n'}
+[1.357637] (transformer_msp_bridge) StdoutLine: {'line': b'3: [  PASSED  ] 1 test.\n'}
+[1.401468] (-) TimerEvent: {}
+[1.462807] (transformer_msp_bridge) StdoutLine: {'line': b'3: -- run_test.py: return code 0\n'}
+[1.463166] (transformer_msp_bridge) StdoutLine: {'line': b"3: -- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_attitude_decoder.gtest.xml'\n"}
+[1.463353] (transformer_msp_bridge) StdoutLine: {'line': b"3: -- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_attitude_decoder.gtest.xml'\n"}
+[1.486330] (transformer_msp_bridge) StdoutLine: {'line': b' 3/18 Test  #3: test_attitude_decoder ............   Passed    0.33 sec\n'}
+[1.486721] (transformer_msp_bridge) StdoutLine: {'line': b'test 4\n'}
+[1.486826] (transformer_msp_bridge) StdoutLine: {'line': b'      Start  4: test_imu_decoder\n'}
+[1.486913] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[1.486996] (transformer_msp_bridge) StdoutLine: {'line': b'4: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_imu_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_imu_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_imu_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_imu_decoder.gtest.xml"\n'}
+[1.487120] (transformer_msp_bridge) StdoutLine: {'line': b'4: Working Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge\n'}
+[1.487208] (transformer_msp_bridge) StdoutLine: {'line': b'4: Test timeout computed to be: 60\n'}
+[1.501595] (-) TimerEvent: {}
+[1.572918] (transformer_msp_bridge) StdoutLine: {'line': b"4: -- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':\n"}
+[1.573217] (transformer_msp_bridge) StdoutLine: {'line': b'4:  - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_imu_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_imu_decoder.gtest.xml\n'}
+[1.601701] (-) TimerEvent: {}
+[1.604747] (transformer_msp_bridge) StdoutLine: {'line': b'4: [==========] Running 2 tests from 1 test suite.\n'}
+[1.604993] (transformer_msp_bridge) StdoutLine: {'line': b'4: [----------] Global test environment set-up.\n'}
+[1.605094] (transformer_msp_bridge) StdoutLine: {'line': b'4: [----------] 2 tests from ImuDecoder\n'}
+[1.605180] (transformer_msp_bridge) StdoutLine: {'line': b'4: [ RUN      ] ImuDecoder.RawImuScaling\n'}
+[1.697033] (transformer_msp_bridge) StdoutLine: {'line': b'4: [       OK ] ImuDecoder.RawImuScaling (92 ms)\n'}
+[1.697375] (transformer_msp_bridge) StdoutLine: {'line': b'4: [ RUN      ] ImuDecoder.ShortPayloadIgnored\n'}
+[1.701807] (-) TimerEvent: {}
+[1.774182] (transformer_msp_bridge) StdoutLine: {'line': b'4: [       OK ] ImuDecoder.ShortPayloadIgnored (77 ms)\n'}
+[1.774559] (transformer_msp_bridge) StdoutLine: {'line': b'4: [----------] 2 tests from ImuDecoder (169 ms total)\n'}
+[1.774842] (transformer_msp_bridge) StdoutLine: {'line': b'4: \n'}
+[1.774980] (transformer_msp_bridge) StdoutLine: {'line': b'4: [----------] Global test environment tear-down\n'}
+[1.775118] (transformer_msp_bridge) StdoutLine: {'line': b'4: [==========] 2 tests from 1 test suite ran. (169 ms total)\n'}
+[1.775247] (transformer_msp_bridge) StdoutLine: {'line': b'4: [  PASSED  ] 2 tests.\n'}
+[1.801913] (-) TimerEvent: {}
+[1.881907] (transformer_msp_bridge) StdoutLine: {'line': b'4: -- run_test.py: return code 0\n'}
+[1.882344] (transformer_msp_bridge) StdoutLine: {'line': b"4: -- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_imu_decoder.gtest.xml'\n"}
+[1.882598] (transformer_msp_bridge) StdoutLine: {'line': b"4: -- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_imu_decoder.gtest.xml'\n"}
+[1.902040] (-) TimerEvent: {}
+[1.906371] (transformer_msp_bridge) StdoutLine: {'line': b' 4/18 Test  #4: test_imu_decoder .................   Passed    0.42 sec\n'}
+[1.906706] (transformer_msp_bridge) StdoutLine: {'line': b'test 5\n'}
+[1.906807] (transformer_msp_bridge) StdoutLine: {'line': b'      Start  5: test_gps_decoder\n'}
+[1.906891] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[1.906973] (transformer_msp_bridge) StdoutLine: {'line': b'5: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_gps_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_gps_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_gps_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_gps_decoder.gtest.xml"\n'}
+[1.907066] (transformer_msp_bridge) StdoutLine: {'line': b'5: Working Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge\n'}
+[1.907147] (transformer_msp_bridge) StdoutLine: {'line': b'5: Test timeout computed to be: 60\n'}
+[1.994148] (transformer_msp_bridge) StdoutLine: {'line': b"5: -- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':\n"}
+[1.994460] (transformer_msp_bridge) StdoutLine: {'line': b'5:  - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_gps_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_gps_decoder.gtest.xml\n'}
+[2.002124] (-) TimerEvent: {}
+[2.027662] (transformer_msp_bridge) StdoutLine: {'line': b'5: [==========] Running 2 tests from 1 test suite.\n'}
+[2.027950] (transformer_msp_bridge) StdoutLine: {'line': b'5: [----------] Global test environment set-up.\n'}
+[2.028058] (transformer_msp_bridge) StdoutLine: {'line': b'5: [----------] 2 tests from GpsDecoder\n'}
+[2.028149] (transformer_msp_bridge) StdoutLine: {'line': b'5: [ RUN      ] GpsDecoder.RawGpsBasic\n'}
+[2.102252] (-) TimerEvent: {}
+[2.142288] (transformer_msp_bridge) StdoutLine: {'line': b'5: [       OK ] GpsDecoder.RawGpsBasic (114 ms)\n'}
+[2.142656] (transformer_msp_bridge) StdoutLine: {'line': b'5: [ RUN      ] GpsDecoder.CompGpsVector\n'}
+[2.202373] (-) TimerEvent: {}
+[2.240775] (transformer_msp_bridge) StdoutLine: {'line': b'5: [       OK ] GpsDecoder.CompGpsVector (98 ms)\n'}
+[2.241151] (transformer_msp_bridge) StdoutLine: {'line': b'5: [----------] 2 tests from GpsDecoder (213 ms total)\n'}
+[2.241340] (transformer_msp_bridge) StdoutLine: {'line': b'5: \n'}
+[2.241741] (transformer_msp_bridge) StdoutLine: {'line': b'5: [----------] Global test environment tear-down\n'}
+[2.241899] (transformer_msp_bridge) StdoutLine: {'line': b'5: [==========] 2 tests from 1 test suite ran. (213 ms total)\n'}
+[2.242035] (transformer_msp_bridge) StdoutLine: {'line': b'5: [  PASSED  ] 2 tests.\n'}
+[2.302502] (-) TimerEvent: {}
+[2.349462] (transformer_msp_bridge) StdoutLine: {'line': b'5: -- run_test.py: return code 0\n'}
+[2.349947] (transformer_msp_bridge) StdoutLine: {'line': b"5: -- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_gps_decoder.gtest.xml'\n"}
+[2.350499] (transformer_msp_bridge) StdoutLine: {'line': b"5: -- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_gps_decoder.gtest.xml'\n"}
+[2.374341] (transformer_msp_bridge) StdoutLine: {'line': b' 5/18 Test  #5: test_gps_decoder .................   Passed    0.47 sec\n'}
+[2.374700] (transformer_msp_bridge) StdoutLine: {'line': b'test 6\n'}
+[2.375060] (transformer_msp_bridge) StdoutLine: {'line': b'      Start  6: test_rc_decoder\n'}
+[2.375234] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[2.375332] (transformer_msp_bridge) StdoutLine: {'line': b'6: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_rc_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_rc_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_rc_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_rc_decoder.gtest.xml"\n'}
+[2.375492] (transformer_msp_bridge) StdoutLine: {'line': b'6: Working Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge\n'}
+[2.375626] (transformer_msp_bridge) StdoutLine: {'line': b'6: Test timeout computed to be: 60\n'}
+[2.402603] (-) TimerEvent: {}
+[2.461573] (transformer_msp_bridge) StdoutLine: {'line': b"6: -- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':\n"}
+[2.461878] (transformer_msp_bridge) StdoutLine: {'line': b'6:  - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_rc_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_rc_decoder.gtest.xml\n'}
+[2.492965] (transformer_msp_bridge) StdoutLine: {'line': b'6: [==========] Running 2 tests from 1 test suite.\n'}
+[2.493250] (transformer_msp_bridge) StdoutLine: {'line': b'6: [----------] Global test environment set-up.\n'}
+[2.493353] (transformer_msp_bridge) StdoutLine: {'line': b'6: [----------] 2 tests from RcDecoder\n'}
+[2.493466] (transformer_msp_bridge) StdoutLine: {'line': b'6: [ RUN      ] RcDecoder.RcChannelsBasic\n'}
+[2.502715] (-) TimerEvent: {}
+[2.581357] (transformer_msp_bridge) StdoutLine: {'line': b'6: [       OK ] RcDecoder.RcChannelsBasic (88 ms)\n'}
+[2.581735] (transformer_msp_bridge) StdoutLine: {'line': b'6: [ RUN      ] RcDecoder.ShortPayloadIgnored\n'}
+[2.602832] (-) TimerEvent: {}
+[2.656495] (transformer_msp_bridge) StdoutLine: {'line': b'6: [       OK ] RcDecoder.ShortPayloadIgnored (75 ms)\n'}
+[2.657006] (transformer_msp_bridge) StdoutLine: {'line': b'6: [----------] 2 tests from RcDecoder (163 ms total)\n'}
+[2.657166] (transformer_msp_bridge) StdoutLine: {'line': b'6: \n'}
+[2.657280] (transformer_msp_bridge) StdoutLine: {'line': b'6: [----------] Global test environment tear-down\n'}
+[2.657375] (transformer_msp_bridge) StdoutLine: {'line': b'6: [==========] 2 tests from 1 test suite ran. (163 ms total)\n'}
+[2.657505] (transformer_msp_bridge) StdoutLine: {'line': b'6: [  PASSED  ] 2 tests.\n'}
+[2.702941] (-) TimerEvent: {}
+[2.762897] (transformer_msp_bridge) StdoutLine: {'line': b'6: -- run_test.py: return code 0\n'}
+[2.763322] (transformer_msp_bridge) StdoutLine: {'line': b"6: -- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_rc_decoder.gtest.xml'\n"}
+[2.763537] (transformer_msp_bridge) StdoutLine: {'line': b"6: -- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_rc_decoder.gtest.xml'\n"}
+[2.787442] (transformer_msp_bridge) StdoutLine: {'line': b' 6/18 Test  #6: test_rc_decoder ..................   Passed    0.41 sec\n'}
+[2.787764] (transformer_msp_bridge) StdoutLine: {'line': b'test 7\n'}
+[2.787858] (transformer_msp_bridge) StdoutLine: {'line': b'      Start  7: test_altitude_decoder\n'}
+[2.787964] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[2.788047] (transformer_msp_bridge) StdoutLine: {'line': b'7: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_altitude_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_altitude_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_altitude_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_altitude_decoder.gtest.xml"\n'}
+[2.788501] (transformer_msp_bridge) StdoutLine: {'line': b'7: Working Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge\n'}
+[2.788675] (transformer_msp_bridge) StdoutLine: {'line': b'7: Test timeout computed to be: 60\n'}
+[2.803026] (-) TimerEvent: {}
+[2.874388] (transformer_msp_bridge) StdoutLine: {'line': b"7: -- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':\n"}
+[2.874690] (transformer_msp_bridge) StdoutLine: {'line': b'7:  - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_altitude_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_altitude_decoder.gtest.xml\n'}
+[2.903143] (-) TimerEvent: {}
+[2.906652] (transformer_msp_bridge) StdoutLine: {'line': b'7: [==========] Running 2 tests from 1 test suite.\n'}
+[2.906910] (transformer_msp_bridge) StdoutLine: {'line': b'7: [----------] Global test environment set-up.\n'}
+[2.907017] (transformer_msp_bridge) StdoutLine: {'line': b'7: [----------] 2 tests from AltitudeDecoder\n'}
+[2.907106] (transformer_msp_bridge) StdoutLine: {'line': b'7: [ RUN      ] AltitudeDecoder.BasicScaling\n'}
+[2.998200] (transformer_msp_bridge) StdoutLine: {'line': b'7: [       OK ] AltitudeDecoder.BasicScaling (91 ms)\n'}
+[2.998588] (transformer_msp_bridge) StdoutLine: {'line': b'7: [ RUN      ] AltitudeDecoder.ShortPayloadIgnored\n'}
+[3.003257] (-) TimerEvent: {}
+[3.074718] (transformer_msp_bridge) StdoutLine: {'line': b'7: [       OK ] AltitudeDecoder.ShortPayloadIgnored (76 ms)\n'}
+[3.075073] (transformer_msp_bridge) StdoutLine: {'line': b'7: [----------] 2 tests from AltitudeDecoder (167 ms total)\n'}
+[3.075255] (transformer_msp_bridge) StdoutLine: {'line': b'7: \n'}
+[3.075400] (transformer_msp_bridge) StdoutLine: {'line': b'7: [----------] Global test environment tear-down\n'}
+[3.075744] (transformer_msp_bridge) StdoutLine: {'line': b'7: [==========] 2 tests from 1 test suite ran. (168 ms total)\n'}
+[3.075943] (transformer_msp_bridge) StdoutLine: {'line': b'7: [  PASSED  ] 2 tests.\n'}
+[3.103333] (-) TimerEvent: {}
+[3.182204] (transformer_msp_bridge) StdoutLine: {'line': b'7: -- run_test.py: return code 0\n'}
+[3.182661] (transformer_msp_bridge) StdoutLine: {'line': b"7: -- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_altitude_decoder.gtest.xml'\n"}
+[3.182912] (transformer_msp_bridge) StdoutLine: {'line': b"7: -- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_altitude_decoder.gtest.xml'\n"}
+[3.203633] (-) TimerEvent: {}
+[3.206571] (transformer_msp_bridge) StdoutLine: {'line': b' 7/18 Test  #7: test_altitude_decoder ............   Passed    0.42 sec\n'}
+[3.206890] (transformer_msp_bridge) StdoutLine: {'line': b'test 8\n'}
+[3.206986] (transformer_msp_bridge) StdoutLine: {'line': b'      Start  8: test_inav_status_decoder\n'}
+[3.207072] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[3.207153] (transformer_msp_bridge) StdoutLine: {'line': b'8: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_inav_status_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_inav_status_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_inav_status_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_inav_status_decoder.gtest.xml"\n'}
+[3.207278] (transformer_msp_bridge) StdoutLine: {'line': b'8: Working Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge\n'}
+[3.207364] (transformer_msp_bridge) StdoutLine: {'line': b'8: Test timeout computed to be: 60\n'}
+[3.295528] (transformer_msp_bridge) StdoutLine: {'line': b"8: -- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':\n"}
+[3.295837] (transformer_msp_bridge) StdoutLine: {'line': b'8:  - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_inav_status_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_inav_status_decoder.gtest.xml\n'}
+[3.303698] (-) TimerEvent: {}
+[3.317316] (transformer_msp_bridge) StdoutLine: {'line': b'8: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc\n'}
+[3.317586] (transformer_msp_bridge) StdoutLine: {'line': b'8: [==========] Running 2 tests from 1 test suite.\n'}
+[3.317691] (transformer_msp_bridge) StdoutLine: {'line': b'8: [----------] Global test environment set-up.\n'}
+[3.317780] (transformer_msp_bridge) StdoutLine: {'line': b'8: [----------] 2 tests from InavStatusDecoderFixture\n'}
+[3.317865] (transformer_msp_bridge) StdoutLine: {'line': b'8: [ RUN      ] InavStatusDecoderFixture.BasicDecoding\n'}
+[3.403828] (-) TimerEvent: {}
+[3.409064] (transformer_msp_bridge) StdoutLine: {'line': b'8: [       OK ] InavStatusDecoderFixture.BasicDecoding (91 ms)\n'}
+[3.409390] (transformer_msp_bridge) StdoutLine: {'line': b'8: [ RUN      ] InavStatusDecoderFixture.ShortPayloadIgnored\n'}
+[3.475009] (transformer_msp_bridge) StdoutLine: {'line': b'8: [       OK ] InavStatusDecoderFixture.ShortPayloadIgnored (65 ms)\n'}
+[3.475352] (transformer_msp_bridge) StdoutLine: {'line': b'8: [----------] 2 tests from InavStatusDecoderFixture (157 ms total)\n'}
+[3.475650] (transformer_msp_bridge) StdoutLine: {'line': b'8: \n'}
+[3.475776] (transformer_msp_bridge) StdoutLine: {'line': b'8: [----------] Global test environment tear-down\n'}
+[3.475877] (transformer_msp_bridge) StdoutLine: {'line': b'8: [==========] 2 tests from 1 test suite ran. (157 ms total)\n'}
+[3.475974] (transformer_msp_bridge) StdoutLine: {'line': b'8: [  PASSED  ] 2 tests.\n'}
+[3.503946] (-) TimerEvent: {}
+[3.581570] (transformer_msp_bridge) StdoutLine: {'line': b'8: -- run_test.py: return code 0\n'}
+[3.581950] (transformer_msp_bridge) StdoutLine: {'line': b"8: -- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_inav_status_decoder.gtest.xml'\n"}
+[3.582192] (transformer_msp_bridge) StdoutLine: {'line': b"8: -- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_inav_status_decoder.gtest.xml'\n"}
+[3.604054] (-) TimerEvent: {}
+[3.606111] (transformer_msp_bridge) StdoutLine: {'line': b' 8/18 Test  #8: test_inav_status_decoder .........   Passed    0.40 sec\n'}
+[3.606437] (transformer_msp_bridge) StdoutLine: {'line': b'test 9\n'}
+[3.606569] (transformer_msp_bridge) StdoutLine: {'line': b'      Start  9: test_sensor_decoder\n'}
+[3.606672] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[3.606764] (transformer_msp_bridge) StdoutLine: {'line': b'9: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_sensor_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_sensor_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_sensor_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_sensor_decoder.gtest.xml"\n'}
+[3.606895] (transformer_msp_bridge) StdoutLine: {'line': b'9: Working Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge\n'}
+[3.606990] (transformer_msp_bridge) StdoutLine: {'line': b'9: Test timeout computed to be: 60\n'}
+[3.694199] (transformer_msp_bridge) StdoutLine: {'line': b"9: -- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':\n"}
+[3.694506] (transformer_msp_bridge) StdoutLine: {'line': b'9:  - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_sensor_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_sensor_decoder.gtest.xml\n'}
+[3.704126] (-) TimerEvent: {}
+[3.716050] (transformer_msp_bridge) StdoutLine: {'line': b'9: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc\n'}
+[3.716292] (transformer_msp_bridge) StdoutLine: {'line': b'9: [==========] Running 4 tests from 1 test suite.\n'}
+[3.716386] (transformer_msp_bridge) StdoutLine: {'line': b'9: [----------] Global test environment set-up.\n'}
+[3.716493] (transformer_msp_bridge) StdoutLine: {'line': b'9: [----------] 4 tests from SensorDecoderFixture\n'}
+[3.716583] (transformer_msp_bridge) StdoutLine: {'line': b'9: [ RUN      ] SensorDecoderFixture.RangefinderValidAndInvalid\n'}
+[3.804255] (-) TimerEvent: {}
+[3.857524] (transformer_msp_bridge) StdoutLine: {'line': b'9: [       OK ] SensorDecoderFixture.RangefinderValidAndInvalid (141 ms)\n'}
+[3.857956] (transformer_msp_bridge) StdoutLine: {'line': b'9: [ RUN      ] SensorDecoderFixture.CompassVector\n'}
+[3.904405] (-) TimerEvent: {}
+[3.924467] (transformer_msp_bridge) StdoutLine: {'line': b'9: [       OK ] SensorDecoderFixture.CompassVector (67 ms)\n'}
+[3.924924] (transformer_msp_bridge) StdoutLine: {'line': b'9: [ RUN      ] SensorDecoderFixture.BarometerPressure\n'}
+[3.991335] (transformer_msp_bridge) StdoutLine: {'line': b'9: [       OK ] SensorDecoderFixture.BarometerPressure (66 ms)\n'}
+[3.991778] (transformer_msp_bridge) StdoutLine: {'line': b'9: [ RUN      ] SensorDecoderFixture.ShortPayloadIgnored\n'}
+[4.004507] (-) TimerEvent: {}
+[4.057058] (transformer_msp_bridge) StdoutLine: {'line': b'9: [       OK ] SensorDecoderFixture.ShortPayloadIgnored (65 ms)\n'}
+[4.057389] (transformer_msp_bridge) StdoutLine: {'line': b'9: [----------] 4 tests from SensorDecoderFixture (340 ms total)\n'}
+[4.057727] (transformer_msp_bridge) StdoutLine: {'line': b'9: \n'}
+[4.057896] (transformer_msp_bridge) StdoutLine: {'line': b'9: [----------] Global test environment tear-down\n'}
+[4.058018] (transformer_msp_bridge) StdoutLine: {'line': b'9: [==========] 4 tests from 1 test suite ran. (340 ms total)\n'}
+[4.058135] (transformer_msp_bridge) StdoutLine: {'line': b'9: [  PASSED  ] 4 tests.\n'}
+[4.104629] (-) TimerEvent: {}
+[4.164360] (transformer_msp_bridge) StdoutLine: {'line': b'9: -- run_test.py: return code 0\n'}
+[4.164805] (transformer_msp_bridge) StdoutLine: {'line': b"9: -- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_sensor_decoder.gtest.xml'\n"}
+[4.165061] (transformer_msp_bridge) StdoutLine: {'line': b"9: -- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_sensor_decoder.gtest.xml'\n"}
+[4.188868] (transformer_msp_bridge) StdoutLine: {'line': b' 9/18 Test  #9: test_sensor_decoder ..............   Passed    0.58 sec\n'}
+[4.189254] (transformer_msp_bridge) StdoutLine: {'line': b'test 10\n'}
+[4.189356] (transformer_msp_bridge) StdoutLine: {'line': b'      Start 10: test_servo_motor_decoder\n'}
+[4.189455] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[4.189555] (transformer_msp_bridge) StdoutLine: {'line': b'10: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_servo_motor_decoder.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_servo_motor_decoder.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_servo_motor_decoder" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_servo_motor_decoder.gtest.xml"\n'}
+[4.189671] (transformer_msp_bridge) StdoutLine: {'line': b'10: Working Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge\n'}
+[4.189754] (transformer_msp_bridge) StdoutLine: {'line': b'10: Test timeout computed to be: 60\n'}
+[4.204708] (-) TimerEvent: {}
+[4.276256] (transformer_msp_bridge) StdoutLine: {'line': b"10: -- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':\n"}
+[4.276564] (transformer_msp_bridge) StdoutLine: {'line': b'10:  - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_servo_motor_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_servo_motor_decoder.gtest.xml\n'}
+[4.297041] (transformer_msp_bridge) StdoutLine: {'line': b'10: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc\n'}
+[4.297295] (transformer_msp_bridge) StdoutLine: {'line': b'10: [==========] Running 3 tests from 1 test suite.\n'}
+[4.297394] (transformer_msp_bridge) StdoutLine: {'line': b'10: [----------] Global test environment set-up.\n'}
+[4.297507] (transformer_msp_bridge) StdoutLine: {'line': b'10: [----------] 3 tests from ServoMotorDecoderFixture\n'}
+[4.297596] (transformer_msp_bridge) StdoutLine: {'line': b'10: [ RUN      ] ServoMotorDecoderFixture.ServoPositionsDecoded\n'}
+[4.304788] (-) TimerEvent: {}
+[4.387908] (transformer_msp_bridge) StdoutLine: {'line': b'10: [       OK ] ServoMotorDecoderFixture.ServoPositionsDecoded (90 ms)\n'}
+[4.388243] (transformer_msp_bridge) StdoutLine: {'line': b'10: [ RUN      ] ServoMotorDecoderFixture.MotorVelocitiesDecoded\n'}
+[4.404865] (-) TimerEvent: {}
+[4.480757] (transformer_msp_bridge) StdoutLine: {'line': b'10: [       OK ] ServoMotorDecoderFixture.MotorVelocitiesDecoded (92 ms)\n'}
+[4.481085] (transformer_msp_bridge) StdoutLine: {'line': b'10: [ RUN      ] ServoMotorDecoderFixture.ShortPayloadIgnored\n'}
+[4.504989] (-) TimerEvent: {}
+[4.546835] (transformer_msp_bridge) StdoutLine: {'line': b'10: [       OK ] ServoMotorDecoderFixture.ShortPayloadIgnored (65 ms)\n'}
+[4.547311] (transformer_msp_bridge) StdoutLine: {'line': b'10: [----------] 3 tests from ServoMotorDecoderFixture (249 ms total)\n'}
+[4.547523] (transformer_msp_bridge) StdoutLine: {'line': b'10: \n'}
+[4.547826] (transformer_msp_bridge) StdoutLine: {'line': b'10: [----------] Global test environment tear-down\n'}
+[4.548072] (transformer_msp_bridge) StdoutLine: {'line': b'10: [==========] 3 tests from 1 test suite ran. (249 ms total)\n'}
+[4.548214] (transformer_msp_bridge) StdoutLine: {'line': b'10: [  PASSED  ] 3 tests.\n'}
+[4.605107] (-) TimerEvent: {}
+[4.654104] (transformer_msp_bridge) StdoutLine: {'line': b'10: -- run_test.py: return code 0\n'}
+[4.654497] (transformer_msp_bridge) StdoutLine: {'line': b"10: -- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_servo_motor_decoder.gtest.xml'\n"}
+[4.654731] (transformer_msp_bridge) StdoutLine: {'line': b"10: -- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_servo_motor_decoder.gtest.xml'\n"}
+[4.677799] (transformer_msp_bridge) StdoutLine: {'line': b'10/18 Test #10: test_servo_motor_decoder .........   Passed    0.49 sec\n'}
+[4.678178] (transformer_msp_bridge) StdoutLine: {'line': b'test 11\n'}
+[4.678281] (transformer_msp_bridge) StdoutLine: {'line': b'      Start 11: test_system_decoder_extended\n'}
+[4.678368] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[4.678473] (transformer_msp_bridge) StdoutLine: {'line': b'11: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder_extended.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_system_decoder_extended.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_system_decoder_extended" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder_extended.gtest.xml"\n'}
+[4.678612] (transformer_msp_bridge) StdoutLine: {'line': b'11: Working Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge\n'}
+[4.678697] (transformer_msp_bridge) StdoutLine: {'line': b'11: Test timeout computed to be: 60\n'}
+[4.705230] (-) TimerEvent: {}
+[4.763996] (transformer_msp_bridge) StdoutLine: {'line': b"11: -- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':\n"}
+[4.764266] (transformer_msp_bridge) StdoutLine: {'line': b'11:  - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_system_decoder_extended --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder_extended.gtest.xml\n'}
+[4.785350] (transformer_msp_bridge) StdoutLine: {'line': b'11: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc\n'}
+[4.785617] (transformer_msp_bridge) StdoutLine: {'line': b'11: [==========] Running 3 tests from 1 test suite.\n'}
+[4.785720] (transformer_msp_bridge) StdoutLine: {'line': b'11: [----------] Global test environment set-up.\n'}
+[4.785807] (transformer_msp_bridge) StdoutLine: {'line': b'11: [----------] 3 tests from SystemDecoderExtendedFixture\n'}
+[4.785891] (transformer_msp_bridge) StdoutLine: {'line': b'11: [ RUN      ] SystemDecoderExtendedFixture.RcTuningDecoding\n'}
+[4.805340] (-) TimerEvent: {}
+[4.885294] (transformer_msp_bridge) StdoutLine: {'line': b'11: [       OK ] SystemDecoderExtendedFixture.RcTuningDecoding (99 ms)\n'}
+[4.885679] (transformer_msp_bridge) StdoutLine: {'line': b'11: [ RUN      ] SystemDecoderExtendedFixture.GpsStatisticsDecoding\n'}
+[4.905462] (-) TimerEvent: {}
+[4.961981] (transformer_msp_bridge) StdoutLine: {'line': b'11: [       OK ] SystemDecoderExtendedFixture.GpsStatisticsDecoding (76 ms)\n'}
+[4.962347] (transformer_msp_bridge) StdoutLine: {'line': b'11: [ RUN      ] SystemDecoderExtendedFixture.RtcDecoding\n'}
+[5.005587] (-) TimerEvent: {}
+[5.036997] (transformer_msp_bridge) StdoutLine: {'line': b'11: [       OK ] SystemDecoderExtendedFixture.RtcDecoding (74 ms)\n'}
+[5.037401] (transformer_msp_bridge) StdoutLine: {'line': b'11: [----------] 3 tests from SystemDecoderExtendedFixture (251 ms total)\n'}
+[5.037834] (transformer_msp_bridge) StdoutLine: {'line': b'11: \n'}
+[5.038101] (transformer_msp_bridge) StdoutLine: {'line': b'11: [----------] Global test environment tear-down\n'}
+[5.038350] (transformer_msp_bridge) StdoutLine: {'line': b'11: [==========] 3 tests from 1 test suite ran. (251 ms total)\n'}
+[5.038587] (transformer_msp_bridge) StdoutLine: {'line': b'11: [  PASSED  ] 3 tests.\n'}
+[5.105703] (-) TimerEvent: {}
+[5.144672] (transformer_msp_bridge) StdoutLine: {'line': b'11: -- run_test.py: return code 0\n'}
+[5.145065] (transformer_msp_bridge) StdoutLine: {'line': b"11: -- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder_extended.gtest.xml'\n"}
+[5.145298] (transformer_msp_bridge) StdoutLine: {'line': b"11: -- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_system_decoder_extended.gtest.xml'\n"}
+[5.169255] (transformer_msp_bridge) StdoutLine: {'line': b'11/18 Test #11: test_system_decoder_extended .....   Passed    0.49 sec\n'}
+[5.169627] (transformer_msp_bridge) StdoutLine: {'line': b'test 12\n'}
+[5.169728] (transformer_msp_bridge) StdoutLine: {'line': b'      Start 12: test_msp_parser\n'}
+[5.169848] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[5.169938] (transformer_msp_bridge) StdoutLine: {'line': b'12: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_msp_parser.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser.gtest.xml"\n'}
+[5.170056] (transformer_msp_bridge) StdoutLine: {'line': b'12: Working Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge\n'}
+[5.170139] (transformer_msp_bridge) StdoutLine: {'line': b'12: Test timeout computed to be: 60\n'}
+[5.205797] (-) TimerEvent: {}
+[5.256398] (transformer_msp_bridge) StdoutLine: {'line': b"12: -- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':\n"}
+[5.256671] (transformer_msp_bridge) StdoutLine: {'line': b'12:  - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser.gtest.xml\n'}
+[5.259893] (transformer_msp_bridge) StdoutLine: {'line': b'12: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc\n'}
+[5.260068] (transformer_msp_bridge) StdoutLine: {'line': b'12: [==========] Running 7 tests from 1 test suite.\n'}
+[5.260168] (transformer_msp_bridge) StdoutLine: {'line': b'12: [----------] Global test environment set-up.\n'}
+[5.260276] (transformer_msp_bridge) StdoutLine: {'line': b'12: [----------] 7 tests from MSPParserFixture\n'}
+[5.260437] (transformer_msp_bridge) StdoutLine: {'line': b'12: [ RUN      ] MSPParserFixture.V1SimplePacket\n'}
+[5.260556] (transformer_msp_bridge) StdoutLine: {'line': b'12: [       OK ] MSPParserFixture.V1SimplePacket (0 ms)\n'}
+[5.260653] (transformer_msp_bridge) StdoutLine: {'line': b'12: [ RUN      ] MSPParserFixture.V2NativePacket\n'}
+[5.260776] (transformer_msp_bridge) StdoutLine: {'line': b'12: [       OK ] MSPParserFixture.V2NativePacket (0 ms)\n'}
+[5.260856] (transformer_msp_bridge) StdoutLine: {'line': b'12: [ RUN      ] MSPParserFixture.V2TunneledPacket\n'}
+[5.260937] (transformer_msp_bridge) StdoutLine: {'line': b'12: [       OK ] MSPParserFixture.V2TunneledPacket (0 ms)\n'}
+[5.261046] (transformer_msp_bridge) StdoutLine: {'line': b'12: [ RUN      ] MSPParserFixture.NativeV2CrcFailure\n'}
+[5.261126] (transformer_msp_bridge) StdoutLine: {'line': b'12: [       OK ] MSPParserFixture.NativeV2CrcFailure (0 ms)\n'}
+[5.261204] (transformer_msp_bridge) StdoutLine: {'line': b'12: [ RUN      ] MSPParserFixture.TunneledV2CrcFailure\n'}
+[5.261281] (transformer_msp_bridge) StdoutLine: {'line': b'12: [       OK ] MSPParserFixture.TunneledV2CrcFailure (0 ms)\n'}
+[5.261359] (transformer_msp_bridge) StdoutLine: {'line': b'12: [ RUN      ] MSPParserFixture.PartialFrameNoEmit\n'}
+[5.261447] (transformer_msp_bridge) StdoutLine: {'line': b'12: [       OK ] MSPParserFixture.PartialFrameNoEmit (0 ms)\n'}
+[5.261543] (transformer_msp_bridge) StdoutLine: {'line': b'12: [ RUN      ] MSPParserFixture.MultipleFramesSequence\n'}
+[5.261622] (transformer_msp_bridge) StdoutLine: {'line': b'12: [       OK ] MSPParserFixture.MultipleFramesSequence (0 ms)\n'}
+[5.261700] (transformer_msp_bridge) StdoutLine: {'line': b'12: [----------] 7 tests from MSPParserFixture (0 ms total)\n'}
+[5.261778] (transformer_msp_bridge) StdoutLine: {'line': b'12: \n'}
+[5.261856] (transformer_msp_bridge) StdoutLine: {'line': b'12: [----------] Global test environment tear-down\n'}
+[5.261933] (transformer_msp_bridge) StdoutLine: {'line': b'12: [==========] 7 tests from 1 test suite ran. (0 ms total)\n'}
+[5.262009] (transformer_msp_bridge) StdoutLine: {'line': b'12: [  PASSED  ] 7 tests.\n'}
+[5.262103] (transformer_msp_bridge) StdoutLine: {'line': b'12: -- run_test.py: return code 0\n'}
+[5.262184] (transformer_msp_bridge) StdoutLine: {'line': b"12: -- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser.gtest.xml'\n"}
+[5.266455] (transformer_msp_bridge) StdoutLine: {'line': b"12: -- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser.gtest.xml'\n"}
+[5.288344] (transformer_msp_bridge) StdoutLine: {'line': b'12/18 Test #12: test_msp_parser ..................   Passed    0.12 sec\n'}
+[5.288734] (transformer_msp_bridge) StdoutLine: {'line': b'test 13\n'}
+[5.288835] (transformer_msp_bridge) StdoutLine: {'line': b'      Start 13: test_msp_parser_fuzz\n'}
+[5.288921] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[5.289002] (transformer_msp_bridge) StdoutLine: {'line': b'13: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_fuzz.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_msp_parser_fuzz.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser_fuzz" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_fuzz.gtest.xml"\n'}
+[5.289104] (transformer_msp_bridge) StdoutLine: {'line': b'13: Working Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge\n'}
+[5.289188] (transformer_msp_bridge) StdoutLine: {'line': b'13: Test timeout computed to be: 60\n'}
+[5.305888] (-) TimerEvent: {}
+[5.375410] (transformer_msp_bridge) StdoutLine: {'line': b"13: -- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':\n"}
+[5.375690] (transformer_msp_bridge) StdoutLine: {'line': b'13:  - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser_fuzz --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_fuzz.gtest.xml\n'}
+[5.378540] (transformer_msp_bridge) StdoutLine: {'line': b'13: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc\n'}
+[5.378709] (transformer_msp_bridge) StdoutLine: {'line': b'13: [==========] Running 2 tests from 1 test suite.\n'}
+[5.378796] (transformer_msp_bridge) StdoutLine: {'line': b'13: [----------] Global test environment set-up.\n'}
+[5.378878] (transformer_msp_bridge) StdoutLine: {'line': b'13: [----------] 2 tests from MSPParserFuzz\n'}
+[5.378958] (transformer_msp_bridge) StdoutLine: {'line': b'13: [ RUN      ] MSPParserFuzz.RandomNoiseDoesNotCrash\n'}
+[5.379125] (transformer_msp_bridge) StdoutLine: {'line': b'13: [       OK ] MSPParserFuzz.RandomNoiseDoesNotCrash (0 ms)\n'}
+[5.379288] (transformer_msp_bridge) StdoutLine: {'line': b'13: [ RUN      ] MSPParserFuzz.MixedValidAndNoise\n'}
+[5.379381] (transformer_msp_bridge) StdoutLine: {'line': b'13: [       OK ] MSPParserFuzz.MixedValidAndNoise (0 ms)\n'}
+[5.379530] (transformer_msp_bridge) StdoutLine: {'line': b'13: [----------] 2 tests from MSPParserFuzz (0 ms total)\n'}
+[5.379628] (transformer_msp_bridge) StdoutLine: {'line': b'13: \n'}
+[5.379716] (transformer_msp_bridge) StdoutLine: {'line': b'13: [----------] Global test environment tear-down\n'}
+[5.379798] (transformer_msp_bridge) StdoutLine: {'line': b'13: [==========] 2 tests from 1 test suite ran. (0 ms total)\n'}
+[5.379882] (transformer_msp_bridge) StdoutLine: {'line': b'13: [  PASSED  ] 2 tests.\n'}
+[5.380169] (transformer_msp_bridge) StdoutLine: {'line': b'13: -- run_test.py: return code 0\n'}
+[5.380260] (transformer_msp_bridge) StdoutLine: {'line': b"13: -- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_fuzz.gtest.xml'\n"}
+[5.380531] (transformer_msp_bridge) StdoutLine: {'line': b"13: -- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_fuzz.gtest.xml'\n"}
+[5.402987] (transformer_msp_bridge) StdoutLine: {'line': b'13/18 Test #13: test_msp_parser_fuzz .............   Passed    0.11 sec\n'}
+[5.403324] (transformer_msp_bridge) StdoutLine: {'line': b'test 14\n'}
+[5.403419] (transformer_msp_bridge) StdoutLine: {'line': b'      Start 14: test_msp_parser_hardening\n'}
+[5.403548] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[5.403638] (transformer_msp_bridge) StdoutLine: {'line': b'14: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_hardening.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_msp_parser_hardening.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser_hardening" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_hardening.gtest.xml"\n'}
+[5.403730] (transformer_msp_bridge) StdoutLine: {'line': b'14: Working Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge\n'}
+[5.403810] (transformer_msp_bridge) StdoutLine: {'line': b'14: Test timeout computed to be: 60\n'}
+[5.405962] (-) TimerEvent: {}
+[5.491837] (transformer_msp_bridge) StdoutLine: {'line': b"14: -- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':\n"}
+[5.492138] (transformer_msp_bridge) StdoutLine: {'line': b'14:  - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser_hardening --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_hardening.gtest.xml\n'}
+[5.495012] (transformer_msp_bridge) StdoutLine: {'line': b'14: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc\n'}
+[5.495283] (transformer_msp_bridge) StdoutLine: {'line': b'14: [==========] Running 4 tests from 1 test suite.\n'}
+[5.495396] (transformer_msp_bridge) StdoutLine: {'line': b'14: [----------] Global test environment set-up.\n'}
+[5.495574] (transformer_msp_bridge) StdoutLine: {'line': b'14: [----------] 4 tests from MSPParserHardening\n'}
+[5.495677] (transformer_msp_bridge) StdoutLine: {'line': b'14: [ RUN      ] MSPParserHardening.MaxPayloadV1Rejected\n'}
+[5.495763] (transformer_msp_bridge) StdoutLine: {'line': b'14: [       OK ] MSPParserHardening.MaxPayloadV1Rejected (0 ms)\n'}
+[5.495852] (transformer_msp_bridge) StdoutLine: {'line': b'14: [ RUN      ] MSPParserHardening.MaxPayloadV2Rejected\n'}
+[5.495934] (transformer_msp_bridge) StdoutLine: {'line': b'14: [       OK ] MSPParserHardening.MaxPayloadV2Rejected (0 ms)\n'}
+[5.496013] (transformer_msp_bridge) StdoutLine: {'line': b'14: [ RUN      ] MSPParserHardening.AbortMidFrame\n'}
+[5.496092] (transformer_msp_bridge) StdoutLine: {'line': b'14: [       OK ] MSPParserHardening.AbortMidFrame (0 ms)\n'}
+[5.496179] (transformer_msp_bridge) StdoutLine: {'line': b'14: [ RUN      ] MSPParserHardening.ZeroCopyPayloadDuringAccumulation\n'}
+[5.496276] (transformer_msp_bridge) StdoutLine: {'line': b'14: [       OK ] MSPParserHardening.ZeroCopyPayloadDuringAccumulation (0 ms)\n'}
+[5.496404] (transformer_msp_bridge) StdoutLine: {'line': b'14: [----------] 4 tests from MSPParserHardening (0 ms total)\n'}
+[5.496544] (transformer_msp_bridge) StdoutLine: {'line': b'14: \n'}
+[5.496630] (transformer_msp_bridge) StdoutLine: {'line': b'14: [----------] Global test environment tear-down\n'}
+[5.496710] (transformer_msp_bridge) StdoutLine: {'line': b'14: [==========] 4 tests from 1 test suite ran. (0 ms total)\n'}
+[5.496796] (transformer_msp_bridge) StdoutLine: {'line': b'14: [  PASSED  ] 4 tests.\n'}
+[5.496882] (transformer_msp_bridge) StdoutLine: {'line': b'14: -- run_test.py: return code 0\n'}
+[5.496965] (transformer_msp_bridge) StdoutLine: {'line': b"14: -- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_hardening.gtest.xml'\n"}
+[5.497083] (transformer_msp_bridge) StdoutLine: {'line': b"14: -- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser_hardening.gtest.xml'\n"}
+[5.506086] (-) TimerEvent: {}
+[5.519326] (transformer_msp_bridge) StdoutLine: {'line': b'14/18 Test #14: test_msp_parser_hardening ........   Passed    0.12 sec\n'}
+[5.519714] (transformer_msp_bridge) StdoutLine: {'line': b'test 15\n'}
+[5.519813] (transformer_msp_bridge) StdoutLine: {'line': b'      Start 15: test_crc\n'}
+[5.519898] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[5.519979] (transformer_msp_bridge) StdoutLine: {'line': b'15: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_crc.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_crc.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_crc" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_crc.gtest.xml"\n'}
+[5.520070] (transformer_msp_bridge) StdoutLine: {'line': b'15: Working Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge\n'}
+[5.520150] (transformer_msp_bridge) StdoutLine: {'line': b'15: Test timeout computed to be: 60\n'}
+[5.606201] (-) TimerEvent: {}
+[5.608552] (transformer_msp_bridge) StdoutLine: {'line': b"15: -- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':\n"}
+[5.608827] (transformer_msp_bridge) StdoutLine: {'line': b'15:  - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_crc --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_crc.gtest.xml\n'}
+[5.611884] (transformer_msp_bridge) StdoutLine: {'line': b'15: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc\n'}
+[5.612082] (transformer_msp_bridge) StdoutLine: {'line': b'15: [==========] Running 4 tests from 1 test suite.\n'}
+[5.612189] (transformer_msp_bridge) StdoutLine: {'line': b'15: [----------] Global test environment set-up.\n'}
+[5.612279] (transformer_msp_bridge) StdoutLine: {'line': b'15: [----------] 4 tests from CRCTest\n'}
+[5.612370] (transformer_msp_bridge) StdoutLine: {'line': b'15: [ RUN      ] CRCTest.KnownVector\n'}
+[5.612505] (transformer_msp_bridge) StdoutLine: {'line': b'15: [       OK ] CRCTest.KnownVector (0 ms)\n'}
+[5.612642] (transformer_msp_bridge) StdoutLine: {'line': b'15: [ RUN      ] CRCTest.EmptyBuffer\n'}
+[5.612737] (transformer_msp_bridge) StdoutLine: {'line': b'15: [       OK ] CRCTest.EmptyBuffer (0 ms)\n'}
+[5.612819] (transformer_msp_bridge) StdoutLine: {'line': b'15: [ RUN      ] CRCTest.SeededConsistency\n'}
+[5.612904] (transformer_msp_bridge) StdoutLine: {'line': b'15: [       OK ] CRCTest.SeededConsistency (0 ms)\n'}
+[5.613068] (transformer_msp_bridge) StdoutLine: {'line': b'15: [ RUN      ] CRCTest.SingleByteAllValues\n'}
+[5.613159] (transformer_msp_bridge) StdoutLine: {'line': b'15: [       OK ] CRCTest.SingleByteAllValues (0 ms)\n'}
+[5.613240] (transformer_msp_bridge) StdoutLine: {'line': b'15: [----------] 4 tests from CRCTest (0 ms total)\n'}
+[5.613319] (transformer_msp_bridge) StdoutLine: {'line': b'15: \n'}
+[5.613397] (transformer_msp_bridge) StdoutLine: {'line': b'15: [----------] Global test environment tear-down\n'}
+[5.613496] (transformer_msp_bridge) StdoutLine: {'line': b'15: [==========] 4 tests from 1 test suite ran. (0 ms total)\n'}
+[5.613581] (transformer_msp_bridge) StdoutLine: {'line': b'15: [  PASSED  ] 4 tests.\n'}
+[5.613670] (transformer_msp_bridge) StdoutLine: {'line': b'15: -- run_test.py: return code 0\n'}
+[5.613757] (transformer_msp_bridge) StdoutLine: {'line': b"15: -- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_crc.gtest.xml'\n"}
+[5.613934] (transformer_msp_bridge) StdoutLine: {'line': b"15: -- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_crc.gtest.xml'\n"}
+[5.635260] (transformer_msp_bridge) StdoutLine: {'line': b'15/18 Test #15: test_crc .........................   Passed    0.12 sec\n'}
+[5.635633] (transformer_msp_bridge) StdoutLine: {'line': b'test 16\n'}
+[5.635730] (transformer_msp_bridge) StdoutLine: {'line': b'      Start 16: test_msp_registry\n'}
+[5.635812] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[5.635892] (transformer_msp_bridge) StdoutLine: {'line': b'16: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_registry.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_msp_registry.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_registry" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_registry.gtest.xml"\n'}
+[5.635982] (transformer_msp_bridge) StdoutLine: {'line': b'16: Working Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge\n'}
+[5.636062] (transformer_msp_bridge) StdoutLine: {'line': b'16: Test timeout computed to be: 60\n'}
+[5.706299] (-) TimerEvent: {}
+[5.723525] (transformer_msp_bridge) StdoutLine: {'line': b"16: -- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':\n"}
+[5.723802] (transformer_msp_bridge) StdoutLine: {'line': b'16:  - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_registry --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_registry.gtest.xml\n'}
+[5.726754] (transformer_msp_bridge) StdoutLine: {'line': b'16: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc\n'}
+[5.726942] (transformer_msp_bridge) StdoutLine: {'line': b'16: [==========] Running 11 tests from 1 test suite.\n'}
+[5.727036] (transformer_msp_bridge) StdoutLine: {'line': b'16: [----------] Global test environment set-up.\n'}
+[5.727120] (transformer_msp_bridge) StdoutLine: {'line': b'16: [----------] 11 tests from MSPRegistry\n'}
+[5.727202] (transformer_msp_bridge) StdoutLine: {'line': b'16: [ RUN      ] MSPRegistry.ContainsExpectedCoreV1Ids\n'}
+[5.728745] (transformer_msp_bridge) StdoutLine: {'line': b'16: [       OK ] MSPRegistry.ContainsExpectedCoreV1Ids (1 ms)\n'}
+[5.728942] (transformer_msp_bridge) StdoutLine: {'line': b'16: [ RUN      ] MSPRegistry.ContainsExpectedV2Ids\n'}
+[5.729053] (transformer_msp_bridge) StdoutLine: {'line': b'16: [       OK ] MSPRegistry.ContainsExpectedV2Ids (0 ms)\n'}
+[5.729144] (transformer_msp_bridge) StdoutLine: {'line': b'16: [ RUN      ] MSPRegistry.V2InferenceMatchesIdRange\n'}
+[5.729231] (transformer_msp_bridge) StdoutLine: {'line': b'16: [       OK ] MSPRegistry.V2InferenceMatchesIdRange (0 ms)\n'}
+[5.729317] (transformer_msp_bridge) StdoutLine: {'line': b'16: [ RUN      ] MSPRegistry.BuildCallbacksReturnNonEmptyFrame\n'}
+[5.729402] (transformer_msp_bridge) StdoutLine: {'line': b'16: [       OK ] MSPRegistry.BuildCallbacksReturnNonEmptyFrame (0 ms)\n'}
+[5.729661] (transformer_msp_bridge) StdoutLine: {'line': b'16: [ RUN      ] MSPRegistry.NoDuplicateIds\n'}
+[5.729784] (transformer_msp_bridge) StdoutLine: {'line': b'16: [       OK ] MSPRegistry.NoDuplicateIds (0 ms)\n'}
+[5.729881] (transformer_msp_bridge) StdoutLine: {'line': b'16: [ RUN      ] MSPRegistry.PollRateNonNegative\n'}
+[5.729978] (transformer_msp_bridge) StdoutLine: {'line': b'16: [       OK ] MSPRegistry.PollRateNonNegative (0 ms)\n'}
+[5.730067] (transformer_msp_bridge) StdoutLine: {'line': b'16: [ RUN      ] MSPRegistry.VersionFramingMatchesInference\n'}
+[5.730183] (transformer_msp_bridge) StdoutLine: {'line': b'16: [       OK ] MSPRegistry.VersionFramingMatchesInference (0 ms)\n'}
+[5.730273] (transformer_msp_bridge) StdoutLine: {'line': b'16: [ RUN      ] MSPRegistry.DeterministicBuilders\n'}
+[5.730359] (transformer_msp_bridge) StdoutLine: {'line': b'16: [       OK ] MSPRegistry.DeterministicBuilders (0 ms)\n'}
+[5.730468] (transformer_msp_bridge) StdoutLine: {'line': b'16: [ RUN      ] MSPRegistry.UniqueNames\n'}
+[5.730569] (transformer_msp_bridge) StdoutLine: {'line': b'16: [       OK ] MSPRegistry.UniqueNames (0 ms)\n'}
+[5.730656] (transformer_msp_bridge) StdoutLine: {'line': b'16: [ RUN      ] MSPRegistry.GpsStatisticsPresentAndNamed\n'}
+[5.730740] (transformer_msp_bridge) StdoutLine: {'line': b'16: [       OK ] MSPRegistry.GpsStatisticsPresentAndNamed (0 ms)\n'}
+[5.730828] (transformer_msp_bridge) StdoutLine: {'line': b'16: [ RUN      ] MSPRegistry.FrameMinimalStructure\n'}
+[5.730914] (transformer_msp_bridge) StdoutLine: {'line': b'16: [       OK ] MSPRegistry.FrameMinimalStructure (0 ms)\n'}
+[5.731000] (transformer_msp_bridge) StdoutLine: {'line': b'16: [----------] 11 tests from MSPRegistry (2 ms total)\n'}
+[5.731086] (transformer_msp_bridge) StdoutLine: {'line': b'16: \n'}
+[5.731170] (transformer_msp_bridge) StdoutLine: {'line': b'16: [----------] Global test environment tear-down\n'}
+[5.731343] (transformer_msp_bridge) StdoutLine: {'line': b'16: [==========] 11 tests from 1 test suite ran. (2 ms total)\n'}
+[5.731462] (transformer_msp_bridge) StdoutLine: {'line': b'16: [  PASSED  ] 11 tests.\n'}
+[5.731572] (transformer_msp_bridge) StdoutLine: {'line': b'16: -- run_test.py: return code 0\n'}
+[5.731662] (transformer_msp_bridge) StdoutLine: {'line': b"16: -- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_registry.gtest.xml'\n"}
+[5.731825] (transformer_msp_bridge) StdoutLine: {'line': b"16: -- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_registry.gtest.xml'\n"}
+[5.753841] (transformer_msp_bridge) StdoutLine: {'line': b'16/18 Test #16: test_msp_registry ................   Passed    0.12 sec\n'}
+[5.754178] (transformer_msp_bridge) StdoutLine: {'line': b'test 17\n'}
+[5.754273] (transformer_msp_bridge) StdoutLine: {'line': b'      Start 17: test_decoder_coverage\n'}
+[5.754354] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[5.754452] (transformer_msp_bridge) StdoutLine: {'line': b'17: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_decoder_coverage.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_decoder_coverage.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_decoder_coverage" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_decoder_coverage.gtest.xml"\n'}
+[5.754601] (transformer_msp_bridge) StdoutLine: {'line': b'17: Working Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge\n'}
+[5.754686] (transformer_msp_bridge) StdoutLine: {'line': b'17: Test timeout computed to be: 60\n'}
+[5.806414] (-) TimerEvent: {}
+[5.842813] (transformer_msp_bridge) StdoutLine: {'line': b"17: -- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':\n"}
+[5.843120] (transformer_msp_bridge) StdoutLine: {'line': b'17:  - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_decoder_coverage --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_decoder_coverage.gtest.xml\n'}
+[5.845747] (transformer_msp_bridge) StdoutLine: {'line': b'17: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc\n'}
+[5.845930] (transformer_msp_bridge) StdoutLine: {'line': b'17: [==========] Running 1 test from 1 test suite.\n'}
+[5.846046] (transformer_msp_bridge) StdoutLine: {'line': b'17: [----------] Global test environment set-up.\n'}
+[5.846130] (transformer_msp_bridge) StdoutLine: {'line': b'17: [----------] 1 test from DecoderCoverage\n'}
+[5.846210] (transformer_msp_bridge) StdoutLine: {'line': b'17: [ RUN      ] DecoderCoverage.DefaultPolledCommandsHaveDecoders\n'}
+[5.846967] (transformer_msp_bridge) StdoutLine: {'line': b'17: [       OK ] DecoderCoverage.DefaultPolledCommandsHaveDecoders (1 ms)\n'}
+[5.847110] (transformer_msp_bridge) StdoutLine: {'line': b'17: [----------] 1 test from DecoderCoverage (1 ms total)\n'}
+[5.847205] (transformer_msp_bridge) StdoutLine: {'line': b'17: \n'}
+[5.847313] (transformer_msp_bridge) StdoutLine: {'line': b'17: [----------] Global test environment tear-down\n'}
+[5.847474] (transformer_msp_bridge) StdoutLine: {'line': b'17: [==========] 1 test from 1 test suite ran. (1 ms total)\n'}
+[5.847575] (transformer_msp_bridge) StdoutLine: {'line': b'17: [  PASSED  ] 1 test.\n'}
+[5.847959] (transformer_msp_bridge) StdoutLine: {'line': b'17: -- run_test.py: return code 0\n'}
+[5.848051] (transformer_msp_bridge) StdoutLine: {'line': b"17: -- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_decoder_coverage.gtest.xml'\n"}
+[5.853930] (transformer_msp_bridge) StdoutLine: {'line': b"17: -- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_decoder_coverage.gtest.xml'\n"}
+[5.875905] (transformer_msp_bridge) StdoutLine: {'line': b'17/18 Test #17: test_decoder_coverage ............   Passed    0.12 sec\n'}
+[5.876273] (transformer_msp_bridge) StdoutLine: {'line': b'test 18\n'}
+[5.876374] (transformer_msp_bridge) StdoutLine: {'line': b'      Start 18: test_msp_probe\n'}
+[5.876509] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[5.876601] (transformer_msp_bridge) StdoutLine: {'line': b'18: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_probe.gtest.xml" "--package-name" "transformer_msp_bridge" "--output-file" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_gtest/test_msp_probe.txt" "--command" "/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_probe" "--gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_probe.gtest.xml"\n'}
+[5.876692] (transformer_msp_bridge) StdoutLine: {'line': b'18: Working Directory: /home/atvpi/ros2_ws/build/transformer_msp_bridge\n'}
+[5.876773] (transformer_msp_bridge) StdoutLine: {'line': b'18: Test timeout computed to be: 60\n'}
+[5.906505] (-) TimerEvent: {}
+[5.966939] (transformer_msp_bridge) StdoutLine: {'line': b"18: -- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':\n"}
+[5.967226] (transformer_msp_bridge) StdoutLine: {'line': b'18:  - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_probe --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_probe.gtest.xml\n'}
+[5.970465] (transformer_msp_bridge) StdoutLine: {'line': b'18: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc\n'}
+[5.970759] (transformer_msp_bridge) StdoutLine: {'line': b'18: [==========] Running 1 test from 1 test suite.\n'}
+[5.970870] (transformer_msp_bridge) StdoutLine: {'line': b'18: [----------] Global test environment set-up.\n'}
+[5.970959] (transformer_msp_bridge) StdoutLine: {'line': b'18: [----------] 1 test from MspProbe\n'}
+[5.971087] (transformer_msp_bridge) StdoutLine: {'line': b'18: [ RUN      ] MspProbe.AllDefaultPolledRespondAndValidate\n'}
+[5.971195] (transformer_msp_bridge) StdoutLine: {'line': b'18: /home/atvpi/ros2_ws/src/transformer_msp_bridge/test/test_msp_probe.cpp:22: Skipped\n'}
+[5.971280] (transformer_msp_bridge) StdoutLine: {'line': b'18: MSP_TEST_PORT/MSP_TEST_BAUD not set; skipping probe test\n'}
+[5.971383] (transformer_msp_bridge) StdoutLine: {'line': b'18: \n'}
+[5.971522] (transformer_msp_bridge) StdoutLine: {'line': b'18: [  SKIPPED ] MspProbe.AllDefaultPolledRespondAndValidate (0 ms)\n'}
+[5.971613] (transformer_msp_bridge) StdoutLine: {'line': b'18: [----------] 1 test from MspProbe (0 ms total)\n'}
+[5.971692] (transformer_msp_bridge) StdoutLine: {'line': b'18: \n'}
+[5.971771] (transformer_msp_bridge) StdoutLine: {'line': b'18: [----------] Global test environment tear-down\n'}
+[5.971857] (transformer_msp_bridge) StdoutLine: {'line': b'18: [==========] 1 test from 1 test suite ran. (0 ms total)\n'}
+[5.971978] (transformer_msp_bridge) StdoutLine: {'line': b'18: [  PASSED  ] 0 tests.\n'}
+[5.972073] (transformer_msp_bridge) StdoutLine: {'line': b'18: [  SKIPPED ] 1 test, listed below:\n'}
+[5.972162] (transformer_msp_bridge) StdoutLine: {'line': b'18: [  SKIPPED ] MspProbe.AllDefaultPolledRespondAndValidate\n'}
+[5.972251] (transformer_msp_bridge) StdoutLine: {'line': b'18: -- run_test.py: return code 0\n'}
+[5.972341] (transformer_msp_bridge) StdoutLine: {'line': b"18: -- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_probe.gtest.xml'\n"}
+[5.972448] (transformer_msp_bridge) StdoutLine: {'line': b"18: -- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_probe.gtest.xml'\n"}
+[5.994565] (transformer_msp_bridge) StdoutLine: {'line': b'18/18 Test #18: test_msp_probe ...................   Passed    0.12 sec\n'}
+[5.995100] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[5.995239] (transformer_msp_bridge) StdoutLine: {'line': b'\x1b[0;32m100% tests passed\x1b[0;0m, 0 tests failed\x1b[0;0m out of 18\n'}
+[5.995331] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[5.995416] (transformer_msp_bridge) StdoutLine: {'line': b'Label Time Summary:\n'}
+[5.995523] (transformer_msp_bridge) StdoutLine: {'line': b'gtest    =   5.81 sec*proc (18 tests)\n'}
+[5.995609] (transformer_msp_bridge) StdoutLine: {'line': b'\n'}
+[5.995690] (transformer_msp_bridge) StdoutLine: {'line': b'Total Test time (real) =   5.82 sec\n'}
+[6.005584] (transformer_msp_bridge) CommandEnded: {'returncode': 0}
+[6.006035] (transformer_msp_bridge) JobEnded: {'identifier': 'transformer_msp_bridge', 'rc': 0}
+[6.006993] (-) TimerEvent: {}
+[6.007095] (-) EventReactorShutdown: {}

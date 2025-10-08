@@ -1,0 +1,280 @@
+[0.000000] (-) TimerEvent: {}
+[0.000390] (-) JobUnselected: {'identifier': 'serial'}
+[0.000685] (-) JobUnselected: {'identifier': 'transformer_bringup'}
+[0.000837] (-) JobUnselected: {'identifier': 'transformer_hw_actuators'}
+[0.000860] (-) JobUnselected: {'identifier': 'transformer_hw_servos'}
+[0.001040] (-) JobUnselected: {'identifier': 'transformer_msp_bridge'}
+[0.001061] (-) JobUnselected: {'identifier': 'transformer_rc_mode_switch'}
+[0.001079] (-) JobUnselected: {'identifier': 'wheeltec_n100_imu'}
+[0.001194] (transformer_controller) JobQueued: {'identifier': 'transformer_controller', 'dependencies': OrderedDict({'transformer_hw_actuators': '/home/atvpi/ros2_ws/install/transformer_hw_actuators', 'transformer_hw_servos': '/home/atvpi/ros2_ws/install/transformer_hw_servos'})}
+[0.001230] (transformer_controller) JobStarted: {'identifier': 'transformer_controller'}
+[0.019792] (transformer_controller) JobProgress: {'identifier': 'transformer_controller', 'progress': 'cmake'}
+[0.020866] (transformer_controller) JobProgress: {'identifier': 'transformer_controller', 'progress': 'build'}
+[0.021689] (transformer_controller) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/atvpi/ros2_ws/build/transformer_controller', '--', '-j4', '-l4'], 'cwd': '/home/atvpi/ros2_ws/build/transformer_controller', 'env': OrderedDict({'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'atvpi', 'SSH_CLIENT': '192.168.8.2 33042 22', 'LC_TIME': 'C.UTF-8', 'XDG_SESSION_TYPE': 'tty', 'GIT_ASKPASS': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/extensions/git/dist/askpass.sh', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/home/atvpi/ros2_ws/install/transformer_hw_servos/lib:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib:/home/atvpi/ros2_ws/install/transformer_controller/lib:/home/atvpi/ros2_ws/install/serial/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/lib', 'BROWSER': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/bin/helpers/browser.sh', 'HOME': '/home/atvpi', 'OLDPWD': '/home/atvpi/ros2_ws', 'TERM_PROGRAM_VERSION': '1.104.3', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-37cbadc8-be49-49be-b764-86d12a38e42b.sock', 'ROS_PYTHON_VERSION': '3', 'VSCODE_GIT_ASKPASS_MAIN': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/extensions/git/dist/askpass-main.js', 'LC_MONETARY': 'C.UTF-8', 'VSCODE_GIT_ASKPASS_NODE': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/node', 'SSL_CERT_FILE': '/usr/lib/ssl/cert.pem', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'COLCON_PREFIX_PATH': '/home/atvpi/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'atvpi', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '1', 'PATH': '/opt/ros/jazzy/bin:/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/scripts/noConfigScripts:/home/atvpi/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand', 'LC_ADDRESS': 'C.UTF-8', 'XDG_RUNTIME_DIR': '/run/user/1000', 'SSL_CERT_DIR': '/usr/lib/ssl/certs', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/.noConfigDebugAdapterEndpoints/endpoint-2ce8f189d80fdeae.txt', 'LANG': 'C.UTF-8', 'PYTHONSTARTUP': '/home/atvpi/.vscode-server/data/User/workspaceStorage/84379da00451a1f583396cdf944b4c1a/ms-python.python/pythonrc.py', 'LC_TELEPHONE': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-39d0eca28d.sock', 'TERM_PROGRAM': 'vscode', 'AMENT_PREFIX_PATH': '/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_rc_mode_switch:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'C.UTF-8', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LC_MEASUREMENT': 'C.UTF-8', 'LC_IDENTIFICATION': 'C.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'PWD': '/home/atvpi/ros2_ws/build/transformer_controller', 'SSH_CONNECTION': '192.168.8.2 33042 192.168.8.1 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'LC_NUMERIC': 'C.UTF-8', 'LC_PAPER': 'C.UTF-8', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_rc_mode_switch:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy'}), 'shell': False}
+[0.099691] (-) TimerEvent: {}
+[0.117192] (transformer_controller) StdoutLine: {'line': b'[  2%] Built target transformer_controller__rosidl_generator_type_description\n'}
+[0.136152] (transformer_controller) StdoutLine: {'line': b'[  2%] Built target ament_cmake_python_copy_transformer_controller\n'}
+[0.155882] (transformer_controller) StdoutLine: {'line': b'[  8%] Built target transformer_controller__cpp\n'}
+[0.156238] (transformer_controller) StdoutLine: {'line': b'[ 19%] Built target transformer_controller__rosidl_generator_c\n'}
+[0.202026] (-) TimerEvent: {}
+[0.202899] (transformer_controller) StdoutLine: {'line': b'[ 27%] Built target transformer_controller__rosidl_typesupport_cpp\n'}
+[0.205512] (transformer_controller) StdoutLine: {'line': b'[ 44%] Built target transformer_controller__rosidl_typesupport_fastrtps_cpp\n'}
+[0.205887] (transformer_controller) StdoutLine: {'line': b'[ 44%] Built target transformer_controller__rosidl_typesupport_fastrtps_c\n'}
+[0.277086] (transformer_controller) StdoutLine: {'line': b'[ 52%] Built target transformer_controller__rosidl_typesupport_c\n'}
+[0.284915] (transformer_controller) StdoutLine: {'line': b'[ 61%] Built target transformer_controller__rosidl_typesupport_introspection_c\n'}
+[0.285266] (transformer_controller) StdoutLine: {'line': b'[ 69%] Built target transformer_controller__rosidl_typesupport_introspection_cpp\n'}
+[0.302128] (-) TimerEvent: {}
+[0.325449] (transformer_controller) StdoutLine: {'line': b'[ 69%] Built target transformer_controller\n'}
+[0.369486] (transformer_controller) StdoutLine: {'line': b'[ 72%] Built target transformer_controller__py\n'}
+[0.391025] (transformer_controller) StdoutLine: {'line': b'[ 75%] \x1b[32mBuilding CXX object CMakeFiles/transformer_controller_node.dir/src/transformer_controller_node.cpp.o\x1b[0m\n'}
+[0.402253] (-) TimerEvent: {}
+[0.415503] (transformer_controller) StdoutLine: {'line': b'[ 80%] Built target transformer_controller__rosidl_generator_py\n'}
+[0.462577] (transformer_controller) StdoutLine: {'line': b'[ 86%] Built target transformer_controller_s__rosidl_typesupport_fastrtps_c\n'}
+[0.468454] (transformer_controller) StdoutLine: {'line': b'[ 91%] Built target transformer_controller_s__rosidl_typesupport_introspection_c\n'}
+[0.507740] (-) TimerEvent: {}
+[0.556342] (transformer_controller) StdoutLine: {'line': b'running egg_info\n'}
+[0.564809] (transformer_controller) StdoutLine: {'line': b'[ 97%] Built target transformer_controller_s__rosidl_typesupport_c\n'}
+[0.592724] (transformer_controller) StdoutLine: {'line': b'writing transformer_controller.egg-info/PKG-INFO\n'}
+[0.596790] (transformer_controller) StdoutLine: {'line': b'writing dependency_links to transformer_controller.egg-info/dependency_links.txt\n'}
+[0.597104] (transformer_controller) StdoutLine: {'line': b'writing top-level names to transformer_controller.egg-info/top_level.txt\n'}
+[0.607852] (-) TimerEvent: {}
+[0.680027] (transformer_controller) StdoutLine: {'line': b"reading manifest file 'transformer_controller.egg-info/SOURCES.txt'\n"}
+[0.681352] (transformer_controller) StdoutLine: {'line': b"writing manifest file 'transformer_controller.egg-info/SOURCES.txt'\n"}
+[0.707991] (-) TimerEvent: {}
+[0.773401] (transformer_controller) StdoutLine: {'line': b'[ 97%] Built target ament_cmake_python_build_transformer_controller_egg\n'}
+[0.808136] (-) TimerEvent: {}
+[0.910303] (-) TimerEvent: {}
+[1.010822] (-) TimerEvent: {}
+[1.111359] (-) TimerEvent: {}
+[1.211744] (-) TimerEvent: {}
+[1.312120] (-) TimerEvent: {}
+[1.412520] (-) TimerEvent: {}
+[1.512921] (-) TimerEvent: {}
+[1.613300] (-) TimerEvent: {}
+[1.713709] (-) TimerEvent: {}
+[1.814074] (-) TimerEvent: {}
+[1.914446] (-) TimerEvent: {}
+[2.014840] (-) TimerEvent: {}
+[2.115246] (-) TimerEvent: {}
+[2.215607] (-) TimerEvent: {}
+[2.315965] (-) TimerEvent: {}
+[2.416313] (-) TimerEvent: {}
+[2.516688] (-) TimerEvent: {}
+[2.617067] (-) TimerEvent: {}
+[2.717458] (-) TimerEvent: {}
+[2.817847] (-) TimerEvent: {}
+[2.918203] (-) TimerEvent: {}
+[3.018589] (-) TimerEvent: {}
+[3.118959] (-) TimerEvent: {}
+[3.219297] (-) TimerEvent: {}
+[3.319652] (-) TimerEvent: {}
+[3.420008] (-) TimerEvent: {}
+[3.520373] (-) TimerEvent: {}
+[3.620734] (-) TimerEvent: {}
+[3.721096] (-) TimerEvent: {}
+[3.821444] (-) TimerEvent: {}
+[3.921818] (-) TimerEvent: {}
+[4.022188] (-) TimerEvent: {}
+[4.122553] (-) TimerEvent: {}
+[4.222919] (-) TimerEvent: {}
+[4.323278] (-) TimerEvent: {}
+[4.423629] (-) TimerEvent: {}
+[4.524010] (-) TimerEvent: {}
+[4.624377] (-) TimerEvent: {}
+[4.724744] (-) TimerEvent: {}
+[4.825144] (-) TimerEvent: {}
+[4.925509] (-) TimerEvent: {}
+[5.025878] (-) TimerEvent: {}
+[5.126233] (-) TimerEvent: {}
+[5.226603] (-) TimerEvent: {}
+[5.326977] (-) TimerEvent: {}
+[5.427356] (-) TimerEvent: {}
+[5.527709] (-) TimerEvent: {}
+[5.628051] (-) TimerEvent: {}
+[5.728401] (-) TimerEvent: {}
+[5.828749] (-) TimerEvent: {}
+[5.929118] (-) TimerEvent: {}
+[6.029511] (-) TimerEvent: {}
+[6.129891] (-) TimerEvent: {}
+[6.230278] (-) TimerEvent: {}
+[6.330636] (-) TimerEvent: {}
+[6.430999] (-) TimerEvent: {}
+[6.531375] (-) TimerEvent: {}
+[6.631733] (-) TimerEvent: {}
+[6.732124] (-) TimerEvent: {}
+[6.832507] (-) TimerEvent: {}
+[6.932899] (-) TimerEvent: {}
+[7.033285] (-) TimerEvent: {}
+[7.133667] (-) TimerEvent: {}
+[7.234025] (-) TimerEvent: {}
+[7.334391] (-) TimerEvent: {}
+[7.434747] (-) TimerEvent: {}
+[7.535126] (-) TimerEvent: {}
+[7.635484] (-) TimerEvent: {}
+[7.735870] (-) TimerEvent: {}
+[7.836226] (-) TimerEvent: {}
+[7.936580] (-) TimerEvent: {}
+[8.036943] (-) TimerEvent: {}
+[8.137297] (-) TimerEvent: {}
+[8.237665] (-) TimerEvent: {}
+[8.338013] (-) TimerEvent: {}
+[8.438359] (-) TimerEvent: {}
+[8.538709] (-) TimerEvent: {}
+[8.639059] (-) TimerEvent: {}
+[8.739439] (-) TimerEvent: {}
+[8.839909] (-) TimerEvent: {}
+[8.940274] (-) TimerEvent: {}
+[9.040617] (-) TimerEvent: {}
+[9.140997] (-) TimerEvent: {}
+[9.241396] (-) TimerEvent: {}
+[9.341823] (-) TimerEvent: {}
+[9.442245] (-) TimerEvent: {}
+[9.542615] (-) TimerEvent: {}
+[9.643008] (-) TimerEvent: {}
+[9.743390] (-) TimerEvent: {}
+[9.770021] (transformer_controller) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable transformer_controller_node\x1b[0m\n'}
+[9.843566] (-) TimerEvent: {}
+[9.944169] (-) TimerEvent: {}
+[10.044653] (-) TimerEvent: {}
+[10.145116] (-) TimerEvent: {}
+[10.245464] (-) TimerEvent: {}
+[10.290915] (transformer_controller) StdoutLine: {'line': b'[100%] Built target transformer_controller_node\n'}
+[10.313045] (transformer_controller) CommandEnded: {'returncode': 0}
+[10.313897] (transformer_controller) JobProgress: {'identifier': 'transformer_controller', 'progress': 'install'}
+[10.330361] (transformer_controller) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/atvpi/ros2_ws/build/transformer_controller'], 'cwd': '/home/atvpi/ros2_ws/build/transformer_controller', 'env': OrderedDict({'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'atvpi', 'SSH_CLIENT': '192.168.8.2 33042 22', 'LC_TIME': 'C.UTF-8', 'XDG_SESSION_TYPE': 'tty', 'GIT_ASKPASS': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/extensions/git/dist/askpass.sh', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/home/atvpi/ros2_ws/install/transformer_hw_servos/lib:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib:/home/atvpi/ros2_ws/install/transformer_controller/lib:/home/atvpi/ros2_ws/install/serial/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/lib', 'BROWSER': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/bin/helpers/browser.sh', 'HOME': '/home/atvpi', 'OLDPWD': '/home/atvpi/ros2_ws', 'TERM_PROGRAM_VERSION': '1.104.3', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-37cbadc8-be49-49be-b764-86d12a38e42b.sock', 'ROS_PYTHON_VERSION': '3', 'VSCODE_GIT_ASKPASS_MAIN': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/extensions/git/dist/askpass-main.js', 'LC_MONETARY': 'C.UTF-8', 'VSCODE_GIT_ASKPASS_NODE': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/node', 'SSL_CERT_FILE': '/usr/lib/ssl/cert.pem', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'COLCON_PREFIX_PATH': '/home/atvpi/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'atvpi', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '1', 'PATH': '/opt/ros/jazzy/bin:/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/scripts/noConfigScripts:/home/atvpi/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand', 'LC_ADDRESS': 'C.UTF-8', 'XDG_RUNTIME_DIR': '/run/user/1000', 'SSL_CERT_DIR': '/usr/lib/ssl/certs', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/.noConfigDebugAdapterEndpoints/endpoint-2ce8f189d80fdeae.txt', 'LANG': 'C.UTF-8', 'PYTHONSTARTUP': '/home/atvpi/.vscode-server/data/User/workspaceStorage/84379da00451a1f583396cdf944b4c1a/ms-python.python/pythonrc.py', 'LC_TELEPHONE': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-39d0eca28d.sock', 'TERM_PROGRAM': 'vscode', 'AMENT_PREFIX_PATH': '/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_rc_mode_switch:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'C.UTF-8', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LC_MEASUREMENT': 'C.UTF-8', 'LC_IDENTIFICATION': 'C.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'PWD': '/home/atvpi/ros2_ws/build/transformer_controller', 'SSH_CONNECTION': '192.168.8.2 33042 192.168.8.1 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'LC_NUMERIC': 'C.UTF-8', 'LC_PAPER': 'C.UTF-8', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_rc_mode_switch:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy'}), 'shell': False}
+[10.345568] (-) TimerEvent: {}
+[10.346220] (transformer_controller) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[10.346524] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/ament_index/resource_index/rosidl_interfaces/transformer_controller\n'}
+[10.346676] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/action/TransformMode.json\n'}
+[10.346872] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller\n'}
+[10.347049] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/msg\n'}
+[10.347204] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/msg/rosidl_generator_c__visibility_control.h\n'}
+[10.347332] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action\n'}
+[10.347427] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/transform_mode.h\n'}
+[10.347523] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail\n'}
+[10.347654] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__functions.h\n'}
+[10.347765] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__struct.h\n'}
+[10.347859] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__functions.c\n'}
+[10.347950] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__type_support.c\n'}
+[10.348043] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__description.c\n'}
+[10.348137] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__type_support.h\n'}
+[10.348285] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/environment/library_path.sh\n'}
+[10.348443] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/environment/library_path.dsv\n'}
+[10.348543] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/libtransformer_controller__rosidl_generator_c.so\n'}
+[10.348683] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller\n'}
+[10.348843] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/msg\n'}
+[10.348940] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[10.349035] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action\n'}
+[10.349138] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail\n'}
+[10.349276] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__rosidl_typesupport_fastrtps_c.h\n'}
+[10.349473] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/libtransformer_controller__rosidl_typesupport_fastrtps_c.so\n'}
+[10.349620] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller\n'}
+[10.349762] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/msg\n'}
+[10.349857] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/msg/rosidl_generator_cpp__visibility_control.hpp\n'}
+[10.349954] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action\n'}
+[10.350057] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/transform_mode.hpp\n'}
+[10.350195] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail\n'}
+[10.350277] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__traits.hpp\n'}
+[10.350363] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__type_support.hpp\n'}
+[10.350452] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__builder.hpp\n'}
+[10.350538] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__struct.hpp\n'}
+[10.350651] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller\n'}
+[10.350824] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/msg\n'}
+[10.350916] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[10.351033] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action\n'}
+[10.351132] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail\n'}
+[10.351234] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/dds_fastrtps\n'}
+[10.351333] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[10.351438] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/libtransformer_controller__rosidl_typesupport_fastrtps_cpp.so\n'}
+[10.351556] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller\n'}
+[10.351715] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/msg\n'}
+[10.351815] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[10.351943] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action\n'}
+[10.352035] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail\n'}
+[10.352156] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__rosidl_typesupport_introspection_c.h\n'}
+[10.352239] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__type_support.c\n'}
+[10.352328] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/libtransformer_controller__rosidl_typesupport_introspection_c.so\n'}
+[10.352421] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/libtransformer_controller__rosidl_typesupport_c.so\n'}
+[10.352519] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller\n'}
+[10.352609] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action\n'}
+[10.352726] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail\n'}
+[10.352831] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__type_support.cpp\n'}
+[10.352919] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/include/transformer_controller/transformer_controller/action/detail/transform_mode__rosidl_typesupport_introspection_cpp.hpp\n'}
+[10.353089] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/libtransformer_controller__rosidl_typesupport_introspection_cpp.so\n'}
+[10.353190] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/libtransformer_controller__rosidl_typesupport_cpp.so\n'}
+[10.353280] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/environment/pythonpath.sh\n'}
+[10.353369] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/environment/pythonpath.dsv\n'}
+[10.353456] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller-0.0.1-py3.12.egg-info\n'}
+[10.353573] (transformer_controller) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller-0.0.1-py3.12.egg-info/SOURCES.txt\n'}
+[10.353700] (transformer_controller) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller-0.0.1-py3.12.egg-info/top_level.txt\n'}
+[10.353809] (transformer_controller) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller-0.0.1-py3.12.egg-info/PKG-INFO\n'}
+[10.353891] (transformer_controller) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller-0.0.1-py3.12.egg-info/dependency_links.txt\n'}
+[10.354022] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller\n'}
+[10.354177] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/_transformer_controller_s.ep.rosidl_typesupport_introspection_c.c\n'}
+[10.354311] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/transformer_controller_s__rosidl_typesupport_c.so\n'}
+[10.354399] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/_transformer_controller_s.ep.rosidl_typesupport_c.c\n'}
+[10.354494] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/transformer_controller_s__rosidl_typesupport_fastrtps_c.so\n'}
+[10.354580] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/_transformer_controller_s.ep.rosidl_typesupport_fastrtps_c.c\n'}
+[10.354748] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/__init__.py\n'}
+[10.354909] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/action\n'}
+[10.355031] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/action/_transform_mode_s.c\n'}
+[10.355126] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/action/__init__.py\n'}
+[10.355211] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/action/_transform_mode.py\n'}
+[10.355302] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/transformer_controller_s__rosidl_typesupport_introspection_c.so\n'}
+[10.405346] (transformer_controller) StdoutLine: {'line': b"Listing '/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller'...\n"}
+[10.405625] (transformer_controller) StdoutLine: {'line': b"Listing '/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/action'...\n"}
+[10.417025] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/transformer_controller_s__rosidl_typesupport_fastrtps_c.so\n'}
+[10.417462] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/transformer_controller_s__rosidl_typesupport_introspection_c.so\n'}
+[10.417872] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages/transformer_controller/transformer_controller_s__rosidl_typesupport_c.so\n'}
+[10.418290] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/lib/libtransformer_controller__rosidl_generator_py.so\n'}
+[10.418543] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/action/TransformMode.idl\n'}
+[10.418681] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/action/TransformMode.action\n'}
+[10.418882] (transformer_controller) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_controller/lib/transformer_controller/transformer_controller_node\n'}
+[10.425020] (transformer_controller) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/atvpi/ros2_ws/install/transformer_controller/lib/transformer_controller/transformer_controller_node" to ""\n'}
+[10.425301] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/action\n'}
+[10.425417] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/action/TransformMode.action\n'}
+[10.425510] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/launch\n'}
+[10.425696] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/launch/transformer_controller.launch.py\n'}
+[10.425818] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/ament_index/resource_index/package_run_dependencies/transformer_controller\n'}
+[10.425958] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/ament_index/resource_index/parent_prefix_path/transformer_controller\n'}
+[10.426046] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/environment/ament_prefix_path.sh\n'}
+[10.426129] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/environment/ament_prefix_path.dsv\n'}
+[10.426233] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/environment/path.sh\n'}
+[10.426356] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/environment/path.dsv\n'}
+[10.426452] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/local_setup.bash\n'}
+[10.426542] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/local_setup.sh\n'}
+[10.426677] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/local_setup.zsh\n'}
+[10.426792] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/local_setup.dsv\n'}
+[10.426896] (transformer_controller) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/package.dsv\n'}
+[10.426997] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/ament_index/resource_index/packages/transformer_controller\n'}
+[10.427087] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/export_transformer_controller__rosidl_generator_cExport.cmake\n'}
+[10.427213] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/export_transformer_controller__rosidl_generator_cExport-noconfig.cmake\n'}
+[10.427324] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/export_transformer_controller__rosidl_typesupport_fastrtps_cExport.cmake\n'}
+[10.427438] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/export_transformer_controller__rosidl_typesupport_fastrtps_cExport-noconfig.cmake\n'}
+[10.427531] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/export_transformer_controller__rosidl_generator_cppExport.cmake\n'}
+[10.427646] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/export_transformer_controller__rosidl_typesupport_fastrtps_cppExport.cmake\n'}
+[10.427776] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/export_transformer_controller__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake\n'}
+[10.427892] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/transformer_controller__rosidl_typesupport_introspection_cExport.cmake\n'}
+[10.427983] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/transformer_controller__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[10.428071] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/transformer_controller__rosidl_typesupport_cExport.cmake\n'}
+[10.428194] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/transformer_controller__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[10.428309] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/transformer_controller__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[10.428414] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/transformer_controller__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[10.428503] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/transformer_controller__rosidl_typesupport_cppExport.cmake\n'}
+[10.428620] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/transformer_controller__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[10.428723] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/export_transformer_controller__rosidl_generator_pyExport.cmake\n'}
+[10.428809] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/export_transformer_controller__rosidl_generator_pyExport-noconfig.cmake\n'}
+[10.428891] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/rosidl_cmake-extras.cmake\n'}
+[10.428983] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[10.429069] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[10.429149] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[10.429230] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[10.429310] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[10.429389] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[10.429469] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/transformer_controllerConfig.cmake\n'}
+[10.429548] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/cmake/transformer_controllerConfig-version.cmake\n'}
+[10.429654] (transformer_controller) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_controller/share/transformer_controller/package.xml\n'}
+[10.431817] (transformer_controller) CommandEnded: {'returncode': 0}
+[10.445985] (-) TimerEvent: {}
+[10.476769] (transformer_controller) JobEnded: {'identifier': 'transformer_controller', 'rc': 0}
+[10.478005] (-) EventReactorShutdown: {}

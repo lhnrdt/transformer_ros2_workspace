@@ -1,0 +1,207 @@
+[0.022s] Invoking command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/atvpi/ros2_ws/build/transformer_msp_bridge -- -j4 -l4
+[0.139s] [  1%] Built target transformer_msp_bridge__rosidl_generator_type_description
+[0.154s] [  3%] Built target serial_port
+[0.171s] [  3%] Built target ament_cmake_python_copy_transformer_msp_bridge
+[0.178s] [ 10%] Built target msp_protocol
+[0.215s] [ 12%] Built target gtest_main
+[0.232s] [ 13%] Built target transformer_msp_bridge__cpp
+[0.235s] [ 15%] Built target gtest
+[0.250s] [ 20%] Built target transformer_msp_bridge__rosidl_generator_c
+[0.300s] [ 22%] Built target msp_probe
+[0.314s] [ 24%] Built target test_msp_parser
+[0.335s] [ 26%] Built target test_msp_parser_fuzz
+[0.377s] [ 28%] Built target test_msp_parser_hardening
+[0.393s] [ 30%] Built target test_crc
+[0.407s] [ 32%] Built target test_msp_registry
+[0.446s] [ 34%] Built target test_decoder_coverage
+[0.489s] [ 36%] Built target test_msp_probe
+[0.497s] [ 39%] Built target transformer_msp_bridge__rosidl_typesupport_cpp
+[0.541s] [ 42%] Built target transformer_msp_bridge__rosidl_typesupport_fastrtps_c
+[0.578s] [ 45%] Built target transformer_msp_bridge__rosidl_typesupport_introspection_c
+[0.585s] [ 48%] Built target transformer_msp_bridge__rosidl_typesupport_fastrtps_cpp
+[0.622s] [ 51%] Built target transformer_msp_bridge__rosidl_typesupport_c
+[0.643s] [ 54%] Built target transformer_msp_bridge__rosidl_typesupport_introspection_cpp
+[0.690s] [ 54%] Built target transformer_msp_bridge
+[0.694s] running egg_info
+[0.724s] writing transformer_msp_bridge.egg-info/PKG-INFO
+[0.725s] writing dependency_links to transformer_msp_bridge.egg-info/dependency_links.txt
+[0.726s] writing top-level names to transformer_msp_bridge.egg-info/top_level.txt
+[0.756s] [ 55%] Built target transformer_msp_bridge__py
+[0.831s] [ 67%] Built target transformer_msp_bridge_decoders
+[0.833s] [ 69%] Built target transformer_msp_bridge__rosidl_generator_py
+[0.856s] reading manifest file 'transformer_msp_bridge.egg-info/SOURCES.txt'
+[0.857s] writing manifest file 'transformer_msp_bridge.egg-info/SOURCES.txt'
+[0.928s] [ 71%] Built target transformer_msp_bridge_s__rosidl_typesupport_introspection_c
+[0.946s] [ 73%] Built target transformer_msp_bridge_s__rosidl_typesupport_c
+[0.951s] [ 75%] Built target transformer_msp_bridge_s__rosidl_typesupport_fastrtps_c
+[0.987s] [ 75%] Built target ament_cmake_python_build_transformer_msp_bridge_egg
+[1.062s] [ 76%] [32mBuilding CXX object CMakeFiles/transformer_msp_bridge_node.dir/src/transformer_msp_bridge_node.cpp.o[0m
+[1.072s] [ 78%] Built target test_battery_decoder
+[1.120s] [ 80%] Built target test_system_decoder
+[1.191s] [ 82%] Built target test_attitude_decoder
+[1.241s] [ 84%] Built target test_imu_decoder
+[1.296s] [ 86%] Built target test_gps_decoder
+[1.346s] [ 88%] Built target test_rc_decoder
+[1.391s] [ 90%] Built target test_altitude_decoder
+[1.406s] [ 92%] Built target test_inav_status_decoder
+[1.459s] [ 94%] Built target test_sensor_decoder
+[1.486s] [ 96%] Built target test_servo_motor_decoder
+[1.508s] [ 98%] Built target test_system_decoder_extended
+[38.714s] [100%] [32m[1mLinking CXX executable transformer_msp_bridge_node[0m
+[39.561s] [100%] Built target transformer_msp_bridge_node
+[39.585s] Invoked command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/atvpi/ros2_ws/build/transformer_msp_bridge -- -j4 -l4
+[39.603s] Invoking command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /home/atvpi/ros2_ws/build/transformer_msp_bridge
+[39.618s] -- Install configuration: "RelWithDebInfo"
+[39.619s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/ament_index/resource_index/rosidl_interfaces/transformer_msp_bridge
+[39.619s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/msg/MspInavStatus.json
+[39.619s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge
+[39.619s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg
+[39.620s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/rosidl_generator_c__visibility_control.h
+[39.620s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/msp_inav_status.h
+[39.620s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail
+[39.620s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__functions.c
+[39.620s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__description.c
+[39.620s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__type_support.h
+[39.620s] -- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__type_support.c
+[39.621s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__functions.h
+[39.621s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__struct.h
+[39.621s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/library_path.sh
+[39.621s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/library_path.dsv
+[39.621s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_generator_c.so
+[39.621s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge
+[39.622s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg
+[39.622s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[39.622s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail
+[39.622s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__rosidl_typesupport_fastrtps_c.h
+[39.622s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_fastrtps_c.so
+[39.622s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge
+[39.623s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg
+[39.623s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/rosidl_generator_cpp__visibility_control.hpp
+[39.623s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail
+[39.623s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__builder.hpp
+[39.624s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__type_support.hpp
+[39.624s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__traits.hpp
+[39.625s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__struct.hpp
+[39.625s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/msp_inav_status.hpp
+[39.625s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge
+[39.625s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg
+[39.625s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[39.626s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail
+[39.626s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__rosidl_typesupport_fastrtps_cpp.hpp
+[39.626s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/dds_fastrtps
+[39.626s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_fastrtps_cpp.so
+[39.626s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge
+[39.626s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg
+[39.627s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail
+[39.627s] -- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__type_support.c
+[39.627s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__rosidl_typesupport_introspection_c.h
+[39.627s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[39.627s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_introspection_c.so
+[39.627s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_c.so
+[39.627s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge
+[39.627s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg
+[39.628s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail
+[39.628s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__rosidl_typesupport_introspection_cpp.hpp
+[39.628s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__type_support.cpp
+[39.628s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_introspection_cpp.so
+[39.628s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_cpp.so
+[39.628s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/pythonpath.sh
+[39.628s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/pythonpath.dsv
+[39.628s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge-0.0.1-py3.12.egg-info
+[39.628s] -- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge-0.0.1-py3.12.egg-info/SOURCES.txt
+[39.629s] -- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge-0.0.1-py3.12.egg-info/top_level.txt
+[39.629s] -- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge-0.0.1-py3.12.egg-info/PKG-INFO
+[39.629s] -- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge-0.0.1-py3.12.egg-info/dependency_links.txt
+[39.629s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge
+[39.629s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_c.so
+[39.629s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_fastrtps_c.so
+[39.629s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/msg
+[39.629s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/msg/__init__.py
+[39.629s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/msg/_msp_inav_status_s.c
+[39.630s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/msg/_msp_inav_status.py
+[39.630s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_introspection_c.so
+[39.631s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/_transformer_msp_bridge_s.ep.rosidl_typesupport_fastrtps_c.c
+[39.631s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/_transformer_msp_bridge_s.ep.rosidl_typesupport_c.c
+[39.631s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/_transformer_msp_bridge_s.ep.rosidl_typesupport_introspection_c.c
+[39.631s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/__init__.py
+[39.679s] Listing '/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge'...
+[39.679s] Listing '/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/msg'...
+[39.694s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_fastrtps_c.so
+[39.695s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_introspection_c.so
+[39.695s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_c.so
+[39.696s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_generator_py.so
+[39.696s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/msg/MspInavStatus.idl
+[39.696s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/msg/MspInavStatus.msg
+[39.696s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libmsp_protocol.so
+[39.697s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libserial_port.so
+[39.697s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge_decoders.so
+[39.698s] -- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/transformer_msp_bridge/transformer_msp_bridge_node
+[39.735s] -- Set non-toolchain portion of runtime path of "/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/transformer_msp_bridge/transformer_msp_bridge_node" to ""
+[39.735s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/transformer_msp_bridge/msp_probe
+[39.735s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge
+[39.736s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/msp_parser.hpp
+[39.736s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/crc.hpp
+[39.736s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/msp_utils.hpp
+[39.736s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/registry_loader.hpp
+[39.736s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/msp_registry.hpp
+[39.736s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders
+[39.737s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/system_decoder.hpp
+[39.737s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/altitude_decoder.hpp
+[39.737s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/sensor_decoder.hpp
+[39.737s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/battery_decoder.hpp
+[39.737s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/imu_decoder.hpp
+[39.737s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/rc_decoder.hpp
+[39.737s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/gps_decoder.hpp
+[39.738s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/inav_generic_decoder.hpp
+[39.738s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/inav_status_decoder.hpp
+[39.738s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/attitude_decoder.hpp
+[39.738s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/servo_motor_decoder.hpp
+[39.738s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/serial_port.hpp
+[39.738s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoder_base.hpp
+[39.739s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoder_registry.hpp
+[39.739s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/msp_builders.hpp
+[39.739s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/msg
+[39.739s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/msg/MspInavStatus.msg
+[39.739s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/config
+[39.740s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/config/registry.yaml
+[39.740s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/config/msp_bridge.yaml
+[39.740s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/ament_index/resource_index/package_run_dependencies/transformer_msp_bridge
+[39.740s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/ament_index/resource_index/parent_prefix_path/transformer_msp_bridge
+[39.740s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/ament_prefix_path.sh
+[39.740s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/ament_prefix_path.dsv
+[39.740s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/path.sh
+[39.741s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/path.dsv
+[39.741s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/local_setup.bash
+[39.741s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/local_setup.sh
+[39.741s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/local_setup.zsh
+[39.741s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/local_setup.dsv
+[39.741s] -- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/package.dsv
+[39.741s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/ament_index/resource_index/packages/transformer_msp_bridge
+[39.741s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_generator_cExport.cmake
+[39.742s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_generator_cExport-relwithdebinfo.cmake
+[39.742s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_typesupport_fastrtps_cExport.cmake
+[39.742s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_typesupport_fastrtps_cExport-relwithdebinfo.cmake
+[39.742s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_generator_cppExport.cmake
+[39.742s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_typesupport_fastrtps_cppExport.cmake
+[39.742s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_typesupport_fastrtps_cppExport-relwithdebinfo.cmake
+[39.742s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_introspection_cExport.cmake
+[39.742s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_introspection_cExport-relwithdebinfo.cmake
+[39.743s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_cExport.cmake
+[39.743s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_cExport-relwithdebinfo.cmake
+[39.743s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_introspection_cppExport.cmake
+[39.743s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_introspection_cppExport-relwithdebinfo.cmake
+[39.743s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_cppExport.cmake
+[39.744s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_cppExport-relwithdebinfo.cmake
+[39.745s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_generator_pyExport.cmake
+[39.745s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_generator_pyExport-relwithdebinfo.cmake
+[39.745s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/rosidl_cmake-extras.cmake
+[39.746s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/ament_cmake_export_dependencies-extras.cmake
+[39.746s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/ament_cmake_export_include_directories-extras.cmake
+[39.746s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/ament_cmake_export_libraries-extras.cmake
+[39.746s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/ament_cmake_export_targets-extras.cmake
+[39.747s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[39.747s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[39.747s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridgeConfig.cmake
+[39.747s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridgeConfig-version.cmake
+[39.748s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/package.xml
+[39.748s] Invoked command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /home/atvpi/ros2_ws/build/transformer_msp_bridge

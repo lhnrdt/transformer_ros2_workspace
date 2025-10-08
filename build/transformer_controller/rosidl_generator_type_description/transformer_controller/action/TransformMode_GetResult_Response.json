@@ -1,0 +1,76 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "transformer_controller/action/TransformMode_GetResult_Response",
+      "fields": [
+        {
+          "name": "status",
+          "type": {
+            "type_id": 2,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        },
+        {
+          "name": "result",
+          "type": {
+            "type_id": 1,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": "transformer_controller/action/TransformMode_Result"
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": [
+      {
+        "type_name": "transformer_controller/action/TransformMode_Result",
+        "fields": [
+          {
+            "name": "success",
+            "type": {
+              "type_id": 15,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "message",
+            "type": {
+              "type_id": 17,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "final_mode",
+            "type": {
+              "type_id": 17,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          }
+        ]
+      }
+    ]
+  },
+  "type_hashes": [
+    {
+      "type_name": "transformer_controller/action/TransformMode_GetResult_Response",
+      "hash_string": "RIHS01_14768c443230060d1eab7be1328de1e2e9f755df8db4bb3fe6b260781942d761"
+    },
+    {
+      "type_name": "transformer_controller/action/TransformMode_Result",
+      "hash_string": "RIHS01_b716ab698c881f281f26e786c6357a61e05c455c14e21a6f1937c55ee39bc528"
+    }
+  ]
+}

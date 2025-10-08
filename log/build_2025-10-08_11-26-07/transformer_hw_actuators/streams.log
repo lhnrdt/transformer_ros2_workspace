@@ -1,0 +1,161 @@
+[0.020s] Invoking command in '/home/atvpi/ros2_ws/build/transformer_hw_actuators': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/atvpi/ros2_ws/build/transformer_hw_actuators -- -j4 -l4
+[0.123s] [  2%] Built target transformer_hw_actuators__rosidl_generator_type_description
+[0.148s] [  2%] Built target ament_cmake_python_copy_transformer_hw_actuators
+[0.194s] [  5%] Built target transformer_hw_actuators__cpp
+[0.212s] [ 19%] Built target transformer_hw_actuators__rosidl_generator_c
+[0.325s] [ 27%] Built target transformer_hw_actuators__rosidl_typesupport_fastrtps_c
+[0.328s] [ 36%] Built target transformer_hw_actuators__rosidl_typesupport_cpp
+[0.357s] [ 44%] Built target transformer_hw_actuators__rosidl_typesupport_fastrtps_cpp
+[0.457s] [ 52%] Built target transformer_hw_actuators__rosidl_typesupport_introspection_c
+[0.457s] [ 61%] Built target transformer_hw_actuators__rosidl_typesupport_c
+[0.479s] [ 69%] Built target transformer_hw_actuators__rosidl_typesupport_introspection_cpp
+[0.563s] [ 75%] Built target actuator_node
+[0.580s] [ 75%] Built target transformer_hw_actuators
+[0.653s] [ 77%] Built target transformer_hw_actuators__py
+[0.758s] running egg_info
+[0.807s] [ 83%] Built target transformer_hw_actuators__rosidl_generator_py
+[0.834s] writing transformer_hw_actuators.egg-info/PKG-INFO
+[0.834s] writing dependency_links to transformer_hw_actuators.egg-info/dependency_links.txt
+[0.837s] writing top-level names to transformer_hw_actuators.egg-info/top_level.txt
+[0.955s] [ 88%] Built target transformer_hw_actuators_s__rosidl_typesupport_fastrtps_c
+[0.959s] [ 94%] Built target transformer_hw_actuators_s__rosidl_typesupport_introspection_c
+[0.982s] [100%] Built target transformer_hw_actuators_s__rosidl_typesupport_c
+[1.061s] reading manifest file 'transformer_hw_actuators.egg-info/SOURCES.txt'
+[1.062s] writing manifest file 'transformer_hw_actuators.egg-info/SOURCES.txt'
+[1.192s] [100%] Built target ament_cmake_python_build_transformer_hw_actuators_egg
+[1.228s] Invoked command in '/home/atvpi/ros2_ws/build/transformer_hw_actuators' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/atvpi/ros2_ws/build/transformer_hw_actuators -- -j4 -l4
+[1.257s] Invoking command in '/home/atvpi/ros2_ws/build/transformer_hw_actuators': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /home/atvpi/ros2_ws/build/transformer_hw_actuators
+[1.278s] -- Install configuration: ""
+[1.278s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/ament_index/resource_index/rosidl_interfaces/transformer_hw_actuators
+[1.280s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/action/MoveActuator.json
+[1.280s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators
+[1.280s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/msg
+[1.281s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/msg/rosidl_generator_c__visibility_control.h
+[1.281s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action
+[1.281s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/move_actuator.h
+[1.284s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail
+[1.284s] -- Installing: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail/move_actuator__type_support.c
+[1.284s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail/move_actuator__struct.h
+[1.286s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail/move_actuator__functions.h
+[1.286s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail/move_actuator__type_support.h
+[1.286s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail/move_actuator__functions.c
+[1.286s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail/move_actuator__description.c
+[1.286s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/environment/library_path.sh
+[1.286s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/environment/library_path.dsv
+[1.288s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/libtransformer_hw_actuators__rosidl_generator_c.so
+[1.288s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators
+[1.288s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/msg
+[1.289s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[1.291s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action
+[1.291s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail
+[1.291s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail/move_actuator__rosidl_typesupport_fastrtps_c.h
+[1.291s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/libtransformer_hw_actuators__rosidl_typesupport_fastrtps_c.so
+[1.291s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators
+[1.293s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/msg
+[1.293s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/msg/rosidl_generator_cpp__visibility_control.hpp
+[1.293s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action
+[1.293s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/move_actuator.hpp
+[1.293s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail
+[1.293s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail/move_actuator__type_support.hpp
+[1.296s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail/move_actuator__traits.hpp
+[1.297s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail/move_actuator__builder.hpp
+[1.297s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail/move_actuator__struct.hpp
+[1.297s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators
+[1.297s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/msg
+[1.297s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[1.297s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action
+[1.299s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail
+[1.299s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail/dds_fastrtps
+[1.299s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail/move_actuator__rosidl_typesupport_fastrtps_cpp.hpp
+[1.299s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/libtransformer_hw_actuators__rosidl_typesupport_fastrtps_cpp.so
+[1.300s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators
+[1.300s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/msg
+[1.301s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[1.301s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action
+[1.304s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail
+[1.305s] -- Installing: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail/move_actuator__type_support.c
+[1.306s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail/move_actuator__rosidl_typesupport_introspection_c.h
+[1.307s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/libtransformer_hw_actuators__rosidl_typesupport_introspection_c.so
+[1.307s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/libtransformer_hw_actuators__rosidl_typesupport_c.so
+[1.308s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators
+[1.314s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action
+[1.314s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail
+[1.314s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail/move_actuator__rosidl_typesupport_introspection_cpp.hpp
+[1.315s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/transformer_hw_actuators/action/detail/move_actuator__type_support.cpp
+[1.317s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/libtransformer_hw_actuators__rosidl_typesupport_introspection_cpp.so
+[1.317s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/libtransformer_hw_actuators__rosidl_typesupport_cpp.so
+[1.317s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/environment/pythonpath.sh
+[1.317s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/environment/pythonpath.dsv
+[1.317s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators-0.1.0-py3.12.egg-info
+[1.317s] -- Installing: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators-0.1.0-py3.12.egg-info/SOURCES.txt
+[1.317s] -- Installing: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators-0.1.0-py3.12.egg-info/top_level.txt
+[1.318s] -- Installing: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators-0.1.0-py3.12.egg-info/PKG-INFO
+[1.318s] -- Installing: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators-0.1.0-py3.12.egg-info/dependency_links.txt
+[1.318s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators
+[1.318s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators/_transformer_hw_actuators_s.ep.rosidl_typesupport_introspection_c.c
+[1.318s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators/transformer_hw_actuators_s__rosidl_typesupport_fastrtps_c.so
+[1.318s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators/transformer_hw_actuators_s__rosidl_typesupport_c.so
+[1.319s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators/_transformer_hw_actuators_s.ep.rosidl_typesupport_c.c
+[1.319s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators/transformer_hw_actuators_s__rosidl_typesupport_introspection_c.so
+[1.319s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators/__init__.py
+[1.319s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators/_transformer_hw_actuators_s.ep.rosidl_typesupport_fastrtps_c.c
+[1.319s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators/action
+[1.319s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators/action/_move_actuator.py
+[1.319s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators/action/_move_actuator_s.c
+[1.320s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators/action/__init__.py
+[1.435s] Listing '/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators'...
+[1.435s] Listing '/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators/action'...
+[1.461s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators/transformer_hw_actuators_s__rosidl_typesupport_fastrtps_c.so
+[1.463s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators/transformer_hw_actuators_s__rosidl_typesupport_introspection_c.so
+[1.464s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages/transformer_hw_actuators/transformer_hw_actuators_s__rosidl_typesupport_c.so
+[1.468s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/libtransformer_hw_actuators__rosidl_generator_py.so
+[1.468s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/action/MoveActuator.idl
+[1.471s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/action/MoveActuator.action
+[1.471s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/transformer_hw_actuators/actuator_node
+[1.474s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include
+[1.477s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators
+[1.477s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/include/transformer_hw_actuators/actuator_node.h
+[1.477s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators//launch
+[1.477s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators//launch/actuator.launch.py
+[1.477s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators//config
+[1.477s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators//config/actuator.yaml
+[1.480s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/ament_index/resource_index/package_run_dependencies/transformer_hw_actuators
+[1.480s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/ament_index/resource_index/parent_prefix_path/transformer_hw_actuators
+[1.481s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/environment/ament_prefix_path.sh
+[1.481s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/environment/ament_prefix_path.dsv
+[1.481s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/environment/path.sh
+[1.483s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/environment/path.dsv
+[1.483s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/local_setup.bash
+[1.483s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/local_setup.sh
+[1.483s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/local_setup.zsh
+[1.484s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/local_setup.dsv
+[1.484s] -- Installing: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/package.dsv
+[1.488s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/ament_index/resource_index/packages/transformer_hw_actuators
+[1.488s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/export_transformer_hw_actuators__rosidl_generator_cExport.cmake
+[1.488s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/export_transformer_hw_actuators__rosidl_generator_cExport-noconfig.cmake
+[1.488s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/export_transformer_hw_actuators__rosidl_typesupport_fastrtps_cExport.cmake
+[1.490s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/export_transformer_hw_actuators__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[1.490s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/export_transformer_hw_actuators__rosidl_generator_cppExport.cmake
+[1.491s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/export_transformer_hw_actuators__rosidl_typesupport_fastrtps_cppExport.cmake
+[1.492s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/export_transformer_hw_actuators__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[1.493s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/transformer_hw_actuators__rosidl_typesupport_introspection_cExport.cmake
+[1.496s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/transformer_hw_actuators__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[1.497s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/transformer_hw_actuators__rosidl_typesupport_cExport.cmake
+[1.500s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/transformer_hw_actuators__rosidl_typesupport_cExport-noconfig.cmake
+[1.506s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/transformer_hw_actuators__rosidl_typesupport_introspection_cppExport.cmake
+[1.506s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/transformer_hw_actuators__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[1.506s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/transformer_hw_actuators__rosidl_typesupport_cppExport.cmake
+[1.507s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/transformer_hw_actuators__rosidl_typesupport_cppExport-noconfig.cmake
+[1.508s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/export_transformer_hw_actuators__rosidl_generator_pyExport.cmake
+[1.508s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/export_transformer_hw_actuators__rosidl_generator_pyExport-noconfig.cmake
+[1.508s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/rosidl_cmake-extras.cmake
+[1.508s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/ament_cmake_export_dependencies-extras.cmake
+[1.508s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/ament_cmake_export_include_directories-extras.cmake
+[1.509s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/ament_cmake_export_libraries-extras.cmake
+[1.509s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/ament_cmake_export_targets-extras.cmake
+[1.509s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[1.509s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[1.509s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/transformer_hw_actuatorsConfig.cmake
+[1.509s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/cmake/transformer_hw_actuatorsConfig-version.cmake
+[1.514s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_actuators/share/transformer_hw_actuators/package.xml
+[1.518s] Invoked command in '/home/atvpi/ros2_ws/build/transformer_hw_actuators' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /home/atvpi/ros2_ws/build/transformer_hw_actuators

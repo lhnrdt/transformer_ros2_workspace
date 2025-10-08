@@ -1,0 +1,51 @@
+[0.021s] Invoking command in '/home/atvpi/ros2_ws/build/serial': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /home/atvpi/ros2_ws/src/serial-ros2 -DCMAKE_INSTALL_PREFIX=/home/atvpi/ros2_ws/install/serial
+[0.227s] -- The C compiler identification is GNU 13.3.0
+[0.389s] -- The CXX compiler identification is GNU 13.3.0
+[0.425s] -- Detecting C compiler ABI info
+[0.802s] -- Detecting C compiler ABI info - done
+[0.825s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.825s] -- Detecting C compile features
+[0.825s] -- Detecting C compile features - done
+[0.859s] -- Detecting CXX compiler ABI info
+[1.208s] -- Detecting CXX compiler ABI info - done
+[1.234s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[1.234s] -- Detecting CXX compile features
+[1.234s] -- Detecting CXX compile features - done
+[1.239s] -- Found ament_cmake: 2.5.4 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[1.652s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[2.184s] -- Configuring done (2.1s)
+[2.201s] -- Generating done (0.0s)
+[2.209s] -- Build files have been written to: /home/atvpi/ros2_ws/build/serial
+[2.226s] Invoked command in '/home/atvpi/ros2_ws/build/serial' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /home/atvpi/ros2_ws/src/serial-ros2 -DCMAKE_INSTALL_PREFIX=/home/atvpi/ros2_ws/install/serial
+[2.227s] Invoking command in '/home/atvpi/ros2_ws/build/serial': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/atvpi/ros2_ws/build/serial -- -j4 -l4
+[2.350s] [ 25%] [32mBuilding CXX object CMakeFiles/serial.dir/src/impl/unix.cc.o[0m
+[2.352s] [ 50%] [32mBuilding CXX object CMakeFiles/serial.dir/src/serial.cc.o[0m
+[2.362s] [ 75%] [32mBuilding CXX object CMakeFiles/serial.dir/src/impl/list_ports/list_ports_linux.cc.o[0m
+[4.317s] [100%] [32m[1mLinking CXX static library libserial.a[0m
+[4.474s] [100%] Built target serial
+[4.505s] Invoked command in '/home/atvpi/ros2_ws/build/serial' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/atvpi/ros2_ws/build/serial -- -j4 -l4
+[4.533s] Invoking command in '/home/atvpi/ros2_ws/build/serial': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /home/atvpi/ros2_ws/build/serial
+[4.551s] -- Install configuration: ""
+[4.553s] -- Installing: /home/atvpi/ros2_ws/install/serial/share/serial/environment/library_path.sh
+[4.554s] -- Installing: /home/atvpi/ros2_ws/install/serial/share/serial/environment/library_path.dsv
+[4.557s] -- Installing: /home/atvpi/ros2_ws/install/serial/lib/libserial.a
+[4.561s] -- Installing: /home/atvpi/ros2_ws/install/serial/include/serial/serial.h
+[4.562s] -- Installing: /home/atvpi/ros2_ws/install/serial/include/serial/v8stdint.h
+[4.564s] -- Installing: /home/atvpi/ros2_ws/install/serial/share/ament_index/resource_index/package_run_dependencies/serial
+[4.564s] -- Installing: /home/atvpi/ros2_ws/install/serial/share/ament_index/resource_index/parent_prefix_path/serial
+[4.566s] -- Installing: /home/atvpi/ros2_ws/install/serial/share/serial/environment/ament_prefix_path.sh
+[4.568s] -- Installing: /home/atvpi/ros2_ws/install/serial/share/serial/environment/ament_prefix_path.dsv
+[4.568s] -- Installing: /home/atvpi/ros2_ws/install/serial/share/serial/environment/path.sh
+[4.570s] -- Installing: /home/atvpi/ros2_ws/install/serial/share/serial/environment/path.dsv
+[4.571s] -- Installing: /home/atvpi/ros2_ws/install/serial/share/serial/local_setup.bash
+[4.573s] -- Installing: /home/atvpi/ros2_ws/install/serial/share/serial/local_setup.sh
+[4.574s] -- Installing: /home/atvpi/ros2_ws/install/serial/share/serial/local_setup.zsh
+[4.576s] -- Installing: /home/atvpi/ros2_ws/install/serial/share/serial/local_setup.dsv
+[4.579s] -- Installing: /home/atvpi/ros2_ws/install/serial/share/serial/package.dsv
+[4.583s] -- Installing: /home/atvpi/ros2_ws/install/serial/share/ament_index/resource_index/packages/serial
+[4.584s] -- Installing: /home/atvpi/ros2_ws/install/serial/share/serial/cmake/ament_cmake_export_include_directories-extras.cmake
+[4.587s] -- Installing: /home/atvpi/ros2_ws/install/serial/share/serial/cmake/ament_cmake_export_libraries-extras.cmake
+[4.589s] -- Installing: /home/atvpi/ros2_ws/install/serial/share/serial/cmake/serialConfig.cmake
+[4.591s] -- Installing: /home/atvpi/ros2_ws/install/serial/share/serial/cmake/serialConfig-version.cmake
+[4.592s] -- Installing: /home/atvpi/ros2_ws/install/serial/share/serial/package.xml
+[4.607s] Invoked command in '/home/atvpi/ros2_ws/build/serial' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /home/atvpi/ros2_ws/build/serial

@@ -1,0 +1,56 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "transformer_hw_servos/action/MoveServo_Result",
+      "fields": [
+        {
+          "name": "success",
+          "type": {
+            "type_id": 15,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        },
+        {
+          "name": "message",
+          "type": {
+            "type_id": 17,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        },
+        {
+          "name": "final_pulses_us",
+          "type": {
+            "type_id": 150,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        },
+        {
+          "name": "total_estimated_duration_s",
+          "type": {
+            "type_id": 10,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": []
+  },
+  "type_hashes": [
+    {
+      "type_name": "transformer_hw_servos/action/MoveServo_Result",
+      "hash_string": "RIHS01_061bdb9d92a25f170133e3e27ee5f5af676e53d772beccbdc474739d22531fd8"
+    }
+  ]
+}

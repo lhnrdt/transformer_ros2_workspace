@@ -1,0 +1,338 @@
+[0.000000] (-) TimerEvent: {}
+[0.000724] (-) JobUnselected: {'identifier': 'serial'}
+[0.000971] (-) JobUnselected: {'identifier': 'transformer_bringup'}
+[0.001256] (-) JobUnselected: {'identifier': 'transformer_controller'}
+[0.001416] (-) JobUnselected: {'identifier': 'transformer_hw_actuators'}
+[0.001482] (-) JobUnselected: {'identifier': 'transformer_hw_servos'}
+[0.001509] (-) JobUnselected: {'identifier': 'transformer_rc_mode_switch'}
+[0.001538] (-) JobUnselected: {'identifier': 'wheeltec_n100_imu'}
+[0.002231] (transformer_msp_bridge) JobQueued: {'identifier': 'transformer_msp_bridge', 'dependencies': OrderedDict()}
+[0.002298] (transformer_msp_bridge) JobStarted: {'identifier': 'transformer_msp_bridge'}
+[0.013587] (transformer_msp_bridge) JobProgress: {'identifier': 'transformer_msp_bridge', 'progress': 'cmake'}
+[0.014797] (transformer_msp_bridge) JobProgress: {'identifier': 'transformer_msp_bridge', 'progress': 'build'}
+[0.015634] (transformer_msp_bridge) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/atvpi/ros2_ws/build/transformer_msp_bridge', '--', '-j4', '-l4'], 'cwd': '/home/atvpi/ros2_ws/build/transformer_msp_bridge', 'env': OrderedDict({'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'atvpi', 'SSH_CLIENT': '192.168.8.2 60382 22', 'LC_TIME': 'C.UTF-8', 'XDG_SESSION_TYPE': 'tty', 'GIT_ASKPASS': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/extensions/git/dist/askpass.sh', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib:/home/atvpi/ros2_ws/install/transformer_controller/lib:/home/atvpi/ros2_ws/install/transformer_hw_servos/lib:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib:/home/atvpi/ros2_ws/install/serial/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/lib', 'BROWSER': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/bin/helpers/browser.sh', 'HOME': '/home/atvpi', 'OLDPWD': '/home/atvpi/ros2_ws/src', 'TERM_PROGRAM_VERSION': '1.104.3', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-eb9126e6-b532-48d4-bcc4-f75bb7cfe2c2.sock', 'ROS_PYTHON_VERSION': '3', 'VSCODE_GIT_ASKPASS_MAIN': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/extensions/git/dist/askpass-main.js', 'LC_MONETARY': 'C.UTF-8', 'VSCODE_GIT_ASKPASS_NODE': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/node', 'SSL_CERT_FILE': '/usr/lib/ssl/cert.pem', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'COLCON_PREFIX_PATH': '/home/atvpi/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'atvpi', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '1', 'PATH': '/opt/ros/jazzy/bin:/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/scripts/noConfigScripts:/home/atvpi/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand', 'LC_ADDRESS': 'C.UTF-8', 'XDG_RUNTIME_DIR': '/run/user/1000', 'SSL_CERT_DIR': '/usr/lib/ssl/certs', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/.noConfigDebugAdapterEndpoints/endpoint-2ce8f189d80fdeae.txt', 'LANG': 'C.UTF-8', 'PYTHONSTARTUP': '/home/atvpi/.vscode-server/data/User/workspaceStorage/84379da00451a1f583396cdf944b4c1a/ms-python.python/pythonrc.py', 'LC_TELEPHONE': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-39d0eca28d.sock', 'TERM_PROGRAM': 'vscode', 'AMENT_PREFIX_PATH': '/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_rc_mode_switch:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'C.UTF-8', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LC_MEASUREMENT': 'C.UTF-8', 'LC_IDENTIFICATION': 'C.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'PWD': '/home/atvpi/ros2_ws/build/transformer_msp_bridge', 'SSH_CONNECTION': '192.168.8.2 60382 192.168.8.1 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'LC_NUMERIC': 'C.UTF-8', 'LC_PAPER': 'C.UTF-8', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_rc_mode_switch:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy'}), 'shell': False}
+[0.102256] (-) TimerEvent: {}
+[0.159236] (transformer_msp_bridge) StdoutLine: {'line': b'[  2%] Built target serial_port\n'}
+[0.189011] (transformer_msp_bridge) StdoutLine: {'line': b'[  3%] Built target transformer_msp_bridge__rosidl_generator_type_description\n'}
+[0.207912] (transformer_msp_bridge) StdoutLine: {'line': b'[ 10%] Built target msp_protocol\n'}
+[0.208362] (-) TimerEvent: {}
+[0.243347] (transformer_msp_bridge) StdoutLine: {'line': b'[ 11%] Built target ament_cmake_python_symlink_transformer_msp_bridge\n'}
+[0.245527] (transformer_msp_bridge) StdoutLine: {'line': b'[ 12%] Built target gtest_main\n'}
+[0.303229] (transformer_msp_bridge) StdoutLine: {'line': b'[ 13%] Built target transformer_msp_bridge__cpp\n'}
+[0.303551] (transformer_msp_bridge) StdoutLine: {'line': b'[ 15%] Built target gtest\n'}
+[0.308549] (-) TimerEvent: {}
+[0.322340] (transformer_msp_bridge) StdoutLine: {'line': b'[ 20%] Built target transformer_msp_bridge__rosidl_generator_c\n'}
+[0.412423] (-) TimerEvent: {}
+[0.427405] (transformer_msp_bridge) StdoutLine: {'line': b'[ 21%] \x1b[32m\x1b[1mLinking CXX executable msp_probe\x1b[0m\n'}
+[0.435264] (transformer_msp_bridge) StdoutLine: {'line': b'[ 22%] \x1b[32m\x1b[1mLinking CXX executable test_msp_parser\x1b[0m\n'}
+[0.436819] (transformer_msp_bridge) StdoutLine: {'line': b'[ 23%] \x1b[32m\x1b[1mLinking CXX executable test_msp_parser_fuzz\x1b[0m\n'}
+[0.513768] (-) TimerEvent: {}
+[0.614929] (-) TimerEvent: {}
+[0.718277] (-) TimerEvent: {}
+[0.818823] (-) TimerEvent: {}
+[0.835641] (transformer_msp_bridge) StdoutLine: {'line': b'[ 24%] Built target msp_probe\n'}
+[0.902882] (transformer_msp_bridge) StdoutLine: {'line': b'[ 25%] \x1b[32m\x1b[1mLinking CXX executable test_msp_parser_hardening\x1b[0m\n'}
+[0.920220] (-) TimerEvent: {}
+[0.991785] (transformer_msp_bridge) StdoutLine: {'line': b'[ 26%] Built target test_msp_parser\n'}
+[0.999757] (transformer_msp_bridge) StdoutLine: {'line': b'running egg_info\n'}
+[1.014971] (transformer_msp_bridge) StdoutLine: {'line': b'[ 27%] Built target test_msp_parser_fuzz\n'}
+[1.020326] (-) TimerEvent: {}
+[1.047204] (transformer_msp_bridge) StdoutLine: {'line': b'writing transformer_msp_bridge.egg-info/PKG-INFO\n'}
+[1.047772] (transformer_msp_bridge) StdoutLine: {'line': b'writing dependency_links to transformer_msp_bridge.egg-info/dependency_links.txt\n'}
+[1.049533] (transformer_msp_bridge) StdoutLine: {'line': b'writing top-level names to transformer_msp_bridge.egg-info/top_level.txt\n'}
+[1.071252] (transformer_msp_bridge) StdoutLine: {'line': b'[ 28%] \x1b[32m\x1b[1mLinking CXX executable test_crc\x1b[0m\n'}
+[1.080996] (transformer_msp_bridge) StdoutLine: {'line': b'[ 29%] \x1b[32m\x1b[1mLinking CXX executable test_msp_registry\x1b[0m\n'}
+[1.120517] (-) TimerEvent: {}
+[1.223226] (-) TimerEvent: {}
+[1.269412] (transformer_msp_bridge) StdoutLine: {'line': b"reading manifest file 'transformer_msp_bridge.egg-info/SOURCES.txt'\n"}
+[1.270562] (transformer_msp_bridge) StdoutLine: {'line': b"writing manifest file 'transformer_msp_bridge.egg-info/SOURCES.txt'\n"}
+[1.323606] (-) TimerEvent: {}
+[1.429316] (-) TimerEvent: {}
+[1.495877] (transformer_msp_bridge) StdoutLine: {'line': b'[ 29%] Built target ament_cmake_python_build_transformer_msp_bridge_egg\n'}
+[1.504407] (transformer_msp_bridge) StdoutLine: {'line': b'[ 30%] Built target test_msp_parser_hardening\n'}
+[1.529801] (-) TimerEvent: {}
+[1.568234] (transformer_msp_bridge) StdoutLine: {'line': b'[ 31%] \x1b[32m\x1b[1mLinking CXX executable test_msp_probe\x1b[0m\n'}
+[1.591665] (transformer_msp_bridge) StdoutLine: {'line': b'[ 33%] Built target test_decoder_coverage\n'}
+[1.630514] (-) TimerEvent: {}
+[1.661954] (transformer_msp_bridge) StdoutLine: {'line': b'[ 36%] Built target transformer_msp_bridge__rosidl_typesupport_cpp\n'}
+[1.665536] (transformer_msp_bridge) StdoutLine: {'line': b'[ 37%] Built target test_crc\n'}
+[1.727222] (transformer_msp_bridge) StdoutLine: {'line': b'[ 40%] Built target transformer_msp_bridge__rosidl_typesupport_fastrtps_cpp\n'}
+[1.731272] (-) TimerEvent: {}
+[1.732302] (transformer_msp_bridge) StdoutLine: {'line': b'[ 41%] Built target test_msp_registry\n'}
+[1.764305] (transformer_msp_bridge) StdoutLine: {'line': b'[ 44%] Built target transformer_msp_bridge__rosidl_typesupport_fastrtps_c\n'}
+[1.801235] (transformer_msp_bridge) StdoutLine: {'line': b'[ 47%] Built target transformer_msp_bridge__rosidl_typesupport_introspection_c\n'}
+[1.801587] (transformer_msp_bridge) StdoutLine: {'line': b'[ 50%] Built target transformer_msp_bridge__rosidl_typesupport_c\n'}
+[1.831435] (-) TimerEvent: {}
+[1.878359] (transformer_msp_bridge) StdoutLine: {'line': b'[ 53%] Built target transformer_msp_bridge__rosidl_typesupport_introspection_cpp\n'}
+[1.921881] (transformer_msp_bridge) StdoutLine: {'line': b'[ 53%] Built target transformer_msp_bridge\n'}
+[1.931555] (-) TimerEvent: {}
+[1.943051] (transformer_msp_bridge) StdoutLine: {'line': b'[ 54%] \x1b[32m\x1b[1mLinking CXX shared library libtransformer_msp_bridge_decoders.so\x1b[0m\n'}
+[1.965659] (transformer_msp_bridge) StdoutLine: {'line': b'[ 55%] Built target transformer_msp_bridge__py\n'}
+[2.005922] (transformer_msp_bridge) StdoutLine: {'line': b'[ 56%] Built target test_msp_probe\n'}
+[2.015381] (transformer_msp_bridge) StdoutLine: {'line': b'[ 58%] Built target transformer_msp_bridge__rosidl_generator_py\n'}
+[2.031811] (-) TimerEvent: {}
+[2.071247] (transformer_msp_bridge) StdoutLine: {'line': b'[ 59%] \x1b[32m\x1b[1mLinking C shared module rosidl_generator_py/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_introspection_c.so\x1b[0m\n'}
+[2.077599] (transformer_msp_bridge) StdoutLine: {'line': b'[ 60%] \x1b[32m\x1b[1mLinking C shared module rosidl_generator_py/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_fastrtps_c.so\x1b[0m\n'}
+[2.085315] (transformer_msp_bridge) StdoutLine: {'line': b'[ 61%] \x1b[32m\x1b[1mLinking C shared module rosidl_generator_py/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_c.so\x1b[0m\n'}
+[2.131937] (-) TimerEvent: {}
+[2.150408] (transformer_msp_bridge) StdoutLine: {'line': b'[ 63%] Built target transformer_msp_bridge_s__rosidl_typesupport_fastrtps_c\n'}
+[2.152679] (transformer_msp_bridge) StdoutLine: {'line': b'[ 63%] Built target transformer_msp_bridge_s__rosidl_typesupport_introspection_c\n'}
+[2.182360] (transformer_msp_bridge) StdoutLine: {'line': b'[ 64%] Built target transformer_msp_bridge_s__rosidl_typesupport_c\n'}
+[2.232737] (-) TimerEvent: {}
+[2.333207] (-) TimerEvent: {}
+[2.433787] (-) TimerEvent: {}
+[2.535435] (-) TimerEvent: {}
+[2.635932] (-) TimerEvent: {}
+[2.736296] (-) TimerEvent: {}
+[2.836617] (-) TimerEvent: {}
+[2.936956] (-) TimerEvent: {}
+[3.037326] (-) TimerEvent: {}
+[3.137662] (-) TimerEvent: {}
+[3.238012] (-) TimerEvent: {}
+[3.338398] (-) TimerEvent: {}
+[3.438835] (-) TimerEvent: {}
+[3.539536] (-) TimerEvent: {}
+[3.639848] (-) TimerEvent: {}
+[3.677676] (transformer_msp_bridge) StdoutLine: {'line': b'[ 75%] Built target transformer_msp_bridge_decoders\n'}
+[3.738223] (transformer_msp_bridge) StdoutLine: {'line': b'[ 76%] \x1b[32m\x1b[1mLinking CXX executable test_battery_decoder\x1b[0m\n'}
+[3.740328] (-) TimerEvent: {}
+[3.744139] (transformer_msp_bridge) StdoutLine: {'line': b'[ 77%] \x1b[32m\x1b[1mLinking CXX executable test_attitude_decoder\x1b[0m\n'}
+[3.750258] (transformer_msp_bridge) StdoutLine: {'line': b'[ 78%] \x1b[32m\x1b[1mLinking CXX executable transformer_msp_bridge_node\x1b[0m\n'}
+[3.763104] (transformer_msp_bridge) StdoutLine: {'line': b'[ 79%] \x1b[32m\x1b[1mLinking CXX executable test_system_decoder\x1b[0m\n'}
+[3.840466] (-) TimerEvent: {}
+[3.941034] (-) TimerEvent: {}
+[4.042811] (-) TimerEvent: {}
+[4.145584] (-) TimerEvent: {}
+[4.247342] (-) TimerEvent: {}
+[4.350771] (-) TimerEvent: {}
+[4.456191] (-) TimerEvent: {}
+[4.556916] (-) TimerEvent: {}
+[4.668556] (-) TimerEvent: {}
+[4.774447] (-) TimerEvent: {}
+[4.875984] (-) TimerEvent: {}
+[4.978432] (-) TimerEvent: {}
+[5.081189] (-) TimerEvent: {}
+[5.181782] (-) TimerEvent: {}
+[5.284390] (-) TimerEvent: {}
+[5.386177] (-) TimerEvent: {}
+[5.487539] (-) TimerEvent: {}
+[5.590841] (-) TimerEvent: {}
+[5.691602] (-) TimerEvent: {}
+[5.737161] (transformer_msp_bridge) StdoutLine: {'line': b'[ 80%] Built target transformer_msp_bridge_node\n'}
+[5.793093] (-) TimerEvent: {}
+[5.820339] (transformer_msp_bridge) StdoutLine: {'line': b'[ 81%] \x1b[32m\x1b[1mLinking CXX executable test_imu_decoder\x1b[0m\n'}
+[5.900332] (-) TimerEvent: {}
+[5.947377] (transformer_msp_bridge) StdoutLine: {'line': b'[ 82%] Built target test_battery_decoder\n'}
+[6.000484] (-) TimerEvent: {}
+[6.030304] (transformer_msp_bridge) StdoutLine: {'line': b'[ 83%] Built target test_system_decoder\n'}
+[6.074828] (transformer_msp_bridge) StdoutLine: {'line': b'[ 84%] \x1b[32m\x1b[1mLinking CXX executable test_gps_decoder\x1b[0m\n'}
+[6.101065] (-) TimerEvent: {}
+[6.130866] (transformer_msp_bridge) StdoutLine: {'line': b'[ 85%] Built target test_attitude_decoder\n'}
+[6.139002] (transformer_msp_bridge) StdoutLine: {'line': b'[ 86%] \x1b[32m\x1b[1mLinking CXX executable test_rc_decoder\x1b[0m\n'}
+[6.203005] (-) TimerEvent: {}
+[6.304500] (transformer_msp_bridge) StdoutLine: {'line': b'[ 87%] \x1b[32m\x1b[1mLinking CXX executable test_altitude_decoder\x1b[0m\n'}
+[6.309991] (-) TimerEvent: {}
+[6.410710] (-) TimerEvent: {}
+[6.517290] (-) TimerEvent: {}
+[6.618945] (-) TimerEvent: {}
+[6.722801] (-) TimerEvent: {}
+[6.827965] (-) TimerEvent: {}
+[6.931413] (-) TimerEvent: {}
+[7.036586] (-) TimerEvent: {}
+[7.140280] (-) TimerEvent: {}
+[7.242678] (-) TimerEvent: {}
+[7.347645] (-) TimerEvent: {}
+[7.451315] (-) TimerEvent: {}
+[7.567950] (-) TimerEvent: {}
+[7.668614] (-) TimerEvent: {}
+[7.770183] (-) TimerEvent: {}
+[7.873277] (-) TimerEvent: {}
+[7.980453] (-) TimerEvent: {}
+[8.083807] (-) TimerEvent: {}
+[8.186471] (-) TimerEvent: {}
+[8.201669] (transformer_msp_bridge) StdoutLine: {'line': b'[ 88%] Built target test_imu_decoder\n'}
+[8.279553] (transformer_msp_bridge) StdoutLine: {'line': b'[ 90%] \x1b[32m\x1b[1mLinking CXX executable test_inav_status_decoder\x1b[0m\n'}
+[8.279996] (transformer_msp_bridge) StdoutLine: {'line': b'[ 90%] Built target test_gps_decoder\n'}
+[8.286598] (-) TimerEvent: {}
+[8.369368] (transformer_msp_bridge) StdoutLine: {'line': b'[ 91%] Built target test_rc_decoder\n'}
+[8.373290] (transformer_msp_bridge) StdoutLine: {'line': b'[ 92%] \x1b[32m\x1b[1mLinking CXX executable test_sensor_decoder\x1b[0m\n'}
+[8.386949] (-) TimerEvent: {}
+[8.488697] (-) TimerEvent: {}
+[8.548397] (transformer_msp_bridge) StdoutLine: {'line': b'[ 93%] \x1b[32m\x1b[1mLinking CXX executable test_servo_motor_decoder\x1b[0m\n'}
+[8.589030] (-) TimerEvent: {}
+[8.689966] (-) TimerEvent: {}
+[8.798303] (-) TimerEvent: {}
+[8.902265] (-) TimerEvent: {}
+[8.962815] (transformer_msp_bridge) StdoutLine: {'line': b'[ 94%] Built target test_altitude_decoder\n'}
+[9.002702] (-) TimerEvent: {}
+[9.108011] (-) TimerEvent: {}
+[9.184480] (transformer_msp_bridge) StdoutLine: {'line': b'[ 95%] \x1b[32m\x1b[1mLinking CXX executable test_system_decoder_extended\x1b[0m\n'}
+[9.208368] (-) TimerEvent: {}
+[9.311347] (-) TimerEvent: {}
+[9.412810] (-) TimerEvent: {}
+[9.524365] (-) TimerEvent: {}
+[9.625474] (-) TimerEvent: {}
+[9.726193] (-) TimerEvent: {}
+[9.828591] (-) TimerEvent: {}
+[9.931539] (-) TimerEvent: {}
+[10.033493] (-) TimerEvent: {}
+[10.091259] (transformer_msp_bridge) StdoutLine: {'line': b'[ 96%] Built target test_sensor_decoder\n'}
+[10.137268] (-) TimerEvent: {}
+[10.238335] (-) TimerEvent: {}
+[10.319826] (transformer_msp_bridge) StdoutLine: {'line': b'[ 97%] Built target test_inav_status_decoder\n'}
+[10.338506] (-) TimerEvent: {}
+[10.421045] (transformer_msp_bridge) StdoutLine: {'line': b'[ 98%] Built target test_servo_motor_decoder\n'}
+[10.438616] (-) TimerEvent: {}
+[10.539015] (-) TimerEvent: {}
+[10.639691] (-) TimerEvent: {}
+[10.740097] (-) TimerEvent: {}
+[10.740396] (transformer_msp_bridge) StdoutLine: {'line': b'[100%] Built target test_system_decoder_extended\n'}
+[10.764390] (transformer_msp_bridge) CommandEnded: {'returncode': 0}
+[10.765373] (transformer_msp_bridge) JobProgress: {'identifier': 'transformer_msp_bridge', 'progress': 'install'}
+[10.782867] (transformer_msp_bridge) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/atvpi/ros2_ws/build/transformer_msp_bridge'], 'cwd': '/home/atvpi/ros2_ws/build/transformer_msp_bridge', 'env': OrderedDict({'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'atvpi', 'SSH_CLIENT': '192.168.8.2 60382 22', 'LC_TIME': 'C.UTF-8', 'XDG_SESSION_TYPE': 'tty', 'GIT_ASKPASS': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/extensions/git/dist/askpass.sh', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib:/home/atvpi/ros2_ws/install/transformer_controller/lib:/home/atvpi/ros2_ws/install/transformer_hw_servos/lib:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib:/home/atvpi/ros2_ws/install/serial/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/lib', 'BROWSER': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/bin/helpers/browser.sh', 'HOME': '/home/atvpi', 'OLDPWD': '/home/atvpi/ros2_ws/src', 'TERM_PROGRAM_VERSION': '1.104.3', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-eb9126e6-b532-48d4-bcc4-f75bb7cfe2c2.sock', 'ROS_PYTHON_VERSION': '3', 'VSCODE_GIT_ASKPASS_MAIN': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/extensions/git/dist/askpass-main.js', 'LC_MONETARY': 'C.UTF-8', 'VSCODE_GIT_ASKPASS_NODE': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/node', 'SSL_CERT_FILE': '/usr/lib/ssl/cert.pem', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'COLCON_PREFIX_PATH': '/home/atvpi/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'atvpi', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '1', 'PATH': '/opt/ros/jazzy/bin:/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/scripts/noConfigScripts:/home/atvpi/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand', 'LC_ADDRESS': 'C.UTF-8', 'XDG_RUNTIME_DIR': '/run/user/1000', 'SSL_CERT_DIR': '/usr/lib/ssl/certs', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/.noConfigDebugAdapterEndpoints/endpoint-2ce8f189d80fdeae.txt', 'LANG': 'C.UTF-8', 'PYTHONSTARTUP': '/home/atvpi/.vscode-server/data/User/workspaceStorage/84379da00451a1f583396cdf944b4c1a/ms-python.python/pythonrc.py', 'LC_TELEPHONE': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-39d0eca28d.sock', 'TERM_PROGRAM': 'vscode', 'AMENT_PREFIX_PATH': '/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_rc_mode_switch:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'C.UTF-8', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LC_MEASUREMENT': 'C.UTF-8', 'LC_IDENTIFICATION': 'C.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'PWD': '/home/atvpi/ros2_ws/build/transformer_msp_bridge', 'SSH_CONNECTION': '192.168.8.2 60382 192.168.8.1 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'LC_NUMERIC': 'C.UTF-8', 'LC_PAPER': 'C.UTF-8', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_rc_mode_switch:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy'}), 'shell': False}
+[10.797697] (transformer_msp_bridge) StdoutLine: {'line': b'-- Install configuration: "RelWithDebInfo"\n'}
+[10.798539] (transformer_msp_bridge) StdoutLine: {'line': b'-- Execute custom install script\n'}
+[10.798808] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/ament_index/resource_index/rosidl_interfaces/transformer_msp_bridge\n'}
+[10.816384] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/msg/MspInavStatus.json\n'}
+[10.833775] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__functions.h\n'}
+[10.840213] (-) TimerEvent: {}
+[10.850405] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__struct.h\n'}
+[10.867230] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__type_support.h\n'}
+[10.884398] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/msp_inav_status.h\n'}
+[10.901495] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/rosidl_generator_c__visibility_control.h\n'}
+[10.918754] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/library_path.sh\n'}
+[10.934881] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/library_path.dsv\n'}
+[10.940318] (-) TimerEvent: {}
+[10.954069] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__rosidl_typesupport_fastrtps_c.h\n'}
+[10.970481] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[10.987769] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__builder.hpp\n'}
+[11.004336] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__struct.hpp\n'}
+[11.022568] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__traits.hpp\n'}
+[11.039443] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__type_support.hpp\n'}
+[11.040405] (-) TimerEvent: {}
+[11.056495] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/msp_inav_status.hpp\n'}
+[11.072542] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/rosidl_generator_cpp__visibility_control.hpp\n'}
+[11.092761] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[11.109446] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[11.126520] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__rosidl_typesupport_introspection_c.h\n'}
+[11.140507] (-) TimerEvent: {}
+[11.143816] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[11.161551] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__rosidl_typesupport_introspection_cpp.hpp\n'}
+[11.178336] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/pythonpath.sh\n'}
+[11.195394] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/pythonpath.dsv\n'}
+[11.212604] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge-0.0.1-py3.12.egg-info/PKG-INFO\n'}
+[11.229533] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge-0.0.1-py3.12.egg-info/SOURCES.txt\n'}
+[11.240623] (-) TimerEvent: {}
+[11.246468] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge-0.0.1-py3.12.egg-info/dependency_links.txt\n'}
+[11.263760] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge-0.0.1-py3.12.egg-info/top_level.txt\n'}
+[11.281312] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/__init__.py\n'}
+[11.298445] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/_transformer_msp_bridge_s.ep.rosidl_typesupport_c.c\n'}
+[11.314922] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/_transformer_msp_bridge_s.ep.rosidl_typesupport_fastrtps_c.c\n'}
+[11.332565] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/_transformer_msp_bridge_s.ep.rosidl_typesupport_introspection_c.c\n'}
+[11.340757] (-) TimerEvent: {}
+[11.350974] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/msg/__init__.py\n'}
+[11.368172] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/msg/_msp_inav_status.py\n'}
+[11.384869] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/msg/_msp_inav_status_s.c\n'}
+[11.401674] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_c.so\n'}
+[11.418904] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_fastrtps_c.so\n'}
+[11.435839] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_introspection_c.so\n'}
+[11.440874] (-) TimerEvent: {}
+[11.453211] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date symlink: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_fastrtps_c.so\n'}
+[11.454355] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date symlink: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_introspection_c.so\n'}
+[11.454842] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date symlink: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_c.so\n'}
+[11.455379] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/msg/MspInavStatus.idl\n'}
+[11.472024] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/msg/MspInavStatus.msg\n'}
+[11.488953] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/transformer_msp_bridge/joystick_tank_to_rc.py\n'}
+[11.505725] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/transformer_msp_bridge/keyboard_to_joy_mix.py\n'}
+[11.522697] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libmsp_protocol.so\n'}
+[11.538921] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libserial_port.so\n'}
+[11.540963] (-) TimerEvent: {}
+[11.556240] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge_decoders.so\n'}
+[11.573694] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/transformer_msp_bridge/transformer_msp_bridge_node\n'}
+[11.596250] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/transformer_msp_bridge/msp_probe\n'}
+[11.612881] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/crc.hpp\n'}
+[11.629435] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoder_base.hpp\n'}
+[11.641087] (-) TimerEvent: {}
+[11.646933] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoder_registry.hpp\n'}
+[11.663518] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/altitude_decoder.hpp\n'}
+[11.680108] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/attitude_decoder.hpp\n'}
+[11.697015] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/battery_decoder.hpp\n'}
+[11.713064] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/gps_decoder.hpp\n'}
+[11.730239] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/imu_decoder.hpp\n'}
+[11.741202] (-) TimerEvent: {}
+[11.747197] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/inav_generic_decoder.hpp\n'}
+[11.763497] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/inav_status_decoder.hpp\n'}
+[11.781160] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/rc_decoder.hpp\n'}
+[11.798411] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/sensor_decoder.hpp\n'}
+[11.815016] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/servo_motor_decoder.hpp\n'}
+[11.833201] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/system_decoder.hpp\n'}
+[11.841313] (-) TimerEvent: {}
+[11.850080] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/msp_builders.hpp\n'}
+[11.867079] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/msp_parser.hpp\n'}
+[11.883954] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/msp_registry.hpp\n'}
+[11.900410] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/msp_utils.hpp\n'}
+[11.917086] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/registry_loader.hpp\n'}
+[11.934189] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/serial_port.hpp\n'}
+[11.941433] (-) TimerEvent: {}
+[11.951404] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date symlink: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/msg/MspInavStatus.msg\n'}
+[11.951711] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/config/msp_bridge.yaml\n'}
+[11.968593] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/config/registry.yaml\n'}
+[11.985560] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/ament_index/resource_index/package_run_dependencies/transformer_msp_bridge\n'}
+[12.003459] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/ament_index/resource_index/parent_prefix_path/transformer_msp_bridge\n'}
+[12.020461] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/ament_prefix_path.sh\n'}
+[12.038400] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/ament_prefix_path.dsv\n'}
+[12.041520] (-) TimerEvent: {}
+[12.055542] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/path.sh\n'}
+[12.076458] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/path.dsv\n'}
+[12.098502] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/local_setup.bash\n'}
+[12.120213] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/local_setup.sh\n'}
+[12.144171] (-) TimerEvent: {}
+[12.145212] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/local_setup.zsh\n'}
+[12.165995] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/local_setup.dsv\n'}
+[12.190220] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/package.dsv\n'}
+[12.214146] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/ament_index/resource_index/packages/transformer_msp_bridge\n'}
+[12.244288] (-) TimerEvent: {}
+[12.244623] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/rosidl_cmake-extras.cmake\n'}
+[12.271170] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[12.313617] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[12.329740] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[12.344408] (-) TimerEvent: {}
+[12.347757] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[12.365745] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[12.382857] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[12.399940] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridgeConfig.cmake\n'}
+[12.416665] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridgeConfig-version.cmake\n'}
+[12.433378] (transformer_msp_bridge) StdoutLine: {'line': b'-- Symlinking: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/package.xml\n'}
+[12.444541] (-) TimerEvent: {}
+[12.451142] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_generator_c.so\n'}
+[12.451645] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_fastrtps_c.so\n'}
+[12.452115] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_fastrtps_cpp.so\n'}
+[12.452575] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_introspection_c.so\n'}
+[12.453028] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_c.so\n'}
+[12.453820] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_introspection_cpp.so\n'}
+[12.454083] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_cpp.so\n'}
+[12.512159] (transformer_msp_bridge) StdoutLine: {'line': b"Listing '/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge'...\n"}
+[12.512867] (transformer_msp_bridge) StdoutLine: {'line': b"Compiling '/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/__init__.py'...\n"}
+[12.513042] (transformer_msp_bridge) StdoutLine: {'line': b"Listing '/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/msg'...\n"}
+[12.544637] (-) TimerEvent: {}
+[12.545973] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_generator_py.so\n'}
+[12.546585] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_generator_cExport.cmake\n'}
+[12.546836] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_generator_cExport-relwithdebinfo.cmake\n'}
+[12.547034] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_typesupport_fastrtps_cExport.cmake\n'}
+[12.547264] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_typesupport_fastrtps_cExport-relwithdebinfo.cmake\n'}
+[12.547458] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_generator_cppExport.cmake\n'}
+[12.547594] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_typesupport_fastrtps_cppExport.cmake\n'}
+[12.547734] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_typesupport_fastrtps_cppExport-relwithdebinfo.cmake\n'}
+[12.547940] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_introspection_cExport.cmake\n'}
+[12.548156] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_introspection_cExport-relwithdebinfo.cmake\n'}
+[12.548329] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_cExport.cmake\n'}
+[12.548578] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_cExport-relwithdebinfo.cmake\n'}
+[12.548736] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[12.548881] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_introspection_cppExport-relwithdebinfo.cmake\n'}
+[12.549005] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_cppExport.cmake\n'}
+[12.549139] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_cppExport-relwithdebinfo.cmake\n'}
+[12.549355] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_generator_pyExport.cmake\n'}
+[12.549488] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_generator_pyExport-relwithdebinfo.cmake\n'}
+[12.555386] (transformer_msp_bridge) CommandEnded: {'returncode': 0}
+[12.609823] (transformer_msp_bridge) JobEnded: {'identifier': 'transformer_msp_bridge', 'rc': 0}
+[12.611441] (-) EventReactorShutdown: {}

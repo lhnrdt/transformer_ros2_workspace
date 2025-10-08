@@ -1,0 +1,9 @@
+[0.000000] (-) TimerEvent: {}
+[0.000396] (-) JobUnselected: {'identifier': 'serial'}
+[0.000588] (-) JobUnselected: {'identifier': 'transformer_bringup'}
+[0.000649] (-) JobUnselected: {'identifier': 'transformer_controller'}
+[0.000686] (-) JobUnselected: {'identifier': 'transformer_hw_actuators'}
+[0.000706] (-) JobUnselected: {'identifier': 'transformer_hw_servos'}
+[0.000725] (-) JobUnselected: {'identifier': 'transformer_msp_bridge'}
+[0.000754] (-) JobUnselected: {'identifier': 'wheeltec_n100_imu'}
+[0.000932] (-) EventReactorShutdown: {}

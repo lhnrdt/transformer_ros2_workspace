@@ -1,0 +1,161 @@
+[0.037s] Invoking command in '/home/atvpi/ros2_ws/build/transformer_hw_servos': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/atvpi/ros2_ws/build/transformer_hw_servos -- -j4 -l4
+[0.219s] [  2%] Built target transformer_hw_servos__rosidl_generator_type_description
+[0.425s] [  2%] Built target ament_cmake_python_copy_transformer_hw_servos
+[0.494s] [ 15%] Built target transformer_hw_servos__rosidl_generator_c
+[1.077s] running egg_info
+[1.119s] writing transformer_hw_servos.egg-info/PKG-INFO
+[1.120s] writing dependency_links to transformer_hw_servos.egg-info/dependency_links.txt
+[1.124s] writing top-level names to transformer_hw_servos.egg-info/top_level.txt
+[1.250s] reading manifest file 'transformer_hw_servos.egg-info/SOURCES.txt'
+[1.255s] writing manifest file 'transformer_hw_servos.egg-info/SOURCES.txt'
+[1.387s] [ 15%] Built target ament_cmake_python_build_transformer_hw_servos_egg
+[1.462s] [ 23%] Built target transformer_hw_servos__rosidl_typesupport_introspection_c
+[1.519s] [ 31%] Built target transformer_hw_servos__rosidl_typesupport_c
+[1.587s] [ 39%] Built target transformer_hw_servos__rosidl_typesupport_fastrtps_c
+[1.644s] [ 42%] Built target transformer_hw_servos__cpp
+[1.744s] [ 50%] Built target transformer_hw_servos__rosidl_typesupport_cpp
+[1.817s] [ 57%] Built target transformer_hw_servos__rosidl_typesupport_introspection_cpp
+[1.926s] [ 60%] [32mBuilding CXX object CMakeFiles/servos_node.dir/src/servos_node.cpp.o[0m
+[13.169s] [ 63%] [32m[1mLinking CXX executable servos_node[0m
+[13.680s] [ 68%] Built target servos_node
+[13.841s] [ 76%] Built target transformer_hw_servos__rosidl_typesupport_fastrtps_cpp
+[13.930s] [ 76%] Built target transformer_hw_servos
+[13.969s] [ 78%] Built target transformer_hw_servos__py
+[14.062s] [ 84%] Built target transformer_hw_servos__rosidl_generator_py
+[14.250s] [ 89%] Built target transformer_hw_servos_s__rosidl_typesupport_fastrtps_c
+[14.365s] [ 94%] Built target transformer_hw_servos_s__rosidl_typesupport_c
+[14.467s] [100%] Built target transformer_hw_servos_s__rosidl_typesupport_introspection_c
+[14.489s] Invoked command in '/home/atvpi/ros2_ws/build/transformer_hw_servos' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/atvpi/ros2_ws/build/transformer_hw_servos -- -j4 -l4
+[14.509s] Invoking command in '/home/atvpi/ros2_ws/build/transformer_hw_servos': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /home/atvpi/ros2_ws/build/transformer_hw_servos
+[14.538s] -- Install configuration: ""
+[14.538s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/ament_index/resource_index/rosidl_interfaces/transformer_hw_servos
+[14.539s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/action/MoveServo.json
+[14.539s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos
+[14.539s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/msg
+[14.540s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/msg/rosidl_generator_c__visibility_control.h
+[14.540s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action
+[14.540s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/move_servo.h
+[14.540s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail
+[14.540s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail/move_servo__functions.c
+[14.540s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail/move_servo__type_support.h
+[14.541s] -- Installing: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail/move_servo__type_support.c
+[14.541s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail/move_servo__struct.h
+[14.541s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail/move_servo__description.c
+[14.541s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail/move_servo__functions.h
+[14.541s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/environment/library_path.sh
+[14.541s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/environment/library_path.dsv
+[14.542s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/libtransformer_hw_servos__rosidl_generator_c.so
+[14.543s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos
+[14.543s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/msg
+[14.543s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[14.544s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action
+[14.545s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail
+[14.545s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail/move_servo__rosidl_typesupport_fastrtps_c.h
+[14.545s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/libtransformer_hw_servos__rosidl_typesupport_fastrtps_c.so
+[14.546s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos
+[14.547s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/msg
+[14.547s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/msg/rosidl_generator_cpp__visibility_control.hpp
+[14.547s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action
+[14.548s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/move_servo.hpp
+[14.548s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail
+[14.548s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail/move_servo__struct.hpp
+[14.548s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail/move_servo__builder.hpp
+[14.549s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail/move_servo__traits.hpp
+[14.549s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail/move_servo__type_support.hpp
+[14.549s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos
+[14.549s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/msg
+[14.552s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[14.553s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action
+[14.554s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail
+[14.554s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail/move_servo__rosidl_typesupport_fastrtps_cpp.hpp
+[14.554s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail/dds_fastrtps
+[14.554s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/libtransformer_hw_servos__rosidl_typesupport_fastrtps_cpp.so
+[14.555s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos
+[14.555s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/msg
+[14.555s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[14.555s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action
+[14.555s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail
+[14.556s] -- Installing: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail/move_servo__type_support.c
+[14.556s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail/move_servo__rosidl_typesupport_introspection_c.h
+[14.556s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/libtransformer_hw_servos__rosidl_typesupport_introspection_c.so
+[14.556s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/libtransformer_hw_servos__rosidl_typesupport_c.so
+[14.556s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos
+[14.557s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action
+[14.557s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail
+[14.558s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail/move_servo__rosidl_typesupport_introspection_cpp.hpp
+[14.558s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/include/transformer_hw_servos/transformer_hw_servos/action/detail/move_servo__type_support.cpp
+[14.559s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/libtransformer_hw_servos__rosidl_typesupport_introspection_cpp.so
+[14.559s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/libtransformer_hw_servos__rosidl_typesupport_cpp.so
+[14.559s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/environment/pythonpath.sh
+[14.559s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/environment/pythonpath.dsv
+[14.560s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos-0.1.0-py3.12.egg-info
+[14.560s] -- Installing: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos-0.1.0-py3.12.egg-info/SOURCES.txt
+[14.560s] -- Installing: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos-0.1.0-py3.12.egg-info/top_level.txt
+[14.560s] -- Installing: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos-0.1.0-py3.12.egg-info/PKG-INFO
+[14.560s] -- Installing: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos-0.1.0-py3.12.egg-info/dependency_links.txt
+[14.560s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos
+[14.561s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos/transformer_hw_servos_s__rosidl_typesupport_fastrtps_c.so
+[14.561s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos/_transformer_hw_servos_s.ep.rosidl_typesupport_introspection_c.c
+[14.561s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos/__init__.py
+[14.561s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos/_transformer_hw_servos_s.ep.rosidl_typesupport_fastrtps_c.c
+[14.561s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos/action
+[14.562s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos/action/_move_servo.py
+[14.562s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos/action/__init__.py
+[14.562s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos/action/_move_servo_s.c
+[14.562s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos/_transformer_hw_servos_s.ep.rosidl_typesupport_c.c
+[14.562s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos/transformer_hw_servos_s__rosidl_typesupport_introspection_c.so
+[14.563s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos/transformer_hw_servos_s__rosidl_typesupport_c.so
+[14.615s] Listing '/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos'...
+[14.615s] Listing '/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos/action'...
+[14.627s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos/transformer_hw_servos_s__rosidl_typesupport_fastrtps_c.so
+[14.628s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos/transformer_hw_servos_s__rosidl_typesupport_introspection_c.so
+[14.628s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages/transformer_hw_servos/transformer_hw_servos_s__rosidl_typesupport_c.so
+[14.629s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/libtransformer_hw_servos__rosidl_generator_py.so
+[14.629s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/action/MoveServo.idl
+[14.629s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/action/MoveServo.action
+[14.629s] -- Installing: /home/atvpi/ros2_ws/install/transformer_hw_servos/lib/transformer_hw_servos/servos_node
+[14.633s] -- Set non-toolchain portion of runtime path of "/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/transformer_hw_servos/servos_node" to ""
+[14.633s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/launch
+[14.634s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/launch/servos.launch.py
+[14.634s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/config
+[14.634s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/config/servos.yaml
+[14.634s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/ament_index/resource_index/package_run_dependencies/transformer_hw_servos
+[14.634s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/ament_index/resource_index/parent_prefix_path/transformer_hw_servos
+[14.634s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/environment/ament_prefix_path.sh
+[14.634s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/environment/ament_prefix_path.dsv
+[14.635s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/environment/path.sh
+[14.635s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/environment/path.dsv
+[14.635s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/local_setup.bash
+[14.635s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/local_setup.sh
+[14.635s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/local_setup.zsh
+[14.635s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/local_setup.dsv
+[14.635s] -- Installing: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/package.dsv
+[14.644s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/ament_index/resource_index/packages/transformer_hw_servos
+[14.651s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/export_transformer_hw_servos__rosidl_generator_cExport.cmake
+[14.651s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/export_transformer_hw_servos__rosidl_generator_cExport-noconfig.cmake
+[14.663s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/export_transformer_hw_servos__rosidl_typesupport_fastrtps_cExport.cmake
+[14.664s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/export_transformer_hw_servos__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[14.675s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/export_transformer_hw_servos__rosidl_generator_cppExport.cmake
+[14.676s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/export_transformer_hw_servos__rosidl_typesupport_fastrtps_cppExport.cmake
+[14.677s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/export_transformer_hw_servos__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[14.681s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/transformer_hw_servos__rosidl_typesupport_introspection_cExport.cmake
+[14.682s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/transformer_hw_servos__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[14.695s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/transformer_hw_servos__rosidl_typesupport_cExport.cmake
+[14.695s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/transformer_hw_servos__rosidl_typesupport_cExport-noconfig.cmake
+[14.712s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/transformer_hw_servos__rosidl_typesupport_introspection_cppExport.cmake
+[14.712s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/transformer_hw_servos__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[14.723s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/transformer_hw_servos__rosidl_typesupport_cppExport.cmake
+[14.723s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/transformer_hw_servos__rosidl_typesupport_cppExport-noconfig.cmake
+[14.723s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/export_transformer_hw_servos__rosidl_generator_pyExport.cmake
+[14.724s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/export_transformer_hw_servos__rosidl_generator_pyExport-noconfig.cmake
+[14.724s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/rosidl_cmake-extras.cmake
+[14.724s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/ament_cmake_export_dependencies-extras.cmake
+[14.724s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/ament_cmake_export_include_directories-extras.cmake
+[14.724s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/ament_cmake_export_libraries-extras.cmake
+[14.725s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/ament_cmake_export_targets-extras.cmake
+[14.725s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[14.725s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[14.725s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/transformer_hw_servosConfig.cmake
+[14.725s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/cmake/transformer_hw_servosConfig-version.cmake
+[14.725s] -- Up-to-date: /home/atvpi/ros2_ws/install/transformer_hw_servos/share/transformer_hw_servos/package.xml
+[14.761s] Invoked command in '/home/atvpi/ros2_ws/build/transformer_hw_servos' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /home/atvpi/ros2_ws/build/transformer_hw_servos

@@ -1,0 +1,1 @@
+/home/atvpi/ros2_ws/build/transformer_msp_bridge/rosidl_cmake/rosidl_cmake-extras.cmake

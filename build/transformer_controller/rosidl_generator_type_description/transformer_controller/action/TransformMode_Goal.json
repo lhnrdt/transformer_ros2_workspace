@@ -1,0 +1,26 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "transformer_controller/action/TransformMode_Goal",
+      "fields": [
+        {
+          "name": "target_mode",
+          "type": {
+            "type_id": 17,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": []
+  },
+  "type_hashes": [
+    {
+      "type_name": "transformer_controller/action/TransformMode_Goal",
+      "hash_string": "RIHS01_893ea1236b70e8a8a2ddb8bdb612c5d70d42377070e555315dd06ae99d19a677"
+    }
+  ]
+}

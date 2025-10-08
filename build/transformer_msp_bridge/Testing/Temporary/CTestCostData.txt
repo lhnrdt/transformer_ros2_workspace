@@ -1,0 +1,19 @@
+test_battery_decoder 1 0.570017
+test_system_decoder 1 0.405436
+test_attitude_decoder 1 0.327952
+test_imu_decoder 1 0.419655
+test_gps_decoder 1 0.467576
+test_rc_decoder 1 0.412667
+test_altitude_decoder 1 0.41878
+test_inav_status_decoder 1 0.399222
+test_sensor_decoder 1 0.582343
+test_servo_motor_decoder 1 0.488558
+test_system_decoder_extended 1 0.491088
+test_msp_parser 1 0.118736
+test_msp_parser_fuzz 1 0.114239
+test_msp_parser_hardening 1 0.115911
+test_crc 1 0.115521
+test_msp_registry 1 0.118203
+test_decoder_coverage 1 0.121703
+test_msp_probe 1 0.118289
+---

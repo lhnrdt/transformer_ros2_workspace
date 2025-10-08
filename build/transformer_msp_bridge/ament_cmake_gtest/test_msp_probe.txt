@@ -1,0 +1,24 @@
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_probe --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_probe.gtest.xml
+
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from MspProbe
+[ RUN      ] MspProbe.AllDefaultPolledRespondAndValidate
+/home/atvpi/ros2_ws/src/transformer_msp_bridge/test/test_msp_probe.cpp:22: Skipped
+MSP_TEST_PORT/MSP_TEST_BAUD not set; skipping probe test
+
+[  SKIPPED ] MspProbe.AllDefaultPolledRespondAndValidate (0 ms)
+[----------] 1 test from MspProbe (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  SKIPPED ] 1 test, listed below:
+[  SKIPPED ] MspProbe.AllDefaultPolledRespondAndValidate
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_probe.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_probe.gtest.xml'

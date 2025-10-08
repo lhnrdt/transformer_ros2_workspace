@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "transformer_msp_bridge__py",
+		"source" : "/home/atvpi/ros2_ws/build/transformer_msp_bridge/transformer_msp_bridge__py"
+	}
+}

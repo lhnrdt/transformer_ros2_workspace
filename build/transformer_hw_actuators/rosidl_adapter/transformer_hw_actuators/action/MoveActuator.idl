@@ -1,0 +1,34 @@
+// generated from rosidl_adapter/resource/action.idl.em
+// with input from transformer_hw_actuators/action/MoveActuator.action
+// generated code does not contain a copyright notice
+
+
+module transformer_hw_actuators {
+  module action {
+    @verbatim (language="comment", text=
+      "Goal: synchronously command one or more actuators." "\n"
+      "actuators: list of actuator indices to command together (unique, valid indices)" "\n"
+      "speed_percents: same length as actuators, signed speeds (-100..100)" "\n"
+      "duration_ms: optional per-actuator durations; if length==1 apply to all; if length==0 treat as immediate (set speed & return); if provided with length==actuators.size() each actuator runs that long then stops." "\n"
+      "If an actuator has duration <=0 it is treated as immediate.")
+    struct MoveActuator_Goal {
+      sequence<int32> actuators;
+
+      sequence<int32> speed_percents;
+
+      sequence<int32> duration_ms;
+    };
+    struct MoveActuator_Result {
+      boolean success;
+
+      string message;
+    };
+    struct MoveActuator_Feedback {
+      sequence<int32> current_speed_percents;
+
+      sequence<int32> elapsed_ms;
+
+      sequence<int32> remaining_ms;
+    };
+  };
+};

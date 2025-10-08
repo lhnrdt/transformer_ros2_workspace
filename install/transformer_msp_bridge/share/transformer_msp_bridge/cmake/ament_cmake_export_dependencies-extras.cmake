@@ -1,0 +1,1 @@
+/home/atvpi/ros2_ws/build/transformer_msp_bridge/ament_cmake_export_dependencies/ament_cmake_export_dependencies-extras.cmake

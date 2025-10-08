@@ -1,0 +1,2881 @@
+[0.000000] (-) TimerEvent: {}
+[0.000355] (-) JobUnselected: {'identifier': 'serial'}
+[0.000643] (-) JobUnselected: {'identifier': 'transformer_bringup'}
+[0.000807] (-) JobUnselected: {'identifier': 'transformer_controller'}
+[0.000830] (-) JobUnselected: {'identifier': 'transformer_hw_actuators'}
+[0.000851] (-) JobUnselected: {'identifier': 'transformer_hw_servos'}
+[0.001045] (-) JobUnselected: {'identifier': 'transformer_rc_mode_switch'}
+[0.001066] (-) JobUnselected: {'identifier': 'wheeltec_n100_imu'}
+[0.001089] (transformer_msp_bridge) JobQueued: {'identifier': 'transformer_msp_bridge', 'dependencies': OrderedDict()}
+[0.001212] (transformer_msp_bridge) JobStarted: {'identifier': 'transformer_msp_bridge'}
+[0.017364] (transformer_msp_bridge) JobProgress: {'identifier': 'transformer_msp_bridge', 'progress': 'cmake'}
+[0.020582] (transformer_msp_bridge) Command: {'cmd': ['/usr/bin/cmake', '/home/atvpi/ros2_ws/src/transformer_msp_bridge', '-DCMAKE_BUILD_TYPE=RelWithDebInfo', '-DCMAKE_INSTALL_PREFIX=/home/atvpi/ros2_ws/install/transformer_msp_bridge'], 'cwd': '/home/atvpi/ros2_ws/build/transformer_msp_bridge', 'env': OrderedDict({'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'atvpi', 'SSH_CLIENT': '192.168.8.2 60382 22', 'LC_TIME': 'C.UTF-8', 'XDG_SESSION_TYPE': 'tty', 'GIT_ASKPASS': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/extensions/git/dist/askpass.sh', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib:/home/atvpi/ros2_ws/install/transformer_controller/lib:/home/atvpi/ros2_ws/install/transformer_hw_servos/lib:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib:/home/atvpi/ros2_ws/install/serial/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/lib', 'BROWSER': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/bin/helpers/browser.sh', 'HOME': '/home/atvpi', 'OLDPWD': '/home/atvpi/ros2_ws', 'TERM_PROGRAM_VERSION': '1.104.3', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-eb9126e6-b532-48d4-bcc4-f75bb7cfe2c2.sock', 'ROS_PYTHON_VERSION': '3', 'VSCODE_GIT_ASKPASS_MAIN': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/extensions/git/dist/askpass-main.js', 'LC_MONETARY': 'C.UTF-8', 'VSCODE_GIT_ASKPASS_NODE': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/node', 'SSL_CERT_FILE': '/usr/lib/ssl/cert.pem', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'COLCON_PREFIX_PATH': '/home/atvpi/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'atvpi', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '1', 'PATH': '/opt/ros/jazzy/bin:/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/scripts/noConfigScripts:/home/atvpi/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand', 'LC_ADDRESS': 'C.UTF-8', 'XDG_RUNTIME_DIR': '/run/user/1000', 'SSL_CERT_DIR': '/usr/lib/ssl/certs', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/.noConfigDebugAdapterEndpoints/endpoint-2ce8f189d80fdeae.txt', 'LANG': 'C.UTF-8', 'PYTHONSTARTUP': '/home/atvpi/.vscode-server/data/User/workspaceStorage/84379da00451a1f583396cdf944b4c1a/ms-python.python/pythonrc.py', 'LC_TELEPHONE': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-39d0eca28d.sock', 'TERM_PROGRAM': 'vscode', 'AMENT_PREFIX_PATH': '/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_rc_mode_switch:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'C.UTF-8', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LC_MEASUREMENT': 'C.UTF-8', 'LC_IDENTIFICATION': 'C.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'PWD': '/home/atvpi/ros2_ws/build/transformer_msp_bridge', 'SSH_CONNECTION': '192.168.8.2 60382 192.168.8.1 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'LC_NUMERIC': 'C.UTF-8', 'LC_PAPER': 'C.UTF-8', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_rc_mode_switch:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy'}), 'shell': False}
+[0.082472] (transformer_msp_bridge) StdoutLine: {'line': b'-- Found ament_cmake: 2.5.4 (/opt/ros/jazzy/share/ament_cmake/cmake)\n'}
+[0.099614] (-) TimerEvent: {}
+[0.143242] (transformer_msp_bridge) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter \n'}
+[0.199716] (-) TimerEvent: {}
+[0.300089] (-) TimerEvent: {}
+[0.324732] (transformer_msp_bridge) StdoutLine: {'line': b'-- Found rclcpp: 28.1.12 (/opt/ros/jazzy/share/rclcpp/cmake)\n'}
+[0.400210] (-) TimerEvent: {}
+[0.401729] (transformer_msp_bridge) StdoutLine: {'line': b'-- Found rosidl_generator_c: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)\n'}
+[0.425655] (transformer_msp_bridge) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)\n'}
+[0.458939] (transformer_msp_bridge) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.492017] (transformer_msp_bridge) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.500320] (-) TimerEvent: {}
+[0.600668] (-) TimerEvent: {}
+[0.636601] (transformer_msp_bridge) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 7.3.2 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)\n'}
+[0.644460] (transformer_msp_bridge) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.700796] (-) TimerEvent: {}
+[0.781735] (transformer_msp_bridge) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[0.800940] (-) TimerEvent: {}
+[0.901296] (-) TimerEvent: {}
+[0.923989] (transformer_msp_bridge) StdoutLine: {'line': b'-- Found std_msgs: 5.3.6 (/opt/ros/jazzy/share/std_msgs/cmake)\n'}
+[0.956592] (transformer_msp_bridge) StdoutLine: {'line': b'-- Found geometry_msgs: 5.3.6 (/opt/ros/jazzy/share/geometry_msgs/cmake)\n'}
+[0.989869] (transformer_msp_bridge) StdoutLine: {'line': b'-- Found sensor_msgs: 5.3.6 (/opt/ros/jazzy/share/sensor_msgs/cmake)\n'}
+[1.001409] (-) TimerEvent: {}
+[1.037621] (transformer_msp_bridge) StdoutLine: {'line': b'-- Found diagnostic_msgs: 5.3.6 (/opt/ros/jazzy/share/diagnostic_msgs/cmake)\n'}
+[1.073633] (transformer_msp_bridge) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.6.0 (/opt/ros/jazzy/share/rosidl_default_generators/cmake)\n'}
+[1.099151] (transformer_msp_bridge) StdoutLine: {'line': b'-- Found rosidl_adapter: 4.6.6 (/opt/ros/jazzy/share/rosidl_adapter/cmake)\n'}
+[1.101489] (-) TimerEvent: {}
+[1.201767] (-) TimerEvent: {}
+[1.302156] (-) TimerEvent: {}
+[1.402653] (-) TimerEvent: {}
+[1.503081] (-) TimerEvent: {}
+[1.591768] (transformer_msp_bridge) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.12.0 (/opt/ros/jazzy/share/ament_cmake_ros/cmake)\n'}
+[1.603194] (-) TimerEvent: {}
+[1.703589] (-) TimerEvent: {}
+[1.803938] (-) TimerEvent: {}
+[1.904332] (-) TimerEvent: {}
+[1.972370] (transformer_msp_bridge) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[2.004444] (-) TimerEvent: {}
+[2.104824] (-) TimerEvent: {}
+[2.113985] (transformer_msp_bridge) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[2.118668] (transformer_msp_bridge) StdoutLine: {'line': b'-- Found python_cmake_module: 0.11.1 (/opt/ros/jazzy/share/python_cmake_module/cmake)\n'}
+[2.204949] (-) TimerEvent: {}
+[2.305381] (-) TimerEvent: {}
+[2.405743] (-) TimerEvent: {}
+[2.506088] (-) TimerEvent: {}
+[2.606480] (-) TimerEvent: {}
+[2.706890] (-) TimerEvent: {}
+[2.788214] (transformer_msp_bridge) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter Development NumPy Development.Module Development.Embed \n'}
+[2.807002] (-) TimerEvent: {}
+[2.842078] (transformer_msp_bridge) StdoutLine: {'line': b"-- Found gtest sources under '/opt/ros/jazzy/src/gtest_vendor': C++ tests using 'Google Test' will be built\n"}
+[2.907114] (-) TimerEvent: {}
+[2.947859] (transformer_msp_bridge) StdoutLine: {'line': b'-- Configuring done (2.9s)\n'}
+[3.007231] (-) TimerEvent: {}
+[3.107582] (-) TimerEvent: {}
+[3.207931] (-) TimerEvent: {}
+[3.308331] (-) TimerEvent: {}
+[3.409548] (-) TimerEvent: {}
+[3.509897] (-) TimerEvent: {}
+[3.549371] (transformer_msp_bridge) StdoutLine: {'line': b'-- Generating done (0.5s)\n'}
+[3.610026] (-) TimerEvent: {}
+[3.710482] (-) TimerEvent: {}
+[3.723157] (transformer_msp_bridge) StdoutLine: {'line': b'-- Build files have been written to: /home/atvpi/ros2_ws/build/transformer_msp_bridge\n'}
+[3.757128] (transformer_msp_bridge) CommandEnded: {'returncode': 0}
+[3.757928] (transformer_msp_bridge) JobProgress: {'identifier': 'transformer_msp_bridge', 'progress': 'build'}
+[3.759534] (transformer_msp_bridge) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/atvpi/ros2_ws/build/transformer_msp_bridge', '--', '-j4', '-l4'], 'cwd': '/home/atvpi/ros2_ws/build/transformer_msp_bridge', 'env': OrderedDict({'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'atvpi', 'SSH_CLIENT': '192.168.8.2 60382 22', 'LC_TIME': 'C.UTF-8', 'XDG_SESSION_TYPE': 'tty', 'GIT_ASKPASS': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/extensions/git/dist/askpass.sh', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib:/home/atvpi/ros2_ws/install/transformer_controller/lib:/home/atvpi/ros2_ws/install/transformer_hw_servos/lib:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib:/home/atvpi/ros2_ws/install/serial/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/lib', 'BROWSER': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/bin/helpers/browser.sh', 'HOME': '/home/atvpi', 'OLDPWD': '/home/atvpi/ros2_ws', 'TERM_PROGRAM_VERSION': '1.104.3', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-eb9126e6-b532-48d4-bcc4-f75bb7cfe2c2.sock', 'ROS_PYTHON_VERSION': '3', 'VSCODE_GIT_ASKPASS_MAIN': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/extensions/git/dist/askpass-main.js', 'LC_MONETARY': 'C.UTF-8', 'VSCODE_GIT_ASKPASS_NODE': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/node', 'SSL_CERT_FILE': '/usr/lib/ssl/cert.pem', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'COLCON_PREFIX_PATH': '/home/atvpi/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'atvpi', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '1', 'PATH': '/opt/ros/jazzy/bin:/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/scripts/noConfigScripts:/home/atvpi/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand', 'LC_ADDRESS': 'C.UTF-8', 'XDG_RUNTIME_DIR': '/run/user/1000', 'SSL_CERT_DIR': '/usr/lib/ssl/certs', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/.noConfigDebugAdapterEndpoints/endpoint-2ce8f189d80fdeae.txt', 'LANG': 'C.UTF-8', 'PYTHONSTARTUP': '/home/atvpi/.vscode-server/data/User/workspaceStorage/84379da00451a1f583396cdf944b4c1a/ms-python.python/pythonrc.py', 'LC_TELEPHONE': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-39d0eca28d.sock', 'TERM_PROGRAM': 'vscode', 'AMENT_PREFIX_PATH': '/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_rc_mode_switch:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'C.UTF-8', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LC_MEASUREMENT': 'C.UTF-8', 'LC_IDENTIFICATION': 'C.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'PWD': '/home/atvpi/ros2_ws/build/transformer_msp_bridge', 'SSH_CONNECTION': '192.168.8.2 60382 192.168.8.1 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'LC_NUMERIC': 'C.UTF-8', 'LC_PAPER': 'C.UTF-8', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_rc_mode_switch:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy'}), 'shell': False}
+[3.810949] (-) TimerEvent: {}
+[3.912297] (-) TimerEvent: {}
+[3.933753] (transformer_msp_bridge) StdoutLine: {'line': b'[  1%] Built target transformer_msp_bridge__rosidl_generator_type_description\n'}
+[3.948029] (transformer_msp_bridge) StdoutLine: {'line': b'[  2%] \x1b[32mBuilding CXX object CMakeFiles/serial_port.dir/src/serial_port.cpp.o\x1b[0m\n'}
+[3.975565] (transformer_msp_bridge) StdoutLine: {'line': b'[  3%] \x1b[32mBuilding CXX object CMakeFiles/msp_protocol.dir/src/msp_parser.cpp.o\x1b[0m\n'}
+[3.983829] (transformer_msp_bridge) StdoutLine: {'line': b'[  3%] Built target ament_cmake_python_copy_transformer_msp_bridge\n'}
+[4.012462] (-) TimerEvent: {}
+[4.050635] (transformer_msp_bridge) StdoutLine: {'line': b'[  4%] \x1b[32mBuilding CXX object gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o\x1b[0m\n'}
+[4.068664] (transformer_msp_bridge) StdoutLine: {'line': b'[  5%] \x1b[32mBuilding CXX object gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o\x1b[0m\n'}
+[4.112612] (-) TimerEvent: {}
+[4.215272] (-) TimerEvent: {}
+[4.315795] (-) TimerEvent: {}
+[4.417854] (-) TimerEvent: {}
+[4.518346] (-) TimerEvent: {}
+[4.619995] (-) TimerEvent: {}
+[4.720476] (-) TimerEvent: {}
+[4.823003] (-) TimerEvent: {}
+[4.923472] (-) TimerEvent: {}
+[5.028431] (-) TimerEvent: {}
+[5.129001] (-) TimerEvent: {}
+[5.229558] (-) TimerEvent: {}
+[5.232866] (transformer_msp_bridge) StdoutLine: {'line': b'[  6%] \x1b[32m\x1b[1mLinking CXX shared library libserial_port.so\x1b[0m\n'}
+[5.329667] (-) TimerEvent: {}
+[5.430122] (-) TimerEvent: {}
+[5.530648] (-) TimerEvent: {}
+[5.631379] (-) TimerEvent: {}
+[5.664746] (transformer_msp_bridge) StdoutLine: {'line': b'[  7%] \x1b[32mBuilding CXX object CMakeFiles/msp_protocol.dir/src/msp_builders.cpp.o\x1b[0m\n'}
+[5.720628] (transformer_msp_bridge) StdoutLine: {'line': b'[  7%] Built target serial_port\n'}
+[5.733632] (-) TimerEvent: {}
+[5.761896] (transformer_msp_bridge) StdoutLine: {'line': b'[  8%] \x1b[32mBuilding CXX object CMakeFiles/msp_protocol.dir/src/crc.cpp.o\x1b[0m\n'}
+[5.833778] (-) TimerEvent: {}
+[5.935782] (-) TimerEvent: {}
+[6.040803] (-) TimerEvent: {}
+[6.141304] (-) TimerEvent: {}
+[6.243614] (-) TimerEvent: {}
+[6.344050] (-) TimerEvent: {}
+[6.386774] (transformer_msp_bridge) StdoutLine: {'line': b'[  9%] \x1b[32mBuilding CXX object CMakeFiles/msp_protocol.dir/src/msp_utils.cpp.o\x1b[0m\n'}
+[6.444179] (-) TimerEvent: {}
+[6.544780] (-) TimerEvent: {}
+[6.648618] (-) TimerEvent: {}
+[6.749112] (-) TimerEvent: {}
+[6.837623] (transformer_msp_bridge) StdoutLine: {'line': b'[ 10%] \x1b[32mBuilding CXX object CMakeFiles/msp_protocol.dir/src/registry_loader.cpp.o\x1b[0m\n'}
+[6.849250] (-) TimerEvent: {}
+[6.951583] (-) TimerEvent: {}
+[7.037688] (transformer_msp_bridge) StdoutLine: {'line': b'[ 11%] Built target transformer_msp_bridge__cpp\n'}
+[7.051853] (-) TimerEvent: {}
+[7.136225] (transformer_msp_bridge) StdoutLine: {'line': b'[ 12%] \x1b[32mBuilding C object CMakeFiles/transformer_msp_bridge__rosidl_generator_c.dir/rosidl_generator_c/transformer_msp_bridge/msg/detail/msp_inav_status__description.c.o\x1b[0m\n'}
+[7.145978] (transformer_msp_bridge) StdoutLine: {'line': b'[ 13%] \x1b[32m\x1b[1mLinking CXX static library libgtest_main.a\x1b[0m\n'}
+[7.153604] (-) TimerEvent: {}
+[7.254143] (-) TimerEvent: {}
+[7.256960] (transformer_msp_bridge) StdoutLine: {'line': b'[ 13%] Built target gtest_main\n'}
+[7.276798] (transformer_msp_bridge) StdoutLine: {'line': b'[ 14%] \x1b[32mBuilding C object CMakeFiles/transformer_msp_bridge__rosidl_generator_c.dir/rosidl_generator_c/transformer_msp_bridge/msg/detail/msp_inav_status__functions.c.o\x1b[0m\n'}
+[7.354288] (-) TimerEvent: {}
+[7.456402] (-) TimerEvent: {}
+[7.457224] (transformer_msp_bridge) StdoutLine: {'line': b'[ 15%] \x1b[32mBuilding CXX object CMakeFiles/msp_protocol.dir/src/msp_registry.cpp.o\x1b[0m\n'}
+[7.556547] (-) TimerEvent: {}
+[7.595051] (transformer_msp_bridge) StdoutLine: {'line': b'[ 16%] \x1b[32mBuilding C object CMakeFiles/transformer_msp_bridge__rosidl_generator_c.dir/rosidl_generator_c/transformer_msp_bridge/msg/detail/msp_inav_status__type_support.c.o\x1b[0m\n'}
+[7.656670] (-) TimerEvent: {}
+[7.676403] (transformer_msp_bridge) StdoutLine: {'line': b'[ 17%] \x1b[32m\x1b[1mLinking C shared library libtransformer_msp_bridge__rosidl_generator_c.so\x1b[0m\n'}
+[7.756813] (-) TimerEvent: {}
+[7.775696] (transformer_msp_bridge) StdoutLine: {'line': b'[ 18%] Built target transformer_msp_bridge__rosidl_generator_c\n'}
+[7.856941] (-) TimerEvent: {}
+[7.957373] (-) TimerEvent: {}
+[8.057862] (-) TimerEvent: {}
+[8.159896] (-) TimerEvent: {}
+[8.261709] (-) TimerEvent: {}
+[8.305791] (transformer_msp_bridge) StdoutLine: {'line': b'running egg_info\n'}
+[8.351933] (transformer_msp_bridge) StdoutLine: {'line': b'writing transformer_msp_bridge.egg-info/PKG-INFO\n'}
+[8.355099] (transformer_msp_bridge) StdoutLine: {'line': b'writing dependency_links to transformer_msp_bridge.egg-info/dependency_links.txt\n'}
+[8.356627] (transformer_msp_bridge) StdoutLine: {'line': b'writing top-level names to transformer_msp_bridge.egg-info/top_level.txt\n'}
+[8.362720] (-) TimerEvent: {}
+[8.463128] (-) TimerEvent: {}
+[8.564135] (-) TimerEvent: {}
+[8.666625] (-) TimerEvent: {}
+[8.767513] (-) TimerEvent: {}
+[8.786676] (transformer_msp_bridge) StdoutLine: {'line': b"reading manifest file 'transformer_msp_bridge.egg-info/SOURCES.txt'\n"}
+[8.796750] (transformer_msp_bridge) StdoutLine: {'line': b"writing manifest file 'transformer_msp_bridge.egg-info/SOURCES.txt'\n"}
+[8.867624] (-) TimerEvent: {}
+[8.911709] (transformer_msp_bridge) StdoutLine: {'line': b'[ 18%] Built target ament_cmake_python_build_transformer_msp_bridge_egg\n'}
+[8.968712] (-) TimerEvent: {}
+[8.972542] (transformer_msp_bridge) StdoutLine: {'line': b'[ 19%] \x1b[32mBuilding CXX object CMakeFiles/transformer_msp_bridge__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/transformer_msp_bridge/msg/msp_inav_status__type_support.cpp.o\x1b[0m\n'}
+[9.068847] (-) TimerEvent: {}
+[9.169286] (-) TimerEvent: {}
+[9.271911] (-) TimerEvent: {}
+[9.372835] (-) TimerEvent: {}
+[9.403276] (transformer_msp_bridge) StdoutLine: {'line': b'[ 20%] \x1b[32mBuilding CXX object CMakeFiles/transformer_msp_bridge__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/transformer_msp_bridge/msg/detail/msp_inav_status__type_support_c.cpp.o\x1b[0m\n'}
+[9.472962] (-) TimerEvent: {}
+[9.574834] (-) TimerEvent: {}
+[9.675947] (-) TimerEvent: {}
+[9.770745] (transformer_msp_bridge) StdoutLine: {'line': b'[ 21%] \x1b[32m\x1b[1mLinking CXX shared library libtransformer_msp_bridge__rosidl_typesupport_cpp.so\x1b[0m\n'}
+[9.776083] (-) TimerEvent: {}
+[9.879635] (-) TimerEvent: {}
+[9.929661] (transformer_msp_bridge) StdoutLine: {'line': b'[ 22%] Built target transformer_msp_bridge__rosidl_typesupport_cpp\n'}
+[9.980068] (-) TimerEvent: {}
+[10.004443] (transformer_msp_bridge) StdoutLine: {'line': b'[ 23%] \x1b[32mBuilding CXX object CMakeFiles/transformer_msp_bridge__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/transformer_msp_bridge/msg/detail/dds_fastrtps/msp_inav_status__type_support.cpp.o\x1b[0m\n'}
+[10.082630] (-) TimerEvent: {}
+[10.183098] (-) TimerEvent: {}
+[10.283854] (-) TimerEvent: {}
+[10.385039] (-) TimerEvent: {}
+[10.488841] (-) TimerEvent: {}
+[10.589655] (-) TimerEvent: {}
+[10.692651] (-) TimerEvent: {}
+[10.793187] (-) TimerEvent: {}
+[10.893900] (-) TimerEvent: {}
+[10.970976] (transformer_msp_bridge) StdoutLine: {'line': b'[ 24%] \x1b[32m\x1b[1mLinking CXX shared library libtransformer_msp_bridge__rosidl_typesupport_fastrtps_c.so\x1b[0m\n'}
+[10.994066] (-) TimerEvent: {}
+[11.094573] (-) TimerEvent: {}
+[11.135708] (transformer_msp_bridge) StdoutLine: {'line': b'[ 25%] Built target transformer_msp_bridge__rosidl_typesupport_fastrtps_c\n'}
+[11.188644] (transformer_msp_bridge) StdoutLine: {'line': b'[ 26%] \x1b[32mBuilding C object CMakeFiles/transformer_msp_bridge__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/transformer_msp_bridge/msg/detail/msp_inav_status__type_support.c.o\x1b[0m\n'}
+[11.194706] (-) TimerEvent: {}
+[11.295154] (-) TimerEvent: {}
+[11.317850] (transformer_msp_bridge) StdoutLine: {'line': b'[ 27%] \x1b[32m\x1b[1mLinking C shared library libtransformer_msp_bridge__rosidl_typesupport_introspection_c.so\x1b[0m\n'}
+[11.395344] (-) TimerEvent: {}
+[11.402855] (transformer_msp_bridge) StdoutLine: {'line': b'[ 28%] Built target transformer_msp_bridge__rosidl_typesupport_introspection_c\n'}
+[11.455886] (transformer_msp_bridge) StdoutLine: {'line': b'[ 29%] \x1b[32mBuilding CXX object CMakeFiles/transformer_msp_bridge__rosidl_typesupport_c.dir/rosidl_typesupport_c/transformer_msp_bridge/msg/msp_inav_status__type_support.cpp.o\x1b[0m\n'}
+[11.495475] (-) TimerEvent: {}
+[11.573300] (transformer_msp_bridge) StdoutLine: {'line': b'[ 30%] \x1b[32m\x1b[1mLinking CXX shared library libtransformer_msp_bridge__rosidl_typesupport_c.so\x1b[0m\n'}
+[11.596948] (-) TimerEvent: {}
+[11.694201] (transformer_msp_bridge) StdoutLine: {'line': b'[ 31%] Built target transformer_msp_bridge__rosidl_typesupport_c\n'}
+[11.697090] (-) TimerEvent: {}
+[11.768956] (transformer_msp_bridge) StdoutLine: {'line': b'[ 32%] \x1b[32mBuilding CXX object CMakeFiles/transformer_msp_bridge__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/transformer_msp_bridge/msg/detail/msp_inav_status__type_support.cpp.o\x1b[0m\n'}
+[11.797226] (-) TimerEvent: {}
+[11.834076] (transformer_msp_bridge) StdoutLine: {'line': b'[ 33%] \x1b[32m\x1b[1mLinking CXX shared library libtransformer_msp_bridge__rosidl_typesupport_fastrtps_cpp.so\x1b[0m\n'}
+[11.897407] (-) TimerEvent: {}
+[12.000825] (-) TimerEvent: {}
+[12.049325] (transformer_msp_bridge) StdoutLine: {'line': b'[ 34%] Built target transformer_msp_bridge__rosidl_typesupport_fastrtps_cpp\n'}
+[12.100986] (-) TimerEvent: {}
+[12.202631] (-) TimerEvent: {}
+[12.303066] (-) TimerEvent: {}
+[12.403548] (-) TimerEvent: {}
+[12.504563] (-) TimerEvent: {}
+[12.605247] (-) TimerEvent: {}
+[12.672952] (transformer_msp_bridge) StdoutLine: {'line': b'[ 35%] \x1b[32m\x1b[1mLinking CXX shared library libtransformer_msp_bridge__rosidl_typesupport_introspection_cpp.so\x1b[0m\n'}
+[12.705385] (-) TimerEvent: {}
+[12.806475] (-) TimerEvent: {}
+[12.884449] (transformer_msp_bridge) StdoutLine: {'line': b'[ 36%] Built target transformer_msp_bridge__rosidl_typesupport_introspection_cpp\n'}
+[12.907653] (-) TimerEvent: {}
+[12.937845] (transformer_msp_bridge) StdoutLine: {'line': b'[ 36%] Built target transformer_msp_bridge\n'}
+[12.987258] (transformer_msp_bridge) StdoutLine: {'line': b'[ 37%] Built target transformer_msp_bridge__py\n'}
+[13.007783] (-) TimerEvent: {}
+[13.039017] (transformer_msp_bridge) StdoutLine: {'line': b'[ 38%] \x1b[32mBuilding C object CMakeFiles/transformer_msp_bridge__rosidl_generator_py.dir/rosidl_generator_py/transformer_msp_bridge/msg/_msp_inav_status_s.c.o\x1b[0m\n'}
+[13.107949] (-) TimerEvent: {}
+[13.208504] (-) TimerEvent: {}
+[13.309047] (-) TimerEvent: {}
+[13.410893] (-) TimerEvent: {}
+[13.511539] (-) TimerEvent: {}
+[13.577658] (transformer_msp_bridge) StdoutLine: {'line': b'[ 39%] \x1b[32m\x1b[1mLinking C shared library libtransformer_msp_bridge__rosidl_generator_py.so\x1b[0m\n'}
+[13.611651] (-) TimerEvent: {}
+[13.689580] (transformer_msp_bridge) StdoutLine: {'line': b'[ 39%] Built target transformer_msp_bridge__rosidl_generator_py\n'}
+[13.713235] (-) TimerEvent: {}
+[13.750740] (transformer_msp_bridge) StdoutLine: {'line': b'[ 40%] \x1b[32mBuilding C object CMakeFiles/transformer_msp_bridge_s__rosidl_typesupport_fastrtps_c.dir/rosidl_generator_py/transformer_msp_bridge/_transformer_msp_bridge_s.ep.rosidl_typesupport_fastrtps_c.c.o\x1b[0m\n'}
+[13.753877] (transformer_msp_bridge) StdoutLine: {'line': b'[ 41%] \x1b[32mBuilding C object CMakeFiles/transformer_msp_bridge_s__rosidl_typesupport_introspection_c.dir/rosidl_generator_py/transformer_msp_bridge/_transformer_msp_bridge_s.ep.rosidl_typesupport_introspection_c.c.o\x1b[0m\n'}
+[13.813367] (-) TimerEvent: {}
+[13.913964] (-) TimerEvent: {}
+[14.014609] (-) TimerEvent: {}
+[14.045707] (transformer_msp_bridge) StdoutLine: {'line': b'[ 42%] \x1b[32m\x1b[1mLinking C shared module rosidl_generator_py/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_fastrtps_c.so\x1b[0m\n'}
+[14.081578] (transformer_msp_bridge) StdoutLine: {'line': b'[ 43%] \x1b[32m\x1b[1mLinking C shared module rosidl_generator_py/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_introspection_c.so\x1b[0m\n'}
+[14.115956] (-) TimerEvent: {}
+[14.118931] (transformer_msp_bridge) StdoutLine: {'line': b'[ 43%] Built target transformer_msp_bridge_s__rosidl_typesupport_fastrtps_c\n'}
+[14.167626] (transformer_msp_bridge) StdoutLine: {'line': b'[ 43%] Built target transformer_msp_bridge_s__rosidl_typesupport_introspection_c\n'}
+[14.174401] (transformer_msp_bridge) StdoutLine: {'line': b'[ 44%] \x1b[32mBuilding C object CMakeFiles/transformer_msp_bridge_s__rosidl_typesupport_c.dir/rosidl_generator_py/transformer_msp_bridge/_transformer_msp_bridge_s.ep.rosidl_typesupport_c.c.o\x1b[0m\n'}
+[14.216087] (-) TimerEvent: {}
+[14.316972] (-) TimerEvent: {}
+[14.417950] (-) TimerEvent: {}
+[14.461913] (transformer_msp_bridge) StdoutLine: {'line': b'[ 45%] \x1b[32m\x1b[1mLinking C shared module rosidl_generator_py/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_c.so\x1b[0m\n'}
+[14.518099] (-) TimerEvent: {}
+[14.528173] (transformer_msp_bridge) StdoutLine: {'line': b'[ 45%] Built target transformer_msp_bridge_s__rosidl_typesupport_c\n'}
+[14.618226] (-) TimerEvent: {}
+[14.718806] (-) TimerEvent: {}
+[14.820632] (-) TimerEvent: {}
+[14.921012] (-) TimerEvent: {}
+[15.021416] (-) TimerEvent: {}
+[15.121842] (-) TimerEvent: {}
+[15.222227] (-) TimerEvent: {}
+[15.322597] (-) TimerEvent: {}
+[15.422979] (-) TimerEvent: {}
+[15.523371] (-) TimerEvent: {}
+[15.623788] (-) TimerEvent: {}
+[15.724193] (-) TimerEvent: {}
+[15.824627] (-) TimerEvent: {}
+[15.925013] (-) TimerEvent: {}
+[16.025383] (-) TimerEvent: {}
+[16.125757] (-) TimerEvent: {}
+[16.226133] (-) TimerEvent: {}
+[16.326554] (-) TimerEvent: {}
+[16.428616] (-) TimerEvent: {}
+[16.529014] (-) TimerEvent: {}
+[16.630992] (-) TimerEvent: {}
+[16.697257] (transformer_msp_bridge) StdoutLine: {'line': b'[ 46%] \x1b[32m\x1b[1mLinking CXX shared library libmsp_protocol.so\x1b[0m\n'}
+[16.731123] (-) TimerEvent: {}
+[16.831619] (-) TimerEvent: {}
+[16.932198] (-) TimerEvent: {}
+[16.954580] (transformer_msp_bridge) StdoutLine: {'line': b'[ 46%] Built target msp_protocol\n'}
+[16.999759] (transformer_msp_bridge) StdoutLine: {'line': b'[ 47%] \x1b[32mBuilding CXX object CMakeFiles/msp_probe.dir/src/msp_probe.cpp.o\x1b[0m\n'}
+[17.033639] (-) TimerEvent: {}
+[17.080577] (transformer_msp_bridge) StdoutLine: {'line': b'[ 49%] \x1b[32mBuilding CXX object CMakeFiles/transformer_msp_bridge_decoders.dir/src/decoders/system_decoder.cpp.o\x1b[0m\n'}
+[17.083662] (transformer_msp_bridge) StdoutLine: {'line': b'[ 49%] \x1b[32mBuilding CXX object CMakeFiles/transformer_msp_bridge_decoders.dir/src/decoders/battery_decoder.cpp.o\x1b[0m\n'}
+[17.136632] (-) TimerEvent: {}
+[17.237026] (-) TimerEvent: {}
+[17.337499] (-) TimerEvent: {}
+[17.437978] (-) TimerEvent: {}
+[17.538806] (-) TimerEvent: {}
+[17.639245] (-) TimerEvent: {}
+[17.740321] (-) TimerEvent: {}
+[17.842636] (-) TimerEvent: {}
+[17.943082] (-) TimerEvent: {}
+[18.044096] (-) TimerEvent: {}
+[18.145837] (-) TimerEvent: {}
+[18.246306] (-) TimerEvent: {}
+[18.348642] (-) TimerEvent: {}
+[18.449111] (-) TimerEvent: {}
+[18.549652] (-) TimerEvent: {}
+[18.650132] (-) TimerEvent: {}
+[18.752999] (-) TimerEvent: {}
+[18.853437] (-) TimerEvent: {}
+[18.903455] (transformer_msp_bridge) StdoutLine: {'line': b'[ 50%] \x1b[32m\x1b[1mLinking CXX executable msp_probe\x1b[0m\n'}
+[18.954663] (-) TimerEvent: {}
+[19.055136] (-) TimerEvent: {}
+[19.151013] (transformer_msp_bridge) StdoutLine: {'line': b'[ 50%] Built target msp_probe\n'}
+[19.155646] (-) TimerEvent: {}
+[19.172665] (transformer_msp_bridge) StdoutLine: {'line': b'[ 51%] \x1b[32mBuilding CXX object CMakeFiles/transformer_msp_bridge_decoders.dir/src/decoders/attitude_decoder.cpp.o\x1b[0m\n'}
+[19.256627] (-) TimerEvent: {}
+[19.357067] (-) TimerEvent: {}
+[19.458609] (-) TimerEvent: {}
+[19.560828] (-) TimerEvent: {}
+[19.661290] (-) TimerEvent: {}
+[19.761808] (-) TimerEvent: {}
+[19.864180] (-) TimerEvent: {}
+[19.964640] (-) TimerEvent: {}
+[20.065790] (-) TimerEvent: {}
+[20.166273] (-) TimerEvent: {}
+[20.267826] (-) TimerEvent: {}
+[20.368297] (-) TimerEvent: {}
+[20.469754] (-) TimerEvent: {}
+[20.570250] (-) TimerEvent: {}
+[20.673842] (-) TimerEvent: {}
+[20.774332] (-) TimerEvent: {}
+[20.874843] (-) TimerEvent: {}
+[20.975309] (-) TimerEvent: {}
+[21.075809] (-) TimerEvent: {}
+[21.176305] (-) TimerEvent: {}
+[21.276808] (-) TimerEvent: {}
+[21.379768] (-) TimerEvent: {}
+[21.480228] (-) TimerEvent: {}
+[21.580702] (-) TimerEvent: {}
+[21.681175] (-) TimerEvent: {}
+[21.781621] (-) TimerEvent: {}
+[21.882093] (-) TimerEvent: {}
+[21.985872] (-) TimerEvent: {}
+[22.086364] (-) TimerEvent: {}
+[22.186842] (-) TimerEvent: {}
+[22.287312] (-) TimerEvent: {}
+[22.387776] (-) TimerEvent: {}
+[22.490110] (-) TimerEvent: {}
+[22.590602] (-) TimerEvent: {}
+[22.693823] (-) TimerEvent: {}
+[22.794289] (-) TimerEvent: {}
+[22.895089] (-) TimerEvent: {}
+[22.998749] (-) TimerEvent: {}
+[23.099206] (-) TimerEvent: {}
+[23.199616] (-) TimerEvent: {}
+[23.300543] (-) TimerEvent: {}
+[23.403116] (-) TimerEvent: {}
+[23.503962] (-) TimerEvent: {}
+[23.607779] (-) TimerEvent: {}
+[23.708956] (-) TimerEvent: {}
+[23.809917] (-) TimerEvent: {}
+[23.911839] (-) TimerEvent: {}
+[24.013779] (-) TimerEvent: {}
+[24.117018] (-) TimerEvent: {}
+[24.217504] (-) TimerEvent: {}
+[24.318003] (-) TimerEvent: {}
+[24.420850] (-) TimerEvent: {}
+[24.521328] (-) TimerEvent: {}
+[24.623569] (-) TimerEvent: {}
+[24.724473] (-) TimerEvent: {}
+[24.827636] (-) TimerEvent: {}
+[24.928122] (-) TimerEvent: {}
+[25.028963] (-) TimerEvent: {}
+[25.129961] (-) TimerEvent: {}
+[25.231474] (-) TimerEvent: {}
+[25.333683] (-) TimerEvent: {}
+[25.434978] (-) TimerEvent: {}
+[25.537158] (-) TimerEvent: {}
+[25.639082] (-) TimerEvent: {}
+[25.741393] (-) TimerEvent: {}
+[25.842396] (-) TimerEvent: {}
+[25.944622] (-) TimerEvent: {}
+[26.045610] (-) TimerEvent: {}
+[26.146701] (-) TimerEvent: {}
+[26.250620] (-) TimerEvent: {}
+[26.351102] (-) TimerEvent: {}
+[26.452249] (-) TimerEvent: {}
+[26.554768] (-) TimerEvent: {}
+[26.657112] (-) TimerEvent: {}
+[26.759578] (-) TimerEvent: {}
+[26.861758] (-) TimerEvent: {}
+[26.962227] (-) TimerEvent: {}
+[27.062729] (-) TimerEvent: {}
+[27.165317] (-) TimerEvent: {}
+[27.266971] (-) TimerEvent: {}
+[27.367435] (-) TimerEvent: {}
+[27.469183] (-) TimerEvent: {}
+[27.572515] (-) TimerEvent: {}
+[27.673607] (-) TimerEvent: {}
+[27.777026] (-) TimerEvent: {}
+[27.877499] (-) TimerEvent: {}
+[27.979626] (-) TimerEvent: {}
+[28.080458] (-) TimerEvent: {}
+[28.183013] (-) TimerEvent: {}
+[28.283972] (-) TimerEvent: {}
+[28.384443] (-) TimerEvent: {}
+[28.486791] (-) TimerEvent: {}
+[28.590629] (-) TimerEvent: {}
+[28.691104] (-) TimerEvent: {}
+[28.792059] (-) TimerEvent: {}
+[28.893053] (-) TimerEvent: {}
+[28.994631] (-) TimerEvent: {}
+[29.095114] (-) TimerEvent: {}
+[29.199384] (-) TimerEvent: {}
+[29.301309] (-) TimerEvent: {}
+[29.402293] (-) TimerEvent: {}
+[29.506031] (-) TimerEvent: {}
+[29.606585] (-) TimerEvent: {}
+[29.710625] (-) TimerEvent: {}
+[29.811101] (-) TimerEvent: {}
+[29.912183] (-) TimerEvent: {}
+[30.012837] (-) TimerEvent: {}
+[30.114646] (-) TimerEvent: {}
+[30.215094] (-) TimerEvent: {}
+[30.316625] (-) TimerEvent: {}
+[30.417071] (-) TimerEvent: {}
+[30.519625] (-) TimerEvent: {}
+[30.620045] (-) TimerEvent: {}
+[30.720538] (-) TimerEvent: {}
+[30.822415] (-) TimerEvent: {}
+[30.923071] (-) TimerEvent: {}
+[31.024965] (-) TimerEvent: {}
+[31.126635] (-) TimerEvent: {}
+[31.227062] (-) TimerEvent: {}
+[31.329047] (-) TimerEvent: {}
+[31.431767] (-) TimerEvent: {}
+[31.532365] (-) TimerEvent: {}
+[31.637999] (-) TimerEvent: {}
+[31.648183] (transformer_msp_bridge) StdoutLine: {'line': b'[ 52%] \x1b[32mBuilding CXX object CMakeFiles/transformer_msp_bridge_decoders.dir/src/decoders/imu_decoder.cpp.o\x1b[0m\n'}
+[31.738150] (-) TimerEvent: {}
+[31.839697] (-) TimerEvent: {}
+[31.940145] (-) TimerEvent: {}
+[32.040854] (-) TimerEvent: {}
+[32.144910] (-) TimerEvent: {}
+[32.245358] (-) TimerEvent: {}
+[32.346349] (-) TimerEvent: {}
+[32.448938] (-) TimerEvent: {}
+[32.550174] (-) TimerEvent: {}
+[32.652059] (-) TimerEvent: {}
+[32.754680] (-) TimerEvent: {}
+[32.859335] (-) TimerEvent: {}
+[32.964644] (-) TimerEvent: {}
+[33.024027] (transformer_msp_bridge) StdoutLine: {'line': b'[ 53%] \x1b[32m\x1b[1mLinking CXX static library libgtest.a\x1b[0m\n'}
+[33.067642] (-) TimerEvent: {}
+[33.168195] (-) TimerEvent: {}
+[33.269234] (-) TimerEvent: {}
+[33.296513] (transformer_msp_bridge) StdoutLine: {'line': b'[ 54%] \x1b[32mBuilding CXX object CMakeFiles/transformer_msp_bridge_decoders.dir/src/decoders/gps_decoder.cpp.o\x1b[0m\n'}
+[33.369382] (-) TimerEvent: {}
+[33.470196] (-) TimerEvent: {}
+[33.479081] (transformer_msp_bridge) StdoutLine: {'line': b'[ 54%] Built target gtest\n'}
+[33.510606] (transformer_msp_bridge) StdoutLine: {'line': b'[ 55%] \x1b[32mBuilding CXX object CMakeFiles/transformer_msp_bridge_decoders.dir/src/decoders/rc_decoder.cpp.o\x1b[0m\n'}
+[33.570336] (-) TimerEvent: {}
+[33.670978] (-) TimerEvent: {}
+[33.772812] (-) TimerEvent: {}
+[33.873427] (-) TimerEvent: {}
+[33.974761] (-) TimerEvent: {}
+[34.076568] (-) TimerEvent: {}
+[34.179973] (-) TimerEvent: {}
+[34.280456] (-) TimerEvent: {}
+[34.380966] (-) TimerEvent: {}
+[34.481394] (-) TimerEvent: {}
+[34.584331] (-) TimerEvent: {}
+[34.687875] (-) TimerEvent: {}
+[34.788344] (-) TimerEvent: {}
+[34.888824] (-) TimerEvent: {}
+[34.991624] (-) TimerEvent: {}
+[35.092121] (-) TimerEvent: {}
+[35.192615] (-) TimerEvent: {}
+[35.294596] (-) TimerEvent: {}
+[35.396765] (-) TimerEvent: {}
+[35.497285] (-) TimerEvent: {}
+[35.599991] (-) TimerEvent: {}
+[35.700935] (-) TimerEvent: {}
+[35.803839] (-) TimerEvent: {}
+[35.904796] (-) TimerEvent: {}
+[36.005850] (-) TimerEvent: {}
+[36.108669] (-) TimerEvent: {}
+[36.209233] (-) TimerEvent: {}
+[36.310618] (-) TimerEvent: {}
+[36.411503] (-) TimerEvent: {}
+[36.512969] (-) TimerEvent: {}
+[36.613591] (-) TimerEvent: {}
+[36.715659] (-) TimerEvent: {}
+[36.816129] (-) TimerEvent: {}
+[36.916578] (-) TimerEvent: {}
+[37.017024] (-) TimerEvent: {}
+[37.118644] (-) TimerEvent: {}
+[37.219120] (-) TimerEvent: {}
+[37.319648] (-) TimerEvent: {}
+[37.424594] (-) TimerEvent: {}
+[37.528048] (-) TimerEvent: {}
+[37.567856] (transformer_msp_bridge) StdoutLine: {'line': b'[ 56%] \x1b[32mBuilding CXX object CMakeFiles/test_msp_parser.dir/test/test_msp_parser.cpp.o\x1b[0m\n'}
+[37.628179] (-) TimerEvent: {}
+[37.728958] (-) TimerEvent: {}
+[37.829551] (-) TimerEvent: {}
+[37.932002] (-) TimerEvent: {}
+[38.032500] (-) TimerEvent: {}
+[38.136640] (-) TimerEvent: {}
+[38.237105] (-) TimerEvent: {}
+[38.337592] (-) TimerEvent: {}
+[38.439386] (-) TimerEvent: {}
+[38.541493] (-) TimerEvent: {}
+[38.643565] (-) TimerEvent: {}
+[38.744142] (-) TimerEvent: {}
+[38.846073] (-) TimerEvent: {}
+[38.948005] (-) TimerEvent: {}
+[39.049617] (-) TimerEvent: {}
+[39.153560] (-) TimerEvent: {}
+[39.253983] (-) TimerEvent: {}
+[39.354446] (-) TimerEvent: {}
+[39.454895] (-) TimerEvent: {}
+[39.557185] (-) TimerEvent: {}
+[39.657636] (-) TimerEvent: {}
+[39.760624] (-) TimerEvent: {}
+[39.861046] (-) TimerEvent: {}
+[39.961472] (-) TimerEvent: {}
+[40.061916] (-) TimerEvent: {}
+[40.163955] (-) TimerEvent: {}
+[40.265936] (-) TimerEvent: {}
+[40.366406] (-) TimerEvent: {}
+[40.466890] (-) TimerEvent: {}
+[40.568887] (-) TimerEvent: {}
+[40.670877] (-) TimerEvent: {}
+[40.771368] (-) TimerEvent: {}
+[40.872032] (-) TimerEvent: {}
+[40.974055] (-) TimerEvent: {}
+[41.074660] (-) TimerEvent: {}
+[41.176036] (-) TimerEvent: {}
+[41.279030] (-) TimerEvent: {}
+[41.379692] (-) TimerEvent: {}
+[41.480691] (-) TimerEvent: {}
+[41.581367] (-) TimerEvent: {}
+[41.683023] (-) TimerEvent: {}
+[41.785625] (-) TimerEvent: {}
+[41.886131] (-) TimerEvent: {}
+[41.986699] (-) TimerEvent: {}
+[42.087429] (-) TimerEvent: {}
+[42.189113] (-) TimerEvent: {}
+[42.292021] (-) TimerEvent: {}
+[42.392725] (-) TimerEvent: {}
+[42.493579] (-) TimerEvent: {}
+[42.595877] (-) TimerEvent: {}
+[42.696476] (-) TimerEvent: {}
+[42.799854] (-) TimerEvent: {}
+[42.900327] (-) TimerEvent: {}
+[43.000835] (-) TimerEvent: {}
+[43.101341] (-) TimerEvent: {}
+[43.203651] (-) TimerEvent: {}
+[43.304141] (-) TimerEvent: {}
+[43.407661] (-) TimerEvent: {}
+[43.508556] (-) TimerEvent: {}
+[43.608974] (-) TimerEvent: {}
+[43.709399] (-) TimerEvent: {}
+[43.813827] (-) TimerEvent: {}
+[43.914832] (-) TimerEvent: {}
+[44.017702] (-) TimerEvent: {}
+[44.049619] (transformer_msp_bridge) StdoutLine: {'line': b'[ 57%] \x1b[32m\x1b[1mLinking CXX executable test_msp_parser\x1b[0m\n'}
+[44.117843] (-) TimerEvent: {}
+[44.220889] (-) TimerEvent: {}
+[44.321396] (-) TimerEvent: {}
+[44.421929] (-) TimerEvent: {}
+[44.451128] (transformer_msp_bridge) StdoutLine: {'line': b'[ 57%] Built target test_msp_parser\n'}
+[44.515772] (transformer_msp_bridge) StdoutLine: {'line': b'[ 58%] \x1b[32mBuilding CXX object CMakeFiles/test_msp_parser_fuzz.dir/test/test_msp_parser_fuzz.cpp.o\x1b[0m\n'}
+[44.522076] (-) TimerEvent: {}
+[44.627987] (-) TimerEvent: {}
+[44.728780] (-) TimerEvent: {}
+[44.829224] (-) TimerEvent: {}
+[44.931952] (-) TimerEvent: {}
+[45.032565] (-) TimerEvent: {}
+[45.133041] (-) TimerEvent: {}
+[45.236774] (-) TimerEvent: {}
+[45.337246] (-) TimerEvent: {}
+[45.437763] (-) TimerEvent: {}
+[45.538843] (-) TimerEvent: {}
+[45.640852] (-) TimerEvent: {}
+[45.741324] (-) TimerEvent: {}
+[45.843740] (-) TimerEvent: {}
+[45.944389] (-) TimerEvent: {}
+[46.045017] (-) TimerEvent: {}
+[46.146841] (-) TimerEvent: {}
+[46.247369] (-) TimerEvent: {}
+[46.349622] (-) TimerEvent: {}
+[46.450111] (-) TimerEvent: {}
+[46.553804] (-) TimerEvent: {}
+[46.654317] (-) TimerEvent: {}
+[46.754797] (-) TimerEvent: {}
+[46.855447] (-) TimerEvent: {}
+[46.958841] (-) TimerEvent: {}
+[47.059336] (-) TimerEvent: {}
+[47.160425] (-) TimerEvent: {}
+[47.264793] (-) TimerEvent: {}
+[47.365281] (-) TimerEvent: {}
+[47.465831] (-) TimerEvent: {}
+[47.566376] (-) TimerEvent: {}
+[47.669856] (-) TimerEvent: {}
+[47.770536] (-) TimerEvent: {}
+[47.872848] (-) TimerEvent: {}
+[47.973348] (-) TimerEvent: {}
+[48.074466] (-) TimerEvent: {}
+[48.175985] (-) TimerEvent: {}
+[48.277985] (-) TimerEvent: {}
+[48.380779] (-) TimerEvent: {}
+[48.481263] (-) TimerEvent: {}
+[48.581753] (-) TimerEvent: {}
+[48.683852] (-) TimerEvent: {}
+[48.785810] (-) TimerEvent: {}
+[48.888773] (-) TimerEvent: {}
+[48.989227] (-) TimerEvent: {}
+[49.089785] (-) TimerEvent: {}
+[49.190503] (-) TimerEvent: {}
+[49.292202] (-) TimerEvent: {}
+[49.394086] (-) TimerEvent: {}
+[49.494703] (-) TimerEvent: {}
+[49.584640] (transformer_msp_bridge) StdoutLine: {'line': b'[ 59%] \x1b[32m\x1b[1mLinking CXX executable test_msp_parser_fuzz\x1b[0m\n'}
+[49.594838] (-) TimerEvent: {}
+[49.695278] (-) TimerEvent: {}
+[49.800652] (-) TimerEvent: {}
+[49.902642] (-) TimerEvent: {}
+[50.003100] (-) TimerEvent: {}
+[50.012081] (transformer_msp_bridge) StdoutLine: {'line': b'[ 59%] Built target test_msp_parser_fuzz\n'}
+[50.033683] (transformer_msp_bridge) StdoutLine: {'line': b'[ 60%] \x1b[32mBuilding CXX object CMakeFiles/transformer_msp_bridge_decoders.dir/src/decoders/altitude_decoder.cpp.o\x1b[0m\n'}
+[50.103315] (-) TimerEvent: {}
+[50.204079] (-) TimerEvent: {}
+[50.308628] (-) TimerEvent: {}
+[50.409109] (-) TimerEvent: {}
+[50.509577] (-) TimerEvent: {}
+[50.610038] (-) TimerEvent: {}
+[50.710568] (-) TimerEvent: {}
+[50.811037] (-) TimerEvent: {}
+[50.913965] (-) TimerEvent: {}
+[51.014380] (-) TimerEvent: {}
+[51.114879] (-) TimerEvent: {}
+[51.215350] (-) TimerEvent: {}
+[51.316441] (-) TimerEvent: {}
+[51.420286] (-) TimerEvent: {}
+[51.521302] (-) TimerEvent: {}
+[51.623073] (-) TimerEvent: {}
+[51.728998] (-) TimerEvent: {}
+[51.829510] (-) TimerEvent: {}
+[51.875630] (transformer_msp_bridge) StdoutLine: {'line': b'[ 61%] \x1b[32mBuilding CXX object CMakeFiles/test_msp_parser_hardening.dir/test/test_msp_parser_hardening.cpp.o\x1b[0m\n'}
+[51.932629] (-) TimerEvent: {}
+[52.033126] (-) TimerEvent: {}
+[52.133613] (-) TimerEvent: {}
+[52.234079] (-) TimerEvent: {}
+[52.335387] (-) TimerEvent: {}
+[52.436331] (-) TimerEvent: {}
+[52.538825] (-) TimerEvent: {}
+[52.639461] (-) TimerEvent: {}
+[52.741015] (-) TimerEvent: {}
+[52.842976] (-) TimerEvent: {}
+[52.945805] (-) TimerEvent: {}
+[53.046612] (-) TimerEvent: {}
+[53.149498] (-) TimerEvent: {}
+[53.249949] (-) TimerEvent: {}
+[53.355651] (-) TimerEvent: {}
+[53.456134] (-) TimerEvent: {}
+[53.556647] (-) TimerEvent: {}
+[53.658609] (-) TimerEvent: {}
+[53.761677] (-) TimerEvent: {}
+[53.862098] (-) TimerEvent: {}
+[53.962538] (-) TimerEvent: {}
+[54.066758] (-) TimerEvent: {}
+[54.167203] (-) TimerEvent: {}
+[54.267790] (-) TimerEvent: {}
+[54.368440] (-) TimerEvent: {}
+[54.469080] (-) TimerEvent: {}
+[54.573074] (-) TimerEvent: {}
+[54.628359] (transformer_msp_bridge) StdoutLine: {'line': b'[ 62%] \x1b[32mBuilding CXX object CMakeFiles/transformer_msp_bridge_decoders.dir/src/decoders/inav_status_decoder.cpp.o\x1b[0m\n'}
+[54.673223] (-) TimerEvent: {}
+[54.773636] (-) TimerEvent: {}
+[54.874669] (-) TimerEvent: {}
+[54.976617] (-) TimerEvent: {}
+[55.077078] (-) TimerEvent: {}
+[55.177715] (-) TimerEvent: {}
+[55.279980] (-) TimerEvent: {}
+[55.380640] (-) TimerEvent: {}
+[55.481318] (-) TimerEvent: {}
+[55.583115] (-) TimerEvent: {}
+[55.684635] (-) TimerEvent: {}
+[55.785058] (-) TimerEvent: {}
+[55.888630] (-) TimerEvent: {}
+[55.989103] (-) TimerEvent: {}
+[56.090063] (-) TimerEvent: {}
+[56.190747] (-) TimerEvent: {}
+[56.291480] (-) TimerEvent: {}
+[56.394614] (-) TimerEvent: {}
+[56.495090] (-) TimerEvent: {}
+[56.595613] (-) TimerEvent: {}
+[56.696822] (-) TimerEvent: {}
+[56.800076] (-) TimerEvent: {}
+[56.900966] (-) TimerEvent: {}
+[57.001798] (-) TimerEvent: {}
+[57.104171] (-) TimerEvent: {}
+[57.204620] (-) TimerEvent: {}
+[57.305986] (-) TimerEvent: {}
+[57.408723] (-) TimerEvent: {}
+[57.509316] (-) TimerEvent: {}
+[57.610026] (-) TimerEvent: {}
+[57.711863] (-) TimerEvent: {}
+[57.814860] (-) TimerEvent: {}
+[57.850050] (transformer_msp_bridge) StdoutLine: {'line': b'[ 63%] \x1b[32m\x1b[1mLinking CXX executable test_msp_parser_hardening\x1b[0m\n'}
+[57.915015] (-) TimerEvent: {}
+[58.018829] (-) TimerEvent: {}
+[58.119791] (-) TimerEvent: {}
+[58.220866] (-) TimerEvent: {}
+[58.280614] (transformer_msp_bridge) StdoutLine: {'line': b'[ 63%] Built target test_msp_parser_hardening\n'}
+[58.322642] (-) TimerEvent: {}
+[58.338797] (transformer_msp_bridge) StdoutLine: {'line': b'[ 64%] \x1b[32mBuilding CXX object CMakeFiles/test_crc.dir/test/test_crc.cpp.o\x1b[0m\n'}
+[58.422768] (-) TimerEvent: {}
+[58.525632] (-) TimerEvent: {}
+[58.626074] (-) TimerEvent: {}
+[58.726515] (-) TimerEvent: {}
+[58.826988] (-) TimerEvent: {}
+[58.927428] (-) TimerEvent: {}
+[59.030852] (-) TimerEvent: {}
+[59.131300] (-) TimerEvent: {}
+[59.231780] (-) TimerEvent: {}
+[59.332244] (-) TimerEvent: {}
+[59.433025] (-) TimerEvent: {}
+[59.536783] (-) TimerEvent: {}
+[59.637278] (-) TimerEvent: {}
+[59.737799] (-) TimerEvent: {}
+[59.840632] (-) TimerEvent: {}
+[59.941426] (-) TimerEvent: {}
+[60.041901] (-) TimerEvent: {}
+[60.142354] (-) TimerEvent: {}
+[60.243117] (-) TimerEvent: {}
+[60.343601] (-) TimerEvent: {}
+[60.445835] (-) TimerEvent: {}
+[60.546291] (-) TimerEvent: {}
+[60.648863] (-) TimerEvent: {}
+[60.749323] (-) TimerEvent: {}
+[60.849799] (-) TimerEvent: {}
+[60.951778] (-) TimerEvent: {}
+[61.052892] (-) TimerEvent: {}
+[61.153337] (-) TimerEvent: {}
+[61.254317] (-) TimerEvent: {}
+[61.357777] (-) TimerEvent: {}
+[61.458292] (-) TimerEvent: {}
+[61.559144] (-) TimerEvent: {}
+[61.661861] (-) TimerEvent: {}
+[61.762831] (-) TimerEvent: {}
+[61.865063] (-) TimerEvent: {}
+[61.934376] (transformer_msp_bridge) StdoutLine: {'line': b'[ 65%] \x1b[32m\x1b[1mLinking CXX executable test_crc\x1b[0m\n'}
+[61.965207] (-) TimerEvent: {}
+[62.067963] (-) TimerEvent: {}
+[62.171620] (-) TimerEvent: {}
+[62.272078] (-) TimerEvent: {}
+[62.344750] (transformer_msp_bridge) StdoutLine: {'line': b'[ 65%] Built target test_crc\n'}
+[62.372221] (-) TimerEvent: {}
+[62.407044] (transformer_msp_bridge) StdoutLine: {'line': b'[ 66%] \x1b[32mBuilding CXX object CMakeFiles/test_msp_registry.dir/test/test_msp_registry.cpp.o\x1b[0m\n'}
+[62.473685] (-) TimerEvent: {}
+[62.574789] (-) TimerEvent: {}
+[62.678532] (-) TimerEvent: {}
+[62.779143] (-) TimerEvent: {}
+[62.880109] (-) TimerEvent: {}
+[62.981040] (-) TimerEvent: {}
+[63.082321] (-) TimerEvent: {}
+[63.183572] (-) TimerEvent: {}
+[63.285075] (-) TimerEvent: {}
+[63.386027] (-) TimerEvent: {}
+[63.486460] (-) TimerEvent: {}
+[63.586959] (-) TimerEvent: {}
+[63.688940] (-) TimerEvent: {}
+[63.789987] (-) TimerEvent: {}
+[63.892774] (-) TimerEvent: {}
+[63.993583] (-) TimerEvent: {}
+[64.097869] (-) TimerEvent: {}
+[64.198328] (-) TimerEvent: {}
+[64.298892] (-) TimerEvent: {}
+[64.401614] (-) TimerEvent: {}
+[64.502040] (-) TimerEvent: {}
+[64.602471] (-) TimerEvent: {}
+[64.703149] (-) TimerEvent: {}
+[64.805291] (-) TimerEvent: {}
+[64.907799] (-) TimerEvent: {}
+[65.008352] (-) TimerEvent: {}
+[65.108858] (-) TimerEvent: {}
+[65.212633] (-) TimerEvent: {}
+[65.313092] (-) TimerEvent: {}
+[65.413734] (-) TimerEvent: {}
+[65.472706] (transformer_msp_bridge) StdoutLine: {'line': b'[ 67%] \x1b[32mBuilding CXX object CMakeFiles/transformer_msp_bridge_decoders.dir/src/decoders/sensor_decoder.cpp.o\x1b[0m\n'}
+[65.513871] (-) TimerEvent: {}
+[65.615684] (-) TimerEvent: {}
+[65.716107] (-) TimerEvent: {}
+[65.816542] (-) TimerEvent: {}
+[65.917807] (-) TimerEvent: {}
+[66.020631] (-) TimerEvent: {}
+[66.121496] (-) TimerEvent: {}
+[66.222087] (-) TimerEvent: {}
+[66.322590] (-) TimerEvent: {}
+[66.425649] (-) TimerEvent: {}
+[66.526130] (-) TimerEvent: {}
+[66.626629] (-) TimerEvent: {}
+[66.727117] (-) TimerEvent: {}
+[66.827650] (-) TimerEvent: {}
+[66.928438] (-) TimerEvent: {}
+[67.031861] (-) TimerEvent: {}
+[67.132334] (-) TimerEvent: {}
+[67.233091] (-) TimerEvent: {}
+[67.336771] (-) TimerEvent: {}
+[67.437264] (-) TimerEvent: {}
+[67.537788] (-) TimerEvent: {}
+[67.638299] (-) TimerEvent: {}
+[67.739106] (-) TimerEvent: {}
+[67.842883] (-) TimerEvent: {}
+[67.943352] (-) TimerEvent: {}
+[68.044211] (-) TimerEvent: {}
+[68.144690] (-) TimerEvent: {}
+[68.246831] (-) TimerEvent: {}
+[68.349685] (-) TimerEvent: {}
+[68.450206] (-) TimerEvent: {}
+[68.550728] (-) TimerEvent: {}
+[68.654030] (-) TimerEvent: {}
+[68.754759] (-) TimerEvent: {}
+[68.855276] (-) TimerEvent: {}
+[68.958981] (-) TimerEvent: {}
+[69.059621] (-) TimerEvent: {}
+[69.160389] (-) TimerEvent: {}
+[69.260796] (-) TimerEvent: {}
+[69.363613] (-) TimerEvent: {}
+[69.464069] (-) TimerEvent: {}
+[69.564630] (-) TimerEvent: {}
+[69.616980] (transformer_msp_bridge) StdoutLine: {'line': b'[ 68%] \x1b[32m\x1b[1mLinking CXX executable test_msp_registry\x1b[0m\n'}
+[69.664836] (-) TimerEvent: {}
+[69.767885] (-) TimerEvent: {}
+[69.868436] (-) TimerEvent: {}
+[69.969023] (-) TimerEvent: {}
+[70.069555] (-) TimerEvent: {}
+[70.116407] (transformer_msp_bridge) StdoutLine: {'line': b'[ 68%] Built target test_msp_registry\n'}
+[70.141698] (transformer_msp_bridge) StdoutLine: {'line': b'[ 69%] \x1b[32mBuilding CXX object CMakeFiles/transformer_msp_bridge_decoders.dir/src/decoders/inav_generic_decoder.cpp.o\x1b[0m\n'}
+[70.169670] (-) TimerEvent: {}
+[70.270436] (-) TimerEvent: {}
+[70.374064] (-) TimerEvent: {}
+[70.474551] (-) TimerEvent: {}
+[70.575036] (-) TimerEvent: {}
+[70.677294] (-) TimerEvent: {}
+[70.780618] (-) TimerEvent: {}
+[70.881094] (-) TimerEvent: {}
+[70.981591] (-) TimerEvent: {}
+[71.082800] (-) TimerEvent: {}
+[71.183764] (-) TimerEvent: {}
+[71.284389] (-) TimerEvent: {}
+[71.385330] (-) TimerEvent: {}
+[71.487631] (-) TimerEvent: {}
+[71.588164] (-) TimerEvent: {}
+[71.691619] (-) TimerEvent: {}
+[71.792112] (-) TimerEvent: {}
+[71.893263] (-) TimerEvent: {}
+[71.995847] (-) TimerEvent: {}
+[72.096563] (-) TimerEvent: {}
+[72.198678] (-) TimerEvent: {}
+[72.299167] (-) TimerEvent: {}
+[72.401621] (-) TimerEvent: {}
+[72.502286] (-) TimerEvent: {}
+[72.602768] (-) TimerEvent: {}
+[72.704826] (-) TimerEvent: {}
+[72.713766] (transformer_msp_bridge) StdoutLine: {'line': b'[ 70%] \x1b[32mBuilding CXX object CMakeFiles/test_decoder_coverage.dir/test/test_decoder_coverage.cpp.o\x1b[0m\n'}
+[72.804952] (-) TimerEvent: {}
+[72.905329] (-) TimerEvent: {}
+[73.006961] (-) TimerEvent: {}
+[73.107385] (-) TimerEvent: {}
+[73.210860] (-) TimerEvent: {}
+[73.311319] (-) TimerEvent: {}
+[73.411794] (-) TimerEvent: {}
+[73.512308] (-) TimerEvent: {}
+[73.613270] (-) TimerEvent: {}
+[73.717330] (-) TimerEvent: {}
+[73.820621] (-) TimerEvent: {}
+[73.895210] (transformer_msp_bridge) StdoutLine: {'line': b'[ 71%] \x1b[32mBuilding CXX object CMakeFiles/transformer_msp_bridge_decoders.dir/src/decoders/servo_motor_decoder.cpp.o\x1b[0m\n'}
+[73.920760] (-) TimerEvent: {}
+[74.023817] (-) TimerEvent: {}
+[74.124262] (-) TimerEvent: {}
+[74.224741] (-) TimerEvent: {}
+[74.325253] (-) TimerEvent: {}
+[74.428651] (-) TimerEvent: {}
+[74.529103] (-) TimerEvent: {}
+[74.629852] (-) TimerEvent: {}
+[74.730575] (-) TimerEvent: {}
+[74.832637] (-) TimerEvent: {}
+[74.935642] (-) TimerEvent: {}
+[75.036130] (-) TimerEvent: {}
+[75.136767] (-) TimerEvent: {}
+[75.237389] (-) TimerEvent: {}
+[75.338752] (-) TimerEvent: {}
+[75.441623] (-) TimerEvent: {}
+[75.542061] (-) TimerEvent: {}
+[75.642506] (-) TimerEvent: {}
+[75.743131] (-) TimerEvent: {}
+[75.846760] (-) TimerEvent: {}
+[75.947181] (-) TimerEvent: {}
+[76.047659] (-) TimerEvent: {}
+[76.150626] (-) TimerEvent: {}
+[76.251103] (-) TimerEvent: {}
+[76.351585] (-) TimerEvent: {}
+[76.452040] (-) TimerEvent: {}
+[76.554843] (-) TimerEvent: {}
+[76.655496] (-) TimerEvent: {}
+[76.756821] (-) TimerEvent: {}
+[76.860115] (-) TimerEvent: {}
+[76.960812] (-) TimerEvent: {}
+[77.064648] (-) TimerEvent: {}
+[77.165138] (-) TimerEvent: {}
+[77.265634] (-) TimerEvent: {}
+[77.368619] (-) TimerEvent: {}
+[77.469133] (-) TimerEvent: {}
+[77.570185] (-) TimerEvent: {}
+[77.671817] (-) TimerEvent: {}
+[77.772436] (-) TimerEvent: {}
+[77.874119] (-) TimerEvent: {}
+[77.977011] (-) TimerEvent: {}
+[78.077458] (-) TimerEvent: {}
+[78.179631] (-) TimerEvent: {}
+[78.280123] (-) TimerEvent: {}
+[78.380633] (-) TimerEvent: {}
+[78.483038] (-) TimerEvent: {}
+[78.583547] (-) TimerEvent: {}
+[78.684028] (-) TimerEvent: {}
+[78.786865] (-) TimerEvent: {}
+[78.887334] (-) TimerEvent: {}
+[78.988703] (-) TimerEvent: {}
+[79.089179] (-) TimerEvent: {}
+[79.192039] (-) TimerEvent: {}
+[79.292501] (-) TimerEvent: {}
+[79.392986] (-) TimerEvent: {}
+[79.493637] (-) TimerEvent: {}
+[79.596108] (-) TimerEvent: {}
+[79.696628] (-) TimerEvent: {}
+[79.802776] (-) TimerEvent: {}
+[79.903363] (-) TimerEvent: {}
+[80.004011] (-) TimerEvent: {}
+[80.105037] (-) TimerEvent: {}
+[80.207005] (-) TimerEvent: {}
+[80.308615] (-) TimerEvent: {}
+[80.409303] (-) TimerEvent: {}
+[80.511660] (-) TimerEvent: {}
+[80.612176] (-) TimerEvent: {}
+[80.712629] (-) TimerEvent: {}
+[80.813082] (-) TimerEvent: {}
+[80.915627] (-) TimerEvent: {}
+[81.016045] (-) TimerEvent: {}
+[81.116569] (-) TimerEvent: {}
+[81.217044] (-) TimerEvent: {}
+[81.318575] (-) TimerEvent: {}
+[81.419017] (-) TimerEvent: {}
+[81.520687] (-) TimerEvent: {}
+[81.621166] (-) TimerEvent: {}
+[81.721629] (-) TimerEvent: {}
+[81.823536] (-) TimerEvent: {}
+[81.925293] (-) TimerEvent: {}
+[82.025921] (-) TimerEvent: {}
+[82.127629] (-) TimerEvent: {}
+[82.228053] (-) TimerEvent: {}
+[82.328863] (-) TimerEvent: {}
+[82.430950] (-) TimerEvent: {}
+[82.533955] (-) TimerEvent: {}
+[82.620175] (transformer_msp_bridge) StdoutLine: {'line': b'[ 72%] \x1b[32m\x1b[1mLinking CXX executable test_decoder_coverage\x1b[0m\n'}
+[82.634111] (-) TimerEvent: {}
+[82.734649] (-) TimerEvent: {}
+[82.835689] (-) TimerEvent: {}
+[82.938747] (-) TimerEvent: {}
+[83.039187] (-) TimerEvent: {}
+[83.059495] (transformer_msp_bridge) StdoutLine: {'line': b'[ 72%] Built target test_decoder_coverage\n'}
+[83.139344] (-) TimerEvent: {}
+[83.240786] (-) TimerEvent: {}
+[83.271621] (transformer_msp_bridge) StdoutLine: {'line': b'[ 73%] \x1b[32mBuilding CXX object CMakeFiles/test_msp_probe.dir/test/test_msp_probe.cpp.o\x1b[0m\n'}
+[83.340946] (-) TimerEvent: {}
+[83.441401] (-) TimerEvent: {}
+[83.543812] (-) TimerEvent: {}
+[83.646637] (-) TimerEvent: {}
+[83.747080] (-) TimerEvent: {}
+[83.847517] (-) TimerEvent: {}
+[84.131767] (-) TimerEvent: {}
+[84.236651] (-) TimerEvent: {}
+[84.337404] (-) TimerEvent: {}
+[84.438884] (-) TimerEvent: {}
+[84.539938] (-) TimerEvent: {}
+[84.640579] (-) TimerEvent: {}
+[84.741588] (-) TimerEvent: {}
+[84.842617] (-) TimerEvent: {}
+[84.944124] (-) TimerEvent: {}
+[85.045077] (-) TimerEvent: {}
+[85.145704] (-) TimerEvent: {}
+[85.246761] (-) TimerEvent: {}
+[85.347222] (-) TimerEvent: {}
+[85.448183] (-) TimerEvent: {}
+[85.548986] (-) TimerEvent: {}
+[85.649473] (-) TimerEvent: {}
+[85.750807] (-) TimerEvent: {}
+[85.851798] (-) TimerEvent: {}
+[85.953130] (-) TimerEvent: {}
+[86.058130] (-) TimerEvent: {}
+[86.159129] (-) TimerEvent: {}
+[86.259793] (-) TimerEvent: {}
+[86.360231] (-) TimerEvent: {}
+[86.460681] (-) TimerEvent: {}
+[86.561144] (-) TimerEvent: {}
+[86.624053] (transformer_msp_bridge) StdoutLine: {'line': b'[ 74%] \x1b[32m\x1b[1mLinking CXX executable test_msp_probe\x1b[0m\n'}
+[86.661627] (-) TimerEvent: {}
+[86.762107] (-) TimerEvent: {}
+[86.863619] (-) TimerEvent: {}
+[86.964054] (-) TimerEvent: {}
+[86.987620] (transformer_msp_bridge) StdoutLine: {'line': b'[ 74%] Built target test_msp_probe\n'}
+[87.064179] (-) TimerEvent: {}
+[87.164584] (-) TimerEvent: {}
+[87.265019] (-) TimerEvent: {}
+[87.365550] (-) TimerEvent: {}
+[87.466046] (-) TimerEvent: {}
+[87.566425] (-) TimerEvent: {}
+[87.666835] (-) TimerEvent: {}
+[87.767193] (-) TimerEvent: {}
+[87.867569] (-) TimerEvent: {}
+[87.967937] (-) TimerEvent: {}
+[88.068271] (-) TimerEvent: {}
+[88.168637] (-) TimerEvent: {}
+[88.269041] (-) TimerEvent: {}
+[88.369407] (-) TimerEvent: {}
+[88.469789] (-) TimerEvent: {}
+[88.570204] (-) TimerEvent: {}
+[88.670578] (-) TimerEvent: {}
+[88.770940] (-) TimerEvent: {}
+[88.871311] (-) TimerEvent: {}
+[88.971689] (-) TimerEvent: {}
+[89.072033] (-) TimerEvent: {}
+[89.172392] (-) TimerEvent: {}
+[89.272782] (-) TimerEvent: {}
+[89.373159] (-) TimerEvent: {}
+[89.473570] (-) TimerEvent: {}
+[89.573915] (-) TimerEvent: {}
+[89.674265] (-) TimerEvent: {}
+[89.774621] (-) TimerEvent: {}
+[89.875047] (-) TimerEvent: {}
+[89.975451] (-) TimerEvent: {}
+[90.075870] (-) TimerEvent: {}
+[90.176269] (-) TimerEvent: {}
+[90.276678] (-) TimerEvent: {}
+[90.377087] (-) TimerEvent: {}
+[90.477542] (-) TimerEvent: {}
+[90.577975] (-) TimerEvent: {}
+[90.678421] (-) TimerEvent: {}
+[90.778832] (-) TimerEvent: {}
+[90.879340] (-) TimerEvent: {}
+[90.980555] (-) TimerEvent: {}
+[91.071549] (transformer_msp_bridge) StdoutLine: {'line': b'[ 75%] \x1b[32m\x1b[1mLinking CXX shared library libtransformer_msp_bridge_decoders.so\x1b[0m\n'}
+[91.080673] (-) TimerEvent: {}
+[91.181099] (-) TimerEvent: {}
+[91.281586] (-) TimerEvent: {}
+[91.382052] (-) TimerEvent: {}
+[91.482546] (-) TimerEvent: {}
+[91.583057] (-) TimerEvent: {}
+[91.683437] (-) TimerEvent: {}
+[91.783896] (-) TimerEvent: {}
+[91.884239] (-) TimerEvent: {}
+[91.956681] (transformer_msp_bridge) StdoutLine: {'line': b'[ 75%] Built target transformer_msp_bridge_decoders\n'}
+[91.984400] (-) TimerEvent: {}
+[92.024704] (transformer_msp_bridge) StdoutLine: {'line': b'[ 76%] \x1b[32mBuilding CXX object CMakeFiles/transformer_msp_bridge_node.dir/src/transformer_msp_bridge_node.cpp.o\x1b[0m\n'}
+[92.030188] (transformer_msp_bridge) StdoutLine: {'line': b'[ 78%] \x1b[32mBuilding CXX object CMakeFiles/test_system_decoder.dir/test/test_system_decoder.cpp.o\x1b[0m\n'}
+[92.031588] (transformer_msp_bridge) StdoutLine: {'line': b'[ 78%] \x1b[32mBuilding CXX object CMakeFiles/test_attitude_decoder.dir/test/test_attitude_decoder.cpp.o\x1b[0m\n'}
+[92.055550] (transformer_msp_bridge) StdoutLine: {'line': b'[ 79%] \x1b[32mBuilding CXX object CMakeFiles/test_battery_decoder.dir/test/test_battery_decoder.cpp.o\x1b[0m\n'}
+[92.084574] (-) TimerEvent: {}
+[92.185015] (-) TimerEvent: {}
+[92.285382] (-) TimerEvent: {}
+[92.388620] (-) TimerEvent: {}
+[92.489009] (-) TimerEvent: {}
+[92.589753] (-) TimerEvent: {}
+[92.692641] (-) TimerEvent: {}
+[92.793116] (-) TimerEvent: {}
+[92.893612] (-) TimerEvent: {}
+[92.999621] (-) TimerEvent: {}
+[93.100116] (-) TimerEvent: {}
+[93.200587] (-) TimerEvent: {}
+[93.301028] (-) TimerEvent: {}
+[93.401686] (-) TimerEvent: {}
+[93.504620] (-) TimerEvent: {}
+[93.605076] (-) TimerEvent: {}
+[93.705591] (-) TimerEvent: {}
+[93.806019] (-) TimerEvent: {}
+[93.908998] (-) TimerEvent: {}
+[94.009445] (-) TimerEvent: {}
+[94.109909] (-) TimerEvent: {}
+[94.210357] (-) TimerEvent: {}
+[94.313011] (-) TimerEvent: {}
+[94.414624] (-) TimerEvent: {}
+[94.515056] (-) TimerEvent: {}
+[94.620623] (-) TimerEvent: {}
+[94.721065] (-) TimerEvent: {}
+[94.821753] (-) TimerEvent: {}
+[94.922237] (-) TimerEvent: {}
+[95.026300] (-) TimerEvent: {}
+[95.126766] (-) TimerEvent: {}
+[95.227217] (-) TimerEvent: {}
+[95.329966] (-) TimerEvent: {}
+[95.430398] (-) TimerEvent: {}
+[95.531454] (-) TimerEvent: {}
+[95.633644] (-) TimerEvent: {}
+[95.734093] (-) TimerEvent: {}
+[95.837622] (-) TimerEvent: {}
+[95.938050] (-) TimerEvent: {}
+[96.038466] (-) TimerEvent: {}
+[96.139066] (-) TimerEvent: {}
+[96.239712] (-) TimerEvent: {}
+[96.342058] (-) TimerEvent: {}
+[96.442495] (-) TimerEvent: {}
+[96.544467] (-) TimerEvent: {}
+[96.644908] (-) TimerEvent: {}
+[96.747022] (-) TimerEvent: {}
+[96.847634] (-) TimerEvent: {}
+[96.948985] (-) TimerEvent: {}
+[97.050629] (-) TimerEvent: {}
+[97.151063] (-) TimerEvent: {}
+[97.253627] (-) TimerEvent: {}
+[97.354071] (-) TimerEvent: {}
+[97.454504] (-) TimerEvent: {}
+[97.556171] (-) TimerEvent: {}
+[97.657621] (-) TimerEvent: {}
+[97.758034] (-) TimerEvent: {}
+[97.859645] (-) TimerEvent: {}
+[97.960075] (-) TimerEvent: {}
+[98.060558] (-) TimerEvent: {}
+[98.163982] (-) TimerEvent: {}
+[98.264416] (-) TimerEvent: {}
+[98.366987] (-) TimerEvent: {}
+[98.467401] (-) TimerEvent: {}
+[98.567810] (-) TimerEvent: {}
+[98.670845] (-) TimerEvent: {}
+[98.771631] (-) TimerEvent: {}
+[98.875626] (-) TimerEvent: {}
+[98.976275] (-) TimerEvent: {}
+[99.076725] (-) TimerEvent: {}
+[99.178620] (-) TimerEvent: {}
+[99.279069] (-) TimerEvent: {}
+[99.381763] (-) TimerEvent: {}
+[99.484614] (-) TimerEvent: {}
+[99.585043] (-) TimerEvent: {}
+[99.685497] (-) TimerEvent: {}
+[99.785944] (-) TimerEvent: {}
+[99.887975] (-) TimerEvent: {}
+[99.988716] (-) TimerEvent: {}
+[100.089127] (-) TimerEvent: {}
+[100.190649] (-) TimerEvent: {}
+[100.291086] (-) TimerEvent: {}
+[100.392626] (-) TimerEvent: {}
+[100.493064] (-) TimerEvent: {}
+[100.594138] (-) TimerEvent: {}
+[100.696628] (-) TimerEvent: {}
+[100.797062] (-) TimerEvent: {}
+[100.897501] (-) TimerEvent: {}
+[100.999480] (-) TimerEvent: {}
+[101.100641] (-) TimerEvent: {}
+[101.201065] (-) TimerEvent: {}
+[101.302625] (-) TimerEvent: {}
+[101.403042] (-) TimerEvent: {}
+[101.505705] (-) TimerEvent: {}
+[101.606126] (-) TimerEvent: {}
+[101.706579] (-) TimerEvent: {}
+[101.808621] (-) TimerEvent: {}
+[101.909069] (-) TimerEvent: {}
+[102.009694] (-) TimerEvent: {}
+[102.112624] (-) TimerEvent: {}
+[102.213049] (-) TimerEvent: {}
+[102.313475] (-) TimerEvent: {}
+[102.416616] (-) TimerEvent: {}
+[102.517053] (-) TimerEvent: {}
+[102.617554] (-) TimerEvent: {}
+[102.718016] (-) TimerEvent: {}
+[102.818585] (-) TimerEvent: {}
+[102.920191] (-) TimerEvent: {}
+[103.021628] (-) TimerEvent: {}
+[103.122059] (-) TimerEvent: {}
+[103.223622] (-) TimerEvent: {}
+[103.324231] (-) TimerEvent: {}
+[103.424866] (-) TimerEvent: {}
+[103.526624] (-) TimerEvent: {}
+[103.627082] (-) TimerEvent: {}
+[103.728789] (-) TimerEvent: {}
+[103.829282] (-) TimerEvent: {}
+[103.930639] (-) TimerEvent: {}
+[104.031081] (-) TimerEvent: {}
+[104.133680] (-) TimerEvent: {}
+[104.234163] (-) TimerEvent: {}
+[104.335233] (-) TimerEvent: {}
+[104.437014] (-) TimerEvent: {}
+[104.538204] (-) TimerEvent: {}
+[104.641186] (-) TimerEvent: {}
+[104.743674] (-) TimerEvent: {}
+[104.844118] (-) TimerEvent: {}
+[104.947626] (-) TimerEvent: {}
+[105.048110] (-) TimerEvent: {}
+[105.148896] (-) TimerEvent: {}
+[105.250812] (-) TimerEvent: {}
+[105.351481] (-) TimerEvent: {}
+[105.454006] (-) TimerEvent: {}
+[105.554483] (-) TimerEvent: {}
+[105.656858] (-) TimerEvent: {}
+[105.759627] (-) TimerEvent: {}
+[105.860118] (-) TimerEvent: {}
+[105.960767] (-) TimerEvent: {}
+[106.062837] (-) TimerEvent: {}
+[106.163985] (-) TimerEvent: {}
+[106.267625] (-) TimerEvent: {}
+[106.368076] (-) TimerEvent: {}
+[106.469068] (-) TimerEvent: {}
+[106.569736] (-) TimerEvent: {}
+[106.670410] (-) TimerEvent: {}
+[106.773660] (-) TimerEvent: {}
+[106.874109] (-) TimerEvent: {}
+[106.974600] (-) TimerEvent: {}
+[107.075082] (-) TimerEvent: {}
+[107.176624] (-) TimerEvent: {}
+[107.277071] (-) TimerEvent: {}
+[107.378954] (-) TimerEvent: {}
+[107.479588] (-) TimerEvent: {}
+[107.582627] (-) TimerEvent: {}
+[107.683107] (-) TimerEvent: {}
+[107.783576] (-) TimerEvent: {}
+[107.886625] (-) TimerEvent: {}
+[107.987072] (-) TimerEvent: {}
+[108.087517] (-) TimerEvent: {}
+[108.188009] (-) TimerEvent: {}
+[108.290624] (-) TimerEvent: {}
+[108.391049] (-) TimerEvent: {}
+[108.491759] (-) TimerEvent: {}
+[108.594625] (-) TimerEvent: {}
+[108.695119] (-) TimerEvent: {}
+[108.796198] (-) TimerEvent: {}
+[108.897319] (-) TimerEvent: {}
+[108.998957] (-) TimerEvent: {}
+[109.099371] (-) TimerEvent: {}
+[109.207001] (-) TimerEvent: {}
+[109.308125] (-) TimerEvent: {}
+[109.409064] (-) TimerEvent: {}
+[109.514867] (-) TimerEvent: {}
+[109.615371] (-) TimerEvent: {}
+[109.715883] (-) TimerEvent: {}
+[109.816946] (-) TimerEvent: {}
+[109.917417] (-) TimerEvent: {}
+[110.021095] (-) TimerEvent: {}
+[110.121609] (-) TimerEvent: {}
+[110.222128] (-) TimerEvent: {}
+[110.325885] (-) TimerEvent: {}
+[110.426364] (-) TimerEvent: {}
+[110.526824] (-) TimerEvent: {}
+[110.627474] (-) TimerEvent: {}
+[110.728195] (-) TimerEvent: {}
+[110.832018] (-) TimerEvent: {}
+[110.932774] (-) TimerEvent: {}
+[111.033438] (-) TimerEvent: {}
+[111.136499] (-) TimerEvent: {}
+[111.236976] (-) TimerEvent: {}
+[111.337478] (-) TimerEvent: {}
+[111.438993] (-) TimerEvent: {}
+[111.542011] (-) TimerEvent: {}
+[111.642489] (-) TimerEvent: {}
+[111.742973] (-) TimerEvent: {}
+[111.846627] (-) TimerEvent: {}
+[111.947124] (-) TimerEvent: {}
+[112.047767] (-) TimerEvent: {}
+[112.150007] (-) TimerEvent: {}
+[112.250869] (-) TimerEvent: {}
+[112.353815] (-) TimerEvent: {}
+[112.454315] (-) TimerEvent: {}
+[112.554834] (-) TimerEvent: {}
+[112.656623] (-) TimerEvent: {}
+[112.757097] (-) TimerEvent: {}
+[112.859110] (-) TimerEvent: {}
+[112.962617] (-) TimerEvent: {}
+[113.063092] (-) TimerEvent: {}
+[113.164647] (-) TimerEvent: {}
+[113.265073] (-) TimerEvent: {}
+[113.366999] (-) TimerEvent: {}
+[113.467487] (-) TimerEvent: {}
+[113.570630] (-) TimerEvent: {}
+[113.671107] (-) TimerEvent: {}
+[113.771591] (-) TimerEvent: {}
+[113.872082] (-) TimerEvent: {}
+[113.973751] (-) TimerEvent: {}
+[114.074209] (-) TimerEvent: {}
+[114.177037] (-) TimerEvent: {}
+[114.277728] (-) TimerEvent: {}
+[114.378811] (-) TimerEvent: {}
+[114.480793] (-) TimerEvent: {}
+[114.583629] (-) TimerEvent: {}
+[114.684091] (-) TimerEvent: {}
+[114.784548] (-) TimerEvent: {}
+[114.887646] (-) TimerEvent: {}
+[114.988632] (-) TimerEvent: {}
+[115.089486] (-) TimerEvent: {}
+[115.193355] (-) TimerEvent: {}
+[115.296629] (-) TimerEvent: {}
+[115.397072] (-) TimerEvent: {}
+[115.497510] (-) TimerEvent: {}
+[115.600649] (-) TimerEvent: {}
+[115.701092] (-) TimerEvent: {}
+[115.801577] (-) TimerEvent: {}
+[115.902199] (-) TimerEvent: {}
+[116.005004] (-) TimerEvent: {}
+[116.105831] (-) TimerEvent: {}
+[116.206578] (-) TimerEvent: {}
+[116.309638] (-) TimerEvent: {}
+[116.410116] (-) TimerEvent: {}
+[116.510620] (-) TimerEvent: {}
+[116.612663] (-) TimerEvent: {}
+[116.713099] (-) TimerEvent: {}
+[116.813576] (-) TimerEvent: {}
+[116.917096] (-) TimerEvent: {}
+[117.017677] (-) TimerEvent: {}
+[117.119718] (-) TimerEvent: {}
+[117.220237] (-) TimerEvent: {}
+[117.322091] (-) TimerEvent: {}
+[117.423234] (-) TimerEvent: {}
+[117.525841] (-) TimerEvent: {}
+[117.628768] (-) TimerEvent: {}
+[117.729210] (-) TimerEvent: {}
+[117.829688] (-) TimerEvent: {}
+[117.930108] (-) TimerEvent: {}
+[118.033627] (-) TimerEvent: {}
+[118.134091] (-) TimerEvent: {}
+[118.234610] (-) TimerEvent: {}
+[118.335267] (-) TimerEvent: {}
+[118.435752] (-) TimerEvent: {}
+[118.538627] (-) TimerEvent: {}
+[118.639060] (-) TimerEvent: {}
+[118.739547] (-) TimerEvent: {}
+[118.842630] (-) TimerEvent: {}
+[118.943083] (-) TimerEvent: {}
+[119.043618] (-) TimerEvent: {}
+[119.145626] (-) TimerEvent: {}
+[119.246306] (-) TimerEvent: {}
+[119.348043] (-) TimerEvent: {}
+[119.448484] (-) TimerEvent: {}
+[119.548944] (-) TimerEvent: {}
+[119.651001] (-) TimerEvent: {}
+[119.753856] (-) TimerEvent: {}
+[119.857661] (-) TimerEvent: {}
+[119.958129] (-) TimerEvent: {}
+[120.060065] (-) TimerEvent: {}
+[120.160761] (-) TimerEvent: {}
+[120.263632] (-) TimerEvent: {}
+[120.364102] (-) TimerEvent: {}
+[120.464585] (-) TimerEvent: {}
+[120.565029] (-) TimerEvent: {}
+[120.669038] (-) TimerEvent: {}
+[120.769571] (-) TimerEvent: {}
+[120.870052] (-) TimerEvent: {}
+[120.970549] (-) TimerEvent: {}
+[121.071959] (-) TimerEvent: {}
+[121.175327] (-) TimerEvent: {}
+[121.275935] (-) TimerEvent: {}
+[121.376432] (-) TimerEvent: {}
+[121.478617] (-) TimerEvent: {}
+[121.579074] (-) TimerEvent: {}
+[121.679731] (-) TimerEvent: {}
+[121.781004] (-) TimerEvent: {}
+[121.883016] (-) TimerEvent: {}
+[121.983616] (-) TimerEvent: {}
+[122.085044] (-) TimerEvent: {}
+[122.188629] (-) TimerEvent: {}
+[122.289081] (-) TimerEvent: {}
+[122.389610] (-) TimerEvent: {}
+[122.490088] (-) TimerEvent: {}
+[122.590585] (-) TimerEvent: {}
+[122.692630] (-) TimerEvent: {}
+[122.793252] (-) TimerEvent: {}
+[122.894645] (-) TimerEvent: {}
+[122.997640] (-) TimerEvent: {}
+[123.098094] (-) TimerEvent: {}
+[123.198611] (-) TimerEvent: {}
+[123.299049] (-) TimerEvent: {}
+[123.401998] (-) TimerEvent: {}
+[123.502471] (-) TimerEvent: {}
+[123.602948] (-) TimerEvent: {}
+[123.703853] (-) TimerEvent: {}
+[123.805851] (-) TimerEvent: {}
+[123.907882] (-) TimerEvent: {}
+[124.008495] (-) TimerEvent: {}
+[124.109614] (-) TimerEvent: {}
+[124.311469] (-) TimerEvent: {}
+[124.413796] (-) TimerEvent: {}
+[124.514427] (-) TimerEvent: {}
+[124.616130] (-) TimerEvent: {}
+[124.717872] (-) TimerEvent: {}
+[124.819147] (-) TimerEvent: {}
+[124.921319] (-) TimerEvent: {}
+[125.021810] (-) TimerEvent: {}
+[125.122284] (-) TimerEvent: {}
+[125.223615] (-) TimerEvent: {}
+[125.324704] (-) TimerEvent: {}
+[125.427022] (-) TimerEvent: {}
+[125.527561] (-) TimerEvent: {}
+[125.629852] (-) TimerEvent: {}
+[125.731856] (-) TimerEvent: {}
+[125.835646] (-) TimerEvent: {}
+[125.936860] (-) TimerEvent: {}
+[126.041254] (-) TimerEvent: {}
+[126.142151] (-) TimerEvent: {}
+[126.245634] (-) TimerEvent: {}
+[126.348711] (-) TimerEvent: {}
+[126.449428] (-) TimerEvent: {}
+[126.550061] (-) TimerEvent: {}
+[126.567798] (transformer_msp_bridge) StdoutLine: {'line': b'[ 80%] \x1b[32m\x1b[1mLinking CXX executable test_attitude_decoder\x1b[0m\n'}
+[126.650219] (-) TimerEvent: {}
+[126.754035] (-) TimerEvent: {}
+[126.855177] (-) TimerEvent: {}
+[126.960690] (-) TimerEvent: {}
+[127.061202] (-) TimerEvent: {}
+[127.161747] (-) TimerEvent: {}
+[127.263047] (-) TimerEvent: {}
+[127.366068] (-) TimerEvent: {}
+[127.466647] (-) TimerEvent: {}
+[127.568891] (-) TimerEvent: {}
+[127.671865] (-) TimerEvent: {}
+[127.772395] (-) TimerEvent: {}
+[127.873803] (-) TimerEvent: {}
+[127.927596] (transformer_msp_bridge) StdoutLine: {'line': b'[ 80%] Built target test_attitude_decoder\n'}
+[127.973994] (-) TimerEvent: {}
+[128.018329] (transformer_msp_bridge) StdoutLine: {'line': b'[ 81%] \x1b[32mBuilding CXX object CMakeFiles/test_imu_decoder.dir/test/test_imu_decoder.cpp.o\x1b[0m\n'}
+[128.074131] (-) TimerEvent: {}
+[128.177624] (-) TimerEvent: {}
+[128.278095] (-) TimerEvent: {}
+[128.378898] (-) TimerEvent: {}
+[128.479301] (-) TimerEvent: {}
+[128.579743] (-) TimerEvent: {}
+[128.680155] (-) TimerEvent: {}
+[128.780673] (-) TimerEvent: {}
+[128.882362] (-) TimerEvent: {}
+[128.985629] (-) TimerEvent: {}
+[129.086141] (-) TimerEvent: {}
+[129.186655] (-) TimerEvent: {}
+[129.287199] (-) TimerEvent: {}
+[129.389358] (-) TimerEvent: {}
+[129.489789] (-) TimerEvent: {}
+[129.592637] (-) TimerEvent: {}
+[129.693088] (-) TimerEvent: {}
+[129.793825] (-) TimerEvent: {}
+[129.894372] (-) TimerEvent: {}
+[129.994793] (-) TimerEvent: {}
+[130.095325] (-) TimerEvent: {}
+[130.196174] (-) TimerEvent: {}
+[130.298006] (-) TimerEvent: {}
+[130.398539] (-) TimerEvent: {}
+[130.499561] (-) TimerEvent: {}
+[130.602948] (-) TimerEvent: {}
+[130.705034] (-) TimerEvent: {}
+[130.807105] (-) TimerEvent: {}
+[130.909702] (-) TimerEvent: {}
+[131.012927] (-) TimerEvent: {}
+[131.102553] (transformer_msp_bridge) StdoutLine: {'line': b'[ 82%] \x1b[32m\x1b[1mLinking CXX executable test_battery_decoder\x1b[0m\n'}
+[131.113099] (-) TimerEvent: {}
+[131.215207] (-) TimerEvent: {}
+[131.321387] (-) TimerEvent: {}
+[131.422761] (-) TimerEvent: {}
+[131.526974] (-) TimerEvent: {}
+[131.627920] (-) TimerEvent: {}
+[131.730177] (-) TimerEvent: {}
+[131.833624] (-) TimerEvent: {}
+[131.934090] (-) TimerEvent: {}
+[132.034501] (-) TimerEvent: {}
+[132.136211] (-) TimerEvent: {}
+[132.169768] (transformer_msp_bridge) StdoutLine: {'line': b'[ 82%] Built target test_battery_decoder\n'}
+[132.237633] (-) TimerEvent: {}
+[132.248720] (transformer_msp_bridge) StdoutLine: {'line': b'[ 83%] \x1b[32mBuilding CXX object CMakeFiles/test_gps_decoder.dir/test/test_gps_decoder.cpp.o\x1b[0m\n'}
+[132.337760] (-) TimerEvent: {}
+[132.438439] (-) TimerEvent: {}
+[132.540850] (-) TimerEvent: {}
+[132.641451] (-) TimerEvent: {}
+[132.746420] (-) TimerEvent: {}
+[132.849280] (-) TimerEvent: {}
+[132.952652] (-) TimerEvent: {}
+[133.053170] (-) TimerEvent: {}
+[133.153787] (-) TimerEvent: {}
+[133.255564] (-) TimerEvent: {}
+[133.358871] (-) TimerEvent: {}
+[133.461711] (-) TimerEvent: {}
+[133.468013] (transformer_msp_bridge) StdoutLine: {'line': b'[ 84%] \x1b[32m\x1b[1mLinking CXX executable test_system_decoder\x1b[0m\n'}
+[133.562196] (-) TimerEvent: {}
+[133.665420] (-) TimerEvent: {}
+[133.765923] (-) TimerEvent: {}
+[133.868986] (-) TimerEvent: {}
+[133.971232] (-) TimerEvent: {}
+[134.073820] (-) TimerEvent: {}
+[134.177651] (-) TimerEvent: {}
+[134.278165] (-) TimerEvent: {}
+[134.379182] (-) TimerEvent: {}
+[134.479821] (-) TimerEvent: {}
+[134.581619] (-) TimerEvent: {}
+[134.682218] (-) TimerEvent: {}
+[134.782664] (-) TimerEvent: {}
+[134.813049] (transformer_msp_bridge) StdoutLine: {'line': b'[ 84%] Built target test_system_decoder\n'}
+[134.882799] (-) TimerEvent: {}
+[134.986857] (-) TimerEvent: {}
+[135.087478] (-) TimerEvent: {}
+[135.188764] (-) TimerEvent: {}
+[135.289634] (-) TimerEvent: {}
+[135.390271] (-) TimerEvent: {}
+[135.491411] (-) TimerEvent: {}
+[135.592403] (-) TimerEvent: {}
+[135.693686] (-) TimerEvent: {}
+[135.794951] (-) TimerEvent: {}
+[135.895834] (-) TimerEvent: {}
+[135.996249] (-) TimerEvent: {}
+[136.097287] (-) TimerEvent: {}
+[136.198217] (-) TimerEvent: {}
+[136.298710] (-) TimerEvent: {}
+[136.399720] (-) TimerEvent: {}
+[136.500633] (-) TimerEvent: {}
+[136.601248] (-) TimerEvent: {}
+[136.702147] (-) TimerEvent: {}
+[136.803009] (-) TimerEvent: {}
+[136.903626] (-) TimerEvent: {}
+[137.004548] (-) TimerEvent: {}
+[137.105445] (-) TimerEvent: {}
+[137.206048] (-) TimerEvent: {}
+[137.306933] (-) TimerEvent: {}
+[137.407547] (-) TimerEvent: {}
+[137.508179] (-) TimerEvent: {}
+[137.608609] (-) TimerEvent: {}
+[137.709540] (-) TimerEvent: {}
+[137.810428] (-) TimerEvent: {}
+[137.910871] (-) TimerEvent: {}
+[138.011449] (-) TimerEvent: {}
+[138.112324] (-) TimerEvent: {}
+[138.213546] (-) TimerEvent: {}
+[138.314631] (-) TimerEvent: {}
+[138.415491] (-) TimerEvent: {}
+[138.516426] (-) TimerEvent: {}
+[138.616855] (-) TimerEvent: {}
+[138.717764] (-) TimerEvent: {}
+[138.818201] (-) TimerEvent: {}
+[138.919158] (-) TimerEvent: {}
+[139.019981] (-) TimerEvent: {}
+[139.120881] (-) TimerEvent: {}
+[139.221470] (-) TimerEvent: {}
+[139.322058] (-) TimerEvent: {}
+[139.422968] (-) TimerEvent: {}
+[139.524080] (-) TimerEvent: {}
+[139.624994] (-) TimerEvent: {}
+[139.725963] (-) TimerEvent: {}
+[139.828030] (-) TimerEvent: {}
+[139.930984] (-) TimerEvent: {}
+[140.031406] (-) TimerEvent: {}
+[140.132034] (-) TimerEvent: {}
+[140.233739] (-) TimerEvent: {}
+[140.334183] (-) TimerEvent: {}
+[140.434628] (-) TimerEvent: {}
+[140.535671] (-) TimerEvent: {}
+[140.636569] (-) TimerEvent: {}
+[140.737430] (-) TimerEvent: {}
+[140.838172] (-) TimerEvent: {}
+[140.939548] (-) TimerEvent: {}
+[141.042611] (-) TimerEvent: {}
+[141.143122] (-) TimerEvent: {}
+[141.244094] (-) TimerEvent: {}
+[141.344564] (-) TimerEvent: {}
+[141.444989] (-) TimerEvent: {}
+[141.545464] (-) TimerEvent: {}
+[141.645909] (-) TimerEvent: {}
+[141.746857] (-) TimerEvent: {}
+[141.847850] (-) TimerEvent: {}
+[141.948684] (-) TimerEvent: {}
+[142.049738] (-) TimerEvent: {}
+[142.150737] (-) TimerEvent: {}
+[142.251609] (-) TimerEvent: {}
+[142.352003] (-) TimerEvent: {}
+[142.452615] (-) TimerEvent: {}
+[142.553235] (-) TimerEvent: {}
+[142.654022] (-) TimerEvent: {}
+[142.754647] (-) TimerEvent: {}
+[142.855637] (-) TimerEvent: {}
+[142.956272] (-) TimerEvent: {}
+[143.057163] (-) TimerEvent: {}
+[143.158068] (-) TimerEvent: {}
+[143.259107] (-) TimerEvent: {}
+[143.359799] (-) TimerEvent: {}
+[143.460305] (-) TimerEvent: {}
+[143.561113] (-) TimerEvent: {}
+[143.661987] (-) TimerEvent: {}
+[143.762423] (-) TimerEvent: {}
+[143.863556] (-) TimerEvent: {}
+[143.964426] (-) TimerEvent: {}
+[144.065290] (-) TimerEvent: {}
+[144.167097] (-) TimerEvent: {}
+[144.267562] (-) TimerEvent: {}
+[144.367998] (-) TimerEvent: {}
+[144.468375] (-) TimerEvent: {}
+[144.568770] (-) TimerEvent: {}
+[144.671399] (-) TimerEvent: {}
+[144.774834] (-) TimerEvent: {}
+[144.875285] (-) TimerEvent: {}
+[144.975878] (-) TimerEvent: {}
+[145.076431] (-) TimerEvent: {}
+[145.177456] (-) TimerEvent: {}
+[145.278183] (-) TimerEvent: {}
+[145.378688] (-) TimerEvent: {}
+[145.479108] (-) TimerEvent: {}
+[145.579739] (-) TimerEvent: {}
+[145.680763] (-) TimerEvent: {}
+[145.781202] (-) TimerEvent: {}
+[145.882122] (-) TimerEvent: {}
+[145.983736] (-) TimerEvent: {}
+[146.084289] (-) TimerEvent: {}
+[146.185977] (-) TimerEvent: {}
+[146.286419] (-) TimerEvent: {}
+[146.387787] (-) TimerEvent: {}
+[146.488799] (-) TimerEvent: {}
+[146.591988] (-) TimerEvent: {}
+[146.692465] (-) TimerEvent: {}
+[146.792894] (-) TimerEvent: {}
+[146.893334] (-) TimerEvent: {}
+[146.993818] (-) TimerEvent: {}
+[147.096822] (-) TimerEvent: {}
+[147.197254] (-) TimerEvent: {}
+[147.297693] (-) TimerEvent: {}
+[147.398394] (-) TimerEvent: {}
+[147.499920] (-) TimerEvent: {}
+[147.601757] (-) TimerEvent: {}
+[147.706460] (-) TimerEvent: {}
+[147.807216] (-) TimerEvent: {}
+[147.909026] (-) TimerEvent: {}
+[148.010365] (-) TimerEvent: {}
+[148.111304] (-) TimerEvent: {}
+[148.213544] (-) TimerEvent: {}
+[148.314013] (-) TimerEvent: {}
+[148.362886] (transformer_msp_bridge) StdoutLine: {'line': b'[ 85%] \x1b[32m\x1b[1mLinking CXX executable transformer_msp_bridge_node\x1b[0m\n'}
+[148.414156] (-) TimerEvent: {}
+[148.516208] (-) TimerEvent: {}
+[148.617693] (-) TimerEvent: {}
+[148.719628] (-) TimerEvent: {}
+[148.820046] (-) TimerEvent: {}
+[148.920503] (-) TimerEvent: {}
+[149.021562] (-) TimerEvent: {}
+[149.122022] (-) TimerEvent: {}
+[149.222538] (-) TimerEvent: {}
+[149.323619] (-) TimerEvent: {}
+[149.353073] (transformer_msp_bridge) StdoutLine: {'line': b'[ 85%] Built target transformer_msp_bridge_node\n'}
+[149.423746] (-) TimerEvent: {}
+[149.529874] (-) TimerEvent: {}
+[149.630344] (-) TimerEvent: {}
+[149.731025] (-) TimerEvent: {}
+[149.831593] (-) TimerEvent: {}
+[149.932005] (-) TimerEvent: {}
+[150.032477] (-) TimerEvent: {}
+[150.132917] (-) TimerEvent: {}
+[150.233332] (-) TimerEvent: {}
+[150.333749] (-) TimerEvent: {}
+[150.434160] (-) TimerEvent: {}
+[150.534597] (-) TimerEvent: {}
+[150.635011] (-) TimerEvent: {}
+[150.735476] (-) TimerEvent: {}
+[150.835888] (-) TimerEvent: {}
+[150.936310] (-) TimerEvent: {}
+[151.036754] (-) TimerEvent: {}
+[151.137151] (-) TimerEvent: {}
+[151.237578] (-) TimerEvent: {}
+[151.337972] (-) TimerEvent: {}
+[151.438375] (-) TimerEvent: {}
+[151.538803] (-) TimerEvent: {}
+[151.639209] (-) TimerEvent: {}
+[151.739624] (-) TimerEvent: {}
+[151.840037] (-) TimerEvent: {}
+[151.940428] (-) TimerEvent: {}
+[152.040832] (-) TimerEvent: {}
+[152.141226] (-) TimerEvent: {}
+[152.241628] (-) TimerEvent: {}
+[152.342050] (-) TimerEvent: {}
+[152.442472] (-) TimerEvent: {}
+[152.543228] (-) TimerEvent: {}
+[152.644958] (-) TimerEvent: {}
+[152.745347] (-) TimerEvent: {}
+[152.845758] (-) TimerEvent: {}
+[152.946149] (-) TimerEvent: {}
+[153.046539] (-) TimerEvent: {}
+[153.146932] (-) TimerEvent: {}
+[153.247346] (-) TimerEvent: {}
+[153.347793] (-) TimerEvent: {}
+[153.448246] (-) TimerEvent: {}
+[153.548632] (-) TimerEvent: {}
+[153.649061] (-) TimerEvent: {}
+[153.751951] (-) TimerEvent: {}
+[153.857547] (-) TimerEvent: {}
+[153.957965] (-) TimerEvent: {}
+[154.058363] (-) TimerEvent: {}
+[154.159155] (-) TimerEvent: {}
+[154.259610] (-) TimerEvent: {}
+[154.360031] (-) TimerEvent: {}
+[154.460411] (-) TimerEvent: {}
+[154.560801] (-) TimerEvent: {}
+[154.661361] (-) TimerEvent: {}
+[154.761939] (-) TimerEvent: {}
+[154.862555] (-) TimerEvent: {}
+[154.962945] (-) TimerEvent: {}
+[155.063905] (-) TimerEvent: {}
+[155.164620] (-) TimerEvent: {}
+[155.265193] (-) TimerEvent: {}
+[155.365597] (-) TimerEvent: {}
+[155.465982] (-) TimerEvent: {}
+[155.566366] (-) TimerEvent: {}
+[155.666764] (-) TimerEvent: {}
+[155.767147] (-) TimerEvent: {}
+[155.867860] (-) TimerEvent: {}
+[155.968445] (-) TimerEvent: {}
+[156.068883] (-) TimerEvent: {}
+[156.169252] (-) TimerEvent: {}
+[156.269637] (-) TimerEvent: {}
+[156.370008] (-) TimerEvent: {}
+[156.470381] (-) TimerEvent: {}
+[156.570786] (-) TimerEvent: {}
+[156.671215] (-) TimerEvent: {}
+[156.771667] (-) TimerEvent: {}
+[156.872044] (-) TimerEvent: {}
+[156.972429] (-) TimerEvent: {}
+[157.072810] (-) TimerEvent: {}
+[157.173209] (-) TimerEvent: {}
+[157.273622] (-) TimerEvent: {}
+[157.374082] (-) TimerEvent: {}
+[157.474516] (-) TimerEvent: {}
+[157.574937] (-) TimerEvent: {}
+[157.675352] (-) TimerEvent: {}
+[157.775745] (-) TimerEvent: {}
+[157.876253] (-) TimerEvent: {}
+[157.976717] (-) TimerEvent: {}
+[158.077127] (-) TimerEvent: {}
+[158.177517] (-) TimerEvent: {}
+[158.277912] (-) TimerEvent: {}
+[158.379614] (-) TimerEvent: {}
+[158.427841] (transformer_msp_bridge) StdoutLine: {'line': b'[ 86%] \x1b[32mBuilding CXX object CMakeFiles/test_altitude_decoder.dir/test/test_altitude_decoder.cpp.o\x1b[0m\n'}
+[158.481610] (-) TimerEvent: {}
+[158.582003] (-) TimerEvent: {}
+[158.682399] (-) TimerEvent: {}
+[158.783673] (-) TimerEvent: {}
+[158.885023] (-) TimerEvent: {}
+[158.985619] (-) TimerEvent: {}
+[159.086226] (-) TimerEvent: {}
+[159.187626] (-) TimerEvent: {}
+[159.288029] (-) TimerEvent: {}
+[159.388737] (-) TimerEvent: {}
+[159.489432] (-) TimerEvent: {}
+[159.516746] (transformer_msp_bridge) StdoutLine: {'line': b'[ 87%] \x1b[32mBuilding CXX object CMakeFiles/test_rc_decoder.dir/test/test_rc_decoder.cpp.o\x1b[0m\n'}
+[159.590671] (-) TimerEvent: {}
+[159.691290] (-) TimerEvent: {}
+[159.793775] (-) TimerEvent: {}
+[159.894299] (-) TimerEvent: {}
+[159.995169] (-) TimerEvent: {}
+[160.098025] (-) TimerEvent: {}
+[160.198627] (-) TimerEvent: {}
+[160.301637] (-) TimerEvent: {}
+[160.402139] (-) TimerEvent: {}
+[160.502641] (-) TimerEvent: {}
+[160.603837] (-) TimerEvent: {}
+[160.705245] (-) TimerEvent: {}
+[160.806335] (-) TimerEvent: {}
+[160.910002] (-) TimerEvent: {}
+[161.010646] (-) TimerEvent: {}
+[161.111301] (-) TimerEvent: {}
+[161.211972] (-) TimerEvent: {}
+[161.313857] (-) TimerEvent: {}
+[161.415830] (-) TimerEvent: {}
+[161.516699] (-) TimerEvent: {}
+[161.618852] (-) TimerEvent: {}
+[161.719335] (-) TimerEvent: {}
+[161.821856] (-) TimerEvent: {}
+[161.922298] (-) TimerEvent: {}
+[162.025868] (-) TimerEvent: {}
+[162.126435] (-) TimerEvent: {}
+[162.226946] (-) TimerEvent: {}
+[162.328406] (-) TimerEvent: {}
+[162.430980] (-) TimerEvent: {}
+[162.531467] (-) TimerEvent: {}
+[162.632458] (-) TimerEvent: {}
+[162.734880] (-) TimerEvent: {}
+[162.835365] (-) TimerEvent: {}
+[162.938889] (-) TimerEvent: {}
+[163.039352] (-) TimerEvent: {}
+[163.139903] (-) TimerEvent: {}
+[163.242917] (-) TimerEvent: {}
+[163.343427] (-) TimerEvent: {}
+[163.443927] (-) TimerEvent: {}
+[163.547652] (-) TimerEvent: {}
+[163.648340] (-) TimerEvent: {}
+[163.751662] (-) TimerEvent: {}
+[163.852191] (-) TimerEvent: {}
+[163.952866] (-) TimerEvent: {}
+[164.055731] (-) TimerEvent: {}
+[164.156251] (-) TimerEvent: {}
+[164.258882] (-) TimerEvent: {}
+[164.359390] (-) TimerEvent: {}
+[164.459913] (-) TimerEvent: {}
+[164.561434] (-) TimerEvent: {}
+[164.662208] (-) TimerEvent: {}
+[164.763831] (-) TimerEvent: {}
+[164.864714] (-) TimerEvent: {}
+[164.968117] (-) TimerEvent: {}
+[165.068809] (-) TimerEvent: {}
+[165.174829] (-) TimerEvent: {}
+[165.275740] (-) TimerEvent: {}
+[165.377860] (-) TimerEvent: {}
+[165.479807] (-) TimerEvent: {}
+[165.582660] (-) TimerEvent: {}
+[165.683238] (-) TimerEvent: {}
+[165.784622] (-) TimerEvent: {}
+[165.885092] (-) TimerEvent: {}
+[165.986622] (-) TimerEvent: {}
+[166.089823] (-) TimerEvent: {}
+[166.190404] (-) TimerEvent: {}
+[166.291029] (-) TimerEvent: {}
+[166.392333] (-) TimerEvent: {}
+[166.493649] (-) TimerEvent: {}
+[166.594480] (-) TimerEvent: {}
+[166.695388] (-) TimerEvent: {}
+[166.796257] (-) TimerEvent: {}
+[166.898583] (-) TimerEvent: {}
+[166.999448] (-) TimerEvent: {}
+[167.100679] (-) TimerEvent: {}
+[167.202799] (-) TimerEvent: {}
+[167.305634] (-) TimerEvent: {}
+[167.406109] (-) TimerEvent: {}
+[167.508657] (-) TimerEvent: {}
+[167.620640] (-) TimerEvent: {}
+[167.721146] (-) TimerEvent: {}
+[167.821683] (-) TimerEvent: {}
+[167.922305] (-) TimerEvent: {}
+[168.023786] (-) TimerEvent: {}
+[168.126844] (-) TimerEvent: {}
+[168.227827] (-) TimerEvent: {}
+[168.330996] (-) TimerEvent: {}
+[168.431492] (-) TimerEvent: {}
+[168.531971] (-) TimerEvent: {}
+[168.632410] (-) TimerEvent: {}
+[168.734994] (-) TimerEvent: {}
+[168.835453] (-) TimerEvent: {}
+[168.935919] (-) TimerEvent: {}
+[169.037898] (-) TimerEvent: {}
+[169.138885] (-) TimerEvent: {}
+[169.241318] (-) TimerEvent: {}
+[169.344282] (-) TimerEvent: {}
+[169.446076] (-) TimerEvent: {}
+[169.548928] (-) TimerEvent: {}
+[169.652285] (-) TimerEvent: {}
+[169.752943] (-) TimerEvent: {}
+[169.858633] (-) TimerEvent: {}
+[169.959142] (-) TimerEvent: {}
+[170.059924] (-) TimerEvent: {}
+[170.160397] (-) TimerEvent: {}
+[170.187134] (transformer_msp_bridge) StdoutLine: {'line': b'[ 88%] \x1b[32m\x1b[1mLinking CXX executable test_imu_decoder\x1b[0m\n'}
+[170.261642] (-) TimerEvent: {}
+[170.362271] (-) TimerEvent: {}
+[170.467747] (-) TimerEvent: {}
+[170.568514] (-) TimerEvent: {}
+[170.670636] (-) TimerEvent: {}
+[170.771146] (-) TimerEvent: {}
+[170.874172] (-) TimerEvent: {}
+[170.975633] (-) TimerEvent: {}
+[171.078982] (-) TimerEvent: {}
+[171.179502] (-) TimerEvent: {}
+[171.280035] (-) TimerEvent: {}
+[171.381835] (-) TimerEvent: {}
+[171.484813] (-) TimerEvent: {}
+[171.540753] (transformer_msp_bridge) StdoutLine: {'line': b'[ 88%] Built target test_imu_decoder\n'}
+[171.584938] (-) TimerEvent: {}
+[171.615744] (transformer_msp_bridge) StdoutLine: {'line': b'[ 89%] \x1b[32mBuilding CXX object CMakeFiles/test_inav_status_decoder.dir/test/test_inav_status_decoder.cpp.o\x1b[0m\n'}
+[171.685087] (-) TimerEvent: {}
+[171.785565] (-) TimerEvent: {}
+[171.890085] (-) TimerEvent: {}
+[171.990538] (-) TimerEvent: {}
+[172.093055] (-) TimerEvent: {}
+[172.193866] (-) TimerEvent: {}
+[172.295106] (-) TimerEvent: {}
+[172.397268] (-) TimerEvent: {}
+[172.500663] (-) TimerEvent: {}
+[172.601131] (-) TimerEvent: {}
+[172.701720] (-) TimerEvent: {}
+[172.802800] (-) TimerEvent: {}
+[172.905273] (-) TimerEvent: {}
+[173.009751] (-) TimerEvent: {}
+[173.110289] (-) TimerEvent: {}
+[173.210731] (-) TimerEvent: {}
+[173.311178] (-) TimerEvent: {}
+[173.413010] (-) TimerEvent: {}
+[173.515142] (-) TimerEvent: {}
+[173.617332] (-) TimerEvent: {}
+[173.719212] (-) TimerEvent: {}
+[173.836099] (-) TimerEvent: {}
+[173.936576] (-) TimerEvent: {}
+[174.037017] (-) TimerEvent: {}
+[174.137572] (-) TimerEvent: {}
+[174.238286] (-) TimerEvent: {}
+[174.340853] (-) TimerEvent: {}
+[174.441625] (-) TimerEvent: {}
+[174.544829] (-) TimerEvent: {}
+[174.645279] (-) TimerEvent: {}
+[174.745733] (-) TimerEvent: {}
+[174.846199] (-) TimerEvent: {}
+[174.948001] (-) TimerEvent: {}
+[175.049908] (-) TimerEvent: {}
+[175.150381] (-) TimerEvent: {}
+[175.252841] (-) TimerEvent: {}
+[175.353306] (-) TimerEvent: {}
+[175.455453] (-) TimerEvent: {}
+[175.555937] (-) TimerEvent: {}
+[175.659334] (-) TimerEvent: {}
+[175.759872] (-) TimerEvent: {}
+[175.860363] (-) TimerEvent: {}
+[175.962814] (-) TimerEvent: {}
+[176.065589] (-) TimerEvent: {}
+[176.166424] (-) TimerEvent: {}
+[176.267137] (-) TimerEvent: {}
+[176.369012] (-) TimerEvent: {}
+[176.469547] (-) TimerEvent: {}
+[176.572860] (-) TimerEvent: {}
+[176.673356] (-) TimerEvent: {}
+[176.773885] (-) TimerEvent: {}
+[176.874624] (-) TimerEvent: {}
+[176.975762] (-) TimerEvent: {}
+[177.078855] (-) TimerEvent: {}
+[177.180042] (-) TimerEvent: {}
+[177.280720] (-) TimerEvent: {}
+[177.381414] (-) TimerEvent: {}
+[177.484631] (-) TimerEvent: {}
+[177.585138] (-) TimerEvent: {}
+[177.685820] (-) TimerEvent: {}
+[177.787926] (-) TimerEvent: {}
+[177.888431] (-) TimerEvent: {}
+[177.988943] (-) TimerEvent: {}
+[178.089628] (-) TimerEvent: {}
+[178.192841] (-) TimerEvent: {}
+[178.293337] (-) TimerEvent: {}
+[178.393861] (-) TimerEvent: {}
+[178.494432] (-) TimerEvent: {}
+[178.596867] (-) TimerEvent: {}
+[178.698826] (-) TimerEvent: {}
+[178.799327] (-) TimerEvent: {}
+[178.900860] (-) TimerEvent: {}
+[179.001317] (-) TimerEvent: {}
+[179.102630] (-) TimerEvent: {}
+[179.203282] (-) TimerEvent: {}
+[179.305103] (-) TimerEvent: {}
+[179.406631] (-) TimerEvent: {}
+[179.507370] (-) TimerEvent: {}
+[179.610629] (-) TimerEvent: {}
+[179.711116] (-) TimerEvent: {}
+[179.811635] (-) TimerEvent: {}
+[179.915006] (-) TimerEvent: {}
+[180.015470] (-) TimerEvent: {}
+[180.115932] (-) TimerEvent: {}
+[180.216379] (-) TimerEvent: {}
+[180.319975] (-) TimerEvent: {}
+[180.420431] (-) TimerEvent: {}
+[180.520987] (-) TimerEvent: {}
+[180.624642] (-) TimerEvent: {}
+[180.725102] (-) TimerEvent: {}
+[180.825550] (-) TimerEvent: {}
+[180.926022] (-) TimerEvent: {}
+[181.027989] (-) TimerEvent: {}
+[181.128453] (-) TimerEvent: {}
+[181.229648] (-) TimerEvent: {}
+[181.331622] (-) TimerEvent: {}
+[181.432036] (-) TimerEvent: {}
+[181.532476] (-) TimerEvent: {}
+[181.633899] (-) TimerEvent: {}
+[181.735628] (-) TimerEvent: {}
+[181.836117] (-) TimerEvent: {}
+[181.939878] (-) TimerEvent: {}
+[182.040335] (-) TimerEvent: {}
+[182.140798] (-) TimerEvent: {}
+[182.241279] (-) TimerEvent: {}
+[182.341753] (-) TimerEvent: {}
+[182.445210] (-) TimerEvent: {}
+[182.548631] (-) TimerEvent: {}
+[182.649126] (-) TimerEvent: {}
+[182.749612] (-) TimerEvent: {}
+[182.850181] (-) TimerEvent: {}
+[182.950630] (-) TimerEvent: {}
+[183.052790] (-) TimerEvent: {}
+[183.153254] (-) TimerEvent: {}
+[183.253736] (-) TimerEvent: {}
+[183.354204] (-) TimerEvent: {}
+[183.457632] (-) TimerEvent: {}
+[183.558076] (-) TimerEvent: {}
+[183.658552] (-) TimerEvent: {}
+[183.758985] (-) TimerEvent: {}
+[183.859468] (-) TimerEvent: {}
+[183.959926] (-) TimerEvent: {}
+[184.060381] (-) TimerEvent: {}
+[184.161976] (-) TimerEvent: {}
+[184.262501] (-) TimerEvent: {}
+[184.365622] (-) TimerEvent: {}
+[184.466061] (-) TimerEvent: {}
+[184.566513] (-) TimerEvent: {}
+[184.666992] (-) TimerEvent: {}
+[184.767473] (-) TimerEvent: {}
+[184.867935] (-) TimerEvent: {}
+[184.968946] (-) TimerEvent: {}
+[185.069397] (-) TimerEvent: {}
+[185.170627] (-) TimerEvent: {}
+[185.273690] (-) TimerEvent: {}
+[185.374182] (-) TimerEvent: {}
+[185.474628] (-) TimerEvent: {}
+[185.575049] (-) TimerEvent: {}
+[185.675506] (-) TimerEvent: {}
+[185.776089] (-) TimerEvent: {}
+[185.876658] (-) TimerEvent: {}
+[185.979011] (-) TimerEvent: {}
+[186.079459] (-) TimerEvent: {}
+[186.179944] (-) TimerEvent: {}
+[186.280373] (-) TimerEvent: {}
+[186.381661] (-) TimerEvent: {}
+[186.482136] (-) TimerEvent: {}
+[186.583621] (-) TimerEvent: {}
+[186.684066] (-) TimerEvent: {}
+[186.787632] (-) TimerEvent: {}
+[186.888107] (-) TimerEvent: {}
+[186.988570] (-) TimerEvent: {}
+[187.089019] (-) TimerEvent: {}
+[187.189536] (-) TimerEvent: {}
+[187.289969] (-) TimerEvent: {}
+[187.390459] (-) TimerEvent: {}
+[187.493620] (-) TimerEvent: {}
+[187.594091] (-) TimerEvent: {}
+[187.694620] (-) TimerEvent: {}
+[187.795088] (-) TimerEvent: {}
+[187.895575] (-) TimerEvent: {}
+[187.996066] (-) TimerEvent: {}
+[188.097659] (-) TimerEvent: {}
+[188.198108] (-) TimerEvent: {}
+[188.298643] (-) TimerEvent: {}
+[188.401626] (-) TimerEvent: {}
+[188.502076] (-) TimerEvent: {}
+[188.602548] (-) TimerEvent: {}
+[188.703010] (-) TimerEvent: {}
+[188.803430] (-) TimerEvent: {}
+[188.903898] (-) TimerEvent: {}
+[189.005629] (-) TimerEvent: {}
+[189.106119] (-) TimerEvent: {}
+[189.206600] (-) TimerEvent: {}
+[189.308631] (-) TimerEvent: {}
+[189.409094] (-) TimerEvent: {}
+[189.509596] (-) TimerEvent: {}
+[189.610755] (-) TimerEvent: {}
+[189.711225] (-) TimerEvent: {}
+[189.813654] (-) TimerEvent: {}
+[189.914106] (-) TimerEvent: {}
+[190.014512] (-) TimerEvent: {}
+[190.115029] (-) TimerEvent: {}
+[190.216642] (-) TimerEvent: {}
+[190.317128] (-) TimerEvent: {}
+[190.417581] (-) TimerEvent: {}
+[190.519630] (-) TimerEvent: {}
+[190.620075] (-) TimerEvent: {}
+[190.720550] (-) TimerEvent: {}
+[190.821002] (-) TimerEvent: {}
+[190.924634] (-) TimerEvent: {}
+[191.025103] (-) TimerEvent: {}
+[191.125581] (-) TimerEvent: {}
+[191.226061] (-) TimerEvent: {}
+[191.326560] (-) TimerEvent: {}
+[191.429624] (-) TimerEvent: {}
+[191.530081] (-) TimerEvent: {}
+[191.630509] (-) TimerEvent: {}
+[191.730997] (-) TimerEvent: {}
+[191.833704] (-) TimerEvent: {}
+[191.934638] (-) TimerEvent: {}
+[192.037635] (-) TimerEvent: {}
+[192.138097] (-) TimerEvent: {}
+[192.238568] (-) TimerEvent: {}
+[192.339077] (-) TimerEvent: {}
+[192.440315] (-) TimerEvent: {}
+[192.543990] (-) TimerEvent: {}
+[192.646619] (-) TimerEvent: {}
+[192.747001] (-) TimerEvent: {}
+[192.847413] (-) TimerEvent: {}
+[192.947832] (-) TimerEvent: {}
+[193.048594] (-) TimerEvent: {}
+[193.151360] (-) TimerEvent: {}
+[193.254132] (-) TimerEvent: {}
+[193.354600] (-) TimerEvent: {}
+[193.456644] (-) TimerEvent: {}
+[193.557091] (-) TimerEvent: {}
+[193.657814] (-) TimerEvent: {}
+[193.758963] (-) TimerEvent: {}
+[193.859765] (-) TimerEvent: {}
+[193.961971] (-) TimerEvent: {}
+[194.062586] (-) TimerEvent: {}
+[194.165050] (-) TimerEvent: {}
+[194.267711] (-) TimerEvent: {}
+[194.369421] (-) TimerEvent: {}
+[194.472076] (-) TimerEvent: {}
+[194.573642] (-) TimerEvent: {}
+[194.674501] (-) TimerEvent: {}
+[194.776010] (-) TimerEvent: {}
+[194.879637] (-) TimerEvent: {}
+[194.980126] (-) TimerEvent: {}
+[195.080643] (-) TimerEvent: {}
+[195.183825] (-) TimerEvent: {}
+[195.284251] (-) TimerEvent: {}
+[195.385069] (-) TimerEvent: {}
+[195.487273] (-) TimerEvent: {}
+[195.587789] (-) TimerEvent: {}
+[195.691914] (-) TimerEvent: {}
+[195.792353] (-) TimerEvent: {}
+[195.892797] (-) TimerEvent: {}
+[195.993219] (-) TimerEvent: {}
+[196.094796] (-) TimerEvent: {}
+[196.195638] (-) TimerEvent: {}
+[196.296443] (-) TimerEvent: {}
+[196.397734] (-) TimerEvent: {}
+[196.498232] (-) TimerEvent: {}
+[196.598773] (-) TimerEvent: {}
+[196.702752] (-) TimerEvent: {}
+[196.803729] (-) TimerEvent: {}
+[196.904205] (-) TimerEvent: {}
+[197.004687] (-) TimerEvent: {}
+[197.107090] (-) TimerEvent: {}
+[197.208012] (-) TimerEvent: {}
+[197.316707] (-) TimerEvent: {}
+[197.417557] (-) TimerEvent: {}
+[197.519678] (-) TimerEvent: {}
+[197.622669] (-) TimerEvent: {}
+[197.723892] (-) TimerEvent: {}
+[197.824693] (-) TimerEvent: {}
+[197.927319] (-) TimerEvent: {}
+[198.028758] (-) TimerEvent: {}
+[198.131734] (-) TimerEvent: {}
+[198.232616] (-) TimerEvent: {}
+[198.334093] (-) TimerEvent: {}
+[198.435659] (-) TimerEvent: {}
+[198.536195] (-) TimerEvent: {}
+[198.573036] (transformer_msp_bridge) StdoutLine: {'line': b'[ 90%] \x1b[32m\x1b[1mLinking CXX executable test_gps_decoder\x1b[0m\n'}
+[198.641813] (-) TimerEvent: {}
+[198.742358] (-) TimerEvent: {}
+[198.844230] (-) TimerEvent: {}
+[198.949601] (-) TimerEvent: {}
+[199.051652] (-) TimerEvent: {}
+[199.156657] (-) TimerEvent: {}
+[199.257483] (-) TimerEvent: {}
+[199.311927] (transformer_msp_bridge) StdoutLine: {'line': b'[ 91%] \x1b[32m\x1b[1mLinking CXX executable test_rc_decoder\x1b[0m\n'}
+[199.358490] (-) TimerEvent: {}
+[199.461809] (-) TimerEvent: {}
+[199.562865] (-) TimerEvent: {}
+[199.668147] (-) TimerEvent: {}
+[199.769421] (-) TimerEvent: {}
+[199.873659] (-) TimerEvent: {}
+[199.975504] (-) TimerEvent: {}
+[200.078679] (-) TimerEvent: {}
+[200.179812] (-) TimerEvent: {}
+[200.285797] (-) TimerEvent: {}
+[200.386815] (-) TimerEvent: {}
+[200.490624] (-) TimerEvent: {}
+[200.591171] (-) TimerEvent: {}
+[200.694671] (-) TimerEvent: {}
+[200.796211] (-) TimerEvent: {}
+[200.896915] (-) TimerEvent: {}
+[200.907811] (transformer_msp_bridge) StdoutLine: {'line': b'[ 91%] Built target test_rc_decoder\n'}
+[200.997086] (-) TimerEvent: {}
+[201.098777] (-) TimerEvent: {}
+[201.169122] (transformer_msp_bridge) StdoutLine: {'line': b'[ 91%] Built target test_gps_decoder\n'}
+[201.198959] (-) TimerEvent: {}
+[201.299890] (-) TimerEvent: {}
+[201.400401] (-) TimerEvent: {}
+[201.500852] (-) TimerEvent: {}
+[201.601254] (-) TimerEvent: {}
+[201.701678] (-) TimerEvent: {}
+[201.802082] (-) TimerEvent: {}
+[201.902516] (-) TimerEvent: {}
+[202.002997] (-) TimerEvent: {}
+[202.103401] (-) TimerEvent: {}
+[202.204100] (-) TimerEvent: {}
+[202.304509] (-) TimerEvent: {}
+[202.404924] (-) TimerEvent: {}
+[202.505344] (-) TimerEvent: {}
+[202.605746] (-) TimerEvent: {}
+[202.706175] (-) TimerEvent: {}
+[202.806774] (-) TimerEvent: {}
+[202.907285] (-) TimerEvent: {}
+[203.007736] (-) TimerEvent: {}
+[203.108131] (-) TimerEvent: {}
+[203.208600] (-) TimerEvent: {}
+[203.308996] (-) TimerEvent: {}
+[203.409380] (-) TimerEvent: {}
+[203.509778] (-) TimerEvent: {}
+[203.610232] (-) TimerEvent: {}
+[203.710615] (-) TimerEvent: {}
+[203.811016] (-) TimerEvent: {}
+[203.930249] (-) TimerEvent: {}
+[204.030615] (-) TimerEvent: {}
+[204.130997] (-) TimerEvent: {}
+[204.231360] (-) TimerEvent: {}
+[204.331735] (-) TimerEvent: {}
+[204.432095] (-) TimerEvent: {}
+[204.532460] (-) TimerEvent: {}
+[204.632900] (-) TimerEvent: {}
+[204.733423] (-) TimerEvent: {}
+[204.833872] (-) TimerEvent: {}
+[204.934299] (-) TimerEvent: {}
+[205.034735] (-) TimerEvent: {}
+[205.135231] (-) TimerEvent: {}
+[205.235703] (-) TimerEvent: {}
+[205.336091] (-) TimerEvent: {}
+[205.436499] (-) TimerEvent: {}
+[205.536970] (-) TimerEvent: {}
+[205.637457] (-) TimerEvent: {}
+[205.737885] (-) TimerEvent: {}
+[205.838298] (-) TimerEvent: {}
+[205.938759] (-) TimerEvent: {}
+[206.039180] (-) TimerEvent: {}
+[206.139636] (-) TimerEvent: {}
+[206.240093] (-) TimerEvent: {}
+[206.340712] (-) TimerEvent: {}
+[206.441845] (-) TimerEvent: {}
+[206.543430] (-) TimerEvent: {}
+[206.644571] (-) TimerEvent: {}
+[206.745623] (-) TimerEvent: {}
+[206.846483] (-) TimerEvent: {}
+[206.947295] (-) TimerEvent: {}
+[207.047925] (-) TimerEvent: {}
+[207.148823] (-) TimerEvent: {}
+[207.178860] (transformer_msp_bridge) StdoutLine: {'line': b'[ 92%] \x1b[32m\x1b[1mLinking CXX executable test_altitude_decoder\x1b[0m\n'}
+[207.249066] (-) TimerEvent: {}
+[207.349764] (-) TimerEvent: {}
+[207.451193] (-) TimerEvent: {}
+[207.551962] (-) TimerEvent: {}
+[207.655171] (-) TimerEvent: {}
+[207.756012] (-) TimerEvent: {}
+[207.856949] (-) TimerEvent: {}
+[207.957323] (-) TimerEvent: {}
+[208.057696] (-) TimerEvent: {}
+[208.158106] (-) TimerEvent: {}
+[208.199915] (transformer_msp_bridge) StdoutLine: {'line': b'[ 92%] Built target test_altitude_decoder\n'}
+[208.238126] (transformer_msp_bridge) StdoutLine: {'line': b'[ 93%] \x1b[32mBuilding CXX object CMakeFiles/test_servo_motor_decoder.dir/test/test_servo_motor_decoder.cpp.o\x1b[0m\n'}
+[208.258650] (-) TimerEvent: {}
+[208.270818] (transformer_msp_bridge) StdoutLine: {'line': b'[ 94%] \x1b[32mBuilding CXX object CMakeFiles/test_sensor_decoder.dir/test/test_sensor_decoder.cpp.o\x1b[0m\n'}
+[208.358781] (-) TimerEvent: {}
+[208.461629] (-) TimerEvent: {}
+[208.562048] (-) TimerEvent: {}
+[208.662579] (-) TimerEvent: {}
+[208.763023] (-) TimerEvent: {}
+[208.863419] (-) TimerEvent: {}
+[208.963837] (-) TimerEvent: {}
+[209.207097] (-) TimerEvent: {}
+[209.307609] (-) TimerEvent: {}
+[209.408260] (-) TimerEvent: {}
+[209.510889] (-) TimerEvent: {}
+[209.611423] (-) TimerEvent: {}
+[209.712141] (-) TimerEvent: {}
+[209.813670] (-) TimerEvent: {}
+[209.914840] (-) TimerEvent: {}
+[210.015285] (-) TimerEvent: {}
+[210.115929] (-) TimerEvent: {}
+[210.216911] (-) TimerEvent: {}
+[210.317761] (-) TimerEvent: {}
+[210.419331] (-) TimerEvent: {}
+[210.520224] (-) TimerEvent: {}
+[210.622346] (-) TimerEvent: {}
+[210.723482] (-) TimerEvent: {}
+[210.827769] (-) TimerEvent: {}
+[210.929163] (-) TimerEvent: {}
+[211.033001] (-) TimerEvent: {}
+[211.134037] (-) TimerEvent: {}
+[211.198863] (transformer_msp_bridge) StdoutLine: {'line': b'[ 95%] \x1b[32m\x1b[1mLinking CXX executable test_inav_status_decoder\x1b[0m\n'}
+[211.236648] (-) TimerEvent: {}
+[211.337134] (-) TimerEvent: {}
+[211.437759] (-) TimerEvent: {}
+[211.540293] (-) TimerEvent: {}
+[211.643133] (-) TimerEvent: {}
+[211.747744] (-) TimerEvent: {}
+[211.848578] (-) TimerEvent: {}
+[211.949339] (-) TimerEvent: {}
+[212.050802] (-) TimerEvent: {}
+[212.132501] (transformer_msp_bridge) StdoutLine: {'line': b'[ 95%] Built target test_inav_status_decoder\n'}
+[212.151860] (-) TimerEvent: {}
+[212.202311] (transformer_msp_bridge) StdoutLine: {'line': b'[ 96%] \x1b[32mBuilding CXX object CMakeFiles/test_system_decoder_extended.dir/test/test_system_decoder_extended.cpp.o\x1b[0m\n'}
+[212.252020] (-) TimerEvent: {}
+[212.352535] (-) TimerEvent: {}
+[212.458855] (-) TimerEvent: {}
+[212.559295] (-) TimerEvent: {}
+[212.661116] (-) TimerEvent: {}
+[212.761718] (-) TimerEvent: {}
+[212.862361] (-) TimerEvent: {}
+[212.962972] (-) TimerEvent: {}
+[213.064235] (-) TimerEvent: {}
+[213.165113] (-) TimerEvent: {}
+[213.265988] (-) TimerEvent: {}
+[213.366887] (-) TimerEvent: {}
+[213.467755] (-) TimerEvent: {}
+[213.568915] (-) TimerEvent: {}
+[213.669779] (-) TimerEvent: {}
+[213.770210] (-) TimerEvent: {}
+[213.870621] (-) TimerEvent: {}
+[213.971449] (-) TimerEvent: {}
+[214.072275] (-) TimerEvent: {}
+[214.173033] (-) TimerEvent: {}
+[214.273884] (-) TimerEvent: {}
+[214.374718] (-) TimerEvent: {}
+[214.475595] (-) TimerEvent: {}
+[214.576443] (-) TimerEvent: {}
+[214.677292] (-) TimerEvent: {}
+[214.777741] (-) TimerEvent: {}
+[214.881616] (-) TimerEvent: {}
+[214.982053] (-) TimerEvent: {}
+[215.082997] (-) TimerEvent: {}
+[215.183707] (-) TimerEvent: {}
+[215.284594] (-) TimerEvent: {}
+[215.385235] (-) TimerEvent: {}
+[215.487753] (-) TimerEvent: {}
+[215.588146] (-) TimerEvent: {}
+[215.688603] (-) TimerEvent: {}
+[215.789459] (-) TimerEvent: {}
+[215.890324] (-) TimerEvent: {}
+[215.992294] (-) TimerEvent: {}
+[216.093695] (-) TimerEvent: {}
+[216.194285] (-) TimerEvent: {}
+[216.294876] (-) TimerEvent: {}
+[216.395463] (-) TimerEvent: {}
+[216.496288] (-) TimerEvent: {}
+[216.596905] (-) TimerEvent: {}
+[216.697768] (-) TimerEvent: {}
+[216.798862] (-) TimerEvent: {}
+[216.899892] (-) TimerEvent: {}
+[217.000732] (-) TimerEvent: {}
+[217.101550] (-) TimerEvent: {}
+[217.202272] (-) TimerEvent: {}
+[217.302697] (-) TimerEvent: {}
+[217.403109] (-) TimerEvent: {}
+[217.503789] (-) TimerEvent: {}
+[217.604606] (-) TimerEvent: {}
+[217.705047] (-) TimerEvent: {}
+[217.805889] (-) TimerEvent: {}
+[217.906311] (-) TimerEvent: {}
+[218.006981] (-) TimerEvent: {}
+[218.107394] (-) TimerEvent: {}
+[218.208659] (-) TimerEvent: {}
+[218.309421] (-) TimerEvent: {}
+[218.410241] (-) TimerEvent: {}
+[218.510722] (-) TimerEvent: {}
+[218.611558] (-) TimerEvent: {}
+[218.712408] (-) TimerEvent: {}
+[218.813586] (-) TimerEvent: {}
+[218.914474] (-) TimerEvent: {}
+[219.014968] (-) TimerEvent: {}
+[219.115880] (-) TimerEvent: {}
+[219.216808] (-) TimerEvent: {}
+[219.317928] (-) TimerEvent: {}
+[219.420512] (-) TimerEvent: {}
+[219.520938] (-) TimerEvent: {}
+[219.621795] (-) TimerEvent: {}
+[219.722660] (-) TimerEvent: {}
+[219.823574] (-) TimerEvent: {}
+[219.925817] (-) TimerEvent: {}
+[220.026440] (-) TimerEvent: {}
+[220.127093] (-) TimerEvent: {}
+[220.227721] (-) TimerEvent: {}
+[220.328785] (-) TimerEvent: {}
+[220.429679] (-) TimerEvent: {}
+[220.530745] (-) TimerEvent: {}
+[220.631649] (-) TimerEvent: {}
+[220.732118] (-) TimerEvent: {}
+[220.832600] (-) TimerEvent: {}
+[220.933941] (-) TimerEvent: {}
+[221.034361] (-) TimerEvent: {}
+[221.134825] (-) TimerEvent: {}
+[221.235271] (-) TimerEvent: {}
+[221.335737] (-) TimerEvent: {}
+[221.436187] (-) TimerEvent: {}
+[221.536615] (-) TimerEvent: {}
+[221.637231] (-) TimerEvent: {}
+[221.737698] (-) TimerEvent: {}
+[221.838117] (-) TimerEvent: {}
+[221.939106] (-) TimerEvent: {}
+[222.039608] (-) TimerEvent: {}
+[222.140784] (-) TimerEvent: {}
+[222.241805] (-) TimerEvent: {}
+[222.342691] (-) TimerEvent: {}
+[222.443832] (-) TimerEvent: {}
+[222.544405] (-) TimerEvent: {}
+[222.645025] (-) TimerEvent: {}
+[222.745938] (-) TimerEvent: {}
+[222.846837] (-) TimerEvent: {}
+[222.947646] (-) TimerEvent: {}
+[223.048863] (-) TimerEvent: {}
+[223.149722] (-) TimerEvent: {}
+[223.250607] (-) TimerEvent: {}
+[223.351497] (-) TimerEvent: {}
+[223.452391] (-) TimerEvent: {}
+[223.553303] (-) TimerEvent: {}
+[223.653746] (-) TimerEvent: {}
+[223.754872] (-) TimerEvent: {}
+[223.856415] (-) TimerEvent: {}
+[223.957370] (-) TimerEvent: {}
+[224.058507] (-) TimerEvent: {}
+[224.159396] (-) TimerEvent: {}
+[224.260261] (-) TimerEvent: {}
+[224.360724] (-) TimerEvent: {}
+[224.461602] (-) TimerEvent: {}
+[224.562662] (-) TimerEvent: {}
+[224.663135] (-) TimerEvent: {}
+[224.764255] (-) TimerEvent: {}
+[224.865631] (-) TimerEvent: {}
+[224.966391] (-) TimerEvent: {}
+[225.067260] (-) TimerEvent: {}
+[225.167896] (-) TimerEvent: {}
+[225.268343] (-) TimerEvent: {}
+[225.368785] (-) TimerEvent: {}
+[225.469620] (-) TimerEvent: {}
+[225.570493] (-) TimerEvent: {}
+[225.671310] (-) TimerEvent: {}
+[225.774058] (-) TimerEvent: {}
+[225.874928] (-) TimerEvent: {}
+[225.976270] (-) TimerEvent: {}
+[226.076724] (-) TimerEvent: {}
+[226.177314] (-) TimerEvent: {}
+[226.278017] (-) TimerEvent: {}
+[226.378734] (-) TimerEvent: {}
+[226.480158] (-) TimerEvent: {}
+[226.580615] (-) TimerEvent: {}
+[226.681479] (-) TimerEvent: {}
+[226.782140] (-) TimerEvent: {}
+[226.882596] (-) TimerEvent: {}
+[226.983847] (-) TimerEvent: {}
+[227.084786] (-) TimerEvent: {}
+[227.185666] (-) TimerEvent: {}
+[227.286556] (-) TimerEvent: {}
+[227.387239] (-) TimerEvent: {}
+[227.488138] (-) TimerEvent: {}
+[227.589793] (-) TimerEvent: {}
+[227.690226] (-) TimerEvent: {}
+[227.791100] (-) TimerEvent: {}
+[227.892009] (-) TimerEvent: {}
+[227.992891] (-) TimerEvent: {}
+[228.093662] (-) TimerEvent: {}
+[228.194673] (-) TimerEvent: {}
+[228.295564] (-) TimerEvent: {}
+[228.396455] (-) TimerEvent: {}
+[228.497475] (-) TimerEvent: {}
+[228.598815] (-) TimerEvent: {}
+[228.699760] (-) TimerEvent: {}
+[228.800628] (-) TimerEvent: {}
+[228.901130] (-) TimerEvent: {}
+[229.001994] (-) TimerEvent: {}
+[229.102436] (-) TimerEvent: {}
+[229.203685] (-) TimerEvent: {}
+[229.304580] (-) TimerEvent: {}
+[229.405040] (-) TimerEvent: {}
+[229.505920] (-) TimerEvent: {}
+[229.606784] (-) TimerEvent: {}
+[229.707301] (-) TimerEvent: {}
+[229.808728] (-) TimerEvent: {}
+[229.909153] (-) TimerEvent: {}
+[230.011647] (-) TimerEvent: {}
+[230.112558] (-) TimerEvent: {}
+[230.213204] (-) TimerEvent: {}
+[230.314021] (-) TimerEvent: {}
+[230.414895] (-) TimerEvent: {}
+[230.515752] (-) TimerEvent: {}
+[230.616663] (-) TimerEvent: {}
+[230.717542] (-) TimerEvent: {}
+[230.817973] (-) TimerEvent: {}
+[230.919008] (-) TimerEvent: {}
+[231.019455] (-) TimerEvent: {}
+[231.119933] (-) TimerEvent: {}
+[231.220537] (-) TimerEvent: {}
+[231.321359] (-) TimerEvent: {}
+[231.422231] (-) TimerEvent: {}
+[231.523149] (-) TimerEvent: {}
+[231.623687] (-) TimerEvent: {}
+[231.724606] (-) TimerEvent: {}
+[231.825477] (-) TimerEvent: {}
+[231.926422] (-) TimerEvent: {}
+[232.027306] (-) TimerEvent: {}
+[232.128218] (-) TimerEvent: {}
+[232.229317] (-) TimerEvent: {}
+[232.330220] (-) TimerEvent: {}
+[232.431112] (-) TimerEvent: {}
+[232.532206] (-) TimerEvent: {}
+[232.633590] (-) TimerEvent: {}
+[232.735209] (-) TimerEvent: {}
+[232.836166] (-) TimerEvent: {}
+[232.936608] (-) TimerEvent: {}
+[233.037062] (-) TimerEvent: {}
+[233.137924] (-) TimerEvent: {}
+[233.239149] (-) TimerEvent: {}
+[233.340009] (-) TimerEvent: {}
+[233.440858] (-) TimerEvent: {}
+[233.541737] (-) TimerEvent: {}
+[233.642603] (-) TimerEvent: {}
+[233.744567] (-) TimerEvent: {}
+[233.845558] (-) TimerEvent: {}
+[233.946471] (-) TimerEvent: {}
+[234.046977] (-) TimerEvent: {}
+[234.147884] (-) TimerEvent: {}
+[234.249143] (-) TimerEvent: {}
+[234.349623] (-) TimerEvent: {}
+[234.450468] (-) TimerEvent: {}
+[234.551664] (-) TimerEvent: {}
+[234.652696] (-) TimerEvent: {}
+[234.753123] (-) TimerEvent: {}
+[234.853938] (-) TimerEvent: {}
+[234.956207] (-) TimerEvent: {}
+[235.058628] (-) TimerEvent: {}
+[235.161669] (-) TimerEvent: {}
+[235.262559] (-) TimerEvent: {}
+[235.363054] (-) TimerEvent: {}
+[235.463835] (-) TimerEvent: {}
+[235.564343] (-) TimerEvent: {}
+[235.664767] (-) TimerEvent: {}
+[235.765865] (-) TimerEvent: {}
+[235.866340] (-) TimerEvent: {}
+[235.967395] (-) TimerEvent: {}
+[236.068023] (-) TimerEvent: {}
+[236.168988] (-) TimerEvent: {}
+[236.269708] (-) TimerEvent: {}
+[236.370292] (-) TimerEvent: {}
+[236.471160] (-) TimerEvent: {}
+[236.572015] (-) TimerEvent: {}
+[236.672955] (-) TimerEvent: {}
+[236.774063] (-) TimerEvent: {}
+[236.874957] (-) TimerEvent: {}
+[236.975896] (-) TimerEvent: {}
+[237.076825] (-) TimerEvent: {}
+[237.177285] (-) TimerEvent: {}
+[237.278591] (-) TimerEvent: {}
+[237.379015] (-) TimerEvent: {}
+[237.479946] (-) TimerEvent: {}
+[237.581121] (-) TimerEvent: {}
+[237.681895] (-) TimerEvent: {}
+[237.782450] (-) TimerEvent: {}
+[237.883039] (-) TimerEvent: {}
+[237.983814] (-) TimerEvent: {}
+[238.084331] (-) TimerEvent: {}
+[238.184922] (-) TimerEvent: {}
+[238.287637] (-) TimerEvent: {}
+[238.388052] (-) TimerEvent: {}
+[238.489079] (-) TimerEvent: {}
+[238.589473] (-) TimerEvent: {}
+[238.691328] (-) TimerEvent: {}
+[238.791876] (-) TimerEvent: {}
+[238.892405] (-) TimerEvent: {}
+[238.992882] (-) TimerEvent: {}
+[239.093389] (-) TimerEvent: {}
+[239.193887] (-) TimerEvent: {}
+[239.294452] (-) TimerEvent: {}
+[239.395325] (-) TimerEvent: {}
+[239.495742] (-) TimerEvent: {}
+[239.596245] (-) TimerEvent: {}
+[239.696876] (-) TimerEvent: {}
+[239.799752] (-) TimerEvent: {}
+[239.904605] (-) TimerEvent: {}
+[240.005941] (-) TimerEvent: {}
+[240.108922] (-) TimerEvent: {}
+[240.209452] (-) TimerEvent: {}
+[240.258226] (transformer_msp_bridge) StdoutLine: {'line': b'[ 97%] \x1b[32m\x1b[1mLinking CXX executable test_servo_motor_decoder\x1b[0m\n'}
+[240.309658] (-) TimerEvent: {}
+[240.410995] (-) TimerEvent: {}
+[240.512342] (-) TimerEvent: {}
+[240.615014] (-) TimerEvent: {}
+[240.717697] (-) TimerEvent: {}
+[240.822559] (-) TimerEvent: {}
+[240.924261] (-) TimerEvent: {}
+[241.028514] (-) TimerEvent: {}
+[241.129300] (-) TimerEvent: {}
+[241.229771] (-) TimerEvent: {}
+[241.235684] (transformer_msp_bridge) StdoutLine: {'line': b'[ 97%] Built target test_servo_motor_decoder\n'}
+[241.329908] (-) TimerEvent: {}
+[241.430386] (-) TimerEvent: {}
+[241.530924] (-) TimerEvent: {}
+[241.631542] (-) TimerEvent: {}
+[241.731989] (-) TimerEvent: {}
+[241.832441] (-) TimerEvent: {}
+[241.933040] (-) TimerEvent: {}
+[242.033576] (-) TimerEvent: {}
+[242.134003] (-) TimerEvent: {}
+[242.234492] (-) TimerEvent: {}
+[242.334958] (-) TimerEvent: {}
+[242.435369] (-) TimerEvent: {}
+[242.535822] (-) TimerEvent: {}
+[242.636220] (-) TimerEvent: {}
+[242.736690] (-) TimerEvent: {}
+[242.837127] (-) TimerEvent: {}
+[242.937590] (-) TimerEvent: {}
+[243.038119] (-) TimerEvent: {}
+[243.138611] (-) TimerEvent: {}
+[243.239022] (-) TimerEvent: {}
+[243.339441] (-) TimerEvent: {}
+[243.439869] (-) TimerEvent: {}
+[243.540391] (-) TimerEvent: {}
+[243.641079] (-) TimerEvent: {}
+[243.741558] (-) TimerEvent: {}
+[243.842066] (-) TimerEvent: {}
+[243.942506] (-) TimerEvent: {}
+[244.042912] (-) TimerEvent: {}
+[244.143334] (-) TimerEvent: {}
+[244.243812] (-) TimerEvent: {}
+[244.344310] (-) TimerEvent: {}
+[244.444724] (-) TimerEvent: {}
+[244.545098] (-) TimerEvent: {}
+[244.645497] (-) TimerEvent: {}
+[244.745879] (-) TimerEvent: {}
+[244.846259] (-) TimerEvent: {}
+[244.946673] (-) TimerEvent: {}
+[245.047037] (-) TimerEvent: {}
+[245.147411] (-) TimerEvent: {}
+[245.247796] (-) TimerEvent: {}
+[245.348147] (-) TimerEvent: {}
+[245.448535] (-) TimerEvent: {}
+[245.548930] (-) TimerEvent: {}
+[245.649442] (-) TimerEvent: {}
+[245.749905] (-) TimerEvent: {}
+[245.850349] (-) TimerEvent: {}
+[245.950799] (-) TimerEvent: {}
+[246.051272] (-) TimerEvent: {}
+[246.152194] (-) TimerEvent: {}
+[246.252811] (-) TimerEvent: {}
+[246.353257] (-) TimerEvent: {}
+[246.453716] (-) TimerEvent: {}
+[246.554176] (-) TimerEvent: {}
+[246.654612] (-) TimerEvent: {}
+[246.755047] (-) TimerEvent: {}
+[246.855459] (-) TimerEvent: {}
+[246.955950] (-) TimerEvent: {}
+[247.056551] (-) TimerEvent: {}
+[247.156953] (-) TimerEvent: {}
+[247.257383] (-) TimerEvent: {}
+[247.357990] (-) TimerEvent: {}
+[247.458995] (-) TimerEvent: {}
+[247.560059] (-) TimerEvent: {}
+[247.661223] (-) TimerEvent: {}
+[247.762131] (-) TimerEvent: {}
+[247.862745] (-) TimerEvent: {}
+[247.963427] (-) TimerEvent: {}
+[248.064037] (-) TimerEvent: {}
+[248.164705] (-) TimerEvent: {}
+[248.210153] (transformer_msp_bridge) StdoutLine: {'line': b'[ 98%] \x1b[32m\x1b[1mLinking CXX executable test_sensor_decoder\x1b[0m\n'}
+[248.264884] (-) TimerEvent: {}
+[248.365494] (-) TimerEvent: {}
+[248.469643] (-) TimerEvent: {}
+[248.570404] (-) TimerEvent: {}
+[248.672663] (-) TimerEvent: {}
+[248.775798] (-) TimerEvent: {}
+[248.877162] (-) TimerEvent: {}
+[248.978764] (-) TimerEvent: {}
+[249.079204] (-) TimerEvent: {}
+[249.179926] (-) TimerEvent: {}
+[249.280578] (-) TimerEvent: {}
+[249.381194] (-) TimerEvent: {}
+[249.388658] (transformer_msp_bridge) StdoutLine: {'line': b'[ 98%] Built target test_sensor_decoder\n'}
+[249.481318] (-) TimerEvent: {}
+[249.581691] (-) TimerEvent: {}
+[249.682081] (-) TimerEvent: {}
+[249.782455] (-) TimerEvent: {}
+[249.882849] (-) TimerEvent: {}
+[249.983226] (-) TimerEvent: {}
+[250.083634] (-) TimerEvent: {}
+[250.183997] (-) TimerEvent: {}
+[250.284359] (-) TimerEvent: {}
+[250.384742] (-) TimerEvent: {}
+[250.485115] (-) TimerEvent: {}
+[250.585495] (-) TimerEvent: {}
+[250.685853] (-) TimerEvent: {}
+[250.786222] (-) TimerEvent: {}
+[250.886674] (-) TimerEvent: {}
+[250.987037] (-) TimerEvent: {}
+[251.087384] (-) TimerEvent: {}
+[251.187744] (-) TimerEvent: {}
+[251.288146] (-) TimerEvent: {}
+[251.388573] (-) TimerEvent: {}
+[251.489025] (-) TimerEvent: {}
+[251.589420] (-) TimerEvent: {}
+[251.689829] (-) TimerEvent: {}
+[251.790224] (-) TimerEvent: {}
+[251.890627] (-) TimerEvent: {}
+[251.991036] (-) TimerEvent: {}
+[252.091462] (-) TimerEvent: {}
+[252.191861] (-) TimerEvent: {}
+[252.292280] (-) TimerEvent: {}
+[252.392711] (-) TimerEvent: {}
+[252.493162] (-) TimerEvent: {}
+[252.593640] (-) TimerEvent: {}
+[252.694047] (-) TimerEvent: {}
+[252.794412] (-) TimerEvent: {}
+[252.894795] (-) TimerEvent: {}
+[252.995182] (-) TimerEvent: {}
+[253.095566] (-) TimerEvent: {}
+[253.195952] (-) TimerEvent: {}
+[253.296328] (-) TimerEvent: {}
+[253.396708] (-) TimerEvent: {}
+[253.497124] (-) TimerEvent: {}
+[253.597492] (-) TimerEvent: {}
+[253.697859] (-) TimerEvent: {}
+[253.798265] (-) TimerEvent: {}
+[253.898884] (-) TimerEvent: {}
+[253.999758] (-) TimerEvent: {}
+[254.101045] (-) TimerEvent: {}
+[254.202825] (-) TimerEvent: {}
+[254.303626] (-) TimerEvent: {}
+[254.404087] (-) TimerEvent: {}
+[254.504558] (-) TimerEvent: {}
+[254.604926] (-) TimerEvent: {}
+[254.705275] (-) TimerEvent: {}
+[254.730666] (transformer_msp_bridge) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable test_system_decoder_extended\x1b[0m\n'}
+[254.805469] (-) TimerEvent: {}
+[254.906336] (-) TimerEvent: {}
+[255.007094] (-) TimerEvent: {}
+[255.108281] (-) TimerEvent: {}
+[255.211768] (-) TimerEvent: {}
+[255.312647] (-) TimerEvent: {}
+[255.413194] (-) TimerEvent: {}
+[255.513621] (-) TimerEvent: {}
+[255.614029] (-) TimerEvent: {}
+[255.711954] (transformer_msp_bridge) StdoutLine: {'line': b'[100%] Built target test_system_decoder_extended\n'}
+[255.714138] (-) TimerEvent: {}
+[255.736049] (transformer_msp_bridge) CommandEnded: {'returncode': 0}
+[255.740215] (transformer_msp_bridge) JobProgress: {'identifier': 'transformer_msp_bridge', 'progress': 'install'}
+[255.756916] (transformer_msp_bridge) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/atvpi/ros2_ws/build/transformer_msp_bridge'], 'cwd': '/home/atvpi/ros2_ws/build/transformer_msp_bridge', 'env': OrderedDict({'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'atvpi', 'SSH_CLIENT': '192.168.8.2 60382 22', 'LC_TIME': 'C.UTF-8', 'XDG_SESSION_TYPE': 'tty', 'GIT_ASKPASS': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/extensions/git/dist/askpass.sh', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib:/home/atvpi/ros2_ws/install/transformer_controller/lib:/home/atvpi/ros2_ws/install/transformer_hw_servos/lib:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib:/home/atvpi/ros2_ws/install/serial/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/lib', 'BROWSER': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/bin/helpers/browser.sh', 'HOME': '/home/atvpi', 'OLDPWD': '/home/atvpi/ros2_ws', 'TERM_PROGRAM_VERSION': '1.104.3', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-eb9126e6-b532-48d4-bcc4-f75bb7cfe2c2.sock', 'ROS_PYTHON_VERSION': '3', 'VSCODE_GIT_ASKPASS_MAIN': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/extensions/git/dist/askpass-main.js', 'LC_MONETARY': 'C.UTF-8', 'VSCODE_GIT_ASKPASS_NODE': '/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/node', 'SSL_CERT_FILE': '/usr/lib/ssl/cert.pem', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'COLCON_PREFIX_PATH': '/home/atvpi/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'atvpi', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '1', 'PATH': '/opt/ros/jazzy/bin:/home/atvpi/.vscode-server/cli/servers/Stable-385651c938df8a906869babee516bffd0ddb9829/server/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/bundled/scripts/noConfigScripts:/home/atvpi/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand', 'LC_ADDRESS': 'C.UTF-8', 'XDG_RUNTIME_DIR': '/run/user/1000', 'SSL_CERT_DIR': '/usr/lib/ssl/certs', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/atvpi/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-arm64/.noConfigDebugAdapterEndpoints/endpoint-2ce8f189d80fdeae.txt', 'LANG': 'C.UTF-8', 'PYTHONSTARTUP': '/home/atvpi/.vscode-server/data/User/workspaceStorage/84379da00451a1f583396cdf944b4c1a/ms-python.python/pythonrc.py', 'LC_TELEPHONE': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-39d0eca28d.sock', 'TERM_PROGRAM': 'vscode', 'AMENT_PREFIX_PATH': '/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_rc_mode_switch:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'C.UTF-8', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LC_MEASUREMENT': 'C.UTF-8', 'LC_IDENTIFICATION': 'C.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'PWD': '/home/atvpi/ros2_ws/build/transformer_msp_bridge', 'SSH_CONNECTION': '192.168.8.2 60382 192.168.8.1 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_controller/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_servos/lib/python3.12/site-packages:/home/atvpi/ros2_ws/install/transformer_hw_actuators/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'LC_NUMERIC': 'C.UTF-8', 'LC_PAPER': 'C.UTF-8', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/atvpi/ros2_ws/install/wheeltec_n100_imu:/home/atvpi/ros2_ws/install/transformer_bringup:/home/atvpi/ros2_ws/install/transformer_rc_mode_switch:/home/atvpi/ros2_ws/install/transformer_msp_bridge:/home/atvpi/ros2_ws/install/transformer_controller:/home/atvpi/ros2_ws/install/transformer_hw_servos:/home/atvpi/ros2_ws/install/transformer_hw_actuators:/home/atvpi/ros2_ws/install/serial:/opt/ros/jazzy'}), 'shell': False}
+[255.774437] (transformer_msp_bridge) StdoutLine: {'line': b'-- Install configuration: "RelWithDebInfo"\n'}
+[255.774879] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/ament_index/resource_index/rosidl_interfaces/transformer_msp_bridge\n'}
+[255.775113] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/msg/MspInavStatus.json\n'}
+[255.775262] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge\n'}
+[255.775391] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg\n'}
+[255.775499] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/rosidl_generator_c__visibility_control.h\n'}
+[255.775628] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/msp_inav_status.h\n'}
+[255.775771] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail\n'}
+[255.775875] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__functions.c\n'}
+[255.775990] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__description.c\n'}
+[255.776168] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__type_support.h\n'}
+[255.776317] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__type_support.c\n'}
+[255.776425] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__functions.h\n'}
+[255.776577] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__struct.h\n'}
+[255.776704] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/library_path.sh\n'}
+[255.776818] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/library_path.dsv\n'}
+[255.776933] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_generator_c.so\n'}
+[255.777304] (transformer_msp_bridge) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_generator_c.so" to ""\n'}
+[255.777504] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge\n'}
+[255.777757] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg\n'}
+[255.777868] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[255.777961] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail\n'}
+[255.778053] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__rosidl_typesupport_fastrtps_c.h\n'}
+[255.779286] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_fastrtps_c.so\n'}
+[255.783274] (transformer_msp_bridge) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_fastrtps_c.so" to ""\n'}
+[255.783684] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge\n'}
+[255.783843] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg\n'}
+[255.783954] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/rosidl_generator_cpp__visibility_control.hpp\n'}
+[255.784054] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail\n'}
+[255.784155] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__builder.hpp\n'}
+[255.784328] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__type_support.hpp\n'}
+[255.784472] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__traits.hpp\n'}
+[255.784603] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__struct.hpp\n'}
+[255.784722] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/msp_inav_status.hpp\n'}
+[255.784824] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge\n'}
+[255.784917] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg\n'}
+[255.785012] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[255.785114] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail\n'}
+[255.785205] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[255.785316] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/dds_fastrtps\n'}
+[255.785434] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_fastrtps_cpp.so\n'}
+[255.788464] (transformer_msp_bridge) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_fastrtps_cpp.so" to ""\n'}
+[255.788850] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge\n'}
+[255.789061] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg\n'}
+[255.789317] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail\n'}
+[255.789516] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__type_support.c\n'}
+[255.789840] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__rosidl_typesupport_introspection_c.h\n'}
+[255.790011] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[255.791426] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_introspection_c.so\n'}
+[255.792693] (transformer_msp_bridge) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_introspection_c.so" to ""\n'}
+[255.794094] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_c.so\n'}
+[255.794872] (transformer_msp_bridge) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_c.so" to ""\n'}
+[255.795070] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge\n'}
+[255.795187] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg\n'}
+[255.795384] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail\n'}
+[255.795506] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__rosidl_typesupport_introspection_cpp.hpp\n'}
+[255.795693] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/transformer_msp_bridge/msg/detail/msp_inav_status__type_support.cpp\n'}
+[255.795818] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_introspection_cpp.so\n'}
+[255.797569] (transformer_msp_bridge) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_introspection_cpp.so" to ""\n'}
+[255.797858] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_cpp.so\n'}
+[255.799156] (transformer_msp_bridge) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_typesupport_cpp.so" to ""\n'}
+[255.799495] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/pythonpath.sh\n'}
+[255.799673] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/pythonpath.dsv\n'}
+[255.799783] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge-0.0.1-py3.12.egg-info\n'}
+[255.800166] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge-0.0.1-py3.12.egg-info/SOURCES.txt\n'}
+[255.800529] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge-0.0.1-py3.12.egg-info/top_level.txt\n'}
+[255.801089] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge-0.0.1-py3.12.egg-info/PKG-INFO\n'}
+[255.801591] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge-0.0.1-py3.12.egg-info/dependency_links.txt\n'}
+[255.802169] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge\n'}
+[255.802360] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_c.so\n'}
+[255.803776] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_fastrtps_c.so\n'}
+[255.805023] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/msg\n'}
+[255.805681] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/msg/__init__.py\n'}
+[255.805990] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/msg/_msp_inav_status_s.c\n'}
+[255.806111] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/msg/_msp_inav_status.py\n'}
+[255.806223] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_introspection_c.so\n'}
+[255.806533] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/_transformer_msp_bridge_s.ep.rosidl_typesupport_fastrtps_c.c\n'}
+[255.806730] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/_transformer_msp_bridge_s.ep.rosidl_typesupport_c.c\n'}
+[255.806842] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/_transformer_msp_bridge_s.ep.rosidl_typesupport_introspection_c.c\n'}
+[255.806945] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/__init__.py\n'}
+[255.814252] (-) TimerEvent: {}
+[255.893476] (transformer_msp_bridge) StdoutLine: {'line': b"Listing '/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge'...\n"}
+[255.894593] (transformer_msp_bridge) StdoutLine: {'line': b"Compiling '/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/__init__.py'...\n"}
+[255.895017] (transformer_msp_bridge) StdoutLine: {'line': b"Listing '/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/msg'...\n"}
+[255.908319] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_fastrtps_c.so\n'}
+[255.909074] (transformer_msp_bridge) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_fastrtps_c.so" to ""\n'}
+[255.909534] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_introspection_c.so\n'}
+[255.910230] (transformer_msp_bridge) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_introspection_c.so" to ""\n'}
+[255.910628] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_c.so\n'}
+[255.911301] (transformer_msp_bridge) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/python3.12/site-packages/transformer_msp_bridge/transformer_msp_bridge_s__rosidl_typesupport_c.so" to ""\n'}
+[255.912963] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_generator_py.so\n'}
+[255.914325] (-) TimerEvent: {}
+[255.914838] (transformer_msp_bridge) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge__rosidl_generator_py.so" to ""\n'}
+[255.915116] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/msg/MspInavStatus.idl\n'}
+[255.915268] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/msg/MspInavStatus.msg\n'}
+[255.915388] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libmsp_protocol.so\n'}
+[255.945705] (transformer_msp_bridge) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libmsp_protocol.so" to ""\n'}
+[255.946095] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libserial_port.so\n'}
+[255.948727] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge_decoders.so\n'}
+[256.014432] (-) TimerEvent: {}
+[256.114840] (-) TimerEvent: {}
+[256.215272] (-) TimerEvent: {}
+[256.287892] (transformer_msp_bridge) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/libtransformer_msp_bridge_decoders.so" to ""\n'}
+[256.290476] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/transformer_msp_bridge/transformer_msp_bridge_node\n'}
+[256.315391] (-) TimerEvent: {}
+[256.345350] (transformer_msp_bridge) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/transformer_msp_bridge/transformer_msp_bridge_node" to ""\n'}
+[256.348976] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/transformer_msp_bridge/msp_probe\n'}
+[256.353769] (transformer_msp_bridge) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/atvpi/ros2_ws/install/transformer_msp_bridge/lib/transformer_msp_bridge/msp_probe" to ""\n'}
+[256.354919] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge\n'}
+[256.355185] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/msp_parser.hpp\n'}
+[256.355334] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/crc.hpp\n'}
+[256.355475] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/msp_utils.hpp\n'}
+[256.355621] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/registry_loader.hpp\n'}
+[256.355975] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/msp_registry.hpp\n'}
+[256.356427] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders\n'}
+[256.357201] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/system_decoder.hpp\n'}
+[256.357378] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/altitude_decoder.hpp\n'}
+[256.357490] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/sensor_decoder.hpp\n'}
+[256.357820] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/battery_decoder.hpp\n'}
+[256.357993] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/imu_decoder.hpp\n'}
+[256.358103] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/rc_decoder.hpp\n'}
+[256.358201] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/gps_decoder.hpp\n'}
+[256.358530] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/inav_generic_decoder.hpp\n'}
+[256.358702] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/inav_status_decoder.hpp\n'}
+[256.358840] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/attitude_decoder.hpp\n'}
+[256.358956] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoders/servo_motor_decoder.hpp\n'}
+[256.359103] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/serial_port.hpp\n'}
+[256.359313] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoder_base.hpp\n'}
+[256.359534] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/decoder_registry.hpp\n'}
+[256.361704] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/include/transformer_msp_bridge/msp_builders.hpp\n'}
+[256.363991] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/msg\n'}
+[256.365471] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/msg/MspInavStatus.msg\n'}
+[256.366145] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/config\n'}
+[256.367167] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/config/registry.yaml\n'}
+[256.367956] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/config/msp_bridge.yaml\n'}
+[256.368925] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/ament_index/resource_index/package_run_dependencies/transformer_msp_bridge\n'}
+[256.370576] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/ament_index/resource_index/parent_prefix_path/transformer_msp_bridge\n'}
+[256.374748] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/ament_prefix_path.sh\n'}
+[256.375099] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/ament_prefix_path.dsv\n'}
+[256.375253] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/path.sh\n'}
+[256.375376] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/environment/path.dsv\n'}
+[256.375506] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/local_setup.bash\n'}
+[256.375656] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/local_setup.sh\n'}
+[256.375796] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/local_setup.zsh\n'}
+[256.375916] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/local_setup.dsv\n'}
+[256.376034] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/package.dsv\n'}
+[256.376157] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/ament_index/resource_index/packages/transformer_msp_bridge\n'}
+[256.376267] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_generator_cExport.cmake\n'}
+[256.376375] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_generator_cExport-relwithdebinfo.cmake\n'}
+[256.378753] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_typesupport_fastrtps_cExport.cmake\n'}
+[256.379081] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_typesupport_fastrtps_cExport-relwithdebinfo.cmake\n'}
+[256.382725] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_generator_cppExport.cmake\n'}
+[256.384728] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_typesupport_fastrtps_cppExport.cmake\n'}
+[256.385264] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_typesupport_fastrtps_cppExport-relwithdebinfo.cmake\n'}
+[256.389853] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_introspection_cExport.cmake\n'}
+[256.391306] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_introspection_cExport-relwithdebinfo.cmake\n'}
+[256.396251] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_cExport.cmake\n'}
+[256.396773] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_cExport-relwithdebinfo.cmake\n'}
+[256.404625] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[256.405056] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_introspection_cppExport-relwithdebinfo.cmake\n'}
+[256.408568] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_cppExport.cmake\n'}
+[256.408973] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridge__rosidl_typesupport_cppExport-relwithdebinfo.cmake\n'}
+[256.413035] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_generator_pyExport.cmake\n'}
+[256.413451] (transformer_msp_bridge) StdoutLine: {'line': b'-- Installing: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/export_transformer_msp_bridge__rosidl_generator_pyExport-relwithdebinfo.cmake\n'}
+[256.414960] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/rosidl_cmake-extras.cmake\n'}
+[256.415626] (-) TimerEvent: {}
+[256.416040] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[256.416853] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[256.417474] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[256.417991] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[256.418322] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[256.418993] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[256.419224] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridgeConfig.cmake\n'}
+[256.419422] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/cmake/transformer_msp_bridgeConfig-version.cmake\n'}
+[256.419715] (transformer_msp_bridge) StdoutLine: {'line': b'-- Up-to-date: /home/atvpi/ros2_ws/install/transformer_msp_bridge/share/transformer_msp_bridge/package.xml\n'}
+[256.426644] (transformer_msp_bridge) CommandEnded: {'returncode': 0}
+[256.498219] (transformer_msp_bridge) JobEnded: {'identifier': 'transformer_msp_bridge', 'rc': 0}
+[256.499629] (-) EventReactorShutdown: {}

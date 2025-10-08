@@ -1,0 +1,10 @@
+/home/atvpi/ros2_ws/build/transformer_rc_mode_switch/CMakeFiles/uninstall.dir
+/home/atvpi/ros2_ws/build/transformer_rc_mode_switch/CMakeFiles/transformer_rc_mode_switch_uninstall.dir
+/home/atvpi/ros2_ws/build/transformer_rc_mode_switch/CMakeFiles/rc_mode_switch_node.dir
+/home/atvpi/ros2_ws/build/transformer_rc_mode_switch/CMakeFiles/test.dir
+/home/atvpi/ros2_ws/build/transformer_rc_mode_switch/CMakeFiles/edit_cache.dir
+/home/atvpi/ros2_ws/build/transformer_rc_mode_switch/CMakeFiles/rebuild_cache.dir
+/home/atvpi/ros2_ws/build/transformer_rc_mode_switch/CMakeFiles/list_install_components.dir
+/home/atvpi/ros2_ws/build/transformer_rc_mode_switch/CMakeFiles/install.dir
+/home/atvpi/ros2_ws/build/transformer_rc_mode_switch/CMakeFiles/install/local.dir
+/home/atvpi/ros2_ws/build/transformer_rc_mode_switch/CMakeFiles/install/strip.dir

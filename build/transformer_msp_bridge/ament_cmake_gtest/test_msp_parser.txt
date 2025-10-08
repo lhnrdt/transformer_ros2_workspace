@@ -1,0 +1,31 @@
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_msp_parser --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser.gtest.xml
+
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 7 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 7 tests from MSPParserFixture
+[ RUN      ] MSPParserFixture.V1SimplePacket
+[       OK ] MSPParserFixture.V1SimplePacket (0 ms)
+[ RUN      ] MSPParserFixture.V2NativePacket
+[       OK ] MSPParserFixture.V2NativePacket (0 ms)
+[ RUN      ] MSPParserFixture.V2TunneledPacket
+[       OK ] MSPParserFixture.V2TunneledPacket (0 ms)
+[ RUN      ] MSPParserFixture.NativeV2CrcFailure
+[       OK ] MSPParserFixture.NativeV2CrcFailure (0 ms)
+[ RUN      ] MSPParserFixture.TunneledV2CrcFailure
+[       OK ] MSPParserFixture.TunneledV2CrcFailure (0 ms)
+[ RUN      ] MSPParserFixture.PartialFrameNoEmit
+[       OK ] MSPParserFixture.PartialFrameNoEmit (0 ms)
+[ RUN      ] MSPParserFixture.MultipleFramesSequence
+[       OK ] MSPParserFixture.MultipleFramesSequence (0 ms)
+[----------] 7 tests from MSPParserFixture (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 7 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 7 tests.
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_msp_parser.gtest.xml'

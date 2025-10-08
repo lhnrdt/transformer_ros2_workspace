@@ -1,0 +1,20 @@
+-- run_test.py: invoking following command in '/home/atvpi/ros2_ws/build/transformer_msp_bridge':
+ - /home/atvpi/ros2_ws/build/transformer_msp_bridge/test_altitude_decoder --gtest_output=xml:/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_altitude_decoder.gtest.xml
+
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from AltitudeDecoder
+[ RUN      ] AltitudeDecoder.BasicScaling
+[       OK ] AltitudeDecoder.BasicScaling (91 ms)
+[ RUN      ] AltitudeDecoder.ShortPayloadIgnored
+[       OK ] AltitudeDecoder.ShortPayloadIgnored (76 ms)
+[----------] 2 tests from AltitudeDecoder (167 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (168 ms total)
+[  PASSED  ] 2 tests.
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_altitude_decoder.gtest.xml'
+-- run_test.py: verify result file '/home/atvpi/ros2_ws/build/transformer_msp_bridge/test_results/transformer_msp_bridge/test_altitude_decoder.gtest.xml'

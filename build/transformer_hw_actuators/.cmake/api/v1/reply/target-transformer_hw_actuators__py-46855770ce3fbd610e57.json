@@ -1,0 +1,79 @@
+{
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_custom_target"
+		],
+		"files" : 
+		[
+			"/home/atvpi/ros2_ws/build/transformer_hw_actuators/transformer_hw_actuators__py/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 36,
+				"parent" : 0
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"id" : "transformer_hw_actuators::@6890427a1f51a3e7e1df"
+		}
+	],
+	"id" : "transformer_hw_actuators__py::@4f11158b8c5ea5e9c314",
+	"name" : "transformer_hw_actuators__py",
+	"paths" : 
+	{
+		"build" : "transformer_hw_actuators__py",
+		"source" : "/home/atvpi/ros2_ws/build/transformer_hw_actuators/transformer_hw_actuators__py"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1,
+				2
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "/home/atvpi/ros2_ws/build/transformer_hw_actuators/transformer_hw_actuators__py/CMakeFiles/transformer_hw_actuators__py",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "/home/atvpi/ros2_ws/build/transformer_hw_actuators/transformer_hw_actuators__py/CMakeFiles/transformer_hw_actuators__py.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "/home/atvpi/ros2_ws/build/transformer_hw_actuators/rosidl_generator_py/transformer_hw_actuators/_transformer_hw_actuators_s.ep.rosidl_typesupport_fastrtps_c.c.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "UTILITY"
+}
