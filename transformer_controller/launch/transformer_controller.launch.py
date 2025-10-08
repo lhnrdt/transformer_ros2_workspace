@@ -14,7 +14,7 @@ def generate_launch_description():
                 'retract_time_ms': 5000,
                 'extend_speed_percent': 100,
                 'extend_time_ms': 4750,
-                'flight_servos_pulse': 2400,
+                'flight_servos_pulse': 1600,
                 'drive_servos_pulse': 450,
                 'servo_move_speed_us_per_s': 1300,
                 'startup_retract': True,

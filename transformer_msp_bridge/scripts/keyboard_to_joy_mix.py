@@ -86,7 +86,7 @@ class KeyState:
 class KeyboardToJoyNode(Node):
     """ROS 2 node that converts keyboard arrow keys to Joy messages."""
 
-    def __init__(self, device_path: Optional[str] = None, backend: str = 'auto'):
+    def __init__(self, device_path: Optional[str] = None, backend: str = 'auto', verbose: bool = False):
         """Initialize the node and start the input reader thread.
 
         Args:
@@ -97,6 +97,7 @@ class KeyboardToJoyNode(Node):
         self.pub = self.create_publisher(Joy, '/joy', 10)
         self.state = KeyState()
         self._lock = Lock()
+        self.verbose = verbose
 
         # Choose backend
         self._backend = None
@@ -134,6 +135,9 @@ class KeyboardToJoyNode(Node):
             self._backend = 'evdev'
             self.get_logger().info('Keyboard backend: evdev (device events)')
 
+        # Publish an initial neutral Joy so subscribers see activity immediately
+        self._publish_joy()
+
     def _pick_input_device(self, device_path: Optional[str]) -> Optional[InputDevice]:  # type: ignore
         if InputDevice is None or list_devices is None or ecodes is None:
             return None
@@ -166,6 +170,7 @@ class KeyboardToJoyNode(Node):
         assert pynput_keyboard is not None
 
         def on_press(key):
+            print("Button pressed")
             changed = False
             with self._lock:
                 if key == pynput_keyboard.Key.left:
@@ -249,6 +254,8 @@ class KeyboardToJoyNode(Node):
 
         # header stamp may be left default; many consumers only read axes/buttons
         self.pub.publish(msg)
+        if self.verbose:
+            self.get_logger().info(f'joy axes: [1]={msg.axes[AXIS_THROTTLE]:.2f}, [3]={msg.axes[AXIS_STEER]:.2f}')
 
 
 def main(argv=None):
@@ -256,12 +263,13 @@ def main(argv=None):
     parser = argparse.ArgumentParser(add_help=True)
     parser.add_argument('--device', type=str, default=None, help='evdev device path, e.g. /dev/input/event3')
     parser.add_argument('--backend', type=str, choices=['auto', 'pynput', 'evdev'], default='auto', help='Keyboard input backend to use')
+    parser.add_argument('-v', '--verbose', action='store_true', help='Enable verbose logging')
     args, ros_args = parser.parse_known_args(argv)
 
     rclpy.init(args=ros_args)
     node = None
     try:
-        node = KeyboardToJoyNode(device_path=args.device, backend=args.backend)
+        node = KeyboardToJoyNode(device_path=args.device, backend=args.backend, verbose=args.verbose)
         rclpy.spin(node)  # spin keeps process alive; events come from input thread
     except Exception as e:
         if node is not None:
@@ -276,4 +284,3 @@ def main(argv=None):
 
 if __name__ == '__main__':
     main()
-

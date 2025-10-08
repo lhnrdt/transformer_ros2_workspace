@@ -1,5 +1,14 @@
 #!/usr/bin/env python3
-import math
+"""ROS 2 node: joystick_tank_to_rc.
+
+Maps Joy axes to forward-only RC PWM for left/right tracks. Defaults:
+- input_mode = 'mix'
+- throttle_axis = 1
+- steer_axis = 3
+- left_channel_index = 10 (ch11)
+- right_channel_index = 11 (ch12)
+- channel_count = 16
+"""
 from typing import List
 
 import rclpy
@@ -35,13 +44,13 @@ class JoystickTankToRC(Node):
         self.declare_parameter('rc_topic', '/msp/rc_override')
         # Input mode: 'direct' uses left_axis/right_axis directly;
         # 'mix' uses throttle_axis and steer_axis to compute left/right.
-        self.declare_parameter('input_mode', 'direct')  # 'direct' or 'mix'
+        self.declare_parameter('input_mode', 'mix')  # 'direct' or 'mix'
         self.declare_parameter('left_axis', 1)          # direct mode: left stick vertical
         self.declare_parameter('right_axis', 4)         # direct mode: right stick vertical
         self.declare_parameter('throttle_axis', 1)      # mix mode: forward throttle axis
         self.declare_parameter('steer_axis', 3)         # mix mode: left/right steering axis
-        self.declare_parameter('min_pwm', 1000)
-        self.declare_parameter('max_pwm', 2000)
+        self.declare_parameter('min_pwm', 1500)
+        self.declare_parameter('max_pwm', 1600)
         self.declare_parameter('deadzone', 0.05)
         self.declare_parameter('channel_count', 16)
         self.declare_parameter('left_channel_index', 10)   # ch11 -> index 10
