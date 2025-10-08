@@ -1,10 +1,12 @@
-[submodule "ros2_wheeltec_n100_imu"]
-	path = ros2_wheeltec_n100_imu
-	url = https://github.com/lhnrdt/ros2_wheeltec_n100_imu
-[submodule "inav_msp_vendor/external/inav"]
-	path = inav_msp_vendor/external/inav
+[submodule "src/serial-ros2"]
+	path = src/serial-ros2
+	url = https://github.com/RoverRobotics-forks/serial-ros2.git
+[submodule "src/ros2_wheeltec_n100_imu"]
+	path = src/ros2_wheeltec_n100_imu
+	url = https://github.com/lhnrdt/ros2_wheeltec_n100_imu.git
+
+[submodule "src/external/inav"]
+	path = src/external/inav
 	url = https://github.com/iNavFlight/inav.git
+	shallow = true
 	branch = master
-[submodule "external/inav"]
-	path = external/inav
-	url = https://github.com/iNavFlight/inav
