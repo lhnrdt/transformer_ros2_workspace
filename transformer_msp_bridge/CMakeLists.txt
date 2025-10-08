@@ -90,6 +90,11 @@ add_executable(msp_probe
 target_link_libraries(msp_probe msp_protocol serial_port)
 target_compile_features(msp_probe PUBLIC cxx_std_17)
 
+install(PROGRAMS
+  scripts/joystick_tank_to_rc.py
+  scripts/keyboard_to_joy_mix.py
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 
 install(TARGETS msp_protocol serial_port ${PROJECT_NAME}_decoders
