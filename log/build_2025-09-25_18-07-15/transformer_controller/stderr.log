@@ -1,5 +1,0 @@
-gmake[2]: *** [CMakeFiles/transformer_controller_node.dir/build.make:76: CMakeFiles/transformer_controller_node.dir/src/transformer_controller_node.cpp.o] Interrupt
-gmake[1]: *** [CMakeFiles/Makefile2:626: CMakeFiles/transformer_controller_node.dir/all] Interrupt
-gmake[2]: *** [CMakeFiles/ament_cmake_python_build_transformer_controller_egg.dir/build.make:70: CMakeFiles/ament_cmake_python_build_transformer_controller_egg] Interrupt
-gmake[1]: *** [CMakeFiles/Makefile2:480: CMakeFiles/ament_cmake_python_build_transformer_controller_egg.dir/all] Interrupt
-gmake: *** [Makefile:146: all] Interrupt

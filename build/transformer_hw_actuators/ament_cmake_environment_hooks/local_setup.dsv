@@ -1,4 +1,0 @@
-source;share/transformer_hw_actuators/environment/ament_prefix_path.sh
-source;share/transformer_hw_actuators/environment/library_path.sh
-source;share/transformer_hw_actuators/environment/path.sh
-source;share/transformer_hw_actuators/environment/pythonpath.sh

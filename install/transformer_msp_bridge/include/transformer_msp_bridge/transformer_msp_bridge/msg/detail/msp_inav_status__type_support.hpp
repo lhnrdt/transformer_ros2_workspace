@@ -1,1 +1,0 @@
-/home/atvpi/ros2_ws/build/transformer_msp_bridge/rosidl_generator_cpp/transformer_msp_bridge/msg/detail/msp_inav_status__type_support.hpp

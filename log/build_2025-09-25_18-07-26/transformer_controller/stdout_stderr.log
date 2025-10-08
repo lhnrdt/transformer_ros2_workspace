@@ -1,4 +1,0 @@
-[  2%] Built target transformer_controller__rosidl_generator_type_description
-gmake[1]: *** [CMakeFiles/Makefile2:455: CMakeFiles/ament_cmake_python_copy_transformer_controller.dir/all] Interrupt
-gmake[1]: *** [CMakeFiles/Makefile2:218: CMakeFiles/transformer_controller__rosidl_generator_type_description.dir/all] Interrupt
-gmake: *** [Makefile:146: all] Interrupt

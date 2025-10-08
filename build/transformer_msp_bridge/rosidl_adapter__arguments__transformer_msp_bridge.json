@@ -1,6 +1,0 @@
-{
-  "package_name": "transformer_msp_bridge",
-  "non_idl_tuples": [
-    "/home/atvpi/ros2_ws/src/transformer_msp_bridge:msg/MspInavStatus.msg"
-  ]
-}

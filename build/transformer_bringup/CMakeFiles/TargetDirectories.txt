@@ -1,9 +1,0 @@
-/home/atvpi/ros2_ws/build/transformer_bringup/CMakeFiles/uninstall.dir
-/home/atvpi/ros2_ws/build/transformer_bringup/CMakeFiles/transformer_bringup_uninstall.dir
-/home/atvpi/ros2_ws/build/transformer_bringup/CMakeFiles/test.dir
-/home/atvpi/ros2_ws/build/transformer_bringup/CMakeFiles/edit_cache.dir
-/home/atvpi/ros2_ws/build/transformer_bringup/CMakeFiles/rebuild_cache.dir
-/home/atvpi/ros2_ws/build/transformer_bringup/CMakeFiles/list_install_components.dir
-/home/atvpi/ros2_ws/build/transformer_bringup/CMakeFiles/install.dir
-/home/atvpi/ros2_ws/build/transformer_bringup/CMakeFiles/install/local.dir
-/home/atvpi/ros2_ws/build/transformer_bringup/CMakeFiles/install/strip.dir

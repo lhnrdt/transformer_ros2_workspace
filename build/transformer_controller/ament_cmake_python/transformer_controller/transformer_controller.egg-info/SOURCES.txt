@@ -1,8 +1,0 @@
-setup.py
-transformer_controller/__init__.py
-transformer_controller.egg-info/PKG-INFO
-transformer_controller.egg-info/SOURCES.txt
-transformer_controller.egg-info/dependency_links.txt
-transformer_controller.egg-info/top_level.txt
-transformer_controller/action/__init__.py
-transformer_controller/action/_transform_mode.py

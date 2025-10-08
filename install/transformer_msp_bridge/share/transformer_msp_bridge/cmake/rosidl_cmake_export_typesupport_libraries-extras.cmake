@@ -1,1 +1,0 @@
-/home/atvpi/ros2_ws/build/transformer_msp_bridge/rosidl_cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
