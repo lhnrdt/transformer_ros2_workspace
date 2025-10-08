@@ -1,0 +1,44 @@
+# ROS 2 / colcon build artifacts
+/build/
+/install/
+/log/
+
+# colcon, ament, and CMake
+CMakeCache.txt
+CMakeFiles/
+*.cmake
+/compile_commands.json
+**/compile_commands.json
+colcon.meta
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Misc
+*.log
+*.bak
+*.tmp
+
+# ROS-specific generated code
+**/generated/
+**/msg/*_pb2.py
+
+# Test outputs
+.junit/
+.coverage
+htmlcov/
+
+# Ignore nested build artifacts in packages (safety)
+src/**/build/
+src/**/install/
+src/**/log/
