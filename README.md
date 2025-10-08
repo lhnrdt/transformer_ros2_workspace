@@ -45,14 +45,7 @@ Notes on INAV sparse checkout:
 
 From the workspace root:
 ```bash
-# Ensure your ROS 2 environment is sourced first
-source /opt/ros/<your_ros2_distro>/setup.bash
-
-# Build with colcon
-colcon build --symlink-install
-
-# Source the workspace
-source install/local_setup.bash
+bash scripts/build.sh
 ```
 
 ## Run

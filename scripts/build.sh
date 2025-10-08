@@ -15,6 +15,13 @@ if [ -z "${ROS_DISTRO:-}" ]; then
 fi
 
 # Clean bad prefixes (prevents colcon AMENT/CMAKE warnings)
-"$(dirname "$0")/clean_env_prefixes.sh"
+bash "$(dirname "$0")/clean_env_prefixes.sh"
 
+# Build
 colcon build --symlink-install "$@"
+
+# Aggregate compile_commands.json at the workspace root for IntelliSense
+if [ -f build/compile_commands.json ]; then
+  # Replace or create a symlink at the workspace root, even if an old dangling symlink exists
+  ln -sfn build/compile_commands.json ./compile_commands.json
+fi
