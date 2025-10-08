@@ -1,0 +1,11 @@
+transformer_hw_actuators:
+  ros__parameters:
+    pwmchip_index: 0
+    pwm_channels: [1, 0]    # actuator0→PWM1(GPIO13), actuator1→PWM0(GPIO12)(must be muxed correctly in config.txt)
+    dir_gpios: [19, 5]      # actuator0 DIR→GPIO19,   actuator1 DIR→GPIO5
+    dir_active_high: [true, true]
+    gpiochip_name: gpiochip4
+    period_ns: 50000 # 20kHz
+    initial_percent: 0
+    brake_on_zero: false
+    feedback_period_ms: 50

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="3">
+    <name>transformer_rc_mode_switch</name>
+    <version>0.0.1</version>
+    <description>RC channel based transformer mode switch action client.</description>
+    <maintainer email="user@example.com">User</maintainer>
+    <license>Apache-2.0</license>
+    <buildtool_depend>ament_cmake</buildtool_depend>
+    <depend>rclcpp</depend>
+    <depend>rclcpp_action</depend>
+    <depend>std_msgs</depend>
+    <depend>transformer_controller</depend>
+    <export>
+        <build_type>ament_cmake</build_type>
+    </export>
+</package>

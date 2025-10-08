@@ -1,0 +1,74 @@
+# Default parameter configuration for transformer_msp_bridge.
+# Adjust per-command enable flags and polling rates here instead of hardcoding.
+# Load with:
+#   ros2 run transformer_msp_bridge transformer_msp_bridge_node --ros-args \
+#     --params-file $(ros2 pkg prefix transformer_msp_bridge)/share/transformer_msp_bridge/config/msp_bridge.yaml
+transformer_msp_bridge:
+  ros__parameters:
+    port: "/dev/ttyAMA0"
+    baudrate: 115200
+    timeout_ms: 50
+    rc_channel_count: 8
+    rc_publish_rate_hz: 10.0
+    debug_msp: false
+    log_msp_tx: false
+    log_msp_rx: false
+    v2_fallback_timeout_sec: 5.0
+    force_msp_v2: false
+    use_v2_tunnel: false
+    use_v2_for_legacy: false
+
+    # Per-command polling (generated from registry names; adjust as needed)
+    # Set enabled=false OR rate_hz=0.0 to disable polling.
+    command.msp_raw_imu.enabled: false
+    command.msp_raw_imu.rate_hz: 50.0
+    command.msp_servo.enabled: true
+    command.msp_servo.rate_hz: 10.0
+    command.msp_motor.enabled: true
+    command.msp_motor.rate_hz: 10.0
+    command.msp_rc.enabled: true
+    command.msp_rc.rate_hz: 5.0
+    command.msp_raw_gps.enabled: true
+    command.msp_raw_gps.rate_hz: 5.0
+    command.msp_comp_gps.enabled: true
+    command.msp_comp_gps.rate_hz: 2.0
+    command.msp_attitude.enabled: true
+    command.msp_attitude.rate_hz: 10.0
+    command.msp_altitude.enabled: true
+    command.msp_altitude.rate_hz: 5.0
+    command.msp_analog.enabled: true
+    command.msp_analog.rate_hz: 2.0
+    command.msp_rc_tuning.enabled: false
+    command.msp_rc_tuning.rate_hz: 0.2
+    command.msp_battery_state.enabled: true
+    command.msp_battery_state.rate_hz: 1.0
+    command.msp_rtc.enabled: false
+    command.msp_rtc.rate_hz: 0.5
+    command.msp_status.enabled: true
+    command.msp_status.rate_hz: 2.0
+    command.msp_sensor_config.enabled: true
+    command.msp_sensor_config.rate_hz: 2.0
+    command.msp_gpsstatistics.enabled: true
+    command.msp_gpsstatistics.rate_hz: 1.0
+    command.msp2_sensor_rangefinder.enabled: true
+    command.msp2_sensor_rangefinder.rate_hz: 5.0
+    command.msp2_sensor_compass.enabled: true
+    command.msp2_sensor_compass.rate_hz: 5.0
+    command.msp2_sensor_barometer.enabled: true
+    command.msp2_sensor_barometer.rate_hz: 5.0
+    command.msp2_inav_status.enabled: true
+    command.msp2_inav_status.rate_hz: 2.0
+    command.msp2_inav_analog.enabled: true
+    command.msp2_inav_analog.rate_hz: 2.0
+    command.msp2_inav_battery_config.enabled: false
+    command.msp2_inav_battery_config.rate_hz: 0.05
+    command.msp2_inav_air_speed.enabled: true
+    command.msp2_inav_air_speed.rate_hz: 5.0
+    command.msp2_inav_temperatures.enabled: true
+    command.msp2_inav_temperatures.rate_hz: 1.0
+    command.msp2_inav_esc_rpm.enabled: true
+    command.msp2_inav_esc_rpm.rate_hz: 5.0
+    command.msp2_common_setting.enabled: false
+    command.msp2_common_setting.rate_hz: 0.0
+    command.msp2_common_set_setting.enabled: false
+    command.msp2_common_set_setting.rate_hz: 0.0
