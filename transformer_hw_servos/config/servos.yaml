@@ -20,11 +20,10 @@ transformer_hw_servos:
     channels_in_use: 2
 
     # Additive mechanical position offsets (logical -> physical = logical + offset) per channel (1-based in docs, 0-based here)
-    # Provide as many as channels_in_use (extra values ignored). Example below offsets channel 2 by +30us.
-    position_offsets_us: [100, 0]
+    position_offsets_us: [0, 50]
 
     # Ranges [WARNING: Changing these values to incorrect ones may damage hardware]
-    min_us: 450
+    min_us: 400
     max_us: 2200
 
     # Default motion profile behavior (can be overridden per action goal)
