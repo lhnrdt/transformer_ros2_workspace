@@ -8,6 +8,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_action REQUIRED)
+find_package(rosidl_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(transformer_hw_actuators REQUIRED)
 find_package(transformer_hw_servos REQUIRED)
@@ -23,8 +24,10 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 
 add_executable(transformer_controller_node src/transformer_controller_node.cpp)
 ament_target_dependencies(transformer_controller_node rclcpp rclcpp_action transformer_hw_actuators transformer_hw_servos)
-rosidl_target_interfaces(transformer_controller_node
-  ${PROJECT_NAME} "rosidl_typesupport_cpp")
+
+# Replace deprecated rosidl_target_interfaces with modern pattern
+rosidl_get_typesupport_target(cpp_typesupport_target "${PROJECT_NAME}" "rosidl_typesupport_cpp")
+target_link_libraries(transformer_controller_node "${cpp_typesupport_target}")
 
 install(TARGETS transformer_controller_node DESTINATION lib/${PROJECT_NAME})
 
