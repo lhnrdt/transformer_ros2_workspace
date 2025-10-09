@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
 """ROS 2 node: joystick_tank_to_rc.
 
-Maps Joy axes to forward-only RC PWM for left/right tracks. Defaults:
+Maps Joy axes to forward-only RC PWM for left/right tracks.
+
+Defaults updated to match the provided Joy layout:
 - input_mode = 'mix'
-- throttle_axis = 1
-- steer_axis = 3
+- throttle_axis = 1  (axes[1])
+- steer_axis = 3     (axes[3], positive = steer left)
+- left_axis = 2      (axes[2], direct mode; 1.0 = 0%, -1.0 = 100%)
+- right_axis = 5     (axes[5], direct mode; 1.0 = 0%, -1.0 = 100%)
+- steer_left_positive = True (invert steer sign internally to match mixing logic)
+- direct_axes_invert = True  (invert direct axes so -1.0 -> full forward)
 - left_channel_index = 10 (ch11)
 - right_channel_index = 11 (ch12)
 - channel_count = 16
@@ -15,6 +21,10 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
 from std_msgs.msg import UInt16MultiArray
+
+# Fallback/default axes when Joy message is empty or too short.
+# Intentionally all zeros to avoid unintended motion when joystick data is missing.
+DEFAULT_AXES: List[float] = [0.0] * 8
 
 
 def norm_to_pwm(x: float, deadzone: float = 0.00, min_pwm: int = 1000, max_pwm: int = 2000) -> int:
@@ -45,10 +55,14 @@ class JoystickTankToRC(Node):
         # Input mode: 'direct' uses left_axis/right_axis directly;
         # 'mix' uses throttle_axis and steer_axis to compute left/right.
         self.declare_parameter('input_mode', 'mix')  # 'direct' or 'mix'
-        self.declare_parameter('left_axis', 1)          # direct mode: left stick vertical
-        self.declare_parameter('right_axis', 4)         # direct mode: right stick vertical
-        self.declare_parameter('throttle_axis', 1)      # mix mode: forward throttle axis
-        self.declare_parameter('steer_axis', 3)         # mix mode: left/right steering axis
+        # Updated axes to match annotated message
+        self.declare_parameter('left_axis', 2)          # direct mode: left motor throttle (axes[2])
+        self.declare_parameter('right_axis', 5)         # direct mode: right motor throttle (axes[5])
+        self.declare_parameter('throttle_axis', 1)      # mix mode: forward throttle axis (axes[1])
+        self.declare_parameter('steer_axis', 3)         # mix mode: steering axis (axes[3])
+        # Axis interpretation options (defaults chosen to match provided semantics)
+        self.declare_parameter('steer_left_positive', True)  # Positive steer means 'left' per sample
+        self.declare_parameter('direct_axes_invert', True)   # Direct axes: 1.0->0%, -1.0->100%
         self.declare_parameter('min_pwm', 1500)
         self.declare_parameter('max_pwm', 1600)
         self.declare_parameter('deadzone', 0.05)
@@ -63,6 +77,8 @@ class JoystickTankToRC(Node):
         self.right_axis = int(self.get_parameter('right_axis').value)
         self.throttle_axis = int(self.get_parameter('throttle_axis').value)
         self.steer_axis = int(self.get_parameter('steer_axis').value)
+        self.steer_left_positive = bool(self.get_parameter('steer_left_positive').value)
+        self.direct_axes_invert = bool(self.get_parameter('direct_axes_invert').value)
         self.min_pwm = int(self.get_parameter('min_pwm').value)
         self.max_pwm = int(self.get_parameter('max_pwm').value)
         self.deadzone = float(self.get_parameter('deadzone').value)
@@ -78,12 +94,24 @@ class JoystickTankToRC(Node):
 
     def on_joy(self, msg: Joy):
         """Convert Joy axes to left/right PWM values and publish RC."""
-        axes: List[float] = msg.axes
+        axes: List[float] = msg.axes if msg.axes else DEFAULT_AXES
+
+        # Helper to safely access an axis with fallback to DEFAULT_AXES (then 0.0)
+        def get_axis(idx: int) -> float:
+            if 0 <= idx < len(axes):
+                return axes[idx]
+            if 0 <= idx < len(DEFAULT_AXES):
+                return DEFAULT_AXES[idx]
+            return 0.0
 
         if self.input_mode == 'mix':
             # Read throttle and steer, guard indices
-            thr = axes[self.throttle_axis] if self.throttle_axis < len(axes) else 0.0
-            steer = axes[self.steer_axis] if self.steer_axis < len(axes) else 0.0
+            thr = get_axis(self.throttle_axis)
+            steer = get_axis(self.steer_axis)
+            # By default, sample indicates positive steer = left, but mix logic assumes negative = left
+            # So invert steer to align with internal logic when configured
+            if self.steer_left_positive:
+                steer = -steer
             # Apply deadzone around zero
             thr = 0.0 if abs(thr) < self.deadzone else thr
             steer = 0.0 if abs(steer) < self.deadzone else steer
@@ -121,8 +149,12 @@ class JoystickTankToRC(Node):
             right_pwm = norm_to_pwm(right_n, 0.0, self.min_pwm, self.max_pwm)
         else:
             # Direct mode: read left/right axes directly
-            lx = axes[self.left_axis] if self.left_axis < len(axes) else 0.0
-            rx = axes[self.right_axis] if self.right_axis < len(axes) else 0.0
+            lx = get_axis(self.left_axis)
+            rx = get_axis(self.right_axis)
+            # Invert per provided semantics (1.0 -> 0%, -1.0 -> 100%)
+            if self.direct_axes_invert:
+                lx = -lx
+                rx = -rx
             left_pwm = norm_to_pwm(lx, self.deadzone, self.min_pwm, self.max_pwm)
             right_pwm = norm_to_pwm(rx, self.deadzone, self.min_pwm, self.max_pwm)
 
