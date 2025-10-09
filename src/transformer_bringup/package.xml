@@ -7,11 +7,15 @@
   <buildtool_depend>ament_cmake</buildtool_depend>
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>
+  <exec_depend>ament_index_python</exec_depend>
   <depend>transformer_hw_actuators</depend>
   <depend>transformer_hw_servos</depend>
   <depend>transformer_controller</depend>
   <depend>transformer_msp_bridge</depend>
   <depend>transformer_rc_mode_switch</depend>
+  <!-- Optional sensor stacks controlled via launch args -->
+  <exec_depend>realsense2_camera</exec_depend>
+  <exec_depend>wheeltec_n100_imu</exec_depend>
   <export>
     <build_type>ament_cmake</build_type>
   </export>
