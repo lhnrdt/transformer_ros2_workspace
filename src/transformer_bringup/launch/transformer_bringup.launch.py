@@ -7,9 +7,10 @@ Starts core nodes and optionally:
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
 from launch.conditions import IfCondition
-from launch.substitutions import LaunchConfiguration, TextSubstitution, PathJoinSubstitution
+from launch.substitutions import LaunchConfiguration, TextSubstitution, PathJoinSubstitution, Command
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
+from launch_ros.parameter_descriptions import ParameterValue
 from ament_index_python.packages import get_package_share_directory
 import os
 
@@ -48,6 +49,11 @@ def generate_launch_description():
     start_wheeltec_imu_arg = DeclareLaunchArgument(
         'start_wheeltec_imu', default_value='false', description='Start Wheeltec N100 IMU node')
     start_wheeltec_imu = LaunchConfiguration('start_wheeltec_imu')
+
+    # Start robot description (URDF) publisher
+    start_description_arg = DeclareLaunchArgument(
+        'start_description', default_value='true', description='Start robot_state_publisher with transformer_description URDF')
+    start_description = LaunchConfiguration('start_description')
 
     # Wheeltec IMU serial settings (configurable via launch args)
     wheeltec_serial_port_arg = DeclareLaunchArgument(
@@ -130,6 +136,21 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(rc_switch_launch),
         condition=IfCondition(start_rc_switch))
 
+    # Robot description (URDF via xacro) from transformer_description
+    desc_share = get_package_share_directory('transformer_description')
+    xacro_file = os.path.join(desc_share, 'urdf', 'transformer.urdf.xacro')
+    robot_state_publisher = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='robot_state_publisher',
+        output='screen',
+        parameters=[{
+            'use_sim_time': False,
+            'robot_description': ParameterValue(Command(['xacro ', xacro_file]), value_type=str),
+        }],
+        condition=IfCondition(start_description)
+    )
+
     # Build topic roots from camera_namespace and camera_name
     camera_root = PathJoinSubstitution([
         TextSubstitution(text='/'),
@@ -169,6 +190,7 @@ def generate_launch_description():
         start_msp_arg,
         start_rc_switch_arg,
         start_realsense_arg,
+        start_description_arg,
         camera_namespace_arg,
         camera_name_arg,
         start_wheeltec_imu_arg,
@@ -180,6 +202,7 @@ def generate_launch_description():
         IncludeLaunchDescription(PythonLaunchDescriptionSource(controller_launch)),
         msp_node,
         rc_switch_include,
+        robot_state_publisher,
         realsense_include,
         relay_aligned_info,
         relay_color_info,

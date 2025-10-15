@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="transformer">
+  <!-- Base link -->
+  <link name="base_link">
+    <!-- Visual mesh of the drone (replace scale/origin as needed to align) -->
+    <visual>
+      <geometry>
+        <mesh filename="package://transformer_description/model/transformer_model.stl" scale="1 1 1"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="gray"><color rgba="0.6 0.6 0.6 1.0"/></material>
+    </visual>
+    <!-- Optional: keep a simple collision; you can swap to a simplified STL later -->
+    <collision>
+      <geometry>
+        <mesh filename="package://transformer_description/model/transformer_model.stl" scale="1 1 1"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="5.0"/>
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+    </inertial>
+  </link>
+
+  <!-- Parameters for sensor poses (placeholders; override via launch or set params) -->
+  <xacro:property name="msp_imu_xyz" value="0.0 0.0 0.1"/>
+  <xacro:property name="msp_imu_rpy" value="0.0 0.0 0.0"/>
+
+  <xacro:property name="n100_imu_xyz" value="0.0 0.0 0.12"/>
+  <xacro:property name="n100_imu_rpy" value="0.0 0.0 0.0"/>
+
+  <xacro:property name="gps_xyz" value="0.2 0.0 0.2"/>
+  <xacro:property name="gps_rpy" value="0.0 0.0 0.0"/>
+
+  <xacro:property name="d435i_xyz" value="0.25 0.0 0.2"/>
+  <xacro:property name="d435i_rpy" value="0.0 0.0 0.0"/>
+
+  <!-- MSP IMU link -->
+  <link name="msp_imu_link">
+    <visual>
+      <geometry>
+        <box size="0.03 0.03 0.01"/>
+      </geometry>
+      <material name="red"><color rgba="0.8 0.1 0.1 1.0"/></material>
+    </visual>
+  </link>
+  <joint name="msp_imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="msp_imu_link"/>
+    <origin xyz="${msp_imu_xyz}" rpy="${msp_imu_rpy}"/>
+  </joint>
+
+  <!-- N100 IMU link -->
+  <link name="n100_imu_link">
+    <visual>
+      <geometry>
+        <box size="0.03 0.03 0.01"/>
+      </geometry>
+      <material name="green"><color rgba="0.1 0.8 0.1 1.0"/></material>
+    </visual>
+  </link>
+  <joint name="n100_imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="n100_imu_link"/>
+    <origin xyz="${n100_imu_xyz}" rpy="${n100_imu_rpy}"/>
+  </joint>
+
+  <!-- GPS module link -->
+  <link name="gps_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.02" radius="0.025"/>
+      </geometry>
+      <material name="blue"><color rgba="0.1 0.1 0.8 1.0"/></material>
+    </visual>
+  </link>
+  <joint name="gps_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="gps_link"/>
+    <origin xyz="${gps_xyz}" rpy="${gps_rpy}"/>
+  </joint>
+
+  <!-- Intel RealSense D435i base link (matches realsense2_camera frame name) -->
+  <link name="D435I_link">
+    <visual>
+      <geometry>
+        <box size="0.09 0.025 0.025"/>
+      </geometry>
+      <material name="black"><color rgba="0.1 0.1 0.1 1.0"/></material>
+    </visual>
+  </link>
+  <joint name="D435I_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="D435I_link"/>
+    <origin xyz="${d435i_xyz}" rpy="${d435i_rpy}"/>
+  </joint>
+</robot>
