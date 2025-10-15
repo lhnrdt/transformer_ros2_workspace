@@ -8,6 +8,7 @@
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>
   <exec_depend>ament_index_python</exec_depend>
+  <exec_depend>topic_tools</exec_depend>
   <depend>transformer_hw_actuators</depend>
   <depend>transformer_hw_servos</depend>
   <depend>transformer_controller</depend>

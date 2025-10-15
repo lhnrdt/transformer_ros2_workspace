@@ -1,13 +1,13 @@
 """Transformer bringup launch.
 
 Starts core nodes and optionally:
-- Intel RealSense D4xx pipeline (depth only) with IMU disabled.
+- Intel RealSense D4xx pipeline (depth + color enabled here) with IMU disabled.
 - Wheeltec N100 IMU with configurable serial settings.
 """
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
 from launch.conditions import IfCondition
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, TextSubstitution, PathJoinSubstitution
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
@@ -37,19 +37,13 @@ def generate_launch_description():
         'start_realsense', default_value='false', description='Start Intel RealSense D4xx camera node')
     start_realsense = LaunchConfiguration('start_realsense')
 
-    # RealSense color stream control (exposed so users can enable color via CLI)
-    rs_enable_color_arg = DeclareLaunchArgument(
-        'rs_enable_color', default_value='false', description='Enable RealSense color stream')
-    rs_color_width_arg = DeclareLaunchArgument(
-        'rs_color_width', default_value='640', description='Color stream width')
-    rs_color_height_arg = DeclareLaunchArgument(
-        'rs_color_height', default_value='480', description='Color stream height')
-    rs_color_fps_arg = DeclareLaunchArgument(
-        'rs_color_fps', default_value='30', description='Color stream FPS')
-    rs_enable_color = LaunchConfiguration('rs_enable_color')
-    rs_color_width = LaunchConfiguration('rs_color_width')
-    rs_color_height = LaunchConfiguration('rs_color_height')
-    rs_color_fps = LaunchConfiguration('rs_color_fps')
+    # Camera naming used by realsense2_camera; expose as launch args so other nodes (relays) can derive topics from the same source of truth
+    camera_namespace_arg = DeclareLaunchArgument(
+        'camera_namespace', default_value='transformer', description='Namespace for the RealSense camera')
+    camera_name_arg = DeclareLaunchArgument(
+        'camera_name', default_value='D435I', description='Logical camera name')
+    camera_namespace = LaunchConfiguration('camera_namespace')
+    camera_name = LaunchConfiguration('camera_name')
 
     start_wheeltec_imu_arg = DeclareLaunchArgument(
         'start_wheeltec_imu', default_value='false', description='Start Wheeltec N100 IMU node')
@@ -91,17 +85,29 @@ def generate_launch_description():
         )),
         condition=IfCondition(start_realsense),
         launch_arguments={
-            'unite_imu_method': 'none',
-            'enable_color': rs_enable_color,
-            # Color resolution/fps are only used when color is enabled
-            'color_width': rs_color_width,
-            'color_height': rs_color_height,
-            'color_fps': rs_color_fps,
-            'enable_gyro': 'false',
-            'enable_accel': 'false',
-            'depth_width': '640',
-            'depth_height': '480',
-            'depth_fps': '30',
+            # Flatten topics so RViz defaults find them: /camera/<stream>/...
+            'camera_namespace': camera_namespace,
+            'camera_name': camera_name,
+            'enable_color': 'true',
+            'enable_depth': 'true',
+
+            # Profiles per docs
+            'rgb_camera.profile': '1280x720x30',
+            'depth_module.profile': '848x480x30',
+
+            # Filters and sync
+            'align_depth.enable': 'true',
+            'enable_sync': 'true',
+            'pointcloud.enable': 'true',
+            'pointcloud.pointcloud_qos': 'SENSOR_DATA',
+            
+            # IMU disabled
+            # 'enable_gyro': 'false',
+            # 'enable_accel': 'false',
+            
+            # Disable IR streams to reduce load
+            # 'enable_infra1': 'false',
+            # 'enable_infra2': 'false',
         }.items()
     )
 
@@ -124,14 +130,47 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(rc_switch_launch),
         condition=IfCondition(start_rc_switch))
 
+    # Build topic roots from camera_namespace and camera_name
+    camera_root = PathJoinSubstitution([
+        TextSubstitution(text='/'),
+        camera_namespace,
+        camera_name,
+    ])
+
+    # Relay CameraInfo to nested image_raw path so tools expecting
+    # <image_topic>/camera_info can find it next to image_raw
+    relay_aligned_info = Node(
+        package='topic_tools',
+        executable='relay',
+        name='relay_aligned_depth_to_color_info',
+        output='screen',
+        arguments=[
+            PathJoinSubstitution([camera_root, TextSubstitution(text='aligned_depth_to_color/camera_info')]),
+            PathJoinSubstitution([camera_root, TextSubstitution(text='aligned_depth_to_color/image_raw/camera_info')]),
+        ],
+        parameters=[{'type': 'sensor_msgs/msg/CameraInfo'}],
+        condition=IfCondition(start_realsense),
+    )
+
+    relay_color_info = Node(
+        package='topic_tools',
+        executable='relay',
+        name='relay_color_info',
+        output='screen',
+        arguments=[
+            PathJoinSubstitution([camera_root, TextSubstitution(text='color/camera_info')]),
+            PathJoinSubstitution([camera_root, TextSubstitution(text='color/image_raw/camera_info')]),
+        ],
+        parameters=[{'type': 'sensor_msgs/msg/CameraInfo'}],
+        condition=IfCondition(start_realsense),
+    )
+
     return LaunchDescription([
         start_msp_arg,
         start_rc_switch_arg,
         start_realsense_arg,
-        rs_enable_color_arg,
-        rs_color_width_arg,
-        rs_color_height_arg,
-        rs_color_fps_arg,
+        camera_namespace_arg,
+        camera_name_arg,
         start_wheeltec_imu_arg,
         wheeltec_serial_port_arg,
         wheeltec_serial_baud_arg,
@@ -142,5 +181,7 @@ def generate_launch_description():
         msp_node,
         rc_switch_include,
         realsense_include,
+        relay_aligned_info,
+        relay_color_info,
         wheeltec_imu_node
     ])
