@@ -7,7 +7,8 @@
       <geometry>
         <mesh filename="package://transformer_description/model/transformer_model.stl" scale="1 1 1"/>
       </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <!-- Rotate model 90 degrees around Z axis -->
+      <origin xyz="0 0 0" rpy="0 0 1.57079632679"/>
       <material name="gray"><color rgba="0.6 0.6 0.6 1.0"/></material>
     </visual>
     <!-- Optional: keep a simple collision; you can swap to a simplified STL later -->
@@ -15,7 +16,8 @@
       <geometry>
         <mesh filename="package://transformer_description/model/transformer_model.stl" scale="1 1 1"/>
       </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <!-- Match visual rotation for collision -->
+      <origin xyz="0 0 0" rpy="0 0 1.57079632679"/>
     </collision>
     <inertial>
       <mass value="5.0"/>
@@ -24,16 +26,16 @@
   </link>
 
   <!-- Parameters for sensor poses (placeholders; override via launch or set params) -->
-  <xacro:property name="msp_imu_xyz" value="0.0 0.0 0.1"/>
+  <xacro:property name="msp_imu_xyz" value="0.0 0.0 0.14"/>
   <xacro:property name="msp_imu_rpy" value="0.0 0.0 0.0"/>
 
-  <xacro:property name="n100_imu_xyz" value="0.0 0.0 0.12"/>
+  <xacro:property name="n100_imu_xyz" value="0.0 0.0 0.16"/>
   <xacro:property name="n100_imu_rpy" value="0.0 0.0 0.0"/>
 
-  <xacro:property name="gps_xyz" value="0.2 0.0 0.2"/>
+  <xacro:property name="gps_xyz" value="0.1415 0.0 0.2"/>
   <xacro:property name="gps_rpy" value="0.0 0.0 0.0"/>
 
-  <xacro:property name="d435i_xyz" value="0.25 0.0 0.2"/>
+  <xacro:property name="d435i_xyz" value="0.175 0.0 0.2"/>
   <xacro:property name="d435i_rpy" value="0.0 0.0 0.0"/>
 
   <!-- MSP IMU link -->
