@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cctype>
+#include <cmath>
 #include <cstdlib>
 #include <fstream>
 #include <functional>
@@ -9,20 +10,17 @@
 #include <sstream>
 #include <stdexcept>
 
-#include <nlohmann/json.hpp>
-
 #include "ament_index_cpp/get_package_share_directory.hpp"
 #include "msp/msp_protocol.h"
 #include "msp/msp_protocol_v2_sensor.h"
 #include "transformer_msp_bridge/msp_builders.hpp"
+#include "transformer_msp_bridge/simple_json.hpp"
 
 namespace transformer_msp_bridge
 {
 
   namespace
   {
-    using json = nlohmann::json;
-
     struct ParsedPrimitive
     {
       FieldType field_type;
@@ -84,31 +82,62 @@ namespace transformer_msp_bridge
       return end_ptr && *end_ptr == '\0';
     }
 
-    uint16_t parse_message_id(const json &node)
+    using simple_json::Value;
+
+    uint16_t parse_message_id(const Value &node)
     {
-      if (node.is_number_unsigned())
+      if (node.is_number())
       {
-        const auto v = node.get<uint64_t>();
-        if (v > 0xFFFFULL)
-          throw std::runtime_error("MSP id exceeds 16-bit range");
-        return static_cast<uint16_t>(v);
-      }
-      if (node.is_number_integer())
-      {
-        const auto v = node.get<int64_t>();
-        if (v < 0 || v > 0xFFFFLL)
+        const double value = node.as_number();
+        if (!std::isfinite(value))
+          throw std::runtime_error("MSP id must be finite");
+        const auto rounded = std::llround(value);
+        if (static_cast<double>(rounded) != value || rounded < 0 || rounded > 0xFFFF)
           throw std::runtime_error("MSP id out of range");
-        return static_cast<uint16_t>(v);
+        return static_cast<uint16_t>(rounded);
       }
       if (node.is_string())
       {
         unsigned long parsed = 0;
-        const std::string text = node.get<std::string>();
+        const std::string &text = node.as_string();
         if (!parse_unsigned(text, parsed) || parsed > 0xFFFFUL)
           throw std::runtime_error("Unable to parse MSP id: " + text);
         return static_cast<uint16_t>(parsed);
       }
       throw std::runtime_error("MSP id must be numeric or string");
+    }
+
+    std::string get_optional_string(const Value &object, const std::string &key)
+    {
+      if (const Value *node = object.find(key))
+      {
+        if (node->is_string())
+          return node->as_string();
+      }
+      return std::string();
+    }
+
+    bool get_optional_bool(const Value &object, const std::string &key, bool default_value)
+    {
+      if (const Value *node = object.find(key))
+      {
+        if (node->is_bool())
+          return node->as_bool();
+        if (node->is_string())
+        {
+          const std::string &text = node->as_string();
+          if (text == "true" || text == "1")
+            return true;
+          if (text == "false" || text == "0")
+            return false;
+        }
+        if (node->is_number())
+        {
+          const double value = node->as_number();
+          return value != 0.0;
+        }
+      }
+      return default_value;
     }
 
     std::optional<std::size_t> parse_repeated_count(const std::string &raw)
@@ -324,12 +353,12 @@ namespace transformer_msp_bridge
     if (!stream)
       throw std::runtime_error("Failed to open registry JSON: " + json_path);
 
-    json root;
+  simple_json::Value root;
     try
     {
-      stream >> root;
+      root = simple_json::parse_stream(stream);
     }
-    catch (const json::parse_error &e)
+    catch (const std::exception &e)
     {
       throw std::runtime_error(std::string("Failed to parse registry JSON: ") + e.what());
     }
@@ -337,38 +366,41 @@ namespace transformer_msp_bridge
     if (!root.is_array())
       throw std::runtime_error("Registry JSON root must be an array");
 
-    rr.definitions_.reserve(root.size());
-    for (const auto &entry : root)
+    const auto &entries = root.as_array();
+    rr.definitions_.reserve(entries.size());
+  for (const auto &entry : entries)
     {
       if (!entry.is_object())
         throw std::runtime_error("Registry entry must be an object");
 
       MessageDefinition def;
       def.id = parse_message_id(entry.at("id"));
-      def.name = trim_copy(entry.value("name", std::string{}));
+      def.name = trim_copy(get_optional_string(entry, "name"));
       if (def.name.empty())
         throw std::runtime_error("Registry entry missing name");
 
-      def.id_hex = trim_copy(entry.value("id_hex", std::string{}));
-      def.description = trim_copy(entry.value("description", std::string{}));
-      def.direction_label = trim_copy(entry.value("direction", std::string{}));
+      def.id_hex = trim_copy(get_optional_string(entry, "id_hex"));
+      def.description = trim_copy(get_optional_string(entry, "description"));
+      def.direction_label = trim_copy(get_optional_string(entry, "direction"));
       def.direction = parse_direction_label(def.direction_label);
-      def.has_variable_length = entry.value("has_variable_length", false);
+      def.has_variable_length = get_optional_bool(entry, "has_variable_length", false);
 
-      if (entry.contains("fields") && entry["fields"].is_array())
+  if (const simple_json::Value *fields_node = entry.find("fields"))
       {
-        const auto &fields = entry["fields"];
+        if (!fields_node->is_array())
+          throw std::runtime_error("Registry fields entry must be an array");
+        const auto &fields = fields_node->as_array();
         def.fields.reserve(fields.size());
-        for (const auto &field_node : fields)
+  for (const auto &field_value : fields)
         {
-          if (!field_node.is_object())
+          if (!field_value.is_object())
             throw std::runtime_error("Field entry must be an object");
           MessageField field;
-          field.name = strip_backticks(field_node.value("name", std::string{}));
-          field.ctype = strip_backticks(field_node.value("ctype", std::string{}));
-          field.size = strip_backticks(field_node.value("size", std::string{}));
-          field.units = strip_backticks(field_node.value("units", std::string{}));
-          field.description = trim_copy(field_node.value("description", std::string{}));
+          field.name = strip_backticks(get_optional_string(field_value, "name"));
+          field.ctype = strip_backticks(get_optional_string(field_value, "ctype"));
+          field.size = strip_backticks(get_optional_string(field_value, "size"));
+          field.units = strip_backticks(get_optional_string(field_value, "units"));
+          field.description = trim_copy(get_optional_string(field_value, "description"));
           def.fields.push_back(std::move(field));
         }
       }

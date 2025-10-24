@@ -1,10 +1,50 @@
 #include <gtest/gtest.h>
+#include <cstdlib>
+#include <filesystem>
 #include "msp/msp_protocol.h"
 #include "msp/msp_protocol_v2_sensor.h"
 #include "transformer_msp_bridge/msp_builders.hpp"
 #include "transformer_msp_bridge/msp_registry.hpp"
 
 using namespace transformer_msp_bridge;
+
+namespace
+{
+  std::string resolve_registry_json()
+  {
+    namespace fs = std::filesystem;
+    if (const char *env = std::getenv("TRANSFORMER_MSP_REGISTRY_JSON"))
+    {
+      fs::path candidate(env);
+      if (fs::exists(candidate))
+        return candidate.string();
+    }
+    fs::path fallback = fs::path(__FILE__).parent_path().parent_path() / "config" / "msp_messages_inav.json";
+    if (fs::exists(fallback))
+      return fallback.string();
+    return {};
+  }
+
+  class RegistryEnvironment : public ::testing::Environment
+  {
+  public:
+    void SetUp() override
+    {
+      const std::string path = resolve_registry_json();
+      if (path.empty())
+      {
+        FAIL() << "Unable to locate msp_messages_inav.json for tests";
+        return;
+      }
+      if (setenv("TRANSFORMER_MSP_REGISTRY_JSON", path.c_str(), 1) != 0)
+      {
+        FAIL() << "Failed to set TRANSFORMER_MSP_REGISTRY_JSON";
+      }
+    }
+  };
+
+  ::testing::Environment *const registry_env = ::testing::AddGlobalTestEnvironment(new RegistryEnvironment());
+} // namespace
 
 TEST(MSPRegistry, ContainsExpectedCoreV1Ids)
 {

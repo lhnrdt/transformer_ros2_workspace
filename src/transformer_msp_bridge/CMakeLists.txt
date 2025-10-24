@@ -19,9 +19,6 @@ find_package(ament_index_cpp REQUIRED)
 
 include_directories(include)
 
-# YAML runtime loader
-find_package(yaml-cpp REQUIRED)
-
 set(MSG_FILES
   "msg/MspInavStatus.msg"
 )
@@ -42,7 +39,6 @@ add_library(msp_protocol
   src/msp_registry.cpp
 )
 ament_target_dependencies(msp_protocol rclcpp ament_index_cpp)
-target_link_libraries(msp_protocol yaml-cpp)
 target_compile_features(msp_protocol PUBLIC cxx_std_17)
 target_include_directories(msp_protocol PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../external/inav/src/main)
 
@@ -230,11 +226,11 @@ if(BUILD_TESTING)
     ament_target_dependencies(test_msp_registry rclcpp)
   endif()
 
-  # Ensure decoder coverage for default-polled v1 commands (YAML-only, no ROS init)
+  # Ensure decoder coverage for default-polled commands (no ROS init required)
   ament_add_gtest(test_decoder_coverage
     test/test_decoder_coverage.cpp)
   if(TARGET test_decoder_coverage)
-    target_link_libraries(test_decoder_coverage yaml-cpp)
+    target_link_libraries(test_decoder_coverage msp_protocol)
     ament_target_dependencies(test_decoder_coverage ament_index_cpp)
   endif()
 

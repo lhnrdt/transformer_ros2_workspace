@@ -11,11 +11,19 @@ ROS 2 C++ bridge node for MSP (MultiWii / iNav) flight controller communication 
 * Topics for attitude, raw IMU, magnetometer, GPS, altitude, rangefinder, compass, barometer, INAV status (and placeholders for extended telemetry under development).
 
 ### Installed Parameter File
-A default YAML config is installed at:
+A default ROS 2 parameters YAML is installed at:
 ```
 $(ros2 pkg prefix transformer_msp_bridge)/share/transformer_msp_bridge/config/msp_bridge.yaml
 ```
 Edit a copy of this file to tailor enabled commands and polling rates.
+
+### Runtime MSP Registry
+The node loads MSP command definitions from the JSON file installed at:
+```
+$(ros2 pkg prefix transformer_msp_bridge)/share/transformer_msp_bridge/config/msp_messages_inav.json
+```
+Set the environment variable `TRANSFORMER_MSP_REGISTRY_JSON` before launching to point at a custom registry file.
+Copy the shipped JSON as a starting point when adding or pruning commands; the runtime loader validates field sizes and falls back gracefully when a schema cannot be inferred.
 
 ### Running with Config File
 ```bash

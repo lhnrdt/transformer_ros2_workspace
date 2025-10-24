@@ -1,7 +1,9 @@
 // System diagnostics related decoders implementation
 #include "transformer_msp_bridge/decoders/system_decoder.hpp"
-#include <sstream>
+#include <algorithm>
+#include <array>
 #include <iomanip>
+#include <sstream>
 
 namespace transformer_msp_bridge
 {
@@ -179,6 +181,55 @@ namespace transformer_msp_bridge
       kv.key = "raw";
       kv.value = hex.str();
       st.values.push_back(kv);
+    }
+
+    DiagnosticArray arr;
+    arr.header.stamp = node_.now();
+    arr.status.push_back(st);
+    sensor_status_pub_->publish(arr);
+  }
+
+  void SystemDecoder::decodeSensorConfig(const MSPPacket &pkt)
+  {
+    DiagnosticStatus st;
+    st.name = "sensor_config";
+    st.hardware_id = "fc";
+    st.level = DiagnosticStatus::OK;
+    st.message = "sensor configuration";
+
+    static constexpr std::array<const char *, 9> kKeys = {
+        "acc_hardware",
+        "baro_hardware",
+        "mag_hardware",
+        "pitot_hardware",
+        "rangefinder_hardware",
+        "opflow_hardware",
+        "gps_hardware",
+        "baro2_hardware",
+        "imu_acc_hardware"};
+
+    const std::size_t count = std::min<std::size_t>(pkt.payload.size(), kKeys.size());
+    for (std::size_t i = 0; i < count; ++i)
+    {
+      KeyValue kv;
+      kv.key = kKeys[i];
+      kv.value = std::to_string(pkt.payload[i]);
+      st.values.push_back(std::move(kv));
+    }
+
+    if (pkt.payload.size() > kKeys.size())
+    {
+      std::ostringstream hex;
+      for (std::size_t i = kKeys.size(); i < pkt.payload.size(); ++i)
+      {
+        hex << std::hex << std::uppercase << std::setw(2) << std::setfill('0') << static_cast<int>(pkt.payload[i]);
+        if (i + 1 < pkt.payload.size())
+          hex << ' ';
+      }
+      KeyValue kv;
+      kv.key = "raw_tail";
+      kv.value = hex.str();
+      st.values.push_back(std::move(kv));
     }
 
     DiagnosticArray arr;

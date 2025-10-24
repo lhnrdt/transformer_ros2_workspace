@@ -3,6 +3,7 @@
 # Load with:
 #   ros2 run transformer_msp_bridge transformer_msp_bridge_node --ros-args \
 #     --params-file $(ros2 pkg prefix transformer_msp_bridge)/share/transformer_msp_bridge/config/msp_bridge.yaml
+# Registry definitions load separately from msp_messages_inav.json.
 transformer_msp_bridge:
   ros__parameters:
     port: "/dev/ttyAMA0"

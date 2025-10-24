@@ -3,8 +3,48 @@
 #include <set>
 #include <string>
 #include <vector>
+#include <filesystem>
+#include <cstdlib>
 
 #include "transformer_msp_bridge/msp_registry.hpp"
+
+namespace
+{
+  std::string resolve_registry_json()
+  {
+    namespace fs = std::filesystem;
+    if (const char *env = std::getenv("TRANSFORMER_MSP_REGISTRY_JSON"))
+    {
+      fs::path candidate(env);
+      if (fs::exists(candidate))
+        return candidate.string();
+    }
+    fs::path fallback = fs::path(__FILE__).parent_path().parent_path() / "config" / "msp_messages_inav.json";
+    if (fs::exists(fallback))
+      return fallback.string();
+    return {};
+  }
+
+  class RegistryEnvironment : public ::testing::Environment
+  {
+  public:
+    void SetUp() override
+    {
+      const std::string path = resolve_registry_json();
+      if (path.empty())
+      {
+        FAIL() << "Unable to locate msp_messages_inav.json for tests";
+        return;
+      }
+      if (setenv("TRANSFORMER_MSP_REGISTRY_JSON", path.c_str(), 1) != 0)
+      {
+        FAIL() << "Failed to set TRANSFORMER_MSP_REGISTRY_JSON";
+      }
+    }
+  };
+
+  ::testing::Environment *const registry_env = ::testing::AddGlobalTestEnvironment(new RegistryEnvironment());
+} // namespace
 
 TEST(DecoderCoverage, DefaultPolledCommandsHaveDecoders)
 {
@@ -14,12 +54,14 @@ TEST(DecoderCoverage, DefaultPolledCommandsHaveDecoders)
       "MSP_ATTITUDE",      // AttitudeDecoder
       "MSP_ALTITUDE",      // AltitudeDecoder
       "MSP_ANALOG",        // BatteryDecoder
+    "MSP_BATTERY_STATE", // BatteryDecoder
       "MSP_RC",            // RcDecoder
       "MSP_RAW_GPS",       // GpsDecoder
       "MSP_COMP_GPS",      // GpsDecoder
       "MSP_SERVO",         // ServoMotorDecoder
       "MSP_MOTOR",         // ServoMotorDecoder
       "MSP_STATUS",        // SystemDecoder
+    "MSP_SENSOR_CONFIG", // SystemDecoder
       "MSP_GPSSTATISTICS", // SystemDecoder
       "MSP_RC_TUNING",     // SystemDecoder
       "MSP_RTC"            // SystemDecoder

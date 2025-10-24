@@ -18,13 +18,15 @@ namespace transformer_msp_bridge
     void decodeStatusEx(const MSPPacket &pkt);
     void decodeStatus(const MSPPacket &pkt) { decodeStatusEx(pkt); }
     void decodeSensorStatus(const MSPPacket &pkt);
+  void decodeSensorConfig(const MSPPacket &pkt);
     void decodeGpsStatistics(const MSPPacket &pkt);
     void decodeRcTuning(const MSPPacket &pkt);
     void decodeRtc(const MSPPacket &pkt);
     bool matches(uint16_t command_id) const override
     {
       return command_id == MSP_STATUS_EX || command_id == MSP_STATUS || command_id == MSP_SENSOR_STATUS ||
-             command_id == MSP_GPSSTATISTICS || command_id == MSP_RC_TUNING || command_id == MSP_RTC;
+        command_id == MSP_SENSOR_CONFIG || command_id == MSP_GPSSTATISTICS || command_id == MSP_RC_TUNING ||
+        command_id == MSP_RTC;
     }
     void decode(const MSPPacket &pkt) override
     {
@@ -38,6 +40,9 @@ namespace transformer_msp_bridge
         break;
       case MSP_SENSOR_STATUS:
         decodeSensorStatus(pkt);
+        break;
+      case MSP_SENSOR_CONFIG:
+        decodeSensorConfig(pkt);
         break;
       case MSP_GPSSTATISTICS:
         decodeGpsStatistics(pkt);

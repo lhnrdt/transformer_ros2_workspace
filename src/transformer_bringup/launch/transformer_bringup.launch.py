@@ -66,14 +66,14 @@ def generate_launch_description():
     wheeltec_serial_baud = LaunchConfiguration('wheeltec_serial_baud')
 
     msp_pkg_share = get_package_share_directory('transformer_msp_bridge')
-    # Only include the ROS 2 parameters file. The registry.yaml is NOT a ROS param file and passing it
+    # Only include the ROS 2 parameters file. The registry JSON is NOT a ROS param file and passing it
     # caused node abort. We expose an optional launch arg for a future external registry path if/when
     # the node is extended to load it at runtime.
     msp_params = [os.path.join(msp_pkg_share, 'config', 'msp_bridge.yaml')]
 
     custom_registry_arg = DeclareLaunchArgument(
         'msp_registry_path', default_value='',
-        description='(Optional) Path to MSP registry YAML (not loaded by node yet; reserved for future)')
+        description='(Optional) Path to MSP registry JSON (runtime loader already checks TRANSFORMER_MSP_REGISTRY_JSON)')
 
     msp_node = Node(
         package='transformer_msp_bridge',
