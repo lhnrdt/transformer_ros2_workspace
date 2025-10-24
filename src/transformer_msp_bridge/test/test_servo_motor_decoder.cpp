@@ -1,10 +1,13 @@
 #include <gtest/gtest.h>
 #include <rclcpp/rclcpp.hpp>
+#include <vector>
 #include "transformer_msp_bridge/msp_parser.hpp"
 #include "transformer_msp_bridge/decoders/servo_motor_decoder.hpp"
+#include "schema_expectations.hpp"
 
 using transformer_msp_bridge::MSPPacket;
 using transformer_msp_bridge::ServoMotorDecoder;
+using transformer_msp_bridge::test_utils::expect_payload_matches_schema;
 
 class ServoMotorDecoderFixture : public ::testing::Test
 {
@@ -61,6 +64,7 @@ TEST_F(ServoMotorDecoderFixture, MotorVelocitiesDecoded)
   MSPPacket pkt;
   pkt.cmd = MSP_MOTOR;
   pkt.payload = {0x4C, 0x04, 0xB0, 0x04, 0x14, 0x05, 0x78, 0x05};
+  expect_payload_matches_schema(MSP_MOTOR, pkt.payload);
   decoder.decode(pkt);
   spin_for(node_);
   ASSERT_TRUE(last);

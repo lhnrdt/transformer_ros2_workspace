@@ -1,10 +1,14 @@
 #include <gtest/gtest.h>
 #include <rclcpp/rclcpp.hpp>
+#include <vector>
+#include "msp/msp_protocol_v2_sensor.h"
 #include "transformer_msp_bridge/msp_parser.hpp"
 #include "transformer_msp_bridge/decoders/sensor_decoder.hpp"
+#include "schema_expectations.hpp"
 
 using transformer_msp_bridge::MSPPacket;
 using transformer_msp_bridge::SensorDecoder;
+using transformer_msp_bridge::test_utils::expect_payload_matches_schema;
 
 class SensorDecoderFixture : public ::testing::Test
 {
@@ -44,8 +48,9 @@ TEST_F(SensorDecoderFixture, RangefinderValidAndInvalid)
   // Structure: { uint8_t quality; int32_t distanceMm; }
   // distanceMm = 1234 (0x000004D2 little endian) quality=0x55
   MSPPacket pkt;
-  pkt.cmd = 0x1F01;
+  pkt.cmd = MSP2_SENSOR_RANGEFINDER;
   pkt.payload = {0x55, 0xD2, 0x04, 0x00, 0x00}; // quality + distance
+  expect_payload_matches_schema(MSP2_SENSOR_RANGEFINDER, pkt.payload);
   decoder.decode(pkt);
   spin_for(node_);
   ASSERT_TRUE(last);
@@ -53,8 +58,9 @@ TEST_F(SensorDecoderFixture, RangefinderValidAndInvalid)
 
   // Invalid (negative) distance => NaN. Use -1 = 0xFFFFFFFF
   MSPPacket pkt2;
-  pkt2.cmd = 0x1F01;
+  pkt2.cmd = MSP2_SENSOR_RANGEFINDER;
   pkt2.payload = {0x10, 0xFF, 0xFF, 0xFF, 0xFF}; // quality=0x10, distance=-1
+  expect_payload_matches_schema(MSP2_SENSOR_RANGEFINDER, pkt2.payload);
   decoder.decode(pkt2);
   spin_for(node_);
   ASSERT_TRUE(last);
@@ -70,9 +76,10 @@ TEST_F(SensorDecoderFixture, CompassVector)
                                                                      { v = std::make_shared<geometry_msgs::msg::Vector3>(*m); });
   // typedef struct { uint8_t instance; uint32_t timeMs; int16_t magX; int16_t magY; int16_t magZ; } mspSensorCompassDataMessage_t;
   MSPPacket pkt;
-  pkt.cmd = 0x1F04; // compass
+  pkt.cmd = MSP2_SENSOR_COMPASS; // compass
   // instance=1, timeMs=0x00000064 (100), magX=-300 (0xFED4), magY=512 (0x0200), magZ=25 (0x0019)
   pkt.payload = {0x01, 0x64, 0x00, 0x00, 0x00, 0xD4, 0xFE, 0x00, 0x02, 0x19, 0x00};
+  expect_payload_matches_schema(MSP2_SENSOR_COMPASS, pkt.payload);
   decoder.decode(pkt);
   spin_for(node_);
   ASSERT_TRUE(v);
@@ -93,8 +100,9 @@ TEST_F(SensorDecoderFixture, BarometerPressure)
   float p = 101325.0f;
   uint8_t *pb = reinterpret_cast<uint8_t *>(&p);
   MSPPacket pkt;
-  pkt.cmd = 0x1F05;
+  pkt.cmd = MSP2_SENSOR_BAROMETER;
   pkt.payload = {0x02, 0xC8, 0x00, 0x00, 0x00, pb[0], pb[1], pb[2], pb[3], 0x10, 0x27};
+  expect_payload_matches_schema(MSP2_SENSOR_BAROMETER, pkt.payload);
   decoder.decode(pkt);
   spin_for(node_);
   ASSERT_TRUE(pressure);
@@ -109,7 +117,7 @@ TEST_F(SensorDecoderFixture, ShortPayloadIgnored)
                                                                 [&last](std_msgs::msg::Float32::ConstSharedPtr m)
                                                                 { last = std::make_shared<std_msgs::msg::Float32>(*m); });
   MSPPacket pkt;
-  pkt.cmd = 0x1F01;
+  pkt.cmd = MSP2_SENSOR_RANGEFINDER;
   pkt.payload = {0x00}; // too short
   decoder.decode(pkt);
   spin_for(node_);

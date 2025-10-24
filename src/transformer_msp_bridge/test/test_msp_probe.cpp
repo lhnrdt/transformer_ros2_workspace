@@ -292,6 +292,23 @@ TEST(MspProbe, AllDefaultPolledRespondAndValidate)
     if (d.response_schema && d.response_schema_count > 0)
     {
       ResponseSchema schema{d.response_schema, d.response_schema_count};
+      std::size_t expected_size = 0;
+      if (schema_fixed_size_bytes(schema, expected_size))
+      {
+        if (last_pkt->payload.size() != expected_size)
+        {
+          std::ostringstream oss;
+          oss << "payload size " << last_pkt->payload.size()
+              << " bytes but expected " << expected_size
+              << " per schema";
+          validation_errors[d.id] = oss.str();
+          std::cout << "[MSP Probe] 0x" << std::hex << d.id << std::dec
+                    << " payload length mismatch: expected " << expected_size
+                    << ", got " << last_pkt->payload.size()
+                    << " | raw=" << last_raw_payloads[d.id] << std::endl;
+          continue;
+        }
+      }
       std::vector<double> values;
       std::vector<std::string> names;
       std::string err;

@@ -1,31 +1,51 @@
 #pragma once
+// Auto-generated: MSP messages (INAV) — v1 + v2
+// Field arrays are named by message (no numeric suffix), for maintainability.
+
 #include <cstdint>
 #include <cstddef>
+
 namespace msp {
+
 enum class Direction : uint8_t { In, Out, InOut, Unknown };
-struct Field { const char* name; const char* ctype; const char* size; const char* units; const char* description; };
-struct Message {
-  const char* name; uint32_t id; const char* id_hex; Direction direction; const char* description;
-  const Field* fields; size_t field_count; uint8_t version; bool has_variable_length;
+
+struct Field {
+  const char* name;
+  const char* ctype;
+  const char* size;
+  const char* units;
+  const char* description;
 };
 
-inline constexpr Field FIELDS_0[] = {
+struct Message {
+  const char* name;
+  uint32_t id;
+  const char* id_hex;
+  Direction direction;
+  const char* description;
+  const Field* fields;
+  size_t field_count;
+  uint8_t version;            // 1 or 2
+  bool has_variable_length;
+};
+
+inline constexpr Field FIELDS_MSP_API_VERSION[] = {
   { "mspProtocolVersion", "uint8_t", "1", "", "MSP Protocol version (MSP_PROTOCOL_VERSION, typically 0)." },
   { "apiVersionMajor", "uint8_t", "1", "", "INAV API Major version (API_VERSION_MAJOR)." },
   { "apiVersionMinor", "uint8_t", "1", "", "INAV API Minor version (API_VERSION_MINOR)." },
 };
 
-inline constexpr Field FIELDS_1[] = {
+inline constexpr Field FIELDS_MSP_FC_VARIANT[] = {
   { "fcVariantIdentifier", "char[4]", "4", "", "4-character identifier string (e.g., \"INAV\"). Defined by flightControllerIdentifier." },
 };
 
-inline constexpr Field FIELDS_2[] = {
+inline constexpr Field FIELDS_MSP_FC_VERSION[] = {
   { "fcVersionMajor", "uint8_t", "1", "", "Firmware Major version (FC_VERSION_MAJOR)." },
   { "fcVersionMinor", "uint8_t", "1", "", "Firmware Minor version (FC_VERSION_MINOR)." },
   { "fcVersionPatch", "uint8_t", "1", "", "Firmware Patch level (FC_VERSION_PATCH_LEVEL)." },
 };
 
-inline constexpr Field FIELDS_3[] = {
+inline constexpr Field FIELDS_MSP_BOARD_INFO[] = {
   { "boardIdentifier", "char[4]", "4", "", "4-character UPPER CASE board identifier (TARGET_BOARD_IDENTIFIER)." },
   { "hardwareRevision", "uint16_t", "2", "", "Hardware revision number. 0 if not detected (USE_HARDWARE_REVISION_DETECTION)." },
   { "osdSupport", "uint8_t", "1", "", "OSD chip type: 0=None, 2=Onboard (USE_OSD). INAV does not support slave OSD (1)." },
@@ -34,13 +54,13 @@ inline constexpr Field FIELDS_3[] = {
   { "targetName", "char[]", "Variable", "", "Target name string (e.g., \"MATEKF405\"). Length given by previous field." },
 };
 
-inline constexpr Field FIELDS_4[] = {
+inline constexpr Field FIELDS_MSP_BUILD_INFO[] = {
   { "buildDate", "char[11]", "11", "", "Build date string (e.g., \"Dec 31 2023\"). BUILD_DATE_LENGTH." },
   { "buildTime", "char[8]", "8", "", "Build time string (e.g., \"23:59:59\"). BUILD_TIME_LENGTH." },
   { "gitRevision", "char[7]", "7", "", "Short Git revision string. GIT_SHORT_REVISION_LENGTH." },
 };
 
-inline constexpr Field FIELDS_5[] = {
+inline constexpr Field FIELDS_MSP_INAV_PID[] = {
   { "legacyAsyncProcessing", "uint8_t", "1", "-", "Legacy, unused. Always 0." },
   { "legacyAsyncValue1", "uint16_t", "2", "-", "Legacy, unused. Always 0." },
   { "legacyAsyncValue2", "uint16_t", "2", "-", "Legacy, unused. Always 0." },
@@ -55,7 +75,7 @@ inline constexpr Field FIELDS_5[] = {
   { "reserved4", "uint8_t", "1", "-", "Reserved. Always 0." },
 };
 
-inline constexpr Field FIELDS_6[] = {
+inline constexpr Field FIELDS_MSP_SET_INAV_PID[] = {
   { "legacyAsyncProcessing", "uint8_t", "1", "-", "Legacy, ignored." },
   { "legacyAsyncValue1", "uint16_t", "2", "-", "Legacy, ignored." },
   { "legacyAsyncValue2", "uint16_t", "2", "-", "Legacy, ignored." },
@@ -70,15 +90,15 @@ inline constexpr Field FIELDS_6[] = {
   { "reserved4", "uint8_t", "1", "-", "Ignored." },
 };
 
-inline constexpr Field FIELDS_7[] = {
+inline constexpr Field FIELDS_MSP_NAME[] = {
   { "craftName", "char[]", "Variable", "", "The craft name string (systemConfig()->craftName). Null termination is not explicitly sent, the length is determined by the payload size." },
 };
 
-inline constexpr Field FIELDS_8[] = {
+inline constexpr Field FIELDS_MSP_SET_NAME[] = {
   { "craftName", "char[]", "1 to MAX_NAME_LENGTH", "", "The new craft name string. Automatically null-terminated by the FC." },
 };
 
-inline constexpr Field FIELDS_9[] = {
+inline constexpr Field FIELDS_MSP_NAV_POSHOLD[] = {
   { "userControlMode", "uint8_t", "1", "Enum", "Navigation user control mode (navConfig()->general.flags.user_control_mode)." },
   { "maxAutoSpeed", "uint16_t", "2", "cm/s", "Max speed in autonomous modes (navConfig()->general.max_auto_speed)." },
   { "maxAutoClimbRate", "uint16_t", "2", "cm/s", "Max climb rate in autonomous modes (uses fw.max_auto_climb_rate or mc.max_auto_climb_rate based on platform)." },
@@ -89,7 +109,7 @@ inline constexpr Field FIELDS_9[] = {
   { "mcHoverThrottle", "uint16_t", "2", "PWM", "Multirotor hover throttle (currentBatteryProfile->nav.mc.hover_throttle)." },
 };
 
-inline constexpr Field FIELDS_10[] = {
+inline constexpr Field FIELDS_MSP_SET_NAV_POSHOLD[] = {
   { "userControlMode", "uint8_t", "1", "Enum", "Sets navConfigMutable()->general.flags.user_control_mode." },
   { "maxAutoSpeed", "uint16_t", "2", "cm/s", "Sets navConfigMutable()->general.max_auto_speed." },
   { "maxAutoClimbRate", "uint16_t", "2", "cm/s", "Sets fw.max_auto_climb_rate or mc.max_auto_climb_rate based on current platform type." },
@@ -100,7 +120,7 @@ inline constexpr Field FIELDS_10[] = {
   { "mcHoverThrottle", "uint16_t", "2", "PWM", "Sets currentBatteryProfileMutable->nav.mc.hover_throttle." },
 };
 
-inline constexpr Field FIELDS_11[] = {
+inline constexpr Field FIELDS_MSP_CALIBRATION_DATA[] = {
   { "accCalibAxisFlags", "uint8_t", "1", "Bitmask", "Flags indicating which axes of the accelerometer have been calibrated (accGetCalibrationAxisFlags())." },
   { "accZeroX", "uint16_t", "2", "Raw ADC", "Accelerometer zero offset for X-axis (accelerometerConfig()->accZero.raw[X])." },
   { "accZeroY", "uint16_t", "2", "Raw ADC", "Accelerometer zero offset for Y-axis (accelerometerConfig()->accZero.raw[Y])." },
@@ -117,7 +137,7 @@ inline constexpr Field FIELDS_11[] = {
   { "magGainZ", "uint16_t", "2", "Raw ADC", "Magnetometer gain/scale for Z-axis (compassConfig()->magGain[Z]). 0 if USE_MAG disabled." },
 };
 
-inline constexpr Field FIELDS_12[] = {
+inline constexpr Field FIELDS_MSP_SET_CALIBRATION_DATA[] = {
   { "accZeroX", "uint16_t", "2", "Raw ADC", "Sets accelerometerConfigMutable()->accZero.raw[X]." },
   { "accZeroY", "uint16_t", "2", "Raw ADC", "Sets accelerometerConfigMutable()->accZero.raw[Y]." },
   { "accZeroZ", "uint16_t", "2", "Raw ADC", "Sets accelerometerConfigMutable()->accZero.raw[Z]." },
@@ -133,7 +153,7 @@ inline constexpr Field FIELDS_12[] = {
   { "magGainZ", "uint16_t", "2", "Raw ADC", "Sets compassConfigMutable()->magGain[Z] (if USE_MAG)." },
 };
 
-inline constexpr Field FIELDS_13[] = {
+inline constexpr Field FIELDS_MSP_POSITION_ESTIMATION_CONFIG[] = {
   { "weightZBaroP", "uint16_t", "2", "Weight 100", "Barometer Z position fusion weight (positionEstimationConfig()->w_z_baro_p 100)." },
   { "weightZGPSP", "uint16_t", "2", "Weight 100", "GPS Z position fusion weight (positionEstimationConfig()->w_z_gps_p 100)." },
   { "weightZGPSV", "uint16_t", "2", "Weight 100", "GPS Z velocity fusion weight (positionEstimationConfig()->w_z_gps_v 100)." },
@@ -143,7 +163,7 @@ inline constexpr Field FIELDS_13[] = {
   { "useGPSVelNED", "uint8_t", "1", "Boolean", "Legacy flag, always 1 (GPS velocity is always used if available)." },
 };
 
-inline constexpr Field FIELDS_14[] = {
+inline constexpr Field FIELDS_MSP_SET_POSITION_ESTIMATION_CONFIG[] = {
   { "weightZBaroP", "uint16_t", "2", "Weight 100", "Sets positionEstimationConfigMutable()->w_z_baro_p = value / 100.0f (constrained 0.0-10.0)." },
   { "weightZGPSP", "uint16_t", "2", "Weight 100", "Sets positionEstimationConfigMutable()->w_z_gps_p = value / 100.0f (constrained 0.0-10.0)." },
   { "weightZGPSV", "uint16_t", "2", "Weight 100", "Sets positionEstimationConfigMutable()->w_z_gps_v = value / 100.0f (constrained 0.0-10.0)." },
@@ -153,22 +173,22 @@ inline constexpr Field FIELDS_14[] = {
   { "useGPSVelNED", "uint8_t", "1", "Boolean", "Legacy flag, ignored." },
 };
 
-inline constexpr Field FIELDS_15[] = {
+inline constexpr Field FIELDS_MSP_WP_MISSION_LOAD[] = {
   { "missionID", "uint8_t", "1", "", "Reserved for future use, currently ignored." },
 };
 
-inline constexpr Field FIELDS_16[] = {
+inline constexpr Field FIELDS_MSP_WP_MISSION_SAVE[] = {
   { "missionID", "uint8_t", "1", "", "Reserved for future use, currently ignored." },
 };
 
-inline constexpr Field FIELDS_17[] = {
+inline constexpr Field FIELDS_MSP_WP_GETINFO[] = {
   { "wpCapabilities", "uint8_t", "1", "", "Reserved for future waypoint capabilities flags. Currently always 0." },
   { "maxWaypoints", "uint8_t", "1", "", "Maximum number of waypoints supported (NAV_MAX_WAYPOINTS)." },
   { "missionValid", "uint8_t", "1", "", "Boolean flag indicating if the current mission in RAM is valid (isWaypointListValid())." },
   { "waypointCount", "uint8_t", "1", "", "Number of waypoints currently defined in the mission (getWaypointCount())." },
 };
 
-inline constexpr Field FIELDS_18[] = {
+inline constexpr Field FIELDS_MSP_RTH_AND_LAND_CONFIG[] = {
   { "minRthDistance", "uint16_t", "2", "meters", "Minimum distance from home required for RTH to engage (navConfig()->general.min_rth_distance)." },
   { "rthClimbFirst", "uint8_t", "1", "Boolean", "Flag: Climb to RTH altitude before returning (navConfig()->general.flags.rth_climb_first)." },
   { "rthClimbIgnoreEmerg", "uint8_t", "1", "Boolean", "Flag: Climb even in emergency RTH (navConfig()->general.flags.rth_climb_ignore_emerg)." },
@@ -184,7 +204,7 @@ inline constexpr Field FIELDS_18[] = {
   { "emergDescentRate", "uint16_t", "2", "cm/s", "Vertical speed during emergency landing descent (navConfig()->general.emerg_descent_rate)." },
 };
 
-inline constexpr Field FIELDS_19[] = {
+inline constexpr Field FIELDS_MSP_SET_RTH_AND_LAND_CONFIG[] = {
   { "minRthDistance", "uint16_t", "2", "meters", "Sets navConfigMutable()->general.min_rth_distance." },
   { "rthClimbFirst", "uint8_t", "1", "Boolean", "Sets navConfigMutable()->general.flags.rth_climb_first." },
   { "rthClimbIgnoreEmerg", "uint8_t", "1", "Boolean", "Sets navConfigMutable()->general.flags.rth_climb_ignore_emerg." },
@@ -200,7 +220,7 @@ inline constexpr Field FIELDS_19[] = {
   { "emergDescentRate", "uint16_t", "2", "cm/s", "Sets navConfigMutable()->general.emerg_descent_rate." },
 };
 
-inline constexpr Field FIELDS_20[] = {
+inline constexpr Field FIELDS_MSP_FW_CONFIG[] = {
   { "cruiseThrottle", "uint16_t", "2", "PWM", "Cruise throttle level (currentBatteryProfile->nav.fw.cruise_throttle)." },
   { "minThrottle", "uint16_t", "2", "PWM", "Minimum throttle during autonomous flight (currentBatteryProfile->nav.fw.min_throttle)." },
   { "maxThrottle", "uint16_t", "2", "PWM", "Maximum throttle during autonomous flight (currentBatteryProfile->nav.fw.max_throttle)." },
@@ -211,7 +231,7 @@ inline constexpr Field FIELDS_20[] = {
   { "loiterRadius", "uint16_t", "2", "meters", "Default loiter radius (navConfig()->fw.loiter_radius)." },
 };
 
-inline constexpr Field FIELDS_21[] = {
+inline constexpr Field FIELDS_MSP_SET_FW_CONFIG[] = {
   { "cruiseThrottle", "uint16_t", "2", "PWM", "Sets currentBatteryProfileMutable->nav.fw.cruise_throttle." },
   { "minThrottle", "uint16_t", "2", "PWM", "Sets currentBatteryProfileMutable->nav.fw.min_throttle." },
   { "maxThrottle", "uint16_t", "2", "PWM", "Sets currentBatteryProfileMutable->nav.fw.max_throttle." },
@@ -222,14 +242,14 @@ inline constexpr Field FIELDS_21[] = {
   { "loiterRadius", "uint16_t", "2", "meters", "Sets navConfigMutable()->fw.loiter_radius." },
 };
 
-inline constexpr Field FIELDS_22[] = {
+inline constexpr Field FIELDS_MSP_MODE_RANGES[] = {
   { "modePermanentId", "uint8_t", "1", "ID", "Permanent ID of the flight mode (maps to boxId via findBoxByActiveBoxId). 0 if entry unused." },
   { "auxChannelIndex", "uint8_t", "1", "Index", "0-based index of the AUX channel used for activation." },
   { "rangeStartStep", "uint8_t", "1", "0-20", "Start step (corresponding to channel value range 900-2100 in steps of 50/25, depends on steps calculation)." },
   { "rangeEndStep", "uint8_t", "1", "0-20", "End step for the activation range." },
 };
 
-inline constexpr Field FIELDS_23[] = {
+inline constexpr Field FIELDS_MSP_SET_MODE_RANGE[] = {
   { "rangeIndex", "uint8_t", "1", "Index", "Index of the mode range to set (0 to MAX_MODE_ACTIVATION_CONDITION_COUNT - 1)." },
   { "modePermanentId", "uint8_t", "1", "ID", "Permanent ID of the flight mode to assign." },
   { "auxChannelIndex", "uint8_t", "1", "Index", "0-based index of the AUX channel." },
@@ -237,49 +257,49 @@ inline constexpr Field FIELDS_23[] = {
   { "rangeEndStep", "uint8_t", "1", "0-20", "End step for activation." },
 };
 
-inline constexpr Field FIELDS_24[] = {
+inline constexpr Field FIELDS_MSP_FEATURE[] = {
   { "featureMask", "uint32_t", "4", "", "Bitmask of active features (see featureMask())." },
 };
 
-inline constexpr Field FIELDS_25[] = {
+inline constexpr Field FIELDS_MSP_SET_FEATURE[] = {
   { "featureMask", "uint32_t", "4", "", "Bitmask of features to enable." },
 };
 
-inline constexpr Field FIELDS_26[] = {
+inline constexpr Field FIELDS_MSP_BOARD_ALIGNMENT[] = {
   { "rollAlign", "uint16_t", "2", "deci-degrees", "Board alignment roll angle (boardAlignment()->rollDeciDegrees)." },
   { "pitchAlign", "uint16_t", "2", "deci-degrees", "Board alignment pitch angle (boardAlignment()->pitchDeciDegrees)." },
   { "yawAlign", "uint16_t", "2", "deci-degrees", "Board alignment yaw angle (boardAlignment()->yawDeciDegrees)." },
 };
 
-inline constexpr Field FIELDS_27[] = {
+inline constexpr Field FIELDS_MSP_SET_BOARD_ALIGNMENT[] = {
   { "rollAlign", "uint16_t", "2", "deci-degrees", "Sets boardAlignmentMutable()->rollDeciDegrees." },
   { "pitchAlign", "uint16_t", "2", "deci-degrees", "Sets boardAlignmentMutable()->pitchDeciDegrees." },
   { "yawAlign", "uint16_t", "2", "deci-degrees", "Sets boardAlignmentMutable()->yawDeciDegrees." },
 };
 
-inline constexpr Field FIELDS_28[] = {
+inline constexpr Field FIELDS_MSP_CURRENT_METER_CONFIG[] = {
   { "scale", "uint16_t", "2", "mV/10A or similar", "Current sensor scale factor (batteryMetersConfig()->current.scale). Units depend on sensor type." },
   { "offset", "uint16_t", "2", "mV", "Current sensor offset (batteryMetersConfig()->current.offset)." },
   { "type", "uint8_t", "1", "Enum", "Type of current sensor hardware (batteryMetersConfig()->current.type)." },
   { "capacity", "uint16_t", "2", "mAh (legacy)", "Battery capacity (constrained 0-65535) (currentBatteryProfile->capacity.value). Note: This is legacy, use MSP2_INAV_BATTERY_CONFIG for full 32-bit capacity." },
 };
 
-inline constexpr Field FIELDS_29[] = {
+inline constexpr Field FIELDS_MSP_SET_CURRENT_METER_CONFIG[] = {
   { "scale", "uint16_t", "2", "mV/10A or similar", "Sets batteryMetersConfigMutable()->current.scale." },
   { "offset", "uint16_t", "2", "mV", "Sets batteryMetersConfigMutable()->current.offset." },
   { "type", "uint8_t", "1", "Enum", "Sets batteryMetersConfigMutable()->current.type." },
   { "capacity", "uint16_t", "2", "mAh (legacy)", "Sets currentBatteryProfileMutable->capacity.value (truncated to 16 bits)." },
 };
 
-inline constexpr Field FIELDS_30[] = {
+inline constexpr Field FIELDS_MSP_MIXER[] = {
   { "mixerMode", "uint8_t", "1", "", "Always 3 (QuadX) in INAV for compatibility." },
 };
 
-inline constexpr Field FIELDS_31[] = {
+inline constexpr Field FIELDS_MSP_SET_MIXER[] = {
   { "mixerMode", "uint8_t", "1", "", "Mixer mode to set (ignored by INAV)." },
 };
 
-inline constexpr Field FIELDS_32[] = {
+inline constexpr Field FIELDS_MSP_RX_CONFIG[] = {
   { "serialRxProvider", "uint8_t", "1", "Enum", "Serial RX provider type (rxConfig()->serialrx_provider)." },
   { "maxCheck", "uint16_t", "2", "PWM", "Upper channel value threshold for stick commands (rxConfig()->maxcheck)." },
   { "midRc", "uint16_t", "2", "PWM", "Center channel value (PWM_RANGE_MIDDLE, typically 1500)." },
@@ -297,7 +317,7 @@ inline constexpr Field FIELDS_32[] = {
   { "receiverType", "uint8_t", "1", "Enum", "Receiver type (Parallel PWM, PPM, Serial) (rxConfig()->receiverType)." },
 };
 
-inline constexpr Field FIELDS_33[] = {
+inline constexpr Field FIELDS_MSP_SET_RX_CONFIG[] = {
   { "serialRxProvider", "uint8_t", "1", "Enum", "Sets rxConfigMutable()->serialrx_provider." },
   { "maxCheck", "uint16_t", "2", "PWM", "Sets rxConfigMutable()->maxcheck." },
   { "midRc", "uint16_t", "2", "PWM", "Ignored (PWM_RANGE_MIDDLE is used)." },
@@ -315,36 +335,36 @@ inline constexpr Field FIELDS_33[] = {
   { "receiverType", "uint8_t", "1", "Enum", "Sets rxConfigMutable()->receiverType." },
 };
 
-inline constexpr Field FIELDS_34[] = {
+inline constexpr Field FIELDS_MSP_LED_COLORS[] = {
   { "hue", "uint16_t", "2", "", "Hue value (0-359)." },
   { "saturation", "uint8_t", "1", "", "Saturation value (0-255)." },
   { "value", "uint8_t", "1", "", "Value/Brightness (0-255)." },
 };
 
-inline constexpr Field FIELDS_35[] = {
+inline constexpr Field FIELDS_MSP_SET_LED_COLORS[] = {
   { "hue", "uint16_t", "2", "", "Hue value (0-359)." },
   { "saturation", "uint8_t", "1", "", "Saturation value (0-255)." },
   { "value", "uint8_t", "1", "", "Value/Brightness (0-255)." },
 };
 
-inline constexpr Field FIELDS_36[] = {
+inline constexpr Field FIELDS_MSP_LED_STRIP_CONFIG[] = {
   { "legacyLedConfig", "uint32_t", "4", "", "Packed LED configuration (position, function, overlay, color, direction, params). See C code for bit packing details." },
 };
 
-inline constexpr Field FIELDS_37[] = {
+inline constexpr Field FIELDS_MSP_SET_LED_STRIP_CONFIG[] = {
   { "ledIndex", "uint8_t", "1", "", "Index of the LED to configure (0 to LED_MAX_STRIP_LENGTH - 1)." },
   { "legacyLedConfig", "uint32_t", "4", "", "Packed LED configuration to set." },
 };
 
-inline constexpr Field FIELDS_38[] = {
+inline constexpr Field FIELDS_MSP_RSSI_CONFIG[] = {
   { "rssiChannel", "uint8_t", "1", "", "AUX channel index (1-based) used for RSSI, or 0 if disabled (rxConfig()->rssi_channel)." },
 };
 
-inline constexpr Field FIELDS_39[] = {
+inline constexpr Field FIELDS_MSP_SET_RSSI_CONFIG[] = {
   { "rssiChannel", "uint8_t", "1", "", "AUX channel index (1-based) to use for RSSI, or 0 to disable." },
 };
 
-inline constexpr Field FIELDS_40[] = {
+inline constexpr Field FIELDS_MSP_ADJUSTMENT_RANGES[] = {
   { "adjustmentIndex", "uint8_t", "1", "", "Index of the adjustment slot (0 to MAX_SIMULTANEOUS_ADJUSTMENT_COUNT - 1)." },
   { "auxChannelIndex", "uint8_t", "1", "", "0-based index of the AUX channel controlling the adjustment value." },
   { "rangeStartStep", "uint8_t", "1", "", "Start step (0-20) of the control channel range." },
@@ -353,7 +373,7 @@ inline constexpr Field FIELDS_40[] = {
   { "auxSwitchChannelIndex", "uint8_t", "1", "", "0-based index of the AUX channel acting as an enable switch (or 0 if always enabled)." },
 };
 
-inline constexpr Field FIELDS_41[] = {
+inline constexpr Field FIELDS_MSP_SET_ADJUSTMENT_RANGE[] = {
   { "rangeIndex", "uint8_t", "1", "", "Index of the adjustment range to set (0 to MAX_ADJUSTMENT_RANGE_COUNT - 1)." },
   { "adjustmentIndex", "uint8_t", "1", "", "Adjustment slot index (0 to MAX_SIMULTANEOUS_ADJUSTMENT_COUNT - 1)." },
   { "auxChannelIndex", "uint8_t", "1", "", "0-based index of the control AUX channel." },
@@ -363,55 +383,55 @@ inline constexpr Field FIELDS_41[] = {
   { "auxSwitchChannelIndex", "uint8_t", "1", "", "0-based index of the enable switch AUX channel (or 0)." },
 };
 
-inline constexpr Field FIELDS_44[] = {
+inline constexpr Field FIELDS_MSP_VOLTAGE_METER_CONFIG[] = {
   { "vbatScale", "uint8_t", "1", "Scale / 10", "Voltage sensor scale factor / 10 (batteryMetersConfig()->voltage.scale / 10). 0 if USE_ADC disabled." },
   { "vbatMinCell", "uint8_t", "1", "0.1V", "Minimum cell voltage / 10 (currentBatteryProfile->voltage.cellMin / 10). 0 if USE_ADC disabled." },
   { "vbatMaxCell", "uint8_t", "1", "0.1V", "Maximum cell voltage / 10 (currentBatteryProfile->voltage.cellMax / 10). 0 if USE_ADC disabled." },
   { "vbatWarningCell", "uint8_t", "1", "0.1V", "Warning cell voltage / 10 (currentBatteryProfile->voltage.cellWarning / 10). 0 if USE_ADC disabled." },
 };
 
-inline constexpr Field FIELDS_45[] = {
+inline constexpr Field FIELDS_MSP_SET_VOLTAGE_METER_CONFIG[] = {
   { "vbatScale", "uint8_t", "1", "Scale / 10", "Sets batteryMetersConfigMutable()->voltage.scale = value 10 (if USE_ADC)." },
   { "vbatMinCell", "uint8_t", "1", "0.1V", "Sets currentBatteryProfileMutable->voltage.cellMin = value 10 (if USE_ADC)." },
   { "vbatMaxCell", "uint8_t", "1", "0.1V", "Sets currentBatteryProfileMutable->voltage.cellMax = value 10 (if USE_ADC)." },
   { "vbatWarningCell", "uint8_t", "1", "0.1V", "Sets currentBatteryProfileMutable->voltage.cellWarning = value 10 (if USE_ADC)." },
 };
 
-inline constexpr Field FIELDS_46[] = {
+inline constexpr Field FIELDS_MSP_SONAR_ALTITUDE[] = {
   { "rangefinderAltitude", "uint32_t", "4", "cm", "Latest altitude reading from the rangefinder (rangefinderGetLatestAltitude()). 0 if USE_RANGEFINDER disabled or no reading." },
 };
 
-inline constexpr Field FIELDS_47[] = {
+inline constexpr Field FIELDS_MSP_RX_MAP[] = {
   { "rcMap", "uint8_t[MAX_MAPPABLE_RX_INPUTS]", "MAX_MAPPABLE_RX_INPUTS", "", "Array defining the mapping from input channel index to logical function (Roll, Pitch, Yaw, Throttle, Aux1...)." },
 };
 
-inline constexpr Field FIELDS_48[] = {
+inline constexpr Field FIELDS_MSP_SET_RX_MAP[] = {
   { "rcMap", "uint8_t[MAX_MAPPABLE_RX_INPUTS]", "MAX_MAPPABLE_RX_INPUTS", "", "Array defining the new channel mapping." },
 };
 
-inline constexpr Field FIELDS_50[] = {
+inline constexpr Field FIELDS_MSP_DATAFLASH_SUMMARY[] = {
   { "flashReady", "uint8_t", "1", "", "Boolean: 1 if flash chip is ready, 0 otherwise. (flashIsReady()). 0 if USE_FLASHFS disabled." },
   { "sectorCount", "uint32_t", "4", "", "Total number of sectors on the flash chip (geometry->sectors). 0 if USE_FLASHFS disabled." },
   { "totalSize", "uint32_t", "4", "", "Total size of the flash chip in bytes (geometry->totalSize). 0 if USE_FLASHFS disabled." },
   { "usedSize", "uint32_t", "4", "", "Currently used size in bytes (FlashFS offset) (flashfsGetOffset()). 0 if USE_FLASHFS disabled." },
 };
 
-inline constexpr Field FIELDS_51[] = {
+inline constexpr Field FIELDS_MSP_DATAFLASH_READ[] = {
   { "address", "uint32_t", "4", "", "Starting address to read from within the FlashFS volume." },
   { "size", "uint16_t", "2", "", "(Optional) Number of bytes to read. Defaults to 128 if not provided." },
   { "address", "uint32_t", "4", "", "The starting address from which data was actually read." },
   { "data", "uint8_t[]", "Variable", "", "The data read from flash. Length is MIN(requested size, remaining buffer space, remaining flashfs data)." },
 };
 
-inline constexpr Field FIELDS_53[] = {
+inline constexpr Field FIELDS_MSP_LOOP_TIME[] = {
   { "looptime", "uint16_t", "2", "µs", "Configured loop time (gyroConfig()->looptime)." },
 };
 
-inline constexpr Field FIELDS_54[] = {
+inline constexpr Field FIELDS_MSP_SET_LOOP_TIME[] = {
   { "looptime", "uint16_t", "2", "µs", "New loop time to set (gyroConfigMutable()->looptime)." },
 };
 
-inline constexpr Field FIELDS_55[] = {
+inline constexpr Field FIELDS_MSP_FAILSAFE_CONFIG[] = {
   { "failsafeDelay", "uint8_t", "1", "0.1s", "Delay before failsafe stage 1 activates (failsafeConfig()->failsafe_delay)." },
   { "failsafeOffDelay", "uint8_t", "1", "0.1s", "Delay after signal recovery before returning control (failsafeConfig()->failsafe_off_delay)." },
   { "failsafeThrottle", "uint16_t", "2", "PWM", "Throttle level during failsafe stage 2 (currentBatteryProfile->failsafe_throttle)." },
@@ -427,7 +447,7 @@ inline constexpr Field FIELDS_55[] = {
   { "failsafeMinDistanceProc", "uint8_t", "1", "Enum", "Failsafe procedure if below min distance (failsafeConfig()->failsafe_min_distance_procedure)." },
 };
 
-inline constexpr Field FIELDS_56[] = {
+inline constexpr Field FIELDS_MSP_SET_FAILSAFE_CONFIG[] = {
   { "failsafeDelay", "uint8_t", "1", "0.1s", "Sets failsafeConfigMutable()->failsafe_delay." },
   { "failsafeOffDelay", "uint8_t", "1", "0.1s", "Sets failsafeConfigMutable()->failsafe_off_delay." },
   { "failsafeThrottle", "uint16_t", "2", "PWM", "Sets currentBatteryProfileMutable->failsafe_throttle." },
@@ -443,7 +463,7 @@ inline constexpr Field FIELDS_56[] = {
   { "failsafeMinDistanceProc", "uint8_t", "1", "Enum", "Sets failsafeConfigMutable()->failsafe_min_distance_procedure." },
 };
 
-inline constexpr Field FIELDS_57[] = {
+inline constexpr Field FIELDS_MSP_SDCARD_SUMMARY[] = {
   { "sdCardSupported", "uint8_t", "1", "", "Bitmask: Bit 0 = 1 if SD card support compiled in (USE_SDCARD)." },
   { "sdCardState", "uint8_t", "1", "", "Enum (mspSDCardState_e): Current state (Not Present, Fatal, Card Init, FS Init, Ready). 0 if USE_SDCARD disabled." },
   { "fsError", "uint8_t", "1", "", "Last filesystem error code (afatfs_getLastError()). 0 if USE_SDCARD disabled." },
@@ -451,14 +471,14 @@ inline constexpr Field FIELDS_57[] = {
   { "totalSpaceKB", "uint32_t", "4", "", "Total space in KiB (sdcard_getMetadata()->numBlocks / 2). 0 if USE_SDCARD disabled." },
 };
 
-inline constexpr Field FIELDS_58[] = {
+inline constexpr Field FIELDS_MSP_BLACKBOX_CONFIG[] = {
   { "blackboxDevice", "uint8_t", "1", "", "Always 0 (API no longer supported)." },
   { "blackboxRateNum", "uint8_t", "1", "", "Always 0." },
   { "blackboxRateDenom", "uint8_t", "1", "", "Always 0." },
   { "blackboxPDenom", "uint8_t", "1", "", "Always 0." },
 };
 
-inline constexpr Field FIELDS_62[] = {
+inline constexpr Field FIELDS_MSP_OSD_CONFIG[] = {
   { "osdDriverType", "uint8_t", "1", "Enum", "OSD_DRIVER_MAX7456 if USE_OSD, else OSD_DRIVER_NONE." },
   { "videoSystem", "uint8_t", "1", "Enum", "Video system (Auto/PAL/NTSC) (osdConfig()->video_system). Sent even if OSD disabled." },
   { "units", "uint8_t", "1", "Enum", "Measurement units (Metric/Imperial) (osdConfig()->units). Sent even if OSD disabled." },
@@ -471,7 +491,7 @@ inline constexpr Field FIELDS_62[] = {
   { "itemPositions", "uint16_t[OSD_ITEM_COUNT]", "OSD_ITEM_COUNT 2", "Coordinates", "Packed X/Y position for each OSD item on screen 0 (osdLayoutsConfig()->item_pos[0][i]). Sent even if OSD disabled." },
 };
 
-inline constexpr Field FIELDS_63[] = {
+inline constexpr Field FIELDS_MSP_SET_OSD_CONFIG[] = {
   { "addr", "uint8_t", "1", "-", "Must be 0xFF (-1)." },
   { "videoSystem", "uint8_t", "1", "Enum", "Sets osdConfigMutable()->video_system." },
   { "units", "uint8_t", "1", "Enum", "Sets osdConfigMutable()->units." },
@@ -484,12 +504,12 @@ inline constexpr Field FIELDS_63[] = {
   { "itemIndex", "uint8_t", "1", "Index", "Index of the OSD item to position (0 to OSD_ITEM_COUNT - 1)." },
 };
 
-inline constexpr Field FIELDS_65[] = {
+inline constexpr Field FIELDS_MSP_OSD_CHAR_WRITE[] = {
   { "address", "uint8_t or uint16_t", "1 or 2", "", "Starting address in font memory. Size depends on total payload size." },
   { "charData", "uint8_t[]", "Variable", "", "Character bitmap data (54 or 64 bytes per char, depending on format)." },
 };
 
-inline constexpr Field FIELDS_66[] = {
+inline constexpr Field FIELDS_MSP_VTX_CONFIG[] = {
   { "vtxDeviceType", "uint8_t", "1", "", "Enum (VTXDEV_): Type of VTX device detected/configured. VTXDEV_UNKNOWN if none." },
   { "band", "uint8_t", "1", "", "VTX band number (from vtxSettingsConfig)." },
   { "channel", "uint8_t", "1", "", "VTX channel number (from vtxSettingsConfig)." },
@@ -503,7 +523,7 @@ inline constexpr Field FIELDS_66[] = {
   { "powerCount", "uint8_t", "1", "", "Number of power levels supported by the VTX device." },
 };
 
-inline constexpr Field FIELDS_67[] = {
+inline constexpr Field FIELDS_MSP_SET_VTX_CONFIG[] = {
   { "bandChannelEncoded", "uint16_t", "2", "", "Encoded band/channel value: (band-1)8 + (channel-1). If <= VTXCOMMON_MSP_BANDCHAN_CHKVAL." },
   { "power", "uint8_t", "1", "", "Power level index to set (vtxSettingsConfigMutable()->power)." },
   { "pitMode", "uint8_t", "1", "", "Pit mode state to set (0=off, 1=on). Directly calls vtxCommonSetPitMode." },
@@ -517,7 +537,7 @@ inline constexpr Field FIELDS_67[] = {
   { "powerCount", "uint8_t", "1", "", "Ignored. Betaflight extension (can potentially reduce reported power count if valid)." },
 };
 
-inline constexpr Field FIELDS_68[] = {
+inline constexpr Field FIELDS_MSP_ADVANCED_CONFIG[] = {
   { "gyroSyncDenom", "uint8_t", "1", "", "Always 1 (BF compatibility)." },
   { "pidProcessDenom", "uint8_t", "1", "", "Always 1 (BF compatibility)." },
   { "useUnsyncedPwm", "uint8_t", "1", "", "Always 1 (BF compatibility, INAV uses async PWM based on protocol)." },
@@ -527,7 +547,7 @@ inline constexpr Field FIELDS_68[] = {
   { "legacyGyroSync", "uint8_t", "1", "", "Always 0 (BF compatibility)." },
 };
 
-inline constexpr Field FIELDS_69[] = {
+inline constexpr Field FIELDS_MSP_SET_ADVANCED_CONFIG[] = {
   { "gyroSyncDenom", "uint8_t", "1", "", "Ignored." },
   { "pidProcessDenom", "uint8_t", "1", "", "Ignored." },
   { "useUnsyncedPwm", "uint8_t", "1", "", "Ignored." },
@@ -537,7 +557,7 @@ inline constexpr Field FIELDS_69[] = {
   { "legacyGyroSync", "uint8_t", "1", "", "Ignored." },
 };
 
-inline constexpr Field FIELDS_70[] = {
+inline constexpr Field FIELDS_MSP_FILTER_CONFIG[] = {
   { "gyroMainLpfHz", "uint8_t", "1", "Hz", "Gyro main low-pass filter cutoff frequency (gyroConfig()->gyro_main_lpf_hz)." },
   { "dtermLpfHz", "uint16_t", "2", "Hz", "D-term low-pass filter cutoff frequency (pidProfile()->dterm_lpf_hz)." },
   { "yawLpfHz", "uint16_t", "2", "Hz", "Yaw low-pass filter cutoff frequency (pidProfile()->yaw_lpf_hz)." },
@@ -552,7 +572,7 @@ inline constexpr Field FIELDS_70[] = {
   { "legacyGyroStage2LpfHz", "uint16_t", "2", "-", "Always 0 (Legacy)." },
 };
 
-inline constexpr Field FIELDS_71[] = {
+inline constexpr Field FIELDS_MSP_SET_FILTER_CONFIG[] = {
   { "gyroMainLpfHz", "uint8_t", "1", "Hz", "Sets gyroConfigMutable()->gyro_main_lpf_hz. (Size >= 5)" },
   { "dtermLpfHz", "uint16_t", "2", "Hz", "Sets pidProfileMutable()->dterm_lpf_hz (constrained 0-500). (Size >= 5)" },
   { "yawLpfHz", "uint16_t", "2", "Hz", "Sets pidProfileMutable()->yaw_lpf_hz (constrained 0-255). (Size >= 5)" },
@@ -567,7 +587,7 @@ inline constexpr Field FIELDS_71[] = {
   { "legacyGyroStage2LpfHz", "uint16_t", "2", "-", "Ignored. (Size >= 22)" },
 };
 
-inline constexpr Field FIELDS_72[] = {
+inline constexpr Field FIELDS_MSP_PID_ADVANCED[] = {
   { "legacyRollPitchItermIgnore", "uint16_t", "2", "-", "Always 0 (Legacy)." },
   { "legacyYawItermIgnore", "uint16_t", "2", "-", "Always 0 (Legacy)." },
   { "legacyYawPLimit", "uint16_t", "2", "-", "Always 0 (Legacy)." },
@@ -581,7 +601,7 @@ inline constexpr Field FIELDS_72[] = {
   { "accelLimitYaw", "uint16_t", "2", "dps / 10", "Axis acceleration limit for Yaw / 10 (pidProfile()->axisAccelerationLimitYaw / 10)." },
 };
 
-inline constexpr Field FIELDS_73[] = {
+inline constexpr Field FIELDS_MSP_SET_PID_ADVANCED[] = {
   { "legacyRollPitchItermIgnore", "uint16_t", "2", "-", "Ignored." },
   { "legacyYawItermIgnore", "uint16_t", "2", "-", "Ignored." },
   { "legacyYawPLimit", "uint16_t", "2", "-", "Ignored." },
@@ -595,7 +615,7 @@ inline constexpr Field FIELDS_73[] = {
   { "accelLimitYaw", "uint16_t", "2", "dps / 10", "Sets pidProfileMutable()->axisAccelerationLimitYaw = value 10." },
 };
 
-inline constexpr Field FIELDS_74[] = {
+inline constexpr Field FIELDS_MSP_SENSOR_CONFIG[] = {
   { "accHardware", "uint8_t", "1", "", "Enum (accHardware_e): Accelerometer hardware type (accelerometerConfig()->acc_hardware)." },
   { "baroHardware", "uint8_t", "1", "", "Enum (baroHardware_e): Barometer hardware type (barometerConfig()->baro_hardware). 0 if USE_BARO disabled." },
   { "magHardware", "uint8_t", "1", "", "Enum (magHardware_e): Magnetometer hardware type (compassConfig()->mag_hardware). 0 if USE_MAG disabled." },
@@ -604,7 +624,7 @@ inline constexpr Field FIELDS_74[] = {
   { "opflowHardware", "uint8_t", "1", "", "Enum (opticalFlowHardware_e): Optical flow hardware type (opticalFlowConfig()->opflow_hardware). 0 if USE_OPFLOW disabled." },
 };
 
-inline constexpr Field FIELDS_75[] = {
+inline constexpr Field FIELDS_MSP_SET_SENSOR_CONFIG[] = {
   { "accHardware", "uint8_t", "1", "", "Sets accelerometerConfigMutable()->acc_hardware." },
   { "baroHardware", "uint8_t", "1", "", "Sets barometerConfigMutable()->baro_hardware (if USE_BARO)." },
   { "magHardware", "uint8_t", "1", "", "Sets compassConfigMutable()->mag_hardware (if USE_MAG)." },
@@ -613,13 +633,13 @@ inline constexpr Field FIELDS_75[] = {
   { "opflowHardware", "uint8_t", "1", "", "Sets opticalFlowConfigMutable()->opflow_hardware (if USE_OPFLOW)." },
 };
 
-inline constexpr Field FIELDS_78[] = {
+inline constexpr Field FIELDS_MSP_IDENT[] = {
   { "MultiWii version", "uint8_t", "1", "n/a", "Scaled version major100+minor" },
   { "Mixer Mode", "uint8_t", "1", "Enumeration", "Mixer type" },
   { "MSP Version", "uint8_t", "1", "n/a", "Scaled version major100+minor" },
 };
 
-inline constexpr Field FIELDS_79[] = {
+inline constexpr Field FIELDS_MSP_STATUS[] = {
   { "cycleTime", "uint16_t", "2", "µs", "Main loop cycle time (cycleTime)." },
   { "i2cErrors", "uint16_t", "2", "Count", "Number of I2C errors encountered (i2cGetErrorCounter()). 0 if USE_I2C not defined." },
   { "sensorStatus", "uint16_t", "2", "Bitmask", "Bitmask indicating available/active sensors (packSensorStatus()). See notes." },
@@ -627,7 +647,7 @@ inline constexpr Field FIELDS_79[] = {
   { "profile", "uint8_t", "1", "Index", "Current configuration profile index (0-based) (getConfigProfile())." },
 };
 
-inline constexpr Field FIELDS_80[] = {
+inline constexpr Field FIELDS_MSP_RAW_IMU[] = {
   { "accX", "int16_t", "2", "~1/512 G", "Raw accelerometer X reading, scaled (acc.accADCf[X] 512)." },
   { "accY", "int16_t", "2", "~1/512 G", "Raw accelerometer Y reading, scaled (acc.accADCf[Y] 512)." },
   { "accZ", "int16_t", "2", "~1/512 G", "Raw accelerometer Z reading, scaled (acc.accADCf[Z] 512)." },
@@ -639,19 +659,19 @@ inline constexpr Field FIELDS_80[] = {
   { "magZ", "int16_t", "2", "Raw units", "Raw magnetometer Z reading (mag.magADC[Z]). 0 if USE_MAG disabled." },
 };
 
-inline constexpr Field FIELDS_81[] = {
+inline constexpr Field FIELDS_MSP_SERVO[] = {
   { "servoOutputs", "int16_t[MAX_SUPPORTED_SERVOS]", "MAX_SUPPORTED_SERVOS 2", "PWM", "Array of current servo output values (typically 1000-2000)." },
 };
 
-inline constexpr Field FIELDS_82[] = {
+inline constexpr Field FIELDS_MSP_MOTOR[] = {
   { "motorOutputs", "uint16_t[8]", "16", "PWM", "Array of current motor output values (typically 1000-2000). Values beyond MAX_SUPPORTED_MOTORS are 0." },
 };
 
-inline constexpr Field FIELDS_83[] = {
+inline constexpr Field FIELDS_MSP_RC[] = {
   { "rcChannels", "uint16_t[]", "rxRuntimeConfig.channelCount 2", "PWM", "Array of current RC channel values (typically 1000-2000). Length depends on detected channels." },
 };
 
-inline constexpr Field FIELDS_84[] = {
+inline constexpr Field FIELDS_MSP_RAW_GPS[] = {
   { "fixType", "uint8_t", "1", "Enum", "GPS fix type (gpsSol.fixType)." },
   { "numSat", "uint8_t", "1", "Count", "Number of satellites used in solution (gpsSol.numSat)." },
   { "latitude", "int32_t", "4", "deg 1e7", "Latitude (gpsSol.llh.lat)." },
@@ -662,32 +682,32 @@ inline constexpr Field FIELDS_84[] = {
   { "hdop", "uint16_t", "2", "HDOP 100", "Horizontal Dilution of Precision (gpsSol.hdop)." },
 };
 
-inline constexpr Field FIELDS_85[] = {
+inline constexpr Field FIELDS_MSP_COMP_GPS[] = {
   { "distanceToHome", "uint16_t", "2", "meters", "Distance to the home point (GPS_distanceToHome)." },
   { "directionToHome", "uint16_t", "2", "degrees", "Direction to the home point (0-360) (GPS_directionToHome)." },
   { "gpsHeartbeat", "uint8_t", "1", "Boolean", "Indicates if GPS data is being received (gpsSol.flags.gpsHeartbeat)." },
 };
 
-inline constexpr Field FIELDS_86[] = {
+inline constexpr Field FIELDS_MSP_ATTITUDE[] = {
   { "roll", "int16_t", "2", "deci-degrees", "Roll angle (attitude.values.roll)." },
   { "pitch", "int16_t", "2", "deci-degrees", "Pitch angle (attitude.values.pitch)." },
   { "yaw", "int16_t", "2", "degrees", "Yaw/Heading angle (DECIDEGREES_TO_DEGREES(attitude.values.yaw))." },
 };
 
-inline constexpr Field FIELDS_87[] = {
+inline constexpr Field FIELDS_MSP_ALTITUDE[] = {
   { "estimatedAltitude", "int32_t", "4", "cm", "Estimated altitude above home/sea level (getEstimatedActualPosition(Z))." },
   { "variometer", "int16_t", "2", "cm/s", "Estimated vertical speed (getEstimatedActualVelocity(Z))." },
   { "baroAltitude", "int32_t", "4", "cm", "Latest raw altitude from barometer (baroGetLatestAltitude()). 0 if USE_BARO disabled." },
 };
 
-inline constexpr Field FIELDS_88[] = {
+inline constexpr Field FIELDS_MSP_ANALOG[] = {
   { "vbat", "uint8_t", "1", "0.1V", "Battery voltage, scaled (getBatteryVoltage() / 10), constrained 0-255." },
   { "mAhDrawn", "uint16_t", "2", "mAh", "Consumed battery capacity (getMAhDrawn()), constrained 0-65535." },
   { "rssi", "uint16_t", "2", "0-1023 or %", "Received Signal Strength Indicator (getRSSI()). Units depend on source." },
   { "amperage", "int16_t", "2", "0.01A", "Current draw (getAmperage()), constrained -32768 to 32767." },
 };
 
-inline constexpr Field FIELDS_89[] = {
+inline constexpr Field FIELDS_MSP_RC_TUNING[] = {
   { "legacyRcRate", "uint8_t", "1", "", "Always 100 (Legacy, unused)." },
   { "rcExpo", "uint8_t", "1", "", "Roll/Pitch RC Expo (currentControlRateProfile->stabilized.rcExpo8)." },
   { "rollRate", "uint8_t", "1", "", "Roll Rate (currentControlRateProfile->stabilized.rates[FD_ROLL])." },
@@ -700,11 +720,11 @@ inline constexpr Field FIELDS_89[] = {
   { "rcYawExpo", "uint8_t", "1", "", "Yaw RC Expo (currentControlRateProfile->stabilized.rcYawExpo8)." },
 };
 
-inline constexpr Field FIELDS_90[] = {
+inline constexpr Field FIELDS_MSP_ACTIVEBOXES[] = {
   { "activeModes", "boxBitmask_t", "sizeof(boxBitmask_t)", "", "Bitmask of all active modes (packBoxModeFlags()). Size depends on boxBitmask_t definition." },
 };
 
-inline constexpr Field FIELDS_91[] = {
+inline constexpr Field FIELDS_MSP_MISC[] = {
   { "midRc", "uint16_t", "2", "PWM", "Mid RC value (PWM_RANGE_MIDDLE, typically 1500)." },
   { "legacyMinThrottle", "uint16_t", "2", "-", "Always 0 (Legacy)." },
   { "maxThrottle", "uint16_t", "2", "PWM", "Maximum throttle command (getMaxThrottle())." },
@@ -723,15 +743,15 @@ inline constexpr Field FIELDS_91[] = {
   { "vbatWarningCell", "uint8_t", "1", "0.1V", "Warning cell voltage / 10 (currentBatteryProfile->voltage.cellWarning / 10). 0 if USE_ADC disabled." },
 };
 
-inline constexpr Field FIELDS_92[] = {
+inline constexpr Field FIELDS_MSP_BOXNAMES[] = {
   { "boxNamesString", "char[]", "Variable", "", "String containing mode names separated by ';'. Null termination not guaranteed by MSP, relies on payload size. (serializeBoxNamesReply())." },
 };
 
-inline constexpr Field FIELDS_93[] = {
+inline constexpr Field FIELDS_MSP_PIDNAMES[] = {
   { "pidNamesString", "char[]", "Variable", "", "String \"ROLL;PITCH;YAW;ALT;Pos;PosR;NavR;LEVEL;MAG;VEL;\". Null termination not guaranteed by MSP." },
 };
 
-inline constexpr Field FIELDS_94[] = {
+inline constexpr Field FIELDS_MSP_WP[] = {
   { "waypointIndex", "uint8_t", "1", "", "Index of the waypoint to retrieve (0 to NAV_MAX_WAYPOINTS - 1)." },
   { "waypointIndex", "uint8_t", "1", "Index", "Index of the returned waypoint." },
   { "action", "uint8_t", "1", "Enum", "Waypoint action type (navWaypointActions_e)." },
@@ -744,11 +764,11 @@ inline constexpr Field FIELDS_94[] = {
   { "flag", "uint8_t", "1", "Bitmask", "Waypoint flags (NAV_WP_FLAG_)." },
 };
 
-inline constexpr Field FIELDS_95[] = {
+inline constexpr Field FIELDS_MSP_BOXIDS[] = {
   { "boxIds", "uint8_t[]", "Variable", "", "Array of permanent IDs for each configured box (serializeBoxReply()). Length depends on number of boxes." },
 };
 
-inline constexpr Field FIELDS_96[] = {
+inline constexpr Field FIELDS_MSP_SERVO_CONFIGURATIONS[] = {
   { "min", "uint16_t", "2", "PWM", "Minimum servo endpoint (servoParams(i)->min)." },
   { "max", "uint16_t", "2", "PWM", "Maximum servo endpoint (servoParams(i)->max)." },
   { "middle", "uint16_t", "2", "PWM", "Middle/Neutral servo position (servoParams(i)->middle)." },
@@ -759,7 +779,7 @@ inline constexpr Field FIELDS_96[] = {
   { "legacyReversedSources", "uint32_t", "4", "-", "Always 0 (Legacy)." },
 };
 
-inline constexpr Field FIELDS_97[] = {
+inline constexpr Field FIELDS_MSP_NAV_STATUS[] = {
   { "navMode", "uint8_t", "1", "", "Enum (NAV_MODE_): Current navigation mode (None, RTH, WP, Hold, etc.) (NAV_Status.mode)." },
   { "navState", "uint8_t", "1", "", "Enum (NAV_STATE_): Current navigation state (NAV_Status.state)." },
   { "activeWpAction", "uint8_t", "1", "", "Enum (navWaypointActions_e): Action of the currently executing waypoint (NAV_Status.activeWpAction)." },
@@ -768,33 +788,33 @@ inline constexpr Field FIELDS_97[] = {
   { "targetHeading", "int16_t", "2", "", "degrees: Target heading for heading controller (getHeadingHoldTarget())." },
 };
 
-inline constexpr Field FIELDS_99[] = {
+inline constexpr Field FIELDS_MSP_3D[] = {
   { "deadbandLow", "uint16_t", "2", "PWM", "Lower deadband limit for 3D mode (reversibleMotorsConfig()->deadband_low)." },
   { "deadbandHigh", "uint16_t", "2", "PWM", "Upper deadband limit for 3D mode (reversibleMotorsConfig()->deadband_high)." },
   { "neutral", "uint16_t", "2", "PWM", "Neutral throttle point for 3D mode (reversibleMotorsConfig()->neutral)." },
 };
 
-inline constexpr Field FIELDS_100[] = {
+inline constexpr Field FIELDS_MSP_RC_DEADBAND[] = {
   { "deadband", "uint8_t", "1", "PWM", "General RC deadband for Roll/Pitch (rcControlsConfig()->deadband)." },
   { "yawDeadband", "uint8_t", "1", "PWM", "Specific deadband for Yaw (rcControlsConfig()->yaw_deadband)." },
   { "altHoldDeadband", "uint8_t", "1", "PWM", "Deadband for altitude hold adjustments (rcControlsConfig()->alt_hold_deadband)." },
   { "throttleDeadband", "uint16_t", "2", "PWM", "Deadband around throttle mid-stick (rcControlsConfig()->mid_throttle_deadband)." },
 };
 
-inline constexpr Field FIELDS_101[] = {
+inline constexpr Field FIELDS_MSP_SENSOR_ALIGNMENT[] = {
   { "gyroAlign", "uint8_t", "1", "", "Always 0 (Legacy alignment enum)." },
   { "accAlign", "uint8_t", "1", "", "Always 0 (Legacy alignment enum)." },
   { "magAlign", "uint8_t", "1", "", "Magnetometer alignment (compassConfig()->mag_align). 0 if USE_MAG disabled." },
   { "opflowAlign", "uint8_t", "1", "", "Optical flow alignment (opticalFlowConfig()->opflow_align). 0 if USE_OPFLOW disabled." },
 };
 
-inline constexpr Field FIELDS_102[] = {
+inline constexpr Field FIELDS_MSP_LED_STRIP_MODECOLOR[] = {
   { "modeIndex", "uint8_t", "1", "", "Index of the LED mode (ledModeIndex_e). LED_MODE_COUNT for special colors." },
   { "directionOrSpecialIndex", "uint8_t", "1", "", "Index of the direction (ledDirection_e) or special color (ledSpecialColor_e)." },
   { "colorIndex", "uint8_t", "1", "", "Index of the color assigned from ledStripConfig()->colors." },
 };
 
-inline constexpr Field FIELDS_103[] = {
+inline constexpr Field FIELDS_MSP_BATTERY_STATE[] = {
   { "cellCount", "uint8_t", "1", "Count", "Number of battery cells (getBatteryCellCount())." },
   { "capacity", "uint16_t", "2", "mAh", "Battery capacity (currentBatteryProfile->capacity.value)." },
   { "vbatScaled", "uint8_t", "1", "0.1V", "Battery voltage / 10 (getBatteryVoltage() / 10)." },
@@ -804,7 +824,7 @@ inline constexpr Field FIELDS_103[] = {
   { "vbatActual", "uint16_t", "2", "0.01V", "Actual battery voltage (getBatteryVoltage())." },
 };
 
-inline constexpr Field FIELDS_105[] = {
+inline constexpr Field FIELDS_MSP_VTXTABLE_POWERLEVEL[] = {
   { "powerLevelIndex", "uint8_t", "1", "", "1-based index of the power level to query." },
   { "powerLevelIndex", "uint8_t", "1", "", "1-based index of the returned power level." },
   { "powerValue", "uint16_t", "2", "", "Always 0 (Actual power value in mW is not stored/returned via MSP)." },
@@ -812,7 +832,7 @@ inline constexpr Field FIELDS_105[] = {
   { "label", "char[]", "Variable", "", "Power level label string (e.g., \"25\", \"200\"). Length given by previous field." },
 };
 
-inline constexpr Field FIELDS_106[] = {
+inline constexpr Field FIELDS_MSP_STATUS_EX[] = {
   { "cycleTime", "uint16_t", "2", "µs", "Main loop cycle time." },
   { "i2cErrors", "uint16_t", "2", "Count", "I2C errors." },
   { "sensorStatus", "uint16_t", "2", "Bitmask", "Sensor status bitmask." },
@@ -823,7 +843,7 @@ inline constexpr Field FIELDS_106[] = {
   { "accCalibAxisFlags", "uint8_t", "1", "Bitmask", "Accelerometer calibrated axes flags (accGetCalibrationAxisFlags())." },
 };
 
-inline constexpr Field FIELDS_107[] = {
+inline constexpr Field FIELDS_MSP_SENSOR_STATUS[] = {
   { "overallHealth", "uint8_t", "1", "Boolean", "1 if all essential hardware is healthy, 0 otherwise (isHardwareHealthy())." },
   { "gyroStatus", "uint8_t", "1", "Enum", "Gyro hardware status (getHwGyroStatus())." },
   { "accStatus", "uint8_t", "1", "Enum", "Accelerometer hardware status (getHwAccelerometerStatus())." },
@@ -835,20 +855,20 @@ inline constexpr Field FIELDS_107[] = {
   { "opflowStatus", "uint8_t", "1", "Enum", "Optical Flow hardware status (getHwOpticalFlowStatus())." },
 };
 
-inline constexpr Field FIELDS_108[] = {
+inline constexpr Field FIELDS_MSP_UID[] = {
   { "uid0", "uint32_t", "4", "", "First 32 bits of the unique ID (U_ID_0)." },
   { "uid1", "uint32_t", "4", "", "Middle 32 bits of the unique ID (U_ID_1)." },
   { "uid2", "uint32_t", "4", "", "Last 32 bits of the unique ID (U_ID_2)." },
 };
 
-inline constexpr Field FIELDS_109[] = {
+inline constexpr Field FIELDS_MSP_GPSSVINFO[] = {
   { "protocolVersion", "uint8_t", "1", "", "Always 1 (Stub version)." },
   { "numChannels", "uint8_t", "1", "", "Always 0 (Number of SV info channels reported)." },
   { "hdopHundreds", "uint8_t", "1", "", "HDOP / 100 (gpsSol.hdop / 100)." },
   { "hdopUnits", "uint8_t", "1", "", "HDOP / 100 (gpsSol.hdop / 100)." },
 };
 
-inline constexpr Field FIELDS_110[] = {
+inline constexpr Field FIELDS_MSP_GPSSTATISTICS[] = {
   { "lastMessageDt", "uint16_t", "2", "ms", "Time since last valid GPS message (gpsStats.lastMessageDt)." },
   { "errors", "uint32_t", "4", "Count", "Number of GPS communication errors (gpsStats.errors)." },
   { "timeouts", "uint32_t", "4", "Count", "Number of GPS communication timeouts (gpsStats.timeouts)." },
@@ -858,20 +878,20 @@ inline constexpr Field FIELDS_110[] = {
   { "epv", "uint16_t", "2", "cm", "Estimated Vertical Position Accuracy (gpsSol.epv)." },
 };
 
-inline constexpr Field FIELDS_111[] = {
+inline constexpr Field FIELDS_MSP_SET_TX_INFO[] = {
   { "rssi", "uint8_t", "1", "%", "RSSI value (0-100) provided by the external source." },
 };
 
-inline constexpr Field FIELDS_112[] = {
+inline constexpr Field FIELDS_MSP_TX_INFO[] = {
   { "rssiSource", "uint8_t", "1", "", "Enum: Source of the RSSI value (getRSSISource())." },
   { "rtcDateTimeIsSet", "uint8_t", "1", "", "Boolean: 1 if the RTC has been set, 0 otherwise." },
 };
 
-inline constexpr Field FIELDS_113[] = {
+inline constexpr Field FIELDS_MSP_SET_RAW_RC[] = {
   { "rcChannels", "uint16_t[]", "Variable (2 channelCount)", "PWM", "Array of RC channel values (typically 1000-2000). Number of channels determined by payload size." },
 };
 
-inline constexpr Field FIELDS_114[] = {
+inline constexpr Field FIELDS_MSP_SET_RAW_GPS[] = {
   { "fixType", "uint8_t", "1", "Enum", "GPS fix type." },
   { "numSat", "uint8_t", "1", "Count", "Number of satellites." },
   { "latitude", "int32_t", "4", "deg 1e7", "Latitude." },
@@ -881,7 +901,7 @@ inline constexpr Field FIELDS_114[] = {
   { "groundCourse", "uint16_t", "2", "???", "Ground course (units unclear from code, likely degrees or deci-degrees, ignored in current code)." },
 };
 
-inline constexpr Field FIELDS_116[] = {
+inline constexpr Field FIELDS_MSP_SET_RC_TUNING[] = {
   { "legacyRcRate", "uint8_t", "1", "", "Ignored." },
   { "rcExpo", "uint8_t", "1", "", "Sets currentControlRateProfile->stabilized.rcExpo8." },
   { "rollRate", "uint8_t", "1", "", "Sets currentControlRateProfile->stabilized.rates[FD_ROLL] (constrained)." },
@@ -894,7 +914,7 @@ inline constexpr Field FIELDS_116[] = {
   { "rcYawExpo", "uint8_t", "1", "", "(Optional) Sets currentControlRateProfile->stabilized.rcYawExpo8." },
 };
 
-inline constexpr Field FIELDS_119[] = {
+inline constexpr Field FIELDS_MSP_SET_MISC[] = {
   { "midRc", "uint16_t", "2", "PWM", "Ignored." },
   { "legacyMinThrottle", "uint16_t", "2", "-", "Ignored." },
   { "legacyMaxThrottle", "uint16_t", "2", "-", "Ignored." },
@@ -913,7 +933,7 @@ inline constexpr Field FIELDS_119[] = {
   { "vbatWarningCell", "uint8_t", "1", "0.1V", "Sets currentBatteryProfileMutable->voltage.cellWarning = value 10 (if USE_ADC)." },
 };
 
-inline constexpr Field FIELDS_121[] = {
+inline constexpr Field FIELDS_MSP_SET_WP[] = {
   { "waypointIndex", "uint8_t", "1", "Index", "Index of the waypoint to set (0 to NAV_MAX_WAYPOINTS - 1)." },
   { "action", "uint8_t", "1", "Enum", "Waypoint action type." },
   { "latitude", "int32_t", "4", "deg 1e7", "Latitude coordinate." },
@@ -925,15 +945,15 @@ inline constexpr Field FIELDS_121[] = {
   { "flag", "uint8_t", "1", "Bitmask", "Waypoint flags." },
 };
 
-inline constexpr Field FIELDS_122[] = {
+inline constexpr Field FIELDS_MSP_SELECT_SETTING[] = {
   { "profileIndex", "uint8_t", "1", "", "Index of the profile to activate (0-based)." },
 };
 
-inline constexpr Field FIELDS_123[] = {
+inline constexpr Field FIELDS_MSP_SET_HEAD[] = {
   { "heading", "int16_t", "2", "degrees", "Target heading (0-359)." },
 };
 
-inline constexpr Field FIELDS_124[] = {
+inline constexpr Field FIELDS_MSP_SET_SERVO_CONFIGURATION[] = {
   { "servoIndex", "uint8_t", "1", "Index", "Index of the servo to configure (0 to MAX_SUPPORTED_SERVOS - 1)." },
   { "min", "uint16_t", "2", "PWM", "Minimum servo endpoint." },
   { "max", "uint16_t", "2", "PWM", "Maximum servo endpoint." },
@@ -945,37 +965,37 @@ inline constexpr Field FIELDS_124[] = {
   { "legacyReversedSources", "uint32_t", "4", "-", "Ignored." },
 };
 
-inline constexpr Field FIELDS_125[] = {
+inline constexpr Field FIELDS_MSP_SET_MOTOR[] = {
   { "motorValues", "uint16_t[8]", "16", "PWM", "Array of motor values to set when disarmed. Only affects first MAX_SUPPORTED_MOTORS." },
 };
 
-inline constexpr Field FIELDS_127[] = {
+inline constexpr Field FIELDS_MSP_SET_3D[] = {
   { "deadbandLow", "uint16_t", "2", "PWM", "Sets reversibleMotorsConfigMutable()->deadband_low." },
   { "deadbandHigh", "uint16_t", "2", "PWM", "Sets reversibleMotorsConfigMutable()->deadband_high." },
   { "neutral", "uint16_t", "2", "PWM", "Sets reversibleMotorsConfigMutable()->neutral." },
 };
 
-inline constexpr Field FIELDS_128[] = {
+inline constexpr Field FIELDS_MSP_SET_RC_DEADBAND[] = {
   { "deadband", "uint8_t", "1", "PWM", "Sets rcControlsConfigMutable()->deadband." },
   { "yawDeadband", "uint8_t", "1", "PWM", "Sets rcControlsConfigMutable()->yaw_deadband." },
   { "altHoldDeadband", "uint8_t", "1", "PWM", "Sets rcControlsConfigMutable()->alt_hold_deadband." },
   { "throttleDeadband", "uint16_t", "2", "PWM", "Sets rcControlsConfigMutable()->mid_throttle_deadband." },
 };
 
-inline constexpr Field FIELDS_130[] = {
+inline constexpr Field FIELDS_MSP_SET_SENSOR_ALIGNMENT[] = {
   { "gyroAlign", "uint8_t", "1", "", "Ignored." },
   { "accAlign", "uint8_t", "1", "", "Ignored." },
   { "magAlign", "uint8_t", "1", "", "Sets compassConfigMutable()->mag_align (if USE_MAG)." },
   { "opflowAlign", "uint8_t", "1", "", "Sets opticalFlowConfigMutable()->opflow_align (if USE_OPFLOW)." },
 };
 
-inline constexpr Field FIELDS_131[] = {
+inline constexpr Field FIELDS_MSP_SET_LED_STRIP_MODECOLOR[] = {
   { "modeIndex", "uint8_t", "1", "", "Index of the LED mode (ledModeIndex_e or LED_MODE_COUNT for special)." },
   { "directionOrSpecialIndex", "uint8_t", "1", "", "Index of the direction or special color." },
   { "colorIndex", "uint8_t", "1", "", "Index of the color to assign from ledStripConfig()->colors." },
 };
 
-inline constexpr Field FIELDS_134[] = {
+inline constexpr Field FIELDS_MSP_SERVO_MIX_RULES[] = {
   { "targetChannel", "uint8_t", "1", "Index", "Servo output channel index (0-based)." },
   { "inputSource", "uint8_t", "1", "Enum", "Input source for the mix (RC chan, Roll, Pitch...). See mixerSource_t." },
   { "rate", "uint16_t", "2", "% 100?", "Mixing rate/weight. Needs scaling check." },
@@ -985,7 +1005,7 @@ inline constexpr Field FIELDS_134[] = {
   { "legacyBox", "uint8_t", "1", "-", "Always 0 (Legacy)." },
 };
 
-inline constexpr Field FIELDS_135[] = {
+inline constexpr Field FIELDS_MSP_SET_SERVO_MIX_RULE[] = {
   { "ruleIndex", "uint8_t", "1", "Index", "Index of the rule to set (0 to MAX_SERVO_RULES - 1)." },
   { "targetChannel", "uint8_t", "1", "Index", "Servo output channel index." },
   { "inputSource", "uint8_t", "1", "Enum", "Input source for the mix." },
@@ -995,54 +1015,54 @@ inline constexpr Field FIELDS_135[] = {
   { "legacyBox", "uint8_t", "1", "-", "Ignored." },
 };
 
-inline constexpr Field FIELDS_136[] = {
+inline constexpr Field FIELDS_MSP_SET_PASSTHROUGH[] = {
   { "passthroughMode", "uint8_t", "1", "", "Type of passthrough (mspPassthroughType_e: Serial ID, Serial Function, ESC 4way)." },
   { "passthroughArgument", "uint8_t", "1", "", "Argument for the mode (e.g., Serial Port Identifier, Serial Function ID). Defaults to 0 if not sent." },
   { "status", "uint8_t", "1", "", "1 if passthrough started successfully, 0 on error (e.g., port not found). For 4way, returns number of ESCs found." },
 };
 
-inline constexpr Field FIELDS_137[] = {
+inline constexpr Field FIELDS_MSP_RTC[] = {
   { "seconds", "int32_t", "4", "Seconds", "Seconds since epoch (or relative time if not set). 0 if RTC time unknown." },
   { "millis", "uint16_t", "2", "Milliseconds", "Millisecond part of the time. 0 if RTC time unknown." },
 };
 
-inline constexpr Field FIELDS_138[] = {
+inline constexpr Field FIELDS_MSP_SET_RTC[] = {
   { "seconds", "int32_t", "4", "Seconds", "Seconds component of time to set." },
   { "millis", "uint16_t", "2", "Milliseconds", "Millisecond component of time to set." },
 };
 
-inline constexpr Field FIELDS_140[] = {
+inline constexpr Field FIELDS_MSP_DEBUGMSG[] = {
   { "Message Text", "char[]", "Variable", "", "NUL terminated [debug message](https://github.com/iNavFlight/inav/blob/master/docs/development/serial_printf_debugging.md) text." },
 };
 
-inline constexpr Field FIELDS_141[] = {
+inline constexpr Field FIELDS_MSP_DEBUG[] = {
   { "debugValues", "uint16_t[4]", "8", "", "First 4 values from the debug array." },
 };
 
-inline constexpr Field FIELDS_143[] = {
+inline constexpr Field FIELDS_MSP2_COMMON_TZ[] = {
   { "tzOffsetMinutes", "int16_t", "2", "Minutes", "Time zone offset from UTC (timeConfig()->tz_offset)." },
   { "tzAutoDst", "uint8_t", "1", "Boolean", "Automatic daylight saving time enabled (timeConfig()->tz_automatic_dst)." },
 };
 
-inline constexpr Field FIELDS_144[] = {
+inline constexpr Field FIELDS_MSP2_COMMON_SET_TZ[] = {
   { "tzOffsetMinutes", "int16_t", "2", "Minutes", "Sets timeConfigMutable()->tz_offset." },
   { "tzOffsetMinutes", "int16_t", "2", "Minutes", "Sets timeConfigMutable()->tz_offset." },
   { "tzAutoDst", "uint8_t", "1", "Boolean", "Sets timeConfigMutable()->tz_automatic_dst." },
 };
 
-inline constexpr Field FIELDS_145[] = {
+inline constexpr Field FIELDS_MSP2_COMMON_SETTING[] = {
   { "settingName", "char[]", "Variable", "", "Null-terminated string containing the setting name (e.g., \"gyro_main_lpf_hz\")." },
   { "zeroByte", "uint8_t", "1", "", "Must be 0." },
   { "settingIndex", "uint16_t", "2", "", "Absolute index of the setting." },
   { "settingValue", "uint8_t[]", "Variable", "", "Raw byte value of the setting. Size depends on the setting's type (settingGetValueSize())." },
 };
 
-inline constexpr Field FIELDS_146[] = {
+inline constexpr Field FIELDS_MSP2_COMMON_SET_SETTING[] = {
   { "settingIdentifier", "Varies", "Variable", "", "Setting name (null-terminated string) OR Index (0x00 followed by uint16_t index)." },
   { "settingValue", "uint8_t[]", "Variable", "", "Raw byte value to set for the setting. Size must match the setting's type." },
 };
 
-inline constexpr Field FIELDS_147[] = {
+inline constexpr Field FIELDS_MSP2_COMMON_MOTOR_MIXER[] = {
   { "throttleWeight", "uint16_t", "2", "Scaled (0-4000)", "Throttle weight 1000, offset by 2000. (Range -2.0 to +2.0 -> 0 to 4000)." },
   { "rollWeight", "uint16_t", "2", "Scaled (0-4000)", "Roll weight 1000, offset by 2000." },
   { "pitchWeight", "uint16_t", "2", "Scaled (0-4000)", "Pitch weight 1000, offset by 2000." },
@@ -1053,7 +1073,7 @@ inline constexpr Field FIELDS_147[] = {
   { "yawWeight", "uint16_t", "2", "Scaled (0-4000)", "Profile 2 Yaw weight." },
 };
 
-inline constexpr Field FIELDS_148[] = {
+inline constexpr Field FIELDS_MSP2_COMMON_SET_MOTOR_MIXER[] = {
   { "motorIndex", "uint8_t", "1", "Index", "Index of the motor to configure (0 to MAX_SUPPORTED_MOTORS - 1)." },
   { "throttleWeight", "uint16_t", "2", "Scaled (0-4000)", "Sets throttle weight from (value / 1000.0) - 2.0." },
   { "rollWeight", "uint16_t", "2", "Scaled (0-4000)", "Sets roll weight from (value / 1000.0) - 2.0." },
@@ -1061,7 +1081,7 @@ inline constexpr Field FIELDS_148[] = {
   { "yawWeight", "uint16_t", "2", "Scaled (0-4000)", "Sets yaw weight from (value / 1000.0) - 2.0." },
 };
 
-inline constexpr Field FIELDS_149[] = {
+inline constexpr Field FIELDS_MSP2_COMMON_SETTING_INFO[] = {
   { "settingName", "char[]", "Variable", "", "Null-terminated setting name." },
   { "pgn", "uint16_t", "2", "", "Parameter Group Number (PGN) ID." },
   { "type", "uint8_t", "1", "", "Variable type (VAR_UINT8, VAR_FLOAT, etc.)." },
@@ -1076,14 +1096,14 @@ inline constexpr Field FIELDS_149[] = {
   { "settingValue", "uint8_t[]", "Variable", "", "Current raw byte value of the setting." },
 };
 
-inline constexpr Field FIELDS_150[] = {
+inline constexpr Field FIELDS_MSP2_COMMON_PG_LIST[] = {
   { "pgn", "uint16_t", "2", "", "PGN ID to query. If omitted, returns all used PGNs." },
   { "pgn", "uint16_t", "2", "", "Parameter Group Number (PGN) ID." },
   { "startIndex", "uint16_t", "2", "", "Absolute index of the first setting in this group." },
   { "endIndex", "uint16_t", "2", "", "Absolute index of the last setting in this group." },
 };
 
-inline constexpr Field FIELDS_151[] = {
+inline constexpr Field FIELDS_MSP2_COMMON_SERIAL_CONFIG[] = {
   { "identifier", "uint8_t", "1", "", "Port identifier (serialPortIdentifier_e)." },
   { "functionMask", "uint32_t", "4", "", "Bitmask of enabled functions (FUNCTION_)." },
   { "mspBaudIndex", "uint8_t", "1", "", "Baud rate index for MSP function." },
@@ -1092,7 +1112,7 @@ inline constexpr Field FIELDS_151[] = {
   { "peripheralBaudIndex", "uint8_t", "1", "", "Baud rate index for other peripheral functions." },
 };
 
-inline constexpr Field FIELDS_152[] = {
+inline constexpr Field FIELDS_MSP2_COMMON_SET_SERIAL_CONFIG[] = {
   { "identifier", "uint8_t", "1", "", "Port identifier (serialPortIdentifier_e)." },
   { "functionMask", "uint32_t", "4", "", "Bitmask of functions to enable." },
   { "mspBaudIndex", "uint8_t", "1", "", "Baud rate index for MSP." },
@@ -1101,7 +1121,7 @@ inline constexpr Field FIELDS_152[] = {
   { "peripheralBaudIndex", "uint8_t", "1", "", "Baud rate index for peripherals." },
 };
 
-inline constexpr Field FIELDS_153[] = {
+inline constexpr Field FIELDS_MSP2_COMMON_SET_RADAR_POS[] = {
   { "poiIndex", "uint8_t", "1", "Index", "Index of the POI slot (0 to RADAR_MAX_POIS - 1)." },
   { "state", "uint8_t", "1", "Enum", "Status of the POI (0=undefined, 1=armed, 2=lost)." },
   { "latitude", "int32_t", "4", "deg 1e7", "Latitude of the POI." },
@@ -1112,7 +1132,7 @@ inline constexpr Field FIELDS_153[] = {
   { "linkQuality", "uint8_t", "1", "0-4", "Link quality indicator." },
 };
 
-inline constexpr Field FIELDS_155[] = {
+inline constexpr Field FIELDS_MSP2_COMMON_SET_MSP_RC_LINK_STATS[] = {
   { "sublinkID", "uint8_t", "1", "-", "Sublink identifier (usually 0)." },
   { "validLink", "uint8_t", "1", "Boolean", "Indicates if the link is currently valid (not in failsafe)." },
   { "rssiPercent", "uint8_t", "1", "%", "Uplink RSSI percentage (0-100)." },
@@ -1122,7 +1142,7 @@ inline constexpr Field FIELDS_155[] = {
   { "uplinkSNR", "int8_t", "1", "dB", "Uplink Signal-to-Noise Ratio." },
 };
 
-inline constexpr Field FIELDS_156[] = {
+inline constexpr Field FIELDS_MSP2_COMMON_SET_MSP_RC_INFO[] = {
   { "sublinkID", "uint8_t", "1", "-", "Sublink identifier (usually 0)." },
   { "uplinkTxPower", "uint16_t", "2", "mW?", "Uplink transmitter power level." },
   { "downlinkTxPower", "uint16_t", "2", "mW?", "Downlink transmitter power level." },
@@ -1130,18 +1150,18 @@ inline constexpr Field FIELDS_156[] = {
   { "mode", "char[6]", "6", "-", "Operating mode/rate string (e.g., \"100HZ\", \"F1000\")." },
 };
 
-inline constexpr Field FIELDS_157[] = {
+inline constexpr Field FIELDS_MSP2_SENSOR_RANGEFINDER[] = {
   { "quality", "uint8_t", "1", "0-255", "Quality of the measurement." },
   { "distanceMm", "int32_t", "4", "mm", "Measured distance. Negative value indicates out of range." },
 };
 
-inline constexpr Field FIELDS_158[] = {
+inline constexpr Field FIELDS_MSP2_SENSOR_OPTIC_FLOW[] = {
   { "quality", "uint8_t", "1", "", "Quality of the measurement (0-255)." },
   { "motionX", "int32_t", "4", "", "Raw integrated flow value X." },
   { "motionY", "int32_t", "4", "", "Raw integrated flow value Y." },
 };
 
-inline constexpr Field FIELDS_159[] = {
+inline constexpr Field FIELDS_MSP2_SENSOR_GPS[] = {
   { "instance", "uint8_t", "1", "-", "Sensor instance number (for multi-GPS)." },
   { "gpsWeek", "uint16_t", "2", "-", "GPS week number (0xFFFF if unavailable)." },
   { "msTOW", "uint32_t", "4", "ms", "Milliseconds Time of Week." },
@@ -1167,7 +1187,7 @@ inline constexpr Field FIELDS_159[] = {
   { "sec", "uint8_t", "1", "-", "Second (0-59)." },
 };
 
-inline constexpr Field FIELDS_160[] = {
+inline constexpr Field FIELDS_MSP2_SENSOR_COMPASS[] = {
   { "instance", "uint8_t", "1", "-", "Sensor instance number." },
   { "timeMs", "uint32_t", "4", "ms", "Timestamp from the sensor." },
   { "magX", "int16_t", "2", "mGauss", "Front component reading." },
@@ -1175,21 +1195,21 @@ inline constexpr Field FIELDS_160[] = {
   { "magZ", "int16_t", "2", "mGauss", "Down component reading." },
 };
 
-inline constexpr Field FIELDS_161[] = {
+inline constexpr Field FIELDS_MSP2_SENSOR_BAROMETER[] = {
   { "instance", "uint8_t", "1", "-", "Sensor instance number." },
   { "timeMs", "uint32_t", "4", "ms", "Timestamp from the sensor." },
   { "pressurePa", "float", "4", "Pa", "Absolute pressure." },
   { "temp", "int16_t", "2", "0.01 deg C", "Temperature." },
 };
 
-inline constexpr Field FIELDS_162[] = {
+inline constexpr Field FIELDS_MSP2_SENSOR_AIRSPEED[] = {
   { "instance", "uint8_t", "1", "-", "Sensor instance number." },
   { "timeMs", "uint32_t", "4", "ms", "Timestamp from the sensor." },
   { "diffPressurePa", "float", "4", "Pa", "Differential pressure." },
   { "temp", "int16_t", "2", "0.01 deg C", "Temperature." },
 };
 
-inline constexpr Field FIELDS_164[] = {
+inline constexpr Field FIELDS_MSP2_INAV_STATUS[] = {
   { "cycleTime", "uint16_t", "2", "µs", "Main loop cycle time." },
   { "i2cErrors", "uint16_t", "2", "Count", "I2C errors." },
   { "sensorStatus", "uint16_t", "2", "Bitmask", "Sensor status bitmask." },
@@ -1200,7 +1220,7 @@ inline constexpr Field FIELDS_164[] = {
   { "mixerProfile", "uint8_t", "1", "Index", "Current mixer profile index (getConfigMixerProfile())." },
 };
 
-inline constexpr Field FIELDS_165[] = {
+inline constexpr Field FIELDS_MSP2_INAV_OPTICAL_FLOW[] = {
   { "quality", "uint8_t", "1", "0-255", "Raw quality indicator from the sensor (opflow.rawQuality). 0 if USE_OPFLOW disabled." },
   { "flowRateX", "int16_t", "2", "degrees/s", "Optical flow rate X (roll axis) (RADIANS_TO_DEGREES(opflow.flowRate[X])). 0 if USE_OPFLOW disabled." },
   { "flowRateY", "int16_t", "2", "degrees/s", "Optical flow rate Y (pitch axis) (RADIANS_TO_DEGREES(opflow.flowRate[Y])). 0 if USE_OPFLOW disabled." },
@@ -1208,7 +1228,7 @@ inline constexpr Field FIELDS_165[] = {
   { "bodyRateY", "int16_t", "2", "degrees/s", "Compensated body rate Y (pitch axis) (RADIANS_TO_DEGREES(opflow.bodyRate[Y])). 0 if USE_OPFLOW disabled." },
 };
 
-inline constexpr Field FIELDS_166[] = {
+inline constexpr Field FIELDS_MSP2_INAV_ANALOG[] = {
   { "batteryFlags", "uint8_t", "1", "Bitmask", "Battery status flags: Bit 0=Full on plug-in, Bit 1=Use capacity threshold, Bit 2-3=Battery State enum (getBatteryState()), Bit 4-7=Cell Count (getBatteryCellCount())." },
   { "vbat", "uint16_t", "2", "0.01V", "Battery voltage (getBatteryVoltage())." },
   { "amperage", "uint16_t", "2", "0.01A", "Current draw (getAmperage())." },
@@ -1220,7 +1240,7 @@ inline constexpr Field FIELDS_166[] = {
   { "rssi", "uint16_t", "2", "0-1023 or %", "RSSI value (getRSSI())." },
 };
 
-inline constexpr Field FIELDS_167[] = {
+inline constexpr Field FIELDS_MSP2_INAV_MISC[] = {
   { "midRc", "uint16_t", "2", "PWM", "Mid RC value (PWM_RANGE_MIDDLE)." },
   { "legacyMinThrottle", "uint16_t", "2", "-", "Always 0 (Legacy)." },
   { "maxThrottle", "uint16_t", "2", "PWM", "Maximum throttle command (getMaxThrottle())." },
@@ -1244,7 +1264,7 @@ inline constexpr Field FIELDS_167[] = {
   { "capacityUnit", "uint8_t", "1", "Enum", "Capacity unit (batteryMetersConfig()->capacity_unit)." },
 };
 
-inline constexpr Field FIELDS_168[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SET_MISC[] = {
   { "midRc", "uint16_t", "2", "PWM", "Ignored." },
   { "legacyMinThrottle", "uint16_t", "2", "-", "Ignored." },
   { "legacyMaxThrottle", "uint16_t", "2", "-", "Ignored." },
@@ -1268,7 +1288,7 @@ inline constexpr Field FIELDS_168[] = {
   { "capacityUnit", "uint8_t", "1", "Enum", "Sets batteryMetersConfigMutable()->capacity_unit (validated). Updates OSD energy unit if changed." },
 };
 
-inline constexpr Field FIELDS_169[] = {
+inline constexpr Field FIELDS_MSP2_INAV_BATTERY_CONFIG[] = {
   { "vbatScale", "uint16_t", "2", "Scale", "Voltage scale (batteryMetersConfig()->voltage.scale)." },
   { "vbatSource", "uint8_t", "1", "Enum", "Voltage source (batteryMetersConfig()->voltageSource)." },
   { "cellCount", "uint8_t", "1", "Count", "Configured cell count (currentBatteryProfile->cells)." },
@@ -1284,7 +1304,7 @@ inline constexpr Field FIELDS_169[] = {
   { "capacityUnit", "uint8_t", "1", "Enum", "Capacity unit (batteryMetersConfig()->capacity_unit)." },
 };
 
-inline constexpr Field FIELDS_170[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SET_BATTERY_CONFIG[] = {
   { "vbatScale", "uint16_t", "2", "Scale", "Sets batteryMetersConfigMutable()->voltage.scale (if USE_ADC)." },
   { "vbatSource", "uint8_t", "1", "Enum", "Sets batteryMetersConfigMutable()->voltageSource (if USE_ADC, validated)." },
   { "cellCount", "uint8_t", "1", "Count", "Sets currentBatteryProfileMutable->cells (if USE_ADC)." },
@@ -1300,7 +1320,7 @@ inline constexpr Field FIELDS_170[] = {
   { "capacityUnit", "uint8_t", "1", "Enum", "Sets batteryMetersConfigMutable()->capacity_unit (validated). Updates OSD energy unit if changed." },
 };
 
-inline constexpr Field FIELDS_171[] = {
+inline constexpr Field FIELDS_MSP2_INAV_RATE_PROFILE[] = {
   { "throttleMid", "uint8_t", "1", "", "Throttle Midpoint (currentControlRateProfile->throttle.rcMid8)." },
   { "throttleExpo", "uint8_t", "1", "", "Throttle Expo (currentControlRateProfile->throttle.rcExpo8)." },
   { "dynamicThrottlePID", "uint8_t", "1", "", "TPA value (currentControlRateProfile->throttle.dynPID)." },
@@ -1317,7 +1337,7 @@ inline constexpr Field FIELDS_171[] = {
   { "manualYawRate", "uint8_t", "1", "", "Manual Yaw Rate (currentControlRateProfile->manual.rates[FD_YAW])." },
 };
 
-inline constexpr Field FIELDS_172[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SET_RATE_PROFILE[] = {
   { "throttleMid", "uint8_t", "1", "", "Sets currentControlRateProfile_p->throttle.rcMid8." },
   { "throttleExpo", "uint8_t", "1", "", "Sets currentControlRateProfile_p->throttle.rcExpo8." },
   { "dynamicThrottlePID", "uint8_t", "1", "", "Sets currentControlRateProfile_p->throttle.dynPID." },
@@ -1334,15 +1354,15 @@ inline constexpr Field FIELDS_172[] = {
   { "manualYawRate", "uint8_t", "1", "", "Sets currentControlRateProfile_p->manual.rates[FD_YAW] (constrained)." },
 };
 
-inline constexpr Field FIELDS_173[] = {
+inline constexpr Field FIELDS_MSP2_INAV_AIR_SPEED[] = {
   { "airspeed", "uint32_t", "4", "cm/s", "Estimated/measured airspeed (getAirspeedEstimate()). 0 if USE_PITOT disabled or no valid data." },
 };
 
-inline constexpr Field FIELDS_174[] = {
+inline constexpr Field FIELDS_MSP2_INAV_OUTPUT_MAPPING[] = {
   { "usageFlags", "uint8_t", "1", "", "Timer usage flags (truncated). TIM_USE_MOTOR or TIM_USE_SERVO." },
 };
 
-inline constexpr Field FIELDS_175[] = {
+inline constexpr Field FIELDS_MSP2_INAV_MC_BRAKING[] = {
   { "brakingSpeedThreshold", "uint16_t", "2", "cm/s", "Speed above which braking engages (navConfig()->mc.braking_speed_threshold)." },
   { "brakingDisengageSpeed", "uint16_t", "2", "cm/s", "Speed below which braking disengages (navConfig()->mc.braking_disengage_speed)." },
   { "brakingTimeout", "uint16_t", "2", "ms", "Timeout before braking force reduces (navConfig()->mc.braking_timeout)." },
@@ -1353,7 +1373,7 @@ inline constexpr Field FIELDS_175[] = {
   { "brakingBankAngle", "uint8_t", "1", "degrees", "Maximum bank angle allowed during braking (navConfig()->mc.braking_bank_angle)." },
 };
 
-inline constexpr Field FIELDS_176[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SET_MC_BRAKING[] = {
   { "brakingSpeedThreshold", "uint16_t", "2", "cm/s", "Sets navConfigMutable()->mc.braking_speed_threshold." },
   { "brakingDisengageSpeed", "uint16_t", "2", "cm/s", "Sets navConfigMutable()->mc.braking_disengage_speed." },
   { "brakingTimeout", "uint16_t", "2", "ms", "Sets navConfigMutable()->mc.braking_timeout." },
@@ -1364,12 +1384,12 @@ inline constexpr Field FIELDS_176[] = {
   { "brakingBankAngle", "uint8_t", "1", "degrees", "Sets navConfigMutable()->mc.braking_bank_angle." },
 };
 
-inline constexpr Field FIELDS_177[] = {
+inline constexpr Field FIELDS_MSP2_INAV_OUTPUT_MAPPING_EXT[] = {
   { "timerId", "uint8_t", "1", "", "Hardware timer identifier (e.g., TIM1, TIM2). Value depends on target." },
   { "usageFlags", "uint8_t", "1", "", "Timer usage flags (truncated). TIM_USE_MOTOR or TIM_USE_SERVO." },
 };
 
-inline constexpr Field FIELDS_178[] = {
+inline constexpr Field FIELDS_MSP2_INAV_TIMER_OUTPUT_MODE[] = {
   { "timerIndex", "uint8_t", "1", "", "Index of the hardware timer definition (0 to HARDWARE_TIMER_DEFINITION_COUNT - 1)." },
   { "timerIndex", "uint8_t", "1", "", "Timer index." },
   { "outputMode", "uint8_t", "1", "", "Output mode override (TIMER_OUTPUT_MODE_ enum)." },
@@ -1377,12 +1397,12 @@ inline constexpr Field FIELDS_178[] = {
   { "outputMode", "uint8_t", "1", "", "Output mode override for the requested timer." },
 };
 
-inline constexpr Field FIELDS_179[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SET_TIMER_OUTPUT_MODE[] = {
   { "timerIndex", "uint8_t", "1", "", "Index of the hardware timer definition." },
   { "outputMode", "uint8_t", "1", "", "Output mode override (TIMER_OUTPUT_MODE_ enum) to set." },
 };
 
-inline constexpr Field FIELDS_180[] = {
+inline constexpr Field FIELDS_MSP2_INAV_MIXER[] = {
   { "motorDirectionInverted", "uint8_t", "1", "", "Boolean: 1 if motor direction is reversed globally (mixerConfig()->motorDirectionInverted)." },
   { "reserved1", "uint8_t", "1", "", "Always 0 (Was yaw jump prevention limit)." },
   { "motorStopOnLow", "uint8_t", "1", "", "Boolean: 1 if motors stop at minimum throttle (mixerConfig()->motorstopOnLow)." },
@@ -1393,7 +1413,7 @@ inline constexpr Field FIELDS_180[] = {
   { "maxServos", "uint8_t", "1", "", "Constant: Maximum servos supported (MAX_SUPPORTED_SERVOS)." },
 };
 
-inline constexpr Field FIELDS_181[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SET_MIXER[] = {
   { "motorDirectionInverted", "uint8_t", "1", "", "Sets mixerConfigMutable()->motorDirectionInverted." },
   { "reserved1", "uint8_t", "1", "", "Ignored." },
   { "motorStopOnLow", "uint8_t", "1", "", "Sets mixerConfigMutable()->motorstopOnLow." },
@@ -1404,7 +1424,7 @@ inline constexpr Field FIELDS_181[] = {
   { "maxServos", "uint8_t", "1", "", "Ignored." },
 };
 
-inline constexpr Field FIELDS_182[] = {
+inline constexpr Field FIELDS_MSP2_INAV_OSD_LAYOUTS[] = {
   { "layoutIndex", "uint8_t", "1", "", "Index of the OSD layout (0 to OSD_LAYOUT_COUNT - 1)." },
   { "layoutIndex", "uint8_t", "1", "", "Index of the OSD layout." },
   { "itemIndex", "uint16_t", "2", "", "Index of the OSD item (OSD_ITEM_ enum, 0 to OSD_ITEM_COUNT - 1)." },
@@ -1414,12 +1434,12 @@ inline constexpr Field FIELDS_182[] = {
   { "itemPosition", "uint16_t", "2", "", "Packed X/Y position for the requested item in the requested layout." },
 };
 
-inline constexpr Field FIELDS_183[] = {
+inline constexpr Field FIELDS_MSP2_INAV_OSD_SET_LAYOUT_ITEM[] = {
   { "layoutIndex", "uint8_t", "1", "Index", "Index of the OSD layout (0 to OSD_LAYOUT_COUNT - 1)." },
   { "itemIndex", "uint8_t", "1", "Index", "Index of the OSD item (OSD_ITEM_ enum)." },
 };
 
-inline constexpr Field FIELDS_184[] = {
+inline constexpr Field FIELDS_MSP2_INAV_OSD_ALARMS[] = {
   { "rssiAlarm", "uint8_t", "1", "%", "RSSI alarm threshold (osdConfig()->rssi_alarm)." },
   { "timerAlarm", "uint16_t", "2", "seconds", "Timer alarm threshold (osdConfig()->time_alarm)." },
   { "altAlarm", "uint16_t", "2", "meters", "Altitude alarm threshold (osdConfig()->alt_alarm)." },
@@ -1437,7 +1457,7 @@ inline constexpr Field FIELDS_184[] = {
   { "adsbAlertDistance", "uint16_t", "2", "meters", "ADSB alert distance (osdConfig()->adsb_distance_alert). 0 if USE_ADSB disabled." },
 };
 
-inline constexpr Field FIELDS_185[] = {
+inline constexpr Field FIELDS_MSP2_INAV_OSD_SET_ALARMS[] = {
   { "rssiAlarm", "uint8_t", "1", "%", "Sets osdConfigMutable()->rssi_alarm." },
   { "timerAlarm", "uint16_t", "2", "seconds", "Sets osdConfigMutable()->time_alarm." },
   { "altAlarm", "uint16_t", "2", "meters", "Sets osdConfigMutable()->alt_alarm." },
@@ -1453,7 +1473,7 @@ inline constexpr Field FIELDS_185[] = {
   { "baroTempMaxAlarm", "uint16_t", "2", "degrees C", "Sets osdConfigMutable()->baro_temp_alarm_max (if USE_BARO)." },
 };
 
-inline constexpr Field FIELDS_186[] = {
+inline constexpr Field FIELDS_MSP2_INAV_OSD_PREFERENCES[] = {
   { "videoSystem", "uint8_t", "1", "", "Enum: Video system (Auto/PAL/NTSC) (osdConfig()->video_system)." },
   { "mainVoltageDecimals", "uint8_t", "1", "", "Count: Decimal places for main voltage display (osdConfig()->main_voltage_decimals)." },
   { "ahiReverseRoll", "uint8_t", "1", "", "Boolean: Reverse roll direction on Artificial Horizon (osdConfig()->ahi_reverse_roll)." },
@@ -1465,7 +1485,7 @@ inline constexpr Field FIELDS_186[] = {
   { "statsEnergyUnit", "uint8_t", "1", "", "Enum: Unit for energy display in post-flight stats (osdConfig()->stats_energy_unit)." },
 };
 
-inline constexpr Field FIELDS_187[] = {
+inline constexpr Field FIELDS_MSP2_INAV_OSD_SET_PREFERENCES[] = {
   { "videoSystem", "uint8_t", "1", "", "Sets osdConfigMutable()->video_system." },
   { "mainVoltageDecimals", "uint8_t", "1", "", "Sets osdConfigMutable()->main_voltage_decimals." },
   { "ahiReverseRoll", "uint8_t", "1", "", "Sets osdConfigMutable()->ahi_reverse_roll." },
@@ -1477,15 +1497,15 @@ inline constexpr Field FIELDS_187[] = {
   { "statsEnergyUnit", "uint8_t", "1", "", "Sets osdConfigMutable()->stats_energy_unit." },
 };
 
-inline constexpr Field FIELDS_188[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SELECT_BATTERY_PROFILE[] = {
   { "batteryProfileIndex", "uint8_t", "1", "", "Index of the battery profile to activate (0-based)." },
 };
 
-inline constexpr Field FIELDS_189[] = {
+inline constexpr Field FIELDS_MSP2_INAV_DEBUG[] = {
   { "debugValues", "uint32_t[DEBUG32_VALUE_COUNT]", "DEBUG32_VALUE_COUNT 4", "", "Values from the debug array (typically 8 values)." },
 };
 
-inline constexpr Field FIELDS_190[] = {
+inline constexpr Field FIELDS_MSP2_BLACKBOX_CONFIG[] = {
   { "blackboxSupported", "uint8_t", "1", "", "Boolean: 1 if Blackbox is supported (USE_BLACKBOX), 0 otherwise." },
   { "blackboxDevice", "uint8_t", "1", "", "Enum (blackboxDevice_e): Target device for logging (blackboxConfig()->device). 0 if not supported." },
   { "blackboxRateNum", "uint16_t", "2", "", "Numerator for logging rate divider (blackboxConfig()->rate_num). 0 if not supported." },
@@ -1493,14 +1513,14 @@ inline constexpr Field FIELDS_190[] = {
   { "blackboxIncludeFlags", "uint32_t", "4", "", "Bitmask: Flags for fields included/excluded from logging (blackboxConfig()->includeFlags)." },
 };
 
-inline constexpr Field FIELDS_191[] = {
+inline constexpr Field FIELDS_MSP2_SET_BLACKBOX_CONFIG[] = {
   { "blackboxDevice", "uint8_t", "1", "", "Sets blackboxConfigMutable()->device." },
   { "blackboxRateNum", "uint16_t", "2", "", "Sets blackboxConfigMutable()->rate_num." },
   { "blackboxRateDenom", "uint16_t", "2", "", "Sets blackboxConfigMutable()->rate_denom." },
   { "blackboxIncludeFlags", "uint32_t", "4", "", "Sets blackboxConfigMutable()->includeFlags." },
 };
 
-inline constexpr Field FIELDS_192[] = {
+inline constexpr Field FIELDS_MSP2_INAV_TEMP_SENSOR_CONFIG[] = {
   { "type", "uint8_t", "1", "", "Enum (tempSensorType_e): Type of the temperature sensor." },
   { "address", "uint64_t", "8", "", "Sensor address/ID (e.g., for 1-Wire sensors)." },
   { "alarmMin", "uint16_t", "2", "", "Min temperature alarm threshold (degrees C)." },
@@ -1509,7 +1529,7 @@ inline constexpr Field FIELDS_192[] = {
   { "label", "char[TEMPERATURE_LABEL_LEN]", "TEMPERATURE_LABEL_LEN", "", "User-defined label for the sensor." },
 };
 
-inline constexpr Field FIELDS_193[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SET_TEMP_SENSOR_CONFIG[] = {
   { "type", "uint8_t", "1", "", "Sets sensor type." },
   { "address", "uint64_t", "8", "", "Sets sensor address/ID." },
   { "alarmMin", "uint16_t", "2", "", "Sets min alarm threshold." },
@@ -1518,11 +1538,11 @@ inline constexpr Field FIELDS_193[] = {
   { "label", "char[TEMPERATURE_LABEL_LEN]", "TEMPERATURE_LABEL_LEN", "", "Sets sensor label (converted to uppercase)." },
 };
 
-inline constexpr Field FIELDS_194[] = {
+inline constexpr Field FIELDS_MSP2_INAV_TEMPERATURES[] = {
   { "temperature", "int16_t", "2", "degrees C", "Current temperature reading. -1000 if sensor is invalid or reading failed." },
 };
 
-inline constexpr Field FIELDS_195[] = {
+inline constexpr Field FIELDS_MSP_SIMULATOR[] = {
   { "simulatorVersion", "uint8_t", "1", "", "Version of the simulator protocol (SIMULATOR_MSP_VERSION)." },
   { "hitlFlags", "uint8_t", "1", "", "Bitmask: Options for HITL (HITL_ flags)." },
   { "gpsFixType", "uint8_t", "1", "", "(If HITL_HAS_NEW_GPS_DATA) Simulated GPS fix type." },
@@ -1558,7 +1578,7 @@ inline constexpr Field FIELDS_195[] = {
   { "osdRleData", "uint8_t[]", "Variable", "", "(If OSD supported) Run-length encoded OSD character data. Terminated by [0, 0]." },
 };
 
-inline constexpr Field FIELDS_196[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SERVO_MIXER[] = {
   { "targetChannel", "uint8_t", "1", "", "Servo output channel index (0-based)." },
   { "inputSource", "uint8_t", "1", "", "Enum: Input source (mixerSource_t)." },
   { "rate", "uint16_t", "2", "", "Mixing rate/weight." },
@@ -1571,7 +1591,7 @@ inline constexpr Field FIELDS_196[] = {
   { "conditionId", "uint8_t", "1", "", "Profile 2 Logic Condition ID." },
 };
 
-inline constexpr Field FIELDS_197[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SET_SERVO_MIXER[] = {
   { "ruleIndex", "uint8_t", "1", "", "Index of the rule to set (0 to MAX_SERVO_RULES - 1)." },
   { "targetChannel", "uint8_t", "1", "", "Servo output channel index." },
   { "inputSource", "uint8_t", "1", "", "Enum: Input source (mixerSource_t)." },
@@ -1580,7 +1600,7 @@ inline constexpr Field FIELDS_197[] = {
   { "conditionId", "uint8_t", "1", "", "Logic Condition ID (255/-1 if none). Ignored if USE_PROGRAMMING_FRAMEWORK is disabled." },
 };
 
-inline constexpr Field FIELDS_198[] = {
+inline constexpr Field FIELDS_MSP2_INAV_LOGIC_CONDITIONS[] = {
   { "enabled", "uint8_t", "1", "", "Boolean: 1 if the condition is enabled." },
   { "activatorId", "uint8_t", "1", "", "ID of the activator condition (if any, 255 if none)." },
   { "operation", "uint8_t", "1", "", "Enum (logicConditionOp_e): Logical operation (AND, OR, XOR, etc.)." },
@@ -1591,7 +1611,7 @@ inline constexpr Field FIELDS_198[] = {
   { "flags", "uint8_t", "1", "", "Bitmask: Condition flags (e.g., LC_FLAG_FIRST_TIME_TRUE)." },
 };
 
-inline constexpr Field FIELDS_199[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SET_LOGIC_CONDITIONS[] = {
   { "conditionIndex", "uint8_t", "1", "", "Index of the condition to set (0 to MAX_LOGIC_CONDITIONS - 1)." },
   { "enabled", "uint8_t", "1", "", "Boolean: 1 to enable the condition." },
   { "activatorId", "uint8_t", "1", "", "Activator condition ID." },
@@ -1603,15 +1623,15 @@ inline constexpr Field FIELDS_199[] = {
   { "flags", "uint8_t", "1", "", "Bitmask: Condition flags." },
 };
 
-inline constexpr Field FIELDS_202[] = {
+inline constexpr Field FIELDS_MSP2_INAV_LOGIC_CONDITIONS_STATUS[] = {
   { "conditionValues", "uint32_t[MAX_LOGIC_CONDITIONS]", "MAX_LOGIC_CONDITIONS 4", "", "Array of current values for each logic condition (logicConditionGetValue(i)). 1 for true, 0 for false, or numerical value depending on operation." },
 };
 
-inline constexpr Field FIELDS_203[] = {
+inline constexpr Field FIELDS_MSP2_INAV_GVAR_STATUS[] = {
   { "gvarValues", "uint32_t[MAX_GLOBAL_VARIABLES]", "MAX_GLOBAL_VARIABLES 4", "", "Array of current values for each global variable (gvGet(i))." },
 };
 
-inline constexpr Field FIELDS_204[] = {
+inline constexpr Field FIELDS_MSP2_INAV_PROGRAMMING_PID[] = {
   { "enabled", "uint8_t", "1", "", "Boolean: 1 if the PID is enabled." },
   { "setpointType", "uint8_t", "1", "", "Enum (logicOperandType_e): Type of the setpoint source." },
   { "setpointValue", "uint32_t", "4", "", "Value/ID of the setpoint source." },
@@ -1623,7 +1643,7 @@ inline constexpr Field FIELDS_204[] = {
   { "gainFF", "uint16_t", "2", "", "Feed-forward gain." },
 };
 
-inline constexpr Field FIELDS_205[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SET_PROGRAMMING_PID[] = {
   { "pidIndex", "uint8_t", "1", "", "Index of the Programming PID to set (0 to MAX_PROGRAMMING_PID_COUNT - 1)." },
   { "enabled", "uint8_t", "1", "", "Boolean: 1 to enable the PID." },
   { "setpointType", "uint8_t", "1", "", "Enum: Type of the setpoint source." },
@@ -1636,37 +1656,37 @@ inline constexpr Field FIELDS_205[] = {
   { "gainFF", "uint16_t", "2", "", "Feed-forward gain." },
 };
 
-inline constexpr Field FIELDS_206[] = {
+inline constexpr Field FIELDS_MSP2_INAV_PROGRAMMING_PID_STATUS[] = {
   { "pidOutputs", "uint32_t[MAX_PROGRAMMING_PID_COUNT]", "MAX_PROGRAMMING_PID_COUNT 4", "", "Array of current output values for each Programming PID (programmingPidGetOutput(i))." },
 };
 
-inline constexpr Field FIELDS_207[] = {
+inline constexpr Field FIELDS_MSP2_PID[] = {
   { "P", "uint8_t", "1", "", "Proportional gain (pidBank()->pid[i].P), constrained 0-255." },
   { "I", "uint8_t", "1", "", "Integral gain (pidBank()->pid[i].I), constrained 0-255." },
   { "D", "uint8_t", "1", "", "Derivative gain (pidBank()->pid[i].D), constrained 0-255." },
   { "FF", "uint8_t", "1", "", "Feed-forward gain (pidBank()->pid[i].FF), constrained 0-255." },
 };
 
-inline constexpr Field FIELDS_208[] = {
+inline constexpr Field FIELDS_MSP2_SET_PID[] = {
   { "P", "uint8_t", "1", "", "Sets Proportional gain (pidBankMutable()->pid[i].P)." },
   { "I", "uint8_t", "1", "", "Sets Integral gain (pidBankMutable()->pid[i].I)." },
   { "D", "uint8_t", "1", "", "Sets Derivative gain (pidBankMutable()->pid[i].D)." },
   { "FF", "uint8_t", "1", "", "Sets Feed-forward gain (pidBankMutable()->pid[i].FF)." },
 };
 
-inline constexpr Field FIELDS_210[] = {
+inline constexpr Field FIELDS_MSP2_INAV_FWUPDT_PREPARE[] = {
   { "firmwareSize", "uint32_t", "4", "", "Total size of the incoming firmware file in bytes." },
 };
 
-inline constexpr Field FIELDS_211[] = {
+inline constexpr Field FIELDS_MSP2_INAV_FWUPDT_STORE[] = {
   { "firmwareChunk", "uint8_t[]", "Variable", "", "Chunk of firmware data." },
 };
 
-inline constexpr Field FIELDS_212[] = {
+inline constexpr Field FIELDS_MSP2_INAV_FWUPDT_EXEC[] = {
   { "updateType", "uint8_t", "1", "", "Type of update (e.g., full flash, specific section - currently ignored/unused)." },
 };
 
-inline constexpr Field FIELDS_215[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SAFEHOME[] = {
   { "safehomeIndex", "uint8_t", "1", "", "Index of the safe home location (0 to MAX_SAFE_HOMES - 1)." },
   { "safehomeIndex", "uint8_t", "1", "", "Index requested." },
   { "enabled", "uint8_t", "1", "", "Boolean: 1 if this safe home is enabled." },
@@ -1674,21 +1694,21 @@ inline constexpr Field FIELDS_215[] = {
   { "longitude", "int32_t", "4", "", "Longitude (1e7 deg)." },
 };
 
-inline constexpr Field FIELDS_216[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SET_SAFEHOME[] = {
   { "safehomeIndex", "uint8_t", "1", "", "Index of the safe home location (0 to MAX_SAFE_HOMES - 1)." },
   { "enabled", "uint8_t", "1", "", "Boolean: 1 to enable this safe home." },
   { "latitude", "int32_t", "4", "", "Latitude (1e7 deg)." },
   { "longitude", "int32_t", "4", "", "Longitude (1e7 deg)." },
 };
 
-inline constexpr Field FIELDS_217[] = {
+inline constexpr Field FIELDS_MSP2_INAV_MISC2[] = {
   { "uptimeSeconds", "uint32_t", "4", "Seconds", "Time since boot (micros() / 1000000)." },
   { "flightTimeSeconds", "uint32_t", "4", "Seconds", "Accumulated flight time (getFlightTime())." },
   { "throttlePercent", "uint8_t", "1", "%", "Current throttle output percentage (getThrottlePercent(true))." },
   { "autoThrottleFlag", "uint8_t", "1", "Boolean", "1 if navigation is controlling throttle, 0 otherwise (navigationIsControllingThrottle())." },
 };
 
-inline constexpr Field FIELDS_218[] = {
+inline constexpr Field FIELDS_MSP2_INAV_LOGIC_CONDITIONS_SINGLE[] = {
   { "conditionIndex", "uint8_t", "1", "", "Index of the condition to retrieve (0 to MAX_LOGIC_CONDITIONS - 1)." },
   { "enabled", "uint8_t", "1", "", "Boolean: 1 if enabled." },
   { "activatorId", "uint8_t", "1", "", "Activator ID." },
@@ -1700,25 +1720,25 @@ inline constexpr Field FIELDS_218[] = {
   { "flags", "uint8_t", "1", "", "Bitmask: Condition flags." },
 };
 
-inline constexpr Field FIELDS_219[] = {
+inline constexpr Field FIELDS_MSP2_INAV_ESC_RPM[] = {
   { "escRpm", "uint32_t", "4", "RPM", "RPM reported by the ESC." },
 };
 
-inline constexpr Field FIELDS_220[] = {
+inline constexpr Field FIELDS_MSP2_INAV_ESC_TELEM[] = {
   { "motorCount", "uint8_t", "1", "", "Number of motors reporting telemetry (getMotorCount())." },
   { "escData", "escSensorData_t[]", "motorCount sizeof(escSensorData_t)", "", "Array of escSensorData_t structures containing voltage, current, temp, RPM, errors etc. for each ESC." },
 };
 
-inline constexpr Field FIELDS_221[] = {
+inline constexpr Field FIELDS_MSP2_INAV_LED_STRIP_CONFIG_EX[] = {
   { "ledConfig", "ledConfig_t", "sizeof(ledConfig_t)", "", "Full configuration structure for the LED." },
 };
 
-inline constexpr Field FIELDS_222[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SET_LED_STRIP_CONFIG_EX[] = {
   { "ledIndex", "uint8_t", "1", "", "Index of the LED to configure (0 to LED_MAX_STRIP_LENGTH - 1)." },
   { "ledConfig", "ledConfig_t", "sizeof(ledConfig_t)", "", "Full configuration structure for the LED." },
 };
 
-inline constexpr Field FIELDS_223[] = {
+inline constexpr Field FIELDS_MSP2_INAV_FW_APPROACH[] = {
   { "approachIndex", "uint8_t", "1", "", "Index of the approach setting (0 to MAX_FW_LAND_APPOACH_SETTINGS - 1)." },
   { "approachIndex", "uint8_t", "1", "Index", "Index requested." },
   { "approachAlt", "uint32_t", "4", "cm", "Altitude for the approach phase." },
@@ -1729,7 +1749,7 @@ inline constexpr Field FIELDS_223[] = {
   { "isSeaLevelRef", "uint8_t", "1", "Boolean", "1 if altitudes are relative to sea level, 0 if relative to home." },
 };
 
-inline constexpr Field FIELDS_224[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SET_FW_APPROACH[] = {
   { "approachIndex", "uint8_t", "1", "Index", "Index of the approach setting (0 to MAX_FW_LAND_APPOACH_SETTINGS - 1)." },
   { "approachAlt", "uint32_t", "4", "cm", "Sets approach altitude." },
   { "landAlt", "uint32_t", "4", "cm", "Sets landing altitude." },
@@ -1739,11 +1759,11 @@ inline constexpr Field FIELDS_224[] = {
   { "isSeaLevelRef", "uint8_t", "1", "Boolean", "Sets altitude reference." },
 };
 
-inline constexpr Field FIELDS_225[] = {
+inline constexpr Field FIELDS_MSP2_INAV_GPS_UBLOX_COMMAND[] = {
   { "ubxCommand", "uint8_t[]", "Variable (>= 8)", "", "Raw U-Blox UBX protocol command frame (including header, class, ID, length, payload, checksum)." },
 };
 
-inline constexpr Field FIELDS_226[] = {
+inline constexpr Field FIELDS_MSP2_INAV_RATE_DYNAMICS[] = {
   { "sensitivityCenter", "uint8_t", "1", "%", "Sensitivity at stick center (currentControlRateProfile->rateDynamics.sensitivityCenter)." },
   { "sensitivityEnd", "uint8_t", "1", "%", "Sensitivity at stick ends (currentControlRateProfile->rateDynamics.sensitivityEnd)." },
   { "correctionCenter", "uint8_t", "1", "%", "Correction strength at stick center (currentControlRateProfile->rateDynamics.correctionCenter)." },
@@ -1752,7 +1772,7 @@ inline constexpr Field FIELDS_226[] = {
   { "weightEnd", "uint8_t", "1", "%", "Transition weight at stick ends (currentControlRateProfile->rateDynamics.weightEnd)." },
 };
 
-inline constexpr Field FIELDS_227[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SET_RATE_DYNAMICS[] = {
   { "sensitivityCenter", "uint8_t", "1", "%", "Sets sensitivity at center." },
   { "sensitivityEnd", "uint8_t", "1", "%", "Sets sensitivity at ends." },
   { "correctionCenter", "uint8_t", "1", "%", "Sets correction at center." },
@@ -1761,7 +1781,7 @@ inline constexpr Field FIELDS_227[] = {
   { "weightEnd", "uint8_t", "1", "%", "Sets weight at ends." },
 };
 
-inline constexpr Field FIELDS_228[] = {
+inline constexpr Field FIELDS_MSP2_INAV_EZ_TUNE[] = {
   { "enabled", "uint8_t", "1", "", "Boolean: 1 if EZ-Tune is enabled (ezTune()->enabled)." },
   { "filterHz", "uint16_t", "2", "", "Filter frequency used during tuning (ezTune()->filterHz)." },
   { "axisRatio", "uint8_t", "1", "", "Roll vs Pitch axis tuning ratio (ezTune()->axisRatio)." },
@@ -1774,7 +1794,7 @@ inline constexpr Field FIELDS_228[] = {
   { "snappiness", "uint8_t", "1", "", "Snappiness preference (ezTune()->snappiness)." },
 };
 
-inline constexpr Field FIELDS_229[] = {
+inline constexpr Field FIELDS_MSP2_INAV_EZ_TUNE_SET[] = {
   { "enabled", "uint8_t", "1", "", "Sets enabled state." },
   { "filterHz", "uint16_t", "2", "", "Sets filter frequency." },
   { "axisRatio", "uint8_t", "1", "", "Sets axis ratio." },
@@ -1787,11 +1807,11 @@ inline constexpr Field FIELDS_229[] = {
   { "snappiness", "uint8_t", "1", "", "(Optional) Sets snappiness preference." },
 };
 
-inline constexpr Field FIELDS_230[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SELECT_MIXER_PROFILE[] = {
   { "mixerProfileIndex", "uint8_t", "1", "", "Index of the mixer profile to activate (0-based)." },
 };
 
-inline constexpr Field FIELDS_231[] = {
+inline constexpr Field FIELDS_MSP2_ADSB_VEHICLE_LIST[] = {
   { "maxVehicles", "uint8_t", "1", "", "Maximum number of vehicles tracked (MAX_ADSB_VEHICLES). 0 if USE_ADSB disabled." },
   { "callsignLength", "uint8_t", "1", "", "Maximum length of callsign string (ADSB_CALL_SIGN_MAX_LENGTH). 0 if USE_ADSB disabled." },
   { "totalVehicleMsgs", "uint32_t", "4", "", "Total vehicle messages received (getAdsbStatus()->vehiclesMessagesTotal). 0 if USE_ADSB disabled." },
@@ -1808,13 +1828,13 @@ inline constexpr Field FIELDS_231[] = {
   { "ttl", "uint8_t", "1", "", "Time-to-live counter for this entry." },
 };
 
-inline constexpr Field FIELDS_232[] = {
+inline constexpr Field FIELDS_MSP2_INAV_CUSTOM_OSD_ELEMENTS[] = {
   { "maxElements", "uint8_t", "1", "", "Maximum number of custom elements (MAX_CUSTOM_ELEMENTS)." },
   { "maxTextLength", "uint8_t", "1", "", "Maximum length of the text part (OSD_CUSTOM_ELEMENT_TEXT_SIZE - 1)." },
   { "maxParts", "uint8_t", "1", "", "Maximum number of parts per element (CUSTOM_ELEMENTS_PARTS)." },
 };
 
-inline constexpr Field FIELDS_233[] = {
+inline constexpr Field FIELDS_MSP2_INAV_CUSTOM_OSD_ELEMENT[] = {
   { "elementIndex", "uint8_t", "1", "", "Index of the custom element (0 to MAX_CUSTOM_ELEMENTS - 1)." },
   { "Parts Data (Repeated CUSTOM_ELEMENTS_PARTS times):", "", "", "", "" },
   { "partType", "uint8_t", "1", "", "Enum (customElementType_e): Type of this part (Text, Variable, Symbol)." },
@@ -1826,7 +1846,7 @@ inline constexpr Field FIELDS_233[] = {
   { "elementText", "char[OSD_CUSTOM_ELEMENT_TEXT_SIZE - 1]", "OSD_CUSTOM_ELEMENT_TEXT_SIZE - 1", "", "Static text part of the element (null padding likely)." },
 };
 
-inline constexpr Field FIELDS_234[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SET_CUSTOM_OSD_ELEMENTS[] = {
   { "elementIndex", "uint8_t", "1", "", "Index of the custom element (0 to MAX_CUSTOM_ELEMENTS - 1)." },
   { "Parts Data (Repeated CUSTOM_ELEMENTS_PARTS times):", "", "", "", "" },
   { "partType", "uint8_t", "1", "", "Enum (customElementType_e): Type of this part." },
@@ -1838,20 +1858,20 @@ inline constexpr Field FIELDS_234[] = {
   { "elementText", "char[OSD_CUSTOM_ELEMENT_TEXT_SIZE - 1]", "OSD_CUSTOM_ELEMENT_TEXT_SIZE - 1", "", "Static text part of the element." },
 };
 
-inline constexpr Field FIELDS_235[] = {
+inline constexpr Field FIELDS_MSP2_INAV_OUTPUT_MAPPING_EXT2[] = {
   { "timerId", "uint8_t", "1", "", "Hardware timer identifier (e.g., TIM1, TIM2). SITL uses index." },
   { "usageFlags", "uint32_t", "4", "", "Full 32-bit timer usage flags (TIM_USE_)." },
   { "pinLabel", "uint8_t", "1", "", "Label for special pin usage (PIN_LABEL_ enum, e.g., PIN_LABEL_LED). 0 (PIN_LABEL_NONE) otherwise." },
 };
 
-inline constexpr Field FIELDS_236[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SERVO_CONFIG[] = {
   { "min", "uint16_t", "2", "PWM", "Minimum servo endpoint (servoParams(i)->min)." },
   { "max", "uint16_t", "2", "PWM", "Maximum servo endpoint (servoParams(i)->max)." },
   { "middle", "uint16_t", "2", "PWM", "Middle/Neutral servo position (servoParams(i)->middle)." },
   { "rate", "uint8_t", "1", "% (-100 to 100)", "Servo rate/scaling (servoParams(i)->rate)." },
 };
 
-inline constexpr Field FIELDS_237[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SET_SERVO_CONFIG[] = {
   { "servoIndex", "uint8_t", "1", "Index", "Index of the servo to configure (0 to MAX_SUPPORTED_SERVOS - 1)." },
   { "min", "uint16_t", "2", "PWM", "Sets minimum servo endpoint." },
   { "max", "uint16_t", "2", "PWM", "Sets maximum servo endpoint." },
@@ -1859,7 +1879,7 @@ inline constexpr Field FIELDS_237[] = {
   { "rate", "uint8_t", "1", "%", "Sets servo rate/scaling." },
 };
 
-inline constexpr Field FIELDS_238[] = {
+inline constexpr Field FIELDS_MSP2_INAV_GEOZONE[] = {
   { "geozoneIndex", "uint8_t", "1", "", "Index of the geozone (0 to MAX_GEOZONES_IN_CONFIG - 1)." },
   { "geozoneIndex", "uint8_t", "1", "", "Index requested." },
   { "type", "uint8_t", "1", "", "Enum (GEOZONE_TYPE_): Zone type (Inclusion/Exclusion)." },
@@ -1871,7 +1891,7 @@ inline constexpr Field FIELDS_238[] = {
   { "vertexCount", "uint8_t", "1", "", "Number of vertices defined for this zone." },
 };
 
-inline constexpr Field FIELDS_239[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SET_GEOZONE[] = {
   { "geozoneIndex", "uint8_t", "1", "", "Index of the geozone (0 to MAX_GEOZONES_IN_CONFIG - 1)." },
   { "type", "uint8_t", "1", "", "Enum (GEOZONE_TYPE_): Zone type." },
   { "shape", "uint8_t", "1", "", "Enum (GEOZONE_SHAPE_): Zone shape." },
@@ -1882,7 +1902,7 @@ inline constexpr Field FIELDS_239[] = {
   { "vertexCount", "uint8_t", "1", "", "Number of vertices to be defined (used for validation later)." },
 };
 
-inline constexpr Field FIELDS_240[] = {
+inline constexpr Field FIELDS_MSP2_INAV_GEOZONE_VERTEX[] = {
   { "geozoneIndex", "uint8_t", "1", "", "Index of the geozone." },
   { "vertexId", "uint8_t", "1", "", "Index of the vertex within the zone (0-based). For circles, 0 = center." },
   { "geozoneIndex", "uint8_t", "1", "Index", "Geozone index requested." },
@@ -1896,7 +1916,7 @@ inline constexpr Field FIELDS_240[] = {
   { "radius", "uint32_t", "4", "cm", "Radius of the circular zone." },
 };
 
-inline constexpr Field FIELDS_241[] = {
+inline constexpr Field FIELDS_MSP2_INAV_SET_GEOZONE_VERTEX[] = {
   { "geozoneIndex", "uint8_t", "1", "Index", "Geozone index." },
   { "vertexId", "uint8_t", "1", "Index", "Vertex index (0-based)." },
   { "latitude", "int32_t", "4", "deg 1e7", "Vertex latitude." },
@@ -1909,248 +1929,250 @@ inline constexpr Field FIELDS_241[] = {
 };
 
 inline constexpr Message REGISTRY[] = {
-  { "MSP_API_VERSION", 1u, "0x01", Direction::Out, "Provides the MSP protocol version and the INAV API version.", FIELDS_0, 3, false },
-  { "MSP_FC_VARIANT", 2u, "0x02", Direction::Out, "Identifies the flight controller firmware variant (e.g., INAV, Betaflight).", FIELDS_1, 1, false },
-  { "MSP_FC_VERSION", 3u, "0x03", Direction::Out, "Provides the specific version number of the flight controller firmware.", FIELDS_2, 3, false },
-  { "MSP_BOARD_INFO", 4u, "0x04", Direction::Out, "Provides information about the specific hardware board and its capabilities.", FIELDS_3, 6, true },
-  { "MSP_BUILD_INFO", 5u, "0x05", Direction::Out, "Provides build date, time, and Git revision of the firmware.", FIELDS_4, 3, false },
-  { "MSP_INAV_PID", 6u, "0x06", Direction::Out, "Retrieves legacy INAV-specific PID controller related settings. Many fields are now obsolete or placeholders.", FIELDS_5, 12, false },
-  { "MSP_SET_INAV_PID", 7u, "0x07", Direction::In, "Sets legacy INAV-specific PID controller related settings.", FIELDS_6, 12, false },
-  { "MSP_NAME", 10u, "0x0a", Direction::Out, "Returns the user-defined craft name.", FIELDS_7, 1, true },
-  { "MSP_SET_NAME", 11u, "0x0b", Direction::In, "Sets the user-defined craft name.", FIELDS_8, 1, true },
-  { "MSP_NAV_POSHOLD", 12u, "0x0c", Direction::Out, "Retrieves navigation position hold and general manual/auto flight parameters. Some parameters depend on the platform type (Multirotor vs Fixed Wing).", FIELDS_9, 8, false },
-  { "MSP_SET_NAV_POSHOLD", 13u, "0x0d", Direction::In, "Sets navigation position hold and general manual/auto flight parameters.", FIELDS_10, 8, false },
-  { "MSP_CALIBRATION_DATA", 14u, "0x0e", Direction::Out, "Retrieves sensor calibration data (Accelerometer zero/gain, Magnetometer zero/gain, Optical Flow scale).", FIELDS_11, 14, false },
-  { "MSP_SET_CALIBRATION_DATA", 15u, "0x0f", Direction::In, "Sets sensor calibration data.", FIELDS_12, 13, false },
-  { "MSP_POSITION_ESTIMATION_CONFIG", 16u, "0x10", Direction::Out, "Retrieves parameters related to the INAV position estimation fusion weights and GPS minimum satellite count.", FIELDS_13, 7, false },
-  { "MSP_SET_POSITION_ESTIMATION_CONFIG", 17u, "0x11", Direction::In, "Sets parameters related to the INAV position estimation fusion weights and GPS minimum satellite count.", FIELDS_14, 7, false },
-  { "MSP_WP_MISSION_LOAD", 18u, "0x12", Direction::In, "Commands the FC to load the waypoint mission stored in non-volatile memory (e.g., EEPROM or FlashFS) into the active mission buffer.", FIELDS_15, 1, false },
-  { "MSP_WP_MISSION_SAVE", 19u, "0x13", Direction::In, "Commands the FC to save the currently active waypoint mission from RAM to non-volatile memory (e.g., EEPROM or FlashFS).", FIELDS_16, 1, false },
-  { "MSP_WP_GETINFO", 20u, "0x14", Direction::Out, "Retrieves information about the waypoint mission capabilities and the status of the currently loaded mission.", FIELDS_17, 4, false },
-  { "MSP_RTH_AND_LAND_CONFIG", 21u, "0x15", Direction::Out, "Retrieves configuration parameters related to Return-to-Home (RTH) and automatic landing behaviors.", FIELDS_18, 13, false },
-  { "MSP_SET_RTH_AND_LAND_CONFIG", 22u, "0x16", Direction::In, "Sets configuration parameters related to Return-to-Home (RTH) and automatic landing behaviors.", FIELDS_19, 13, false },
-  { "MSP_FW_CONFIG", 23u, "0x17", Direction::Out, "Retrieves configuration parameters specific to Fixed Wing navigation.", FIELDS_20, 8, false },
-  { "MSP_SET_FW_CONFIG", 24u, "0x18", Direction::In, "Sets configuration parameters specific to Fixed Wing navigation.", FIELDS_21, 8, false },
-  { "MSP_MODE_RANGES", 34u, "0x22", Direction::Out, "Returns all defined mode activation ranges (aux channel assignments for flight modes).", FIELDS_22, 4, false },
-  { "MSP_SET_MODE_RANGE", 35u, "0x23", Direction::In, "Sets a single mode activation range by its index.", FIELDS_23, 5, false },
-  { "MSP_FEATURE", 36u, "0x24", Direction::Out, "Returns a bitmask of enabled features.", FIELDS_24, 1, false },
-  { "MSP_SET_FEATURE", 37u, "0x25", Direction::In, "Sets the enabled features using a bitmask. Clears all previous features first.", FIELDS_25, 1, false },
-  { "MSP_BOARD_ALIGNMENT", 38u, "0x26", Direction::Out, "Returns the sensor board alignment angles relative to the craft frame.", FIELDS_26, 3, false },
-  { "MSP_SET_BOARD_ALIGNMENT", 39u, "0x27", Direction::In, "Sets the sensor board alignment angles.", FIELDS_27, 3, false },
-  { "MSP_CURRENT_METER_CONFIG", 40u, "0x28", Direction::Out, "Retrieves the configuration for the current sensor.", FIELDS_28, 4, false },
-  { "MSP_SET_CURRENT_METER_CONFIG", 41u, "0x29", Direction::In, "Sets the configuration for the current sensor.", FIELDS_29, 4, false },
-  { "MSP_MIXER", 42u, "0x2a", Direction::Out, "Retrieves the mixer type (Legacy, INAV always returns QuadX).", FIELDS_30, 1, false },
-  { "MSP_SET_MIXER", 43u, "0x2b", Direction::In, "Sets the mixer type (Legacy, ignored by INAV).", FIELDS_31, 1, false },
-  { "MSP_RX_CONFIG", 44u, "0x2c", Direction::Out, "Retrieves receiver configuration settings. Some fields are Betaflight compatibility placeholders.", FIELDS_32, 15, false },
-  { "MSP_SET_RX_CONFIG", 45u, "0x2d", Direction::In, "Sets receiver configuration settings.", FIELDS_33, 15, false },
-  { "MSP_LED_COLORS", 46u, "0x2e", Direction::Out, "Retrieves the HSV color definitions for configurable LED colors.", FIELDS_34, 3, false },
-  { "MSP_SET_LED_COLORS", 47u, "0x2f", Direction::In, "Sets the HSV color definitions for configurable LED colors.", FIELDS_35, 3, false },
-  { "MSP_LED_STRIP_CONFIG", 48u, "0x30", Direction::Out, "Retrieves the configuration for each LED on the strip (legacy packed format).", FIELDS_36, 1, false },
-  { "MSP_SET_LED_STRIP_CONFIG", 49u, "0x31", Direction::In, "Sets the configuration for a single LED on the strip using the legacy packed format.", FIELDS_37, 2, false },
-  { "MSP_RSSI_CONFIG", 50u, "0x32", Direction::Out, "Retrieves the channel used for analog RSSI input.", FIELDS_38, 1, false },
-  { "MSP_SET_RSSI_CONFIG", 51u, "0x33", Direction::In, "Sets the channel used for analog RSSI input.", FIELDS_39, 1, false },
-  { "MSP_ADJUSTMENT_RANGES", 52u, "0x34", Direction::Out, "Returns all defined RC adjustment ranges (tuning via aux channels).", FIELDS_40, 6, false },
-  { "MSP_SET_ADJUSTMENT_RANGE", 53u, "0x35", Direction::In, "Sets a single RC adjustment range configuration by its index.", FIELDS_41, 7, false },
+  { "MSP_API_VERSION", 1u, "0x01", Direction::Out, "Provides the MSP protocol version and the INAV API version.", FIELDS_MSP_API_VERSION, 3, false },
+  { "MSP_FC_VARIANT", 2u, "0x02", Direction::Out, "Identifies the flight controller firmware variant (e.g., INAV, Betaflight).", FIELDS_MSP_FC_VARIANT, 1, false },
+  { "MSP_FC_VERSION", 3u, "0x03", Direction::Out, "Provides the specific version number of the flight controller firmware.", FIELDS_MSP_FC_VERSION, 3, false },
+  { "MSP_BOARD_INFO", 4u, "0x04", Direction::Out, "Provides information about the specific hardware board and its capabilities.", FIELDS_MSP_BOARD_INFO, 6, true },
+  { "MSP_BUILD_INFO", 5u, "0x05", Direction::Out, "Provides build date, time, and Git revision of the firmware.", FIELDS_MSP_BUILD_INFO, 3, false },
+  { "MSP_INAV_PID", 6u, "0x06", Direction::Out, "Retrieves legacy INAV-specific PID controller related settings. Many fields are now obsolete or placeholders.", FIELDS_MSP_INAV_PID, 12, false },
+  { "MSP_SET_INAV_PID", 7u, "0x07", Direction::In, "Sets legacy INAV-specific PID controller related settings.", FIELDS_MSP_SET_INAV_PID, 12, false },
+  { "MSP_NAME", 10u, "0x0a", Direction::Out, "Returns the user-defined craft name.", FIELDS_MSP_NAME, 1, true },
+  { "MSP_SET_NAME", 11u, "0x0b", Direction::In, "Sets the user-defined craft name.", FIELDS_MSP_SET_NAME, 1, true },
+  { "MSP_NAV_POSHOLD", 12u, "0x0c", Direction::Out, "Retrieves navigation position hold and general manual/auto flight parameters. Some parameters depend on the platform type (Multirotor vs Fixed Wing).", FIELDS_MSP_NAV_POSHOLD, 8, false },
+  { "MSP_SET_NAV_POSHOLD", 13u, "0x0d", Direction::In, "Sets navigation position hold and general manual/auto flight parameters.", FIELDS_MSP_SET_NAV_POSHOLD, 8, false },
+  { "MSP_CALIBRATION_DATA", 14u, "0x0e", Direction::Out, "Retrieves sensor calibration data (Accelerometer zero/gain, Magnetometer zero/gain, Optical Flow scale).", FIELDS_MSP_CALIBRATION_DATA, 14, false },
+  { "MSP_SET_CALIBRATION_DATA", 15u, "0x0f", Direction::In, "Sets sensor calibration data.", FIELDS_MSP_SET_CALIBRATION_DATA, 13, false },
+  { "MSP_POSITION_ESTIMATION_CONFIG", 16u, "0x10", Direction::Out, "Retrieves parameters related to the INAV position estimation fusion weights and GPS minimum satellite count.", FIELDS_MSP_POSITION_ESTIMATION_CONFIG, 7, false },
+  { "MSP_SET_POSITION_ESTIMATION_CONFIG", 17u, "0x11", Direction::In, "Sets parameters related to the INAV position estimation fusion weights and GPS minimum satellite count.", FIELDS_MSP_SET_POSITION_ESTIMATION_CONFIG, 7, false },
+  { "MSP_WP_MISSION_LOAD", 18u, "0x12", Direction::In, "Commands the FC to load the waypoint mission stored in non-volatile memory (e.g., EEPROM or FlashFS) into the active mission buffer.", FIELDS_MSP_WP_MISSION_LOAD, 1, false },
+  { "MSP_WP_MISSION_SAVE", 19u, "0x13", Direction::In, "Commands the FC to save the currently active waypoint mission from RAM to non-volatile memory (e.g., EEPROM or FlashFS).", FIELDS_MSP_WP_MISSION_SAVE, 1, false },
+  { "MSP_WP_GETINFO", 20u, "0x14", Direction::Out, "Retrieves information about the waypoint mission capabilities and the status of the currently loaded mission.", FIELDS_MSP_WP_GETINFO, 4, false },
+  { "MSP_RTH_AND_LAND_CONFIG", 21u, "0x15", Direction::Out, "Retrieves configuration parameters related to Return-to-Home (RTH) and automatic landing behaviors.", FIELDS_MSP_RTH_AND_LAND_CONFIG, 13, false },
+  { "MSP_SET_RTH_AND_LAND_CONFIG", 22u, "0x16", Direction::In, "Sets configuration parameters related to Return-to-Home (RTH) and automatic landing behaviors.", FIELDS_MSP_SET_RTH_AND_LAND_CONFIG, 13, false },
+  { "MSP_FW_CONFIG", 23u, "0x17", Direction::Out, "Retrieves configuration parameters specific to Fixed Wing navigation.", FIELDS_MSP_FW_CONFIG, 8, false },
+  { "MSP_SET_FW_CONFIG", 24u, "0x18", Direction::In, "Sets configuration parameters specific to Fixed Wing navigation.", FIELDS_MSP_SET_FW_CONFIG, 8, false },
+  { "MSP_MODE_RANGES", 34u, "0x22", Direction::Out, "Returns all defined mode activation ranges (aux channel assignments for flight modes).", FIELDS_MSP_MODE_RANGES, 4, false },
+  { "MSP_SET_MODE_RANGE", 35u, "0x23", Direction::In, "Sets a single mode activation range by its index.", FIELDS_MSP_SET_MODE_RANGE, 5, false },
+  { "MSP_FEATURE", 36u, "0x24", Direction::Out, "Returns a bitmask of enabled features.", FIELDS_MSP_FEATURE, 1, false },
+  { "MSP_SET_FEATURE", 37u, "0x25", Direction::In, "Sets the enabled features using a bitmask. Clears all previous features first.", FIELDS_MSP_SET_FEATURE, 1, false },
+  { "MSP_BOARD_ALIGNMENT", 38u, "0x26", Direction::Out, "Returns the sensor board alignment angles relative to the craft frame.", FIELDS_MSP_BOARD_ALIGNMENT, 3, false },
+  { "MSP_SET_BOARD_ALIGNMENT", 39u, "0x27", Direction::In, "Sets the sensor board alignment angles.", FIELDS_MSP_SET_BOARD_ALIGNMENT, 3, false },
+  { "MSP_CURRENT_METER_CONFIG", 40u, "0x28", Direction::Out, "Retrieves the configuration for the current sensor.", FIELDS_MSP_CURRENT_METER_CONFIG, 4, false },
+  { "MSP_SET_CURRENT_METER_CONFIG", 41u, "0x29", Direction::In, "Sets the configuration for the current sensor.", FIELDS_MSP_SET_CURRENT_METER_CONFIG, 4, false },
+  { "MSP_MIXER", 42u, "0x2a", Direction::Out, "Retrieves the mixer type (Legacy, INAV always returns QuadX).", FIELDS_MSP_MIXER, 1, false },
+  { "MSP_SET_MIXER", 43u, "0x2b", Direction::In, "Sets the mixer type (Legacy, ignored by INAV).", FIELDS_MSP_SET_MIXER, 1, false },
+  { "MSP_RX_CONFIG", 44u, "0x2c", Direction::Out, "Retrieves receiver configuration settings. Some fields are Betaflight compatibility placeholders.", FIELDS_MSP_RX_CONFIG, 15, false },
+  { "MSP_SET_RX_CONFIG", 45u, "0x2d", Direction::In, "Sets receiver configuration settings.", FIELDS_MSP_SET_RX_CONFIG, 15, false },
+  { "MSP_LED_COLORS", 46u, "0x2e", Direction::Out, "Retrieves the HSV color definitions for configurable LED colors.", FIELDS_MSP_LED_COLORS, 3, false },
+  { "MSP_SET_LED_COLORS", 47u, "0x2f", Direction::In, "Sets the HSV color definitions for configurable LED colors.", FIELDS_MSP_SET_LED_COLORS, 3, false },
+  { "MSP_LED_STRIP_CONFIG", 48u, "0x30", Direction::Out, "Retrieves the configuration for each LED on the strip (legacy packed format).", FIELDS_MSP_LED_STRIP_CONFIG, 1, false },
+  { "MSP_SET_LED_STRIP_CONFIG", 49u, "0x31", Direction::In, "Sets the configuration for a single LED on the strip using the legacy packed format.", FIELDS_MSP_SET_LED_STRIP_CONFIG, 2, false },
+  { "MSP_RSSI_CONFIG", 50u, "0x32", Direction::Out, "Retrieves the channel used for analog RSSI input.", FIELDS_MSP_RSSI_CONFIG, 1, false },
+  { "MSP_SET_RSSI_CONFIG", 51u, "0x33", Direction::In, "Sets the channel used for analog RSSI input.", FIELDS_MSP_SET_RSSI_CONFIG, 1, false },
+  { "MSP_ADJUSTMENT_RANGES", 52u, "0x34", Direction::Out, "Returns all defined RC adjustment ranges (tuning via aux channels).", FIELDS_MSP_ADJUSTMENT_RANGES, 6, false },
+  { "MSP_SET_ADJUSTMENT_RANGE", 53u, "0x35", Direction::In, "Sets a single RC adjustment range configuration by its index.", FIELDS_MSP_SET_ADJUSTMENT_RANGE, 7, false },
   { "MSP_CF_SERIAL_CONFIG", 54u, "0x36", Direction::Out, "Deprecated command to get serial port configuration.", nullptr, 0, false },
   { "MSP_SET_CF_SERIAL_CONFIG", 55u, "0x37", Direction::In, "Deprecated command to set serial port configuration.", nullptr, 0, false },
-  { "MSP_VOLTAGE_METER_CONFIG", 56u, "0x38", Direction::Out, "Retrieves legacy voltage meter configuration (scaled values).", FIELDS_44, 4, false },
-  { "MSP_SET_VOLTAGE_METER_CONFIG", 57u, "0x39", Direction::In, "Sets legacy voltage meter configuration (scaled values).", FIELDS_45, 4, false },
-  { "MSP_SONAR_ALTITUDE", 58u, "0x3a", Direction::Out, "Retrieves the altitude measured by the primary rangefinder (sonar or lidar).", FIELDS_46, 1, false },
-  { "MSP_RX_MAP", 64u, "0x40", Direction::Out, "Retrieves the RC channel mapping array (AETR, etc.).", FIELDS_47, 1, true },
-  { "MSP_SET_RX_MAP", 65u, "0x41", Direction::In, "Sets the RC channel mapping array.", FIELDS_48, 1, true },
+  { "MSP_VOLTAGE_METER_CONFIG", 56u, "0x38", Direction::Out, "Retrieves legacy voltage meter configuration (scaled values).", FIELDS_MSP_VOLTAGE_METER_CONFIG, 4, false },
+  { "MSP_SET_VOLTAGE_METER_CONFIG", 57u, "0x39", Direction::In, "Sets legacy voltage meter configuration (scaled values).", FIELDS_MSP_SET_VOLTAGE_METER_CONFIG, 4, false },
+  { "MSP_SONAR_ALTITUDE", 58u, "0x3a", Direction::Out, "Retrieves the altitude measured by the primary rangefinder (sonar or lidar).", FIELDS_MSP_SONAR_ALTITUDE, 1, false },
+  { "MSP_RX_MAP", 64u, "0x40", Direction::Out, "Retrieves the RC channel mapping array (AETR, etc.).", FIELDS_MSP_RX_MAP, 1, true },
+  { "MSP_SET_RX_MAP", 65u, "0x41", Direction::In, "Sets the RC channel mapping array.", FIELDS_MSP_SET_RX_MAP, 1, true },
   { "MSP_REBOOT", 68u, "0x44", Direction::Out, "Commands the flight controller to reboot.", nullptr, 0, false },
-  { "MSP_DATAFLASH_SUMMARY", 70u, "0x46", Direction::Out, "Retrieves summary information about the onboard dataflash chip (if present and used for Blackbox via FlashFS).", FIELDS_50, 4, false },
-  { "MSP_DATAFLASH_READ", 71u, "0x47", Direction::InOut, "Reads a block of data from the onboard dataflash (FlashFS).", FIELDS_51, 4, true },
+  { "MSP_DATAFLASH_SUMMARY", 70u, "0x46", Direction::Out, "Retrieves summary information about the onboard dataflash chip (if present and used for Blackbox via FlashFS).", FIELDS_MSP_DATAFLASH_SUMMARY, 4, false },
+  { "MSP_DATAFLASH_READ", 71u, "0x47", Direction::InOut, "Reads a block of data from the onboard dataflash (FlashFS).", FIELDS_MSP_DATAFLASH_READ, 4, true },
   { "MSP_DATAFLASH_ERASE", 72u, "0x48", Direction::In, "Erases the entire onboard dataflash chip (FlashFS volume).", nullptr, 0, false },
-  { "MSP_LOOP_TIME", 73u, "0x49", Direction::Out, "Retrieves the configured loop time (PID loop frequency denominator).", FIELDS_53, 1, false },
-  { "MSP_SET_LOOP_TIME", 74u, "0x4a", Direction::In, "Sets the configured loop time.", FIELDS_54, 1, false },
-  { "MSP_FAILSAFE_CONFIG", 75u, "0x4b", Direction::Out, "Retrieves the failsafe configuration settings.", FIELDS_55, 13, false },
-  { "MSP_SET_FAILSAFE_CONFIG", 76u, "0x4c", Direction::In, "Sets the failsafe configuration settings.", FIELDS_56, 13, false },
-  { "MSP_SDCARD_SUMMARY", 79u, "0x4f", Direction::Out, "Retrieves summary information about the SD card status and filesystem.", FIELDS_57, 5, false },
-  { "MSP_BLACKBOX_CONFIG", 80u, "0x50", Direction::Out, "Legacy command to retrieve Blackbox configuration. Superseded by MSP2_BLACKBOX_CONFIG.", FIELDS_58, 4, false },
+  { "MSP_LOOP_TIME", 73u, "0x49", Direction::Out, "Retrieves the configured loop time (PID loop frequency denominator).", FIELDS_MSP_LOOP_TIME, 1, false },
+  { "MSP_SET_LOOP_TIME", 74u, "0x4a", Direction::In, "Sets the configured loop time.", FIELDS_MSP_SET_LOOP_TIME, 1, false },
+  { "MSP_FAILSAFE_CONFIG", 75u, "0x4b", Direction::Out, "Retrieves the failsafe configuration settings.", FIELDS_MSP_FAILSAFE_CONFIG, 13, false },
+  { "MSP_SET_FAILSAFE_CONFIG", 76u, "0x4c", Direction::In, "Sets the failsafe configuration settings.", FIELDS_MSP_SET_FAILSAFE_CONFIG, 13, false },
+  { "MSP_SDCARD_SUMMARY", 79u, "0x4f", Direction::Out, "Retrieves summary information about the SD card status and filesystem.", FIELDS_MSP_SDCARD_SUMMARY, 5, false },
+  { "MSP_BLACKBOX_CONFIG", 80u, "0x50", Direction::Out, "Legacy command to retrieve Blackbox configuration. Superseded by MSP2_BLACKBOX_CONFIG.", FIELDS_MSP_BLACKBOX_CONFIG, 4, false },
   { "MSP_SET_BLACKBOX_CONFIG", 81u, "0x51", Direction::In, "Legacy command to set Blackbox configuration. Superseded by MSP2_SET_BLACKBOX_CONFIG.", nullptr, 0, false },
   { "MSP_TRANSPONDER_CONFIG", 82u, "0x52", Direction::Out, "Get VTX Transponder settings (likely specific to RaceFlight/Betaflight, not standard INAV VTX).", nullptr, 0, false },
   { "MSP_SET_TRANSPONDER_CONFIG", 83u, "0x53", Direction::In, "Set VTX Transponder settings.", nullptr, 0, false },
-  { "MSP_OSD_CONFIG", 84u, "0x54", Direction::Out, "Retrieves OSD configuration settings and layout for screen 0.", FIELDS_62, 10, true },
-  { "MSP_SET_OSD_CONFIG", 85u, "0x55", Direction::In, "Sets OSD configuration or a single item's position on screen 0.", FIELDS_63, 10, false },
+  { "MSP_OSD_CONFIG", 84u, "0x54", Direction::Out, "Retrieves OSD configuration settings and layout for screen 0.", FIELDS_MSP_OSD_CONFIG, 10, true },
+  { "MSP_SET_OSD_CONFIG", 85u, "0x55", Direction::In, "Sets OSD configuration or a single item's position on screen 0.", FIELDS_MSP_SET_OSD_CONFIG, 10, false },
   { "MSP_OSD_CHAR_READ", 86u, "0x56", Direction::Out, "Reads character data from the OSD font memory.", nullptr, 0, false },
-  { "MSP_OSD_CHAR_WRITE", 87u, "0x57", Direction::In, "Writes character data to the OSD font memory.", FIELDS_65, 2, true },
-  { "MSP_VTX_CONFIG", 88u, "0x58", Direction::Out, "Retrieves the current VTX (Video Transmitter) configuration and capabilities.", FIELDS_66, 11, false },
-  { "MSP_SET_VTX_CONFIG", 89u, "0x59", Direction::In, "Sets the VTX configuration (band, channel, power, pit mode). Supports multiple protocol versions/extensions based on payload size.", FIELDS_67, 11, false },
-  { "MSP_ADVANCED_CONFIG", 90u, "0x5a", Direction::Out, "Retrieves advanced hardware-related configuration (PWM protocols, rates). Some fields are BF compatibility placeholders.", FIELDS_68, 7, false },
-  { "MSP_SET_ADVANCED_CONFIG", 91u, "0x5b", Direction::In, "Sets advanced hardware-related configuration (PWM protocols, rates).", FIELDS_69, 7, false },
-  { "MSP_FILTER_CONFIG", 92u, "0x5c", Direction::Out, "Retrieves filter configuration settings (Gyro, D-term, Yaw, Accel). Some fields are BF compatibility placeholders or legacy.", FIELDS_70, 12, false },
-  { "MSP_SET_FILTER_CONFIG", 93u, "0x5d", Direction::In, "Sets filter configuration settings. Handles different payload lengths for backward compatibility.", FIELDS_71, 12, false },
-  { "MSP_PID_ADVANCED", 94u, "0x5e", Direction::Out, "Retrieves advanced PID tuning parameters. Many fields are BF compatibility placeholders.", FIELDS_72, 11, false },
-  { "MSP_SET_PID_ADVANCED", 95u, "0x5f", Direction::In, "Sets advanced PID tuning parameters.", FIELDS_73, 11, false },
-  { "MSP_SENSOR_CONFIG", 96u, "0x60", Direction::Out, "Retrieves the configured hardware type for various sensors.", FIELDS_74, 6, false },
-  { "MSP_SET_SENSOR_CONFIG", 97u, "0x61", Direction::In, "Sets the configured hardware type for various sensors.", FIELDS_75, 6, false },
+  { "MSP_OSD_CHAR_WRITE", 87u, "0x57", Direction::In, "Writes character data to the OSD font memory.", FIELDS_MSP_OSD_CHAR_WRITE, 2, true },
+  { "MSP_VTX_CONFIG", 88u, "0x58", Direction::Out, "Retrieves the current VTX (Video Transmitter) configuration and capabilities.", FIELDS_MSP_VTX_CONFIG, 11, false },
+  { "MSP_SET_VTX_CONFIG", 89u, "0x59", Direction::In, "Sets the VTX configuration (band, channel, power, pit mode). Supports multiple protocol versions/extensions based on payload size.", FIELDS_MSP_SET_VTX_CONFIG, 11, false },
+  { "MSP_ADVANCED_CONFIG", 90u, "0x5a", Direction::Out, "Retrieves advanced hardware-related configuration (PWM protocols, rates). Some fields are BF compatibility placeholders.", FIELDS_MSP_ADVANCED_CONFIG, 7, false },
+  { "MSP_SET_ADVANCED_CONFIG", 91u, "0x5b", Direction::In, "Sets advanced hardware-related configuration (PWM protocols, rates).", FIELDS_MSP_SET_ADVANCED_CONFIG, 7, false },
+  { "MSP_FILTER_CONFIG", 92u, "0x5c", Direction::Out, "Retrieves filter configuration settings (Gyro, D-term, Yaw, Accel). Some fields are BF compatibility placeholders or legacy.", FIELDS_MSP_FILTER_CONFIG, 12, false },
+  { "MSP_SET_FILTER_CONFIG", 93u, "0x5d", Direction::In, "Sets filter configuration settings. Handles different payload lengths for backward compatibility.", FIELDS_MSP_SET_FILTER_CONFIG, 12, false },
+  { "MSP_PID_ADVANCED", 94u, "0x5e", Direction::Out, "Retrieves advanced PID tuning parameters. Many fields are BF compatibility placeholders.", FIELDS_MSP_PID_ADVANCED, 11, false },
+  { "MSP_SET_PID_ADVANCED", 95u, "0x5f", Direction::In, "Sets advanced PID tuning parameters.", FIELDS_MSP_SET_PID_ADVANCED, 11, false },
+  { "MSP_SENSOR_CONFIG", 96u, "0x60", Direction::Out, "Retrieves the configured hardware type for various sensors.", FIELDS_MSP_SENSOR_CONFIG, 6, false },
+  { "MSP_SET_SENSOR_CONFIG", 97u, "0x61", Direction::In, "Sets the configured hardware type for various sensors.", FIELDS_MSP_SET_SENSOR_CONFIG, 6, false },
   { "MSP_SPECIAL_PARAMETERS", 98u, "0x62", Direction::Out, "Betaflight specific, likely unused/unimplemented in INAV.", nullptr, 0, false },
   { "MSP_SET_SPECIAL_PARAMETERS", 99u, "0x63", Direction::In, "Betaflight specific, likely unused/unimplemented in INAV.", nullptr, 0, false },
-  { "MSP_IDENT", 100u, "0x64", Direction::Out, "Provides basic flight controller identity information. Not implemented in modern INAV, but used by legacy versions and MultiWii.", FIELDS_78, 3, false },
-  { "MSP_STATUS", 101u, "0x65", Direction::Out, "Provides basic flight controller status including cycle time, errors, sensor status, active modes (first 32), and the current configuration profile.", FIELDS_79, 5, false },
-  { "MSP_RAW_IMU", 102u, "0x66", Direction::Out, "Provides raw sensor readings from the IMU (Accelerometer, Gyroscope, Magnetometer).", FIELDS_80, 9, false },
-  { "MSP_SERVO", 103u, "0x67", Direction::Out, "Provides the current output values for all supported servos.", FIELDS_81, 1, true },
-  { "MSP_MOTOR", 104u, "0x68", Direction::Out, "Provides the current output values for the first 8 motors.", FIELDS_82, 1, false },
-  { "MSP_RC", 105u, "0x69", Direction::Out, "Provides the current values of the received RC channels.", FIELDS_83, 1, true },
-  { "MSP_RAW_GPS", 106u, "0x6a", Direction::Out, "Provides raw GPS data (fix status, coordinates, altitude, speed, course).", FIELDS_84, 8, false },
-  { "MSP_COMP_GPS", 107u, "0x6b", Direction::Out, "Provides computed GPS values: distance and direction to home.", FIELDS_85, 3, false },
-  { "MSP_ATTITUDE", 108u, "0x6c", Direction::Out, "Provides the current attitude estimate (roll, pitch, yaw).", FIELDS_86, 3, false },
-  { "MSP_ALTITUDE", 109u, "0x6d", Direction::Out, "Provides estimated altitude, vertical speed (variometer), and raw barometric altitude.", FIELDS_87, 3, false },
-  { "MSP_ANALOG", 110u, "0x6e", Direction::Out, "Provides analog sensor readings: battery voltage, current consumption (mAh), RSSI, and current draw (Amps).", FIELDS_88, 4, false },
-  { "MSP_RC_TUNING", 111u, "0x6f", Direction::Out, "Retrieves RC tuning parameters (rates, expos, TPA) for the current control rate profile.", FIELDS_89, 10, false },
-  { "MSP_ACTIVEBOXES", 113u, "0x71", Direction::Out, "Provides the full bitmask of currently active flight modes (boxes).", FIELDS_90, 1, true },
-  { "MSP_MISC", 114u, "0x72", Direction::Out, "Retrieves miscellaneous configuration settings, mostly related to RC, GPS, Mag, and Battery voltage (legacy formats).", FIELDS_91, 16, false },
-  { "MSP_BOXNAMES", 116u, "0x74", Direction::Out, "Provides a semicolon-separated string containing the names of all available flight modes (boxes).", FIELDS_92, 1, true },
-  { "MSP_PIDNAMES", 117u, "0x75", Direction::Out, "Provides a semicolon-separated string containing the names of the PID controllers.", FIELDS_93, 1, true },
-  { "MSP_WP", 118u, "0x76", Direction::InOut, "Get/Set a single waypoint from the mission plan.", FIELDS_94, 10, false },
-  { "MSP_BOXIDS", 119u, "0x77", Direction::Out, "Provides a list of permanent IDs associated with the available flight modes (boxes).", FIELDS_95, 1, true },
-  { "MSP_SERVO_CONFIGURATIONS", 120u, "0x78", Direction::Out, "Retrieves the configuration parameters for all supported servos (min, max, middle, rate). Legacy format with unused fields.", FIELDS_96, 8, false },
-  { "MSP_NAV_STATUS", 121u, "0x79", Direction::Out, "Retrieves the current status of the navigation system.", FIELDS_97, 6, false },
+  { "MSP_IDENT", 100u, "0x64", Direction::Out, "Provides basic flight controller identity information. Not implemented in modern INAV, but used by legacy versions and MultiWii.", FIELDS_MSP_IDENT, 3, false },
+  { "MSP_STATUS", 101u, "0x65", Direction::Out, "Provides basic flight controller status including cycle time, errors, sensor status, active modes (first 32), and the current configuration profile.", FIELDS_MSP_STATUS, 5, false },
+  { "MSP_RAW_IMU", 102u, "0x66", Direction::Out, "Provides raw sensor readings from the IMU (Accelerometer, Gyroscope, Magnetometer).", FIELDS_MSP_RAW_IMU, 9, false },
+  { "MSP_SERVO", 103u, "0x67", Direction::Out, "Provides the current output values for all supported servos.", FIELDS_MSP_SERVO, 1, true },
+  { "MSP_MOTOR", 104u, "0x68", Direction::Out, "Provides the current output values for the first 8 motors.", FIELDS_MSP_MOTOR, 1, false },
+  { "MSP_RC", 105u, "0x69", Direction::Out, "Provides the current values of the received RC channels.", FIELDS_MSP_RC, 1, true },
+  { "MSP_RAW_GPS", 106u, "0x6a", Direction::Out, "Provides raw GPS data (fix status, coordinates, altitude, speed, course).", FIELDS_MSP_RAW_GPS, 8, false },
+  { "MSP_COMP_GPS", 107u, "0x6b", Direction::Out, "Provides computed GPS values: distance and direction to home.", FIELDS_MSP_COMP_GPS, 3, false },
+  { "MSP_ATTITUDE", 108u, "0x6c", Direction::Out, "Provides the current attitude estimate (roll, pitch, yaw).", FIELDS_MSP_ATTITUDE, 3, false },
+  { "MSP_ALTITUDE", 109u, "0x6d", Direction::Out, "Provides estimated altitude, vertical speed (variometer), and raw barometric altitude.", FIELDS_MSP_ALTITUDE, 3, false },
+  { "MSP_ANALOG", 110u, "0x6e", Direction::Out, "Provides analog sensor readings: battery voltage, current consumption (mAh), RSSI, and current draw (Amps).", FIELDS_MSP_ANALOG, 4, false },
+  { "MSP_RC_TUNING", 111u, "0x6f", Direction::Out, "Retrieves RC tuning parameters (rates, expos, TPA) for the current control rate profile.", FIELDS_MSP_RC_TUNING, 10, false },
+  { "MSP_ACTIVEBOXES", 113u, "0x71", Direction::Out, "Provides the full bitmask of currently active flight modes (boxes).", FIELDS_MSP_ACTIVEBOXES, 1, true },
+  { "MSP_MISC", 114u, "0x72", Direction::Out, "Retrieves miscellaneous configuration settings, mostly related to RC, GPS, Mag, and Battery voltage (legacy formats).", FIELDS_MSP_MISC, 16, false },
+  { "MSP_BOXNAMES", 116u, "0x74", Direction::Out, "Provides a semicolon-separated string containing the names of all available flight modes (boxes).", FIELDS_MSP_BOXNAMES, 1, true },
+  { "MSP_PIDNAMES", 117u, "0x75", Direction::Out, "Provides a semicolon-separated string containing the names of the PID controllers.", FIELDS_MSP_PIDNAMES, 1, true },
+  { "MSP_WP", 118u, "0x76", Direction::InOut, "Get/Set a single waypoint from the mission plan.", FIELDS_MSP_WP, 10, false },
+  { "MSP_BOXIDS", 119u, "0x77", Direction::Out, "Provides a list of permanent IDs associated with the available flight modes (boxes).", FIELDS_MSP_BOXIDS, 1, true },
+  { "MSP_SERVO_CONFIGURATIONS", 120u, "0x78", Direction::Out, "Retrieves the configuration parameters for all supported servos (min, max, middle, rate). Legacy format with unused fields.", FIELDS_MSP_SERVO_CONFIGURATIONS, 8, false },
+  { "MSP_NAV_STATUS", 121u, "0x79", Direction::Out, "Retrieves the current status of the navigation system.", FIELDS_MSP_NAV_STATUS, 6, false },
   { "MSP_NAV_CONFIG", 122u, "0x7a", Direction::Unknown, "", nullptr, 0, false },
-  { "MSP_3D", 124u, "0x7c", Direction::Out, "Retrieves settings related to 3D/reversible motor operation.", FIELDS_99, 3, false },
-  { "MSP_RC_DEADBAND", 125u, "0x7d", Direction::Out, "Retrieves RC input deadband settings.", FIELDS_100, 4, false },
-  { "MSP_SENSOR_ALIGNMENT", 126u, "0x7e", Direction::Out, "Retrieves sensor alignment settings (legacy format).", FIELDS_101, 4, false },
-  { "MSP_LED_STRIP_MODECOLOR", 127u, "0x7f", Direction::Out, "Retrieves the color index assigned to each LED mode and function/direction combination, including special colors.", FIELDS_102, 3, false },
-  { "MSP_BATTERY_STATE", 130u, "0x82", Direction::Out, "Provides battery state information, formatted primarily for DJI FPV Goggles compatibility.", FIELDS_103, 7, false },
+  { "MSP_3D", 124u, "0x7c", Direction::Out, "Retrieves settings related to 3D/reversible motor operation.", FIELDS_MSP_3D, 3, false },
+  { "MSP_RC_DEADBAND", 125u, "0x7d", Direction::Out, "Retrieves RC input deadband settings.", FIELDS_MSP_RC_DEADBAND, 4, false },
+  { "MSP_SENSOR_ALIGNMENT", 126u, "0x7e", Direction::Out, "Retrieves sensor alignment settings (legacy format).", FIELDS_MSP_SENSOR_ALIGNMENT, 4, false },
+  { "MSP_LED_STRIP_MODECOLOR", 127u, "0x7f", Direction::Out, "Retrieves the color index assigned to each LED mode and function/direction combination, including special colors.", FIELDS_MSP_LED_STRIP_MODECOLOR, 3, false },
+  { "MSP_BATTERY_STATE", 130u, "0x82", Direction::Out, "Provides battery state information, formatted primarily for DJI FPV Goggles compatibility.", FIELDS_MSP_BATTERY_STATE, 7, false },
   { "MSP_VTXTABLE_BAND", 137u, "0x89", Direction::InOut, "Retrieves information about a specific VTX band from the VTX table. (Implementation missing in provided fc_msp.c)", nullptr, 0, false },
-  { "MSP_VTXTABLE_POWERLEVEL", 138u, "0x8a", Direction::InOut, "Retrieves information about a specific VTX power level from the VTX table.", FIELDS_105, 5, true },
-  { "MSP_STATUS_EX", 150u, "0x96", Direction::Out, "Provides extended flight controller status, including CPU load, arming flags, and calibration status, in addition to MSP_STATUS fields.", FIELDS_106, 8, false },
-  { "MSP_SENSOR_STATUS", 151u, "0x97", Direction::Out, "Provides the hardware status for each individual sensor system.", FIELDS_107, 9, false },
-  { "MSP_UID", 160u, "0xa0", Direction::Out, "Provides the unique identifier of the microcontroller.", FIELDS_108, 3, false },
-  { "MSP_GPSSVINFO", 164u, "0xa4", Direction::Out, "Provides satellite signal strength information (legacy U-Blox compatibility stub).", FIELDS_109, 4, false },
-  { "MSP_GPSSTATISTICS", 166u, "0xa6", Direction::Out, "Provides debugging statistics for the GPS communication link.", FIELDS_110, 7, false },
-  { "MSP_SET_TX_INFO", 186u, "0xba", Direction::In, "Allows a transmitter LUA script (or similar) to send runtime information (currently only RSSI) to the firmware.", FIELDS_111, 1, false },
-  { "MSP_TX_INFO", 187u, "0xbb", Direction::Out, "Provides information potentially useful for transmitter LUA scripts.", FIELDS_112, 2, false },
-  { "MSP_SET_RAW_RC", 200u, "0xc8", Direction::In, "Provides raw RC channel data to the flight controller, typically used when the receiver is connected via MSP (e.g., MSP RX feature).", FIELDS_113, 1, true },
-  { "MSP_SET_RAW_GPS", 201u, "0xc9", Direction::In, "Provides raw GPS data to the flight controller, typically for simulation or external GPS injection.", FIELDS_114, 7, false },
+  { "MSP_VTXTABLE_POWERLEVEL", 138u, "0x8a", Direction::InOut, "Retrieves information about a specific VTX power level from the VTX table.", FIELDS_MSP_VTXTABLE_POWERLEVEL, 5, true },
+  { "MSP_STATUS_EX", 150u, "0x96", Direction::Out, "Provides extended flight controller status, including CPU load, arming flags, and calibration status, in addition to MSP_STATUS fields.", FIELDS_MSP_STATUS_EX, 8, false },
+  { "MSP_SENSOR_STATUS", 151u, "0x97", Direction::Out, "Provides the hardware status for each individual sensor system.", FIELDS_MSP_SENSOR_STATUS, 9, false },
+  { "MSP_UID", 160u, "0xa0", Direction::Out, "Provides the unique identifier of the microcontroller.", FIELDS_MSP_UID, 3, false },
+  { "MSP_GPSSVINFO", 164u, "0xa4", Direction::Out, "Provides satellite signal strength information (legacy U-Blox compatibility stub).", FIELDS_MSP_GPSSVINFO, 4, false },
+  { "MSP_GPSSTATISTICS", 166u, "0xa6", Direction::Out, "Provides debugging statistics for the GPS communication link.", FIELDS_MSP_GPSSTATISTICS, 7, false },
+  { "MSP_SET_TX_INFO", 186u, "0xba", Direction::In, "Allows a transmitter LUA script (or similar) to send runtime information (currently only RSSI) to the firmware.", FIELDS_MSP_SET_TX_INFO, 1, false },
+  { "MSP_TX_INFO", 187u, "0xbb", Direction::Out, "Provides information potentially useful for transmitter LUA scripts.", FIELDS_MSP_TX_INFO, 2, false },
+  { "MSP_SET_RAW_RC", 200u, "0xc8", Direction::In, "Provides raw RC channel data to the flight controller, typically used when the receiver is connected via MSP (e.g., MSP RX feature).", FIELDS_MSP_SET_RAW_RC, 1, true },
+  { "MSP_SET_RAW_GPS", 201u, "0xc9", Direction::In, "Provides raw GPS data to the flight controller, typically for simulation or external GPS injection.", FIELDS_MSP_SET_RAW_GPS, 7, false },
   { "MSP_SET_BOX", 203u, "0xcb", Direction::In, "Sets the state of flight modes (boxes). (Likely unused/obsolete in INAV).", nullptr, 0, false },
-  { "MSP_SET_RC_TUNING", 204u, "0xcc", Direction::In, "Sets RC tuning parameters (rates, expos, TPA) for the current control rate profile.", FIELDS_116, 10, false },
+  { "MSP_SET_RC_TUNING", 204u, "0xcc", Direction::In, "Sets RC tuning parameters (rates, expos, TPA) for the current control rate profile.", FIELDS_MSP_SET_RC_TUNING, 10, false },
   { "MSP_ACC_CALIBRATION", 205u, "0xcd", Direction::In, "Starts the accelerometer calibration procedure.", nullptr, 0, false },
   { "MSP_MAG_CALIBRATION", 206u, "0xce", Direction::In, "Starts the magnetometer calibration procedure.", nullptr, 0, false },
-  { "MSP_SET_MISC", 207u, "0xcf", Direction::In, "Sets miscellaneous configuration settings (legacy formats/scaling).", FIELDS_119, 16, false },
+  { "MSP_SET_MISC", 207u, "0xcf", Direction::In, "Sets miscellaneous configuration settings (legacy formats/scaling).", FIELDS_MSP_SET_MISC, 16, false },
   { "MSP_RESET_CONF", 208u, "0xd0", Direction::In, "Resets all configuration settings to their default values and saves to EEPROM.", nullptr, 0, false },
-  { "MSP_SET_WP", 209u, "0xd1", Direction::In, "Sets a single waypoint in the mission plan.", FIELDS_121, 9, false },
-  { "MSP_SELECT_SETTING", 210u, "0xd2", Direction::In, "Selects the active configuration profile and saves it.", FIELDS_122, 1, false },
-  { "MSP_SET_HEAD", 211u, "0xd3", Direction::In, "Sets the target heading for the heading hold controller (e.g., during MAG mode).", FIELDS_123, 1, false },
-  { "MSP_SET_SERVO_CONFIGURATION", 212u, "0xd4", Direction::In, "Sets the configuration for a single servo (legacy format).", FIELDS_124, 9, false },
-  { "MSP_SET_MOTOR", 214u, "0xd6", Direction::In, "Sets the disarmed motor values, typically used for motor testing or propeller balancing functions in a configurator.", FIELDS_125, 1, false },
+  { "MSP_SET_WP", 209u, "0xd1", Direction::In, "Sets a single waypoint in the mission plan.", FIELDS_MSP_SET_WP, 9, false },
+  { "MSP_SELECT_SETTING", 210u, "0xd2", Direction::In, "Selects the active configuration profile and saves it.", FIELDS_MSP_SELECT_SETTING, 1, false },
+  { "MSP_SET_HEAD", 211u, "0xd3", Direction::In, "Sets the target heading for the heading hold controller (e.g., during MAG mode).", FIELDS_MSP_SET_HEAD, 1, false },
+  { "MSP_SET_SERVO_CONFIGURATION", 212u, "0xd4", Direction::In, "Sets the configuration for a single servo (legacy format).", FIELDS_MSP_SET_SERVO_CONFIGURATION, 9, false },
+  { "MSP_SET_MOTOR", 214u, "0xd6", Direction::In, "Sets the disarmed motor values, typically used for motor testing or propeller balancing functions in a configurator.", FIELDS_MSP_SET_MOTOR, 1, false },
   { "MSP_SET_NAV_CONFIG", 215u, "0xd7", Direction::Unknown, "", nullptr, 0, false },
-  { "MSP_SET_3D", 217u, "0xd9", Direction::In, "Sets parameters related to 3D/reversible motor operation.", FIELDS_127, 3, false },
-  { "MSP_SET_RC_DEADBAND", 218u, "0xda", Direction::In, "Sets RC input deadband values.", FIELDS_128, 4, false },
+  { "MSP_SET_3D", 217u, "0xd9", Direction::In, "Sets parameters related to 3D/reversible motor operation.", FIELDS_MSP_SET_3D, 3, false },
+  { "MSP_SET_RC_DEADBAND", 218u, "0xda", Direction::In, "Sets RC input deadband values.", FIELDS_MSP_SET_RC_DEADBAND, 4, false },
   { "MSP_SET_RESET_CURR_PID", 219u, "0xdb", Direction::In, "Resets the PIDs of the current profile to their default values. Does not save.", nullptr, 0, false },
-  { "MSP_SET_SENSOR_ALIGNMENT", 220u, "0xdc", Direction::In, "Sets sensor alignment (legacy format).", FIELDS_130, 4, false },
-  { "MSP_SET_LED_STRIP_MODECOLOR", 221u, "0xdd", Direction::In, "Sets the color index for a specific LED mode/function combination.", FIELDS_131, 3, false },
+  { "MSP_SET_SENSOR_ALIGNMENT", 220u, "0xdc", Direction::In, "Sets sensor alignment (legacy format).", FIELDS_MSP_SET_SENSOR_ALIGNMENT, 4, false },
+  { "MSP_SET_LED_STRIP_MODECOLOR", 221u, "0xdd", Direction::In, "Sets the color index for a specific LED mode/function combination.", FIELDS_MSP_SET_LED_STRIP_MODECOLOR, 3, false },
   { "MSP_SET_ACC_TRIM", 239u, "0xef", Direction::In, "Sets the accelerometer trim values (leveling calibration).", nullptr, 0, false },
   { "MSP_ACC_TRIM", 240u, "0xf0", Direction::Out, "Gets the accelerometer trim values.", nullptr, 0, false },
-  { "MSP_SERVO_MIX_RULES", 241u, "0xf1", Direction::Out, "Retrieves the custom servo mixer rules (legacy format).", FIELDS_134, 7, false },
-  { "MSP_SET_SERVO_MIX_RULE", 242u, "0xf2", Direction::In, "Sets a single custom servo mixer rule (legacy format).", FIELDS_135, 7, false },
-  { "MSP_SET_PASSTHROUGH", 245u, "0xf5", Direction::InOut, "Enables serial passthrough mode to peripherals like ESCs (BLHeli 4-way) or other serial devices.", FIELDS_136, 3, false },
-  { "MSP_RTC", 246u, "0xf6", Direction::Out, "Retrieves the current Real-Time Clock time.", FIELDS_137, 2, false },
-  { "MSP_SET_RTC", 247u, "0xf7", Direction::In, "Sets the Real-Time Clock time.", FIELDS_138, 2, false },
+  { "MSP_SERVO_MIX_RULES", 241u, "0xf1", Direction::Out, "Retrieves the custom servo mixer rules (legacy format).", FIELDS_MSP_SERVO_MIX_RULES, 7, false },
+  { "MSP_SET_SERVO_MIX_RULE", 242u, "0xf2", Direction::In, "Sets a single custom servo mixer rule (legacy format).", FIELDS_MSP_SET_SERVO_MIX_RULE, 7, false },
+  { "MSP_SET_PASSTHROUGH", 245u, "0xf5", Direction::InOut, "Enables serial passthrough mode to peripherals like ESCs (BLHeli 4-way) or other serial devices.", FIELDS_MSP_SET_PASSTHROUGH, 3, false },
+  { "MSP_RTC", 246u, "0xf6", Direction::Out, "Retrieves the current Real-Time Clock time.", FIELDS_MSP_RTC, 2, false },
+  { "MSP_SET_RTC", 247u, "0xf7", Direction::In, "Sets the Real-Time Clock time.", FIELDS_MSP_SET_RTC, 2, false },
   { "MSP_EEPROM_WRITE", 250u, "0xfa", Direction::In, "Saves the current configuration from RAM to non-volatile memory (EEPROM/Flash).", nullptr, 0, false },
-  { "MSP_DEBUGMSG", 253u, "0xfd", Direction::Out, "Retrieves debug (\"serial printf\") messages from the firmware.", FIELDS_140, 1, true },
-  { "MSP_DEBUG", 254u, "0xfe", Direction::Out, "Retrieves values from the firmware's debug[] array (legacy 16-bit version).", FIELDS_141, 1, false },
+  { "MSP_DEBUGMSG", 253u, "0xfd", Direction::Out, "Retrieves debug (\"serial printf\") messages from the firmware.", FIELDS_MSP_DEBUGMSG, 1, true },
+  { "MSP_DEBUG", 254u, "0xfe", Direction::Out, "Retrieves values from the firmware's debug[] array (legacy 16-bit version).", FIELDS_MSP_DEBUG, 1, false },
   { "MSP_V2_FRAME", 255u, "0xff", Direction::In, "This ID is used as a payload indicator within an MSPv1 message structure ($M>) to signify that the following payload conforms to the MSPv2 format. It's not a command itself.", nullptr, 0, false },
-  { "MSP2_COMMON_TZ", 4097u, "0x1001", Direction::Out, "Gets the time zone offset configuration.", FIELDS_143, 2, false },
-  { "MSP2_COMMON_SET_TZ", 4098u, "0x1002", Direction::In, "Sets the time zone offset configuration.", FIELDS_144, 3, false },
-  { "MSP2_COMMON_SETTING", 4099u, "0x1003", Direction::InOut, "Gets the value of a specific configuration setting, identified by name or index.", FIELDS_145, 4, true },
-  { "MSP2_COMMON_SET_SETTING", 4100u, "0x1004", Direction::In, "Sets the value of a specific configuration setting, identified by name or index.", FIELDS_146, 2, true },
-  { "MSP2_COMMON_MOTOR_MIXER", 4101u, "0x1005", Direction::Out, "Retrieves the current motor mixer configuration (throttle, roll, pitch, yaw weights for each motor) for the primary and secondary mixer profiles.", FIELDS_147, 8, false },
-  { "MSP2_COMMON_SET_MOTOR_MIXER", 4102u, "0x1006", Direction::In, "Sets the motor mixer weights for a single motor in the primary mixer profile.", FIELDS_148, 5, false },
-  { "MSP2_COMMON_SETTING_INFO", 4103u, "0x1007", Direction::InOut, "Gets detailed information about a specific configuration setting (name, type, range, flags, current value, etc.).", FIELDS_149, 12, true },
-  { "MSP2_COMMON_PG_LIST", 4104u, "0x1008", Direction::InOut, "Gets a list of Parameter Group Numbers (PGNs) used by settings, along with the start and end setting indexes for each group. Can request info for a single PGN.", FIELDS_150, 4, false },
-  { "MSP2_COMMON_SERIAL_CONFIG", 4105u, "0x1009", Direction::Out, "Retrieves the configuration for all available serial ports.", FIELDS_151, 6, false },
-  { "MSP2_COMMON_SET_SERIAL_CONFIG", 4106u, "0x100a", Direction::In, "Sets the configuration for one or more serial ports.", FIELDS_152, 6, false },
-  { "MSP2_COMMON_SET_RADAR_POS", 4107u, "0x100b", Direction::In, "Sets the position and status information for a \"radar\" Point of Interest (POI). Used for displaying other craft/objects on the OSD map.", FIELDS_153, 8, false },
+  { "MSP2_COMMON_TZ", 4097u, "0x1001", Direction::Out, "Gets the time zone offset configuration.", FIELDS_MSP2_COMMON_TZ, 2, false },
+  { "MSP2_COMMON_SET_TZ", 4098u, "0x1002", Direction::In, "Sets the time zone offset configuration.", FIELDS_MSP2_COMMON_SET_TZ, 3, false },
+  { "MSP2_COMMON_SETTING", 4099u, "0x1003", Direction::InOut, "Gets the value of a specific configuration setting, identified by name or index.", FIELDS_MSP2_COMMON_SETTING, 4, true },
+  { "MSP2_COMMON_SET_SETTING", 4100u, "0x1004", Direction::In, "Sets the value of a specific configuration setting, identified by name or index.", FIELDS_MSP2_COMMON_SET_SETTING, 2, true },
+  { "MSP2_COMMON_MOTOR_MIXER", 4101u, "0x1005", Direction::Out, "Retrieves the current motor mixer configuration (throttle, roll, pitch, yaw weights for each motor) for the primary and secondary mixer profiles.", FIELDS_MSP2_COMMON_MOTOR_MIXER, 8, false },
+  { "MSP2_COMMON_SET_MOTOR_MIXER", 4102u, "0x1006", Direction::In, "Sets the motor mixer weights for a single motor in the primary mixer profile.", FIELDS_MSP2_COMMON_SET_MOTOR_MIXER, 5, false },
+  { "MSP2_COMMON_SETTING_INFO", 4103u, "0x1007", Direction::InOut, "Gets detailed information about a specific configuration setting (name, type, range, flags, current value, etc.).", FIELDS_MSP2_COMMON_SETTING_INFO, 12, true },
+  { "MSP2_COMMON_PG_LIST", 4104u, "0x1008", Direction::InOut, "Gets a list of Parameter Group Numbers (PGNs) used by settings, along with the start and end setting indexes for each group. Can request info for a single PGN.", FIELDS_MSP2_COMMON_PG_LIST, 4, false },
+  { "MSP2_COMMON_SERIAL_CONFIG", 4105u, "0x1009", Direction::Out, "Retrieves the configuration for all available serial ports.", FIELDS_MSP2_COMMON_SERIAL_CONFIG, 6, false },
+  { "MSP2_COMMON_SET_SERIAL_CONFIG", 4106u, "0x100a", Direction::In, "Sets the configuration for one or more serial ports.", FIELDS_MSP2_COMMON_SET_SERIAL_CONFIG, 6, false },
+  { "MSP2_COMMON_SET_RADAR_POS", 4107u, "0x100b", Direction::In, "Sets the position and status information for a \"radar\" Point of Interest (POI). Used for displaying other craft/objects on the OSD map.", FIELDS_MSP2_COMMON_SET_RADAR_POS, 8, false },
   { "MSP2_COMMON_SET_RADAR_ITD", 4108u, "0x100c", Direction::In, "Sets radar information to display (likely internal/unused).", nullptr, 0, false },
-  { "MSP2_COMMON_SET_MSP_RC_LINK_STATS", 4109u, "0x100d", Direction::In, "Provides RC link statistics (RSSI, LQ) to the FC, typically from an MSP-based RC link (like ExpressLRS). Sent periodically by the RC link.", FIELDS_155, 7, false },
-  { "MSP2_COMMON_SET_MSP_RC_INFO", 4110u, "0x100e", Direction::In, "Provides additional RC link information (power levels, band, mode) to the FC from an MSP-based RC link. Sent less frequently than link stats.", FIELDS_156, 5, false },
-  { "MSP2_SENSOR_RANGEFINDER", 7937u, "0x1f01", Direction::In, "Provides rangefinder data (distance, quality) from an external MSP-based sensor.", FIELDS_157, 2, false },
-  { "MSP2_SENSOR_OPTIC_FLOW", 7938u, "0x1f02", Direction::In, "Provides optical flow data (motion, quality) from an external MSP-based sensor.", FIELDS_158, 3, false },
-  { "MSP2_SENSOR_GPS", 7939u, "0x1f03", Direction::In, "Provides detailed GPS data from an external MSP-based GPS module.", FIELDS_159, 23, false },
-  { "MSP2_SENSOR_COMPASS", 7940u, "0x1f04", Direction::In, "Provides magnetometer data from an external MSP-based compass module.", FIELDS_160, 5, false },
-  { "MSP2_SENSOR_BAROMETER", 7941u, "0x1f05", Direction::In, "Provides barometer data from an external MSP-based barometer module.", FIELDS_161, 4, false },
-  { "MSP2_SENSOR_AIRSPEED", 7942u, "0x1f06", Direction::In, "Provides airspeed data from an external MSP-based pitot sensor module.", FIELDS_162, 4, false },
+  { "MSP2_COMMON_SET_MSP_RC_LINK_STATS", 4109u, "0x100d", Direction::In, "Provides RC link statistics (RSSI, LQ) to the FC, typically from an MSP-based RC link (like ExpressLRS). Sent periodically by the RC link.", FIELDS_MSP2_COMMON_SET_MSP_RC_LINK_STATS, 7, false },
+  { "MSP2_COMMON_SET_MSP_RC_INFO", 4110u, "0x100e", Direction::In, "Provides additional RC link information (power levels, band, mode) to the FC from an MSP-based RC link. Sent less frequently than link stats.", FIELDS_MSP2_COMMON_SET_MSP_RC_INFO, 5, false },
+  { "MSP2_SENSOR_RANGEFINDER", 7937u, "0x1f01", Direction::In, "Provides rangefinder data (distance, quality) from an external MSP-based sensor.", FIELDS_MSP2_SENSOR_RANGEFINDER, 2, false },
+  { "MSP2_SENSOR_OPTIC_FLOW", 7938u, "0x1f02", Direction::In, "Provides optical flow data (motion, quality) from an external MSP-based sensor.", FIELDS_MSP2_SENSOR_OPTIC_FLOW, 3, false },
+  { "MSP2_SENSOR_GPS", 7939u, "0x1f03", Direction::In, "Provides detailed GPS data from an external MSP-based GPS module.", FIELDS_MSP2_SENSOR_GPS, 23, false },
+  { "MSP2_SENSOR_COMPASS", 7940u, "0x1f04", Direction::In, "Provides magnetometer data from an external MSP-based compass module.", FIELDS_MSP2_SENSOR_COMPASS, 5, false },
+  { "MSP2_SENSOR_BAROMETER", 7941u, "0x1f05", Direction::In, "Provides barometer data from an external MSP-based barometer module.", FIELDS_MSP2_SENSOR_BAROMETER, 4, false },
+  { "MSP2_SENSOR_AIRSPEED", 7942u, "0x1f06", Direction::In, "Provides airspeed data from an external MSP-based pitot sensor module.", FIELDS_MSP2_SENSOR_AIRSPEED, 4, false },
   { "MSP2_SENSOR_HEADTRACKER", 7943u, "0x1f07", Direction::In, "Provides head tracker orientation data.", nullptr, 0, false },
-  { "MSP2_INAV_STATUS", 8192u, "0x2000", Direction::Out, "Provides comprehensive flight controller status, extending MSP_STATUS_EX with full arming flags, battery profile, and mixer profile.", FIELDS_164, 8, true },
-  { "MSP2_INAV_OPTICAL_FLOW", 8193u, "0x2001", Direction::Out, "Provides data from the optical flow sensor.", FIELDS_165, 5, false },
-  { "MSP2_INAV_ANALOG", 8194u, "0x2002", Direction::Out, "Provides detailed analog sensor readings, superseding MSP_ANALOG with higher precision and additional fields.", FIELDS_166, 9, false },
-  { "MSP2_INAV_MISC", 8195u, "0x2003", Direction::Out, "Retrieves miscellaneous configuration settings, superseding MSP_MISC with higher precision and capacity fields.", FIELDS_167, 21, false },
-  { "MSP2_INAV_SET_MISC", 8196u, "0x2004", Direction::In, "Sets miscellaneous configuration settings, superseding MSP_SET_MISC.", FIELDS_168, 21, false },
-  { "MSP2_INAV_BATTERY_CONFIG", 8197u, "0x2005", Direction::Out, "Retrieves the configuration specific to the battery voltage and current sensors and capacity settings for the current battery profile.", FIELDS_169, 13, false },
-  { "MSP2_INAV_SET_BATTERY_CONFIG", 8198u, "0x2006", Direction::In, "Sets the battery voltage/current sensor configuration and capacity settings for the current battery profile.", FIELDS_170, 13, false },
-  { "MSP2_INAV_RATE_PROFILE", 8199u, "0x2007", Direction::Out, "Retrieves the rates and expos for the current control rate profile, including both stabilized and manual flight modes. Supersedes MSP_RC_TUNING.", FIELDS_171, 14, false },
-  { "MSP2_INAV_SET_RATE_PROFILE", 8200u, "0x2008", Direction::In, "Sets the rates and expos for the current control rate profile (stabilized and manual). Supersedes MSP_SET_RC_TUNING.", FIELDS_172, 14, false },
-  { "MSP2_INAV_AIR_SPEED", 8201u, "0x2009", Direction::Out, "Retrieves the estimated or measured airspeed.", FIELDS_173, 1, false },
-  { "MSP2_INAV_OUTPUT_MAPPING", 8202u, "0x200a", Direction::Out, "Retrieves the output mapping configuration (identifies which timer outputs are used for Motors/Servos). Legacy version sending only 8-bit usage flags.", FIELDS_174, 1, false },
-  { "MSP2_INAV_MC_BRAKING", 8203u, "0x200b", Direction::Out, "Retrieves configuration parameters for the multirotor braking mode feature.", FIELDS_175, 8, false },
-  { "MSP2_INAV_SET_MC_BRAKING", 8204u, "0x200c", Direction::In, "Sets configuration parameters for the multirotor braking mode feature.", FIELDS_176, 8, false },
-  { "MSP2_INAV_OUTPUT_MAPPING_EXT", 8205u, "0x200d", Direction::Out, "Retrieves extended output mapping configuration (timer ID and usage flags). Obsolete, use MSP2_INAV_OUTPUT_MAPPING_EXT2.", FIELDS_177, 2, false },
-  { "MSP2_INAV_TIMER_OUTPUT_MODE", 8206u, "0x200e", Direction::InOut, "Get or list the output mode override for hardware timers (e.g., force ONESHOT, DSHOT).", FIELDS_178, 5, false },
-  { "MSP2_INAV_SET_TIMER_OUTPUT_MODE", 8207u, "0x200f", Direction::In, "Set the output mode override for a specific hardware timer.", FIELDS_179, 2, false },
-  { "MSP2_INAV_MIXER", 8208u, "0x2010", Direction::Out, "Retrieves INAV-specific mixer configuration details.", FIELDS_180, 8, false },
-  { "MSP2_INAV_SET_MIXER", 8209u, "0x2011", Direction::In, "Sets INAV-specific mixer configuration details.", FIELDS_181, 8, false },
-  { "MSP2_INAV_OSD_LAYOUTS", 8210u, "0x2012", Direction::InOut, "Gets OSD layout information (counts, positions for a specific layout, or position for a specific item).", FIELDS_182, 7, true },
-  { "MSP2_INAV_OSD_SET_LAYOUT_ITEM", 8211u, "0x2013", Direction::In, "Sets the position of a single OSD item within a specific layout.", FIELDS_183, 2, false },
-  { "MSP2_INAV_OSD_ALARMS", 8212u, "0x2014", Direction::Out, "Retrieves OSD alarm threshold settings.", FIELDS_184, 15, false },
-  { "MSP2_INAV_OSD_SET_ALARMS", 8213u, "0x2015", Direction::In, "Sets OSD alarm threshold settings.", FIELDS_185, 13, false },
-  { "MSP2_INAV_OSD_PREFERENCES", 8214u, "0x2016", Direction::Out, "Retrieves OSD display preferences (video system, units, styles, etc.).", FIELDS_186, 9, false },
-  { "MSP2_INAV_OSD_SET_PREFERENCES", 8215u, "0x2017", Direction::In, "Sets OSD display preferences.", FIELDS_187, 9, false },
-  { "MSP2_INAV_SELECT_BATTERY_PROFILE", 8216u, "0x2018", Direction::In, "Selects the active battery profile and saves configuration.", FIELDS_188, 1, false },
-  { "MSP2_INAV_DEBUG", 8217u, "0x2019", Direction::Out, "Retrieves values from the firmware's 32-bit debug[] array. Supersedes MSP_DEBUG.", FIELDS_189, 1, true },
-  { "MSP2_BLACKBOX_CONFIG", 8218u, "0x201a", Direction::Out, "Retrieves the Blackbox configuration. Supersedes MSP_BLACKBOX_CONFIG.", FIELDS_190, 5, false },
-  { "MSP2_SET_BLACKBOX_CONFIG", 8219u, "0x201b", Direction::In, "Sets the Blackbox configuration. Supersedes MSP_SET_BLACKBOX_CONFIG.", FIELDS_191, 4, false },
-  { "MSP2_INAV_TEMP_SENSOR_CONFIG", 8220u, "0x201c", Direction::Out, "Retrieves the configuration for all onboard temperature sensors.", FIELDS_192, 6, true },
-  { "MSP2_INAV_SET_TEMP_SENSOR_CONFIG", 8221u, "0x201d", Direction::In, "Sets the configuration for all onboard temperature sensors.", FIELDS_193, 6, true },
-  { "MSP2_INAV_TEMPERATURES", 8222u, "0x201e", Direction::Out, "Retrieves the current readings from all configured temperature sensors.", FIELDS_194, 1, false },
-  { "MSP_SIMULATOR", 8223u, "0x201f", Direction::InOut, "Handles Hardware-in-the-Loop (HITL) simulation data exchange. Receives simulated sensor data and options, sends back control outputs and debug info.", FIELDS_195, 33, true },
-  { "MSP2_INAV_SERVO_MIXER", 8224u, "0x2020", Direction::Out, "Retrieves the custom servo mixer rules, including programming framework condition IDs, for primary and secondary mixer profiles. Supersedes MSP_SERVO_MIX_RULES.", FIELDS_196, 10, false },
-  { "MSP2_INAV_SET_SERVO_MIXER", 8225u, "0x2021", Direction::In, "Sets a single custom servo mixer rule, including programming framework condition ID. Supersedes MSP_SET_SERVO_MIX_RULE.", FIELDS_197, 6, false },
-  { "MSP2_INAV_LOGIC_CONDITIONS", 8226u, "0x2022", Direction::Out, "Retrieves the configuration of all defined Logic Conditions.", FIELDS_198, 8, false },
-  { "MSP2_INAV_SET_LOGIC_CONDITIONS", 8227u, "0x2023", Direction::In, "Sets the configuration for a single Logic Condition by its index.", FIELDS_199, 9, false },
+  { "MSP2_INAV_STATUS", 8192u, "0x2000", Direction::Out, "Provides comprehensive flight controller status, extending MSP_STATUS_EX with full arming flags, battery profile, and mixer profile.", FIELDS_MSP2_INAV_STATUS, 8, true },
+  { "MSP2_INAV_OPTICAL_FLOW", 8193u, "0x2001", Direction::Out, "Provides data from the optical flow sensor.", FIELDS_MSP2_INAV_OPTICAL_FLOW, 5, false },
+  { "MSP2_INAV_ANALOG", 8194u, "0x2002", Direction::Out, "Provides detailed analog sensor readings, superseding MSP_ANALOG with higher precision and additional fields.", FIELDS_MSP2_INAV_ANALOG, 9, false },
+  { "MSP2_INAV_MISC", 8195u, "0x2003", Direction::Out, "Retrieves miscellaneous configuration settings, superseding MSP_MISC with higher precision and capacity fields.", FIELDS_MSP2_INAV_MISC, 21, false },
+  { "MSP2_INAV_SET_MISC", 8196u, "0x2004", Direction::In, "Sets miscellaneous configuration settings, superseding MSP_SET_MISC.", FIELDS_MSP2_INAV_SET_MISC, 21, false },
+  { "MSP2_INAV_BATTERY_CONFIG", 8197u, "0x2005", Direction::Out, "Retrieves the configuration specific to the battery voltage and current sensors and capacity settings for the current battery profile.", FIELDS_MSP2_INAV_BATTERY_CONFIG, 13, false },
+  { "MSP2_INAV_SET_BATTERY_CONFIG", 8198u, "0x2006", Direction::In, "Sets the battery voltage/current sensor configuration and capacity settings for the current battery profile.", FIELDS_MSP2_INAV_SET_BATTERY_CONFIG, 13, false },
+  { "MSP2_INAV_RATE_PROFILE", 8199u, "0x2007", Direction::Out, "Retrieves the rates and expos for the current control rate profile, including both stabilized and manual flight modes. Supersedes MSP_RC_TUNING.", FIELDS_MSP2_INAV_RATE_PROFILE, 14, false },
+  { "MSP2_INAV_SET_RATE_PROFILE", 8200u, "0x2008", Direction::In, "Sets the rates and expos for the current control rate profile (stabilized and manual). Supersedes MSP_SET_RC_TUNING.", FIELDS_MSP2_INAV_SET_RATE_PROFILE, 14, false },
+  { "MSP2_INAV_AIR_SPEED", 8201u, "0x2009", Direction::Out, "Retrieves the estimated or measured airspeed.", FIELDS_MSP2_INAV_AIR_SPEED, 1, false },
+  { "MSP2_INAV_OUTPUT_MAPPING", 8202u, "0x200a", Direction::Out, "Retrieves the output mapping configuration (identifies which timer outputs are used for Motors/Servos). Legacy version sending only 8-bit usage flags.", FIELDS_MSP2_INAV_OUTPUT_MAPPING, 1, false },
+  { "MSP2_INAV_MC_BRAKING", 8203u, "0x200b", Direction::Out, "Retrieves configuration parameters for the multirotor braking mode feature.", FIELDS_MSP2_INAV_MC_BRAKING, 8, false },
+  { "MSP2_INAV_SET_MC_BRAKING", 8204u, "0x200c", Direction::In, "Sets configuration parameters for the multirotor braking mode feature.", FIELDS_MSP2_INAV_SET_MC_BRAKING, 8, false },
+  { "MSP2_INAV_OUTPUT_MAPPING_EXT", 8205u, "0x200d", Direction::Out, "Retrieves extended output mapping configuration (timer ID and usage flags). Obsolete, use MSP2_INAV_OUTPUT_MAPPING_EXT2.", FIELDS_MSP2_INAV_OUTPUT_MAPPING_EXT, 2, false },
+  { "MSP2_INAV_TIMER_OUTPUT_MODE", 8206u, "0x200e", Direction::InOut, "Get or list the output mode override for hardware timers (e.g., force ONESHOT, DSHOT).", FIELDS_MSP2_INAV_TIMER_OUTPUT_MODE, 5, false },
+  { "MSP2_INAV_SET_TIMER_OUTPUT_MODE", 8207u, "0x200f", Direction::In, "Set the output mode override for a specific hardware timer.", FIELDS_MSP2_INAV_SET_TIMER_OUTPUT_MODE, 2, false },
+  { "MSP2_INAV_MIXER", 8208u, "0x2010", Direction::Out, "Retrieves INAV-specific mixer configuration details.", FIELDS_MSP2_INAV_MIXER, 8, false },
+  { "MSP2_INAV_SET_MIXER", 8209u, "0x2011", Direction::In, "Sets INAV-specific mixer configuration details.", FIELDS_MSP2_INAV_SET_MIXER, 8, false },
+  { "MSP2_INAV_OSD_LAYOUTS", 8210u, "0x2012", Direction::InOut, "Gets OSD layout information (counts, positions for a specific layout, or position for a specific item).", FIELDS_MSP2_INAV_OSD_LAYOUTS, 7, true },
+  { "MSP2_INAV_OSD_SET_LAYOUT_ITEM", 8211u, "0x2013", Direction::In, "Sets the position of a single OSD item within a specific layout.", FIELDS_MSP2_INAV_OSD_SET_LAYOUT_ITEM, 2, false },
+  { "MSP2_INAV_OSD_ALARMS", 8212u, "0x2014", Direction::Out, "Retrieves OSD alarm threshold settings.", FIELDS_MSP2_INAV_OSD_ALARMS, 15, false },
+  { "MSP2_INAV_OSD_SET_ALARMS", 8213u, "0x2015", Direction::In, "Sets OSD alarm threshold settings.", FIELDS_MSP2_INAV_OSD_SET_ALARMS, 13, false },
+  { "MSP2_INAV_OSD_PREFERENCES", 8214u, "0x2016", Direction::Out, "Retrieves OSD display preferences (video system, units, styles, etc.).", FIELDS_MSP2_INAV_OSD_PREFERENCES, 9, false },
+  { "MSP2_INAV_OSD_SET_PREFERENCES", 8215u, "0x2017", Direction::In, "Sets OSD display preferences.", FIELDS_MSP2_INAV_OSD_SET_PREFERENCES, 9, false },
+  { "MSP2_INAV_SELECT_BATTERY_PROFILE", 8216u, "0x2018", Direction::In, "Selects the active battery profile and saves configuration.", FIELDS_MSP2_INAV_SELECT_BATTERY_PROFILE, 1, false },
+  { "MSP2_INAV_DEBUG", 8217u, "0x2019", Direction::Out, "Retrieves values from the firmware's 32-bit debug[] array. Supersedes MSP_DEBUG.", FIELDS_MSP2_INAV_DEBUG, 1, true },
+  { "MSP2_BLACKBOX_CONFIG", 8218u, "0x201a", Direction::Out, "Retrieves the Blackbox configuration. Supersedes MSP_BLACKBOX_CONFIG.", FIELDS_MSP2_BLACKBOX_CONFIG, 5, false },
+  { "MSP2_SET_BLACKBOX_CONFIG", 8219u, "0x201b", Direction::In, "Sets the Blackbox configuration. Supersedes MSP_SET_BLACKBOX_CONFIG.", FIELDS_MSP2_SET_BLACKBOX_CONFIG, 4, false },
+  { "MSP2_INAV_TEMP_SENSOR_CONFIG", 8220u, "0x201c", Direction::Out, "Retrieves the configuration for all onboard temperature sensors.", FIELDS_MSP2_INAV_TEMP_SENSOR_CONFIG, 6, true },
+  { "MSP2_INAV_SET_TEMP_SENSOR_CONFIG", 8221u, "0x201d", Direction::In, "Sets the configuration for all onboard temperature sensors.", FIELDS_MSP2_INAV_SET_TEMP_SENSOR_CONFIG, 6, true },
+  { "MSP2_INAV_TEMPERATURES", 8222u, "0x201e", Direction::Out, "Retrieves the current readings from all configured temperature sensors.", FIELDS_MSP2_INAV_TEMPERATURES, 1, false },
+  { "MSP_SIMULATOR", 8223u, "0x201f", Direction::InOut, "Handles Hardware-in-the-Loop (HITL) simulation data exchange. Receives simulated sensor data and options, sends back control outputs and debug info.", FIELDS_MSP_SIMULATOR, 33, true },
+  { "MSP2_INAV_SERVO_MIXER", 8224u, "0x2020", Direction::Out, "Retrieves the custom servo mixer rules, including programming framework condition IDs, for primary and secondary mixer profiles. Supersedes MSP_SERVO_MIX_RULES.", FIELDS_MSP2_INAV_SERVO_MIXER, 10, false },
+  { "MSP2_INAV_SET_SERVO_MIXER", 8225u, "0x2021", Direction::In, "Sets a single custom servo mixer rule, including programming framework condition ID. Supersedes MSP_SET_SERVO_MIX_RULE.", FIELDS_MSP2_INAV_SET_SERVO_MIXER, 6, false },
+  { "MSP2_INAV_LOGIC_CONDITIONS", 8226u, "0x2022", Direction::Out, "Retrieves the configuration of all defined Logic Conditions.", FIELDS_MSP2_INAV_LOGIC_CONDITIONS, 8, false },
+  { "MSP2_INAV_SET_LOGIC_CONDITIONS", 8227u, "0x2023", Direction::In, "Sets the configuration for a single Logic Condition by its index.", FIELDS_MSP2_INAV_SET_LOGIC_CONDITIONS, 9, false },
   { "MSP2_INAV_GLOBAL_FUNCTIONS", 8228u, "0x2024", Direction::Unknown, "", nullptr, 0, false },
   { "MSP2_INAV_SET_GLOBAL_FUNCTIONS", 8229u, "0x2025", Direction::Unknown, "", nullptr, 0, false },
-  { "MSP2_INAV_LOGIC_CONDITIONS_STATUS", 8230u, "0x2026", Direction::Out, "Retrieves the current evaluated status (true/false or numerical value) of all logic conditions.", FIELDS_202, 1, true },
-  { "MSP2_INAV_GVAR_STATUS", 8231u, "0x2027", Direction::Out, "Retrieves the current values of all Global Variables (GVARS).", FIELDS_203, 1, true },
-  { "MSP2_INAV_PROGRAMMING_PID", 8232u, "0x2028", Direction::Out, "Retrieves the configuration of all Programming PIDs.", FIELDS_204, 9, false },
-  { "MSP2_INAV_SET_PROGRAMMING_PID", 8233u, "0x2029", Direction::In, "Sets the configuration for a single Programming PID by its index.", FIELDS_205, 10, false },
-  { "MSP2_INAV_PROGRAMMING_PID_STATUS", 8234u, "0x202a", Direction::Out, "Retrieves the current output value of all Programming PIDs.", FIELDS_206, 1, true },
-  { "MSP2_PID", 8240u, "0x2030", Direction::Out, "Retrieves the standard PID controller gains (P, I, D, FF) for the current PID profile.", FIELDS_207, 4, false },
-  { "MSP2_SET_PID", 8241u, "0x2031", Direction::In, "Sets the standard PID controller gains (P, I, D, FF) for the current PID profile.", FIELDS_208, 4, false },
+  { "MSP2_INAV_LOGIC_CONDITIONS_STATUS", 8230u, "0x2026", Direction::Out, "Retrieves the current evaluated status (true/false or numerical value) of all logic conditions.", FIELDS_MSP2_INAV_LOGIC_CONDITIONS_STATUS, 1, true },
+  { "MSP2_INAV_GVAR_STATUS", 8231u, "0x2027", Direction::Out, "Retrieves the current values of all Global Variables (GVARS).", FIELDS_MSP2_INAV_GVAR_STATUS, 1, true },
+  { "MSP2_INAV_PROGRAMMING_PID", 8232u, "0x2028", Direction::Out, "Retrieves the configuration of all Programming PIDs.", FIELDS_MSP2_INAV_PROGRAMMING_PID, 9, false },
+  { "MSP2_INAV_SET_PROGRAMMING_PID", 8233u, "0x2029", Direction::In, "Sets the configuration for a single Programming PID by its index.", FIELDS_MSP2_INAV_SET_PROGRAMMING_PID, 10, false },
+  { "MSP2_INAV_PROGRAMMING_PID_STATUS", 8234u, "0x202a", Direction::Out, "Retrieves the current output value of all Programming PIDs.", FIELDS_MSP2_INAV_PROGRAMMING_PID_STATUS, 1, true },
+  { "MSP2_PID", 8240u, "0x2030", Direction::Out, "Retrieves the standard PID controller gains (P, I, D, FF) for the current PID profile.", FIELDS_MSP2_PID, 4, false },
+  { "MSP2_SET_PID", 8241u, "0x2031", Direction::In, "Sets the standard PID controller gains (P, I, D, FF) for the current PID profile.", FIELDS_MSP2_SET_PID, 4, false },
   { "MSP2_INAV_OPFLOW_CALIBRATION", 8242u, "0x2032", Direction::In, "Starts the optical flow sensor calibration procedure.", nullptr, 0, false },
-  { "MSP2_INAV_FWUPDT_PREPARE", 8243u, "0x2033", Direction::In, "Prepares the flight controller to receive a firmware update via MSP.", FIELDS_210, 1, false },
-  { "MSP2_INAV_FWUPDT_STORE", 8244u, "0x2034", Direction::In, "Stores a chunk of firmware data received via MSP.", FIELDS_211, 1, true },
-  { "MSP2_INAV_FWUPDT_EXEC", 8245u, "0x2035", Direction::In, "Executes the firmware update process (flashes the stored firmware and reboots).", FIELDS_212, 1, false },
+  { "MSP2_INAV_FWUPDT_PREPARE", 8243u, "0x2033", Direction::In, "Prepares the flight controller to receive a firmware update via MSP.", FIELDS_MSP2_INAV_FWUPDT_PREPARE, 1, false },
+  { "MSP2_INAV_FWUPDT_STORE", 8244u, "0x2034", Direction::In, "Stores a chunk of firmware data received via MSP.", FIELDS_MSP2_INAV_FWUPDT_STORE, 1, true },
+  { "MSP2_INAV_FWUPDT_EXEC", 8245u, "0x2035", Direction::In, "Executes the firmware update process (flashes the stored firmware and reboots).", FIELDS_MSP2_INAV_FWUPDT_EXEC, 1, false },
   { "MSP2_INAV_FWUPDT_ROLLBACK_PREPARE", 8246u, "0x2036", Direction::In, "Prepares the flight controller to perform a firmware rollback to the previously stored version.", nullptr, 0, false },
   { "MSP2_INAV_FWUPDT_ROLLBACK_EXEC", 8247u, "0x2037", Direction::In, "Executes the firmware rollback process (flashes the stored backup firmware and reboots).", nullptr, 0, false },
-  { "MSP2_INAV_SAFEHOME", 8248u, "0x2038", Direction::InOut, "Get or Set configuration for a specific Safe Home location.", FIELDS_215, 5, false },
-  { "MSP2_INAV_SET_SAFEHOME", 8249u, "0x2039", Direction::In, "Sets the configuration for a specific Safe Home location.", FIELDS_216, 4, false },
-  { "MSP2_INAV_MISC2", 8250u, "0x203a", Direction::Out, "Retrieves miscellaneous runtime information including timers and throttle status.", FIELDS_217, 4, false },
-  { "MSP2_INAV_LOGIC_CONDITIONS_SINGLE", 8251u, "0x203b", Direction::InOut, "Gets the configuration for a single Logic Condition by its index.", FIELDS_218, 9, false },
-  { "MSP2_INAV_ESC_RPM", 8256u, "0x2040", Direction::Out, "Retrieves the RPM reported by each ESC via telemetry.", FIELDS_219, 1, false },
-  { "MSP2_INAV_ESC_TELEM", 8257u, "0x2041", Direction::Out, "Retrieves the full telemetry data structure reported by each ESC.", FIELDS_220, 2, true },
-  { "MSP2_INAV_LED_STRIP_CONFIG_EX", 8264u, "0x2048", Direction::Out, "Retrieves the full configuration for each LED on the strip using the ledConfig_t structure. Supersedes MSP_LED_STRIP_CONFIG.", FIELDS_221, 1, true },
-  { "MSP2_INAV_SET_LED_STRIP_CONFIG_EX", 8265u, "0x2049", Direction::In, "Sets the configuration for a single LED on the strip using the ledConfig_t structure. Supersedes MSP_SET_LED_STRIP_CONFIG.", FIELDS_222, 2, true },
-  { "MSP2_INAV_FW_APPROACH", 8266u, "0x204a", Direction::InOut, "Get or Set configuration for a specific Fixed Wing Autoland approach.", FIELDS_223, 8, false },
-  { "MSP2_INAV_SET_FW_APPROACH", 8267u, "0x204b", Direction::In, "Sets the configuration for a specific Fixed Wing Autoland approach.", FIELDS_224, 7, false },
-  { "MSP2_INAV_GPS_UBLOX_COMMAND", 8272u, "0x2050", Direction::In, "Sends a raw command directly to a U-Blox GPS module connected to the FC.", FIELDS_225, 1, true },
-  { "MSP2_INAV_RATE_DYNAMICS", 8288u, "0x2060", Direction::Out, "Retrieves Rate Dynamics configuration parameters for the current control rate profile.", FIELDS_226, 6, false },
-  { "MSP2_INAV_SET_RATE_DYNAMICS", 8289u, "0x2061", Direction::In, "Sets Rate Dynamics configuration parameters for the current control rate profile.", FIELDS_227, 6, false },
-  { "MSP2_INAV_EZ_TUNE", 8304u, "0x2070", Direction::Out, "Retrieves the current EZ-Tune parameters.", FIELDS_228, 10, false },
-  { "MSP2_INAV_EZ_TUNE_SET", 8305u, "0x2071", Direction::In, "Sets the EZ-Tune parameters and triggers an update.", FIELDS_229, 10, false },
-  { "MSP2_INAV_SELECT_MIXER_PROFILE", 8320u, "0x2080", Direction::In, "Selects the active mixer profile and saves configuration.", FIELDS_230, 1, false },
-  { "MSP2_ADSB_VEHICLE_LIST", 8336u, "0x2090", Direction::Out, "Retrieves the list of currently tracked ADSB (Automatic Dependent Surveillance–Broadcast) vehicles.", FIELDS_231, 14, true },
-  { "MSP2_INAV_CUSTOM_OSD_ELEMENTS", 8448u, "0x2100", Direction::Out, "Retrieves counts related to custom OSD elements defined by the programming framework.", FIELDS_232, 3, false },
-  { "MSP2_INAV_CUSTOM_OSD_ELEMENT", 8449u, "0x2101", Direction::InOut, "Gets the configuration of a single custom OSD element defined by the programming framework.", FIELDS_233, 9, true },
-  { "MSP2_INAV_SET_CUSTOM_OSD_ELEMENTS", 8450u, "0x2102", Direction::In, "Sets the configuration of a single custom OSD element defined by the programming framework.", FIELDS_234, 9, true },
-  { "MSP2_INAV_OUTPUT_MAPPING_EXT2", 8461u, "0x210d", Direction::Out, "Retrieves the full extended output mapping configuration (timer ID, full 32-bit usage flags, and pin label). Supersedes MSP2_INAV_OUTPUT_MAPPING_EXT.", FIELDS_235, 3, false },
-  { "MSP2_INAV_SERVO_CONFIG", 8704u, "0x2200", Direction::Out, "Retrieves the configuration parameters for all supported servos (min, max, middle, rate). Supersedes MSP_SERVO_CONFIGURATIONS.", FIELDS_236, 4, false },
-  { "MSP2_INAV_SET_SERVO_CONFIG", 8705u, "0x2201", Direction::In, "Sets the configuration parameters for a single servo. Supersedes MSP_SET_SERVO_CONFIGURATION.", FIELDS_237, 5, false },
-  { "MSP2_INAV_GEOZONE", 8720u, "0x2210", Direction::InOut, "Get configuration for a specific Geozone.", FIELDS_238, 9, false },
-  { "MSP2_INAV_SET_GEOZONE", 8721u, "0x2211", Direction::In, "Sets the main configuration for a specific Geozone (type, shape, altitude, action). This command resets (clears) all vertices associated with the zone.", FIELDS_239, 8, false },
-  { "MSP2_INAV_GEOZONE_VERTEX", 8722u, "0x2212", Direction::InOut, "Get a specific vertex (or center+radius for circular zones) of a Geozone.", FIELDS_240, 11, false },
-  { "MSP2_INAV_SET_GEOZONE_VERTEX", 8723u, "0x2213", Direction::In, "Sets a specific vertex (or center+radius for circular zones) for a Geozone.", FIELDS_241, 9, false },
+  { "MSP2_INAV_SAFEHOME", 8248u, "0x2038", Direction::InOut, "Get or Set configuration for a specific Safe Home location.", FIELDS_MSP2_INAV_SAFEHOME, 5, false },
+  { "MSP2_INAV_SET_SAFEHOME", 8249u, "0x2039", Direction::In, "Sets the configuration for a specific Safe Home location.", FIELDS_MSP2_INAV_SET_SAFEHOME, 4, false },
+  { "MSP2_INAV_MISC2", 8250u, "0x203a", Direction::Out, "Retrieves miscellaneous runtime information including timers and throttle status.", FIELDS_MSP2_INAV_MISC2, 4, false },
+  { "MSP2_INAV_LOGIC_CONDITIONS_SINGLE", 8251u, "0x203b", Direction::InOut, "Gets the configuration for a single Logic Condition by its index.", FIELDS_MSP2_INAV_LOGIC_CONDITIONS_SINGLE, 9, false },
+  { "MSP2_INAV_ESC_RPM", 8256u, "0x2040", Direction::Out, "Retrieves the RPM reported by each ESC via telemetry.", FIELDS_MSP2_INAV_ESC_RPM, 1, false },
+  { "MSP2_INAV_ESC_TELEM", 8257u, "0x2041", Direction::Out, "Retrieves the full telemetry data structure reported by each ESC.", FIELDS_MSP2_INAV_ESC_TELEM, 2, true },
+  { "MSP2_INAV_LED_STRIP_CONFIG_EX", 8264u, "0x2048", Direction::Out, "Retrieves the full configuration for each LED on the strip using the ledConfig_t structure. Supersedes MSP_LED_STRIP_CONFIG.", FIELDS_MSP2_INAV_LED_STRIP_CONFIG_EX, 1, true },
+  { "MSP2_INAV_SET_LED_STRIP_CONFIG_EX", 8265u, "0x2049", Direction::In, "Sets the configuration for a single LED on the strip using the ledConfig_t structure. Supersedes MSP_SET_LED_STRIP_CONFIG.", FIELDS_MSP2_INAV_SET_LED_STRIP_CONFIG_EX, 2, true },
+  { "MSP2_INAV_FW_APPROACH", 8266u, "0x204a", Direction::InOut, "Get or Set configuration for a specific Fixed Wing Autoland approach.", FIELDS_MSP2_INAV_FW_APPROACH, 8, false },
+  { "MSP2_INAV_SET_FW_APPROACH", 8267u, "0x204b", Direction::In, "Sets the configuration for a specific Fixed Wing Autoland approach.", FIELDS_MSP2_INAV_SET_FW_APPROACH, 7, false },
+  { "MSP2_INAV_GPS_UBLOX_COMMAND", 8272u, "0x2050", Direction::In, "Sends a raw command directly to a U-Blox GPS module connected to the FC.", FIELDS_MSP2_INAV_GPS_UBLOX_COMMAND, 1, true },
+  { "MSP2_INAV_RATE_DYNAMICS", 8288u, "0x2060", Direction::Out, "Retrieves Rate Dynamics configuration parameters for the current control rate profile.", FIELDS_MSP2_INAV_RATE_DYNAMICS, 6, false },
+  { "MSP2_INAV_SET_RATE_DYNAMICS", 8289u, "0x2061", Direction::In, "Sets Rate Dynamics configuration parameters for the current control rate profile.", FIELDS_MSP2_INAV_SET_RATE_DYNAMICS, 6, false },
+  { "MSP2_INAV_EZ_TUNE", 8304u, "0x2070", Direction::Out, "Retrieves the current EZ-Tune parameters.", FIELDS_MSP2_INAV_EZ_TUNE, 10, false },
+  { "MSP2_INAV_EZ_TUNE_SET", 8305u, "0x2071", Direction::In, "Sets the EZ-Tune parameters and triggers an update.", FIELDS_MSP2_INAV_EZ_TUNE_SET, 10, false },
+  { "MSP2_INAV_SELECT_MIXER_PROFILE", 8320u, "0x2080", Direction::In, "Selects the active mixer profile and saves configuration.", FIELDS_MSP2_INAV_SELECT_MIXER_PROFILE, 1, false },
+  { "MSP2_ADSB_VEHICLE_LIST", 8336u, "0x2090", Direction::Out, "Retrieves the list of currently tracked ADSB (Automatic Dependent Surveillance–Broadcast) vehicles.", FIELDS_MSP2_ADSB_VEHICLE_LIST, 14, true },
+  { "MSP2_INAV_CUSTOM_OSD_ELEMENTS", 8448u, "0x2100", Direction::Out, "Retrieves counts related to custom OSD elements defined by the programming framework.", FIELDS_MSP2_INAV_CUSTOM_OSD_ELEMENTS, 3, false },
+  { "MSP2_INAV_CUSTOM_OSD_ELEMENT", 8449u, "0x2101", Direction::InOut, "Gets the configuration of a single custom OSD element defined by the programming framework.", FIELDS_MSP2_INAV_CUSTOM_OSD_ELEMENT, 9, true },
+  { "MSP2_INAV_SET_CUSTOM_OSD_ELEMENTS", 8450u, "0x2102", Direction::In, "Sets the configuration of a single custom OSD element defined by the programming framework.", FIELDS_MSP2_INAV_SET_CUSTOM_OSD_ELEMENTS, 9, true },
+  { "MSP2_INAV_OUTPUT_MAPPING_EXT2", 8461u, "0x210d", Direction::Out, "Retrieves the full extended output mapping configuration (timer ID, full 32-bit usage flags, and pin label). Supersedes MSP2_INAV_OUTPUT_MAPPING_EXT.", FIELDS_MSP2_INAV_OUTPUT_MAPPING_EXT2, 3, false },
+  { "MSP2_INAV_SERVO_CONFIG", 8704u, "0x2200", Direction::Out, "Retrieves the configuration parameters for all supported servos (min, max, middle, rate). Supersedes MSP_SERVO_CONFIGURATIONS.", FIELDS_MSP2_INAV_SERVO_CONFIG, 4, false },
+  { "MSP2_INAV_SET_SERVO_CONFIG", 8705u, "0x2201", Direction::In, "Sets the configuration parameters for a single servo. Supersedes MSP_SET_SERVO_CONFIGURATION.", FIELDS_MSP2_INAV_SET_SERVO_CONFIG, 5, false },
+  { "MSP2_INAV_GEOZONE", 8720u, "0x2210", Direction::InOut, "Get configuration for a specific Geozone.", FIELDS_MSP2_INAV_GEOZONE, 9, false },
+  { "MSP2_INAV_SET_GEOZONE", 8721u, "0x2211", Direction::In, "Sets the main configuration for a specific Geozone (type, shape, altitude, action). This command resets (clears) all vertices associated with the zone.", FIELDS_MSP2_INAV_SET_GEOZONE, 8, false },
+  { "MSP2_INAV_GEOZONE_VERTEX", 8722u, "0x2212", Direction::InOut, "Get a specific vertex (or center+radius for circular zones) of a Geozone.", FIELDS_MSP2_INAV_GEOZONE_VERTEX, 11, false },
+  { "MSP2_INAV_SET_GEOZONE_VERTEX", 8723u, "0x2213", Direction::In, "Sets a specific vertex (or center+radius for circular zones) for a Geozone.", FIELDS_MSP2_INAV_SET_GEOZONE_VERTEX, 9, false },
   { "MSP2_BETAFLIGHT_BIND", 12288u, "0x3000", Direction::In, "Initiates the receiver binding procedure for supported serial protocols (CRSF, SRXL2).", nullptr, 0, false },
-}; inline constexpr size_t REGISTRY_COUNT = sizeof(REGISTRY)/sizeof(REGISTRY[0]);
+};
+inline constexpr size_t REGISTRY_COUNT = sizeof(REGISTRY)/sizeof(REGISTRY[0]);
+
 } // namespace msp

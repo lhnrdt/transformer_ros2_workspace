@@ -2,9 +2,12 @@
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/float32.hpp>
 #include <geometry_msgs/msg/twist_stamped.hpp>
+#include <vector>
 #include "transformer_msp_bridge/decoders/altitude_decoder.hpp"
+#include "schema_expectations.hpp"
 
 using namespace transformer_msp_bridge;
+using transformer_msp_bridge::test_utils::expect_payload_matches_schema;
 
 static void spin_for(rclcpp::Node::SharedPtr node, int ms = 60)
 {
@@ -32,9 +35,15 @@ TEST(AltitudeDecoder, BasicScaling)
   pkt.cmd = MSP_ALTITUDE;
   int32_t alt_cm = 12345; // 123.45 m
   int16_t vs_cms = -250;  // -2.50 m/s
-  pkt.payload = {
-      (uint8_t)(alt_cm & 0xFF), (uint8_t)((alt_cm >> 8) & 0xFF), (uint8_t)((alt_cm >> 16) & 0xFF), (uint8_t)((alt_cm >> 24) & 0xFF),
-      (uint8_t)(vs_cms & 0xFF), (uint8_t)((vs_cms >> 8) & 0xFF)};
+  int32_t baro_cm = 12000; // 120.00 m raw baro altitude
+  const std::vector<uint8_t> payload = {
+    static_cast<uint8_t>(alt_cm & 0xFF), static_cast<uint8_t>((alt_cm >> 8) & 0xFF),
+    static_cast<uint8_t>((alt_cm >> 16) & 0xFF), static_cast<uint8_t>((alt_cm >> 24) & 0xFF),
+    static_cast<uint8_t>(vs_cms & 0xFF), static_cast<uint8_t>((vs_cms >> 8) & 0xFF),
+    static_cast<uint8_t>(baro_cm & 0xFF), static_cast<uint8_t>((baro_cm >> 8) & 0xFF),
+    static_cast<uint8_t>((baro_cm >> 16) & 0xFF), static_cast<uint8_t>((baro_cm >> 24) & 0xFF)};
+  expect_payload_matches_schema(MSP_ALTITUDE, payload);
+  pkt.payload = payload;
   decoder.decode(pkt);
   spin_for(node);
   ASSERT_TRUE(alt_msg);

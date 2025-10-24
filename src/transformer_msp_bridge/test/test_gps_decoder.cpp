@@ -4,9 +4,12 @@
 #include <geometry_msgs/msg/twist_stamped.hpp>
 #include <geometry_msgs/msg/vector3_stamped.hpp>
 #include <std_msgs/msg/float32.hpp>
+#include <vector>
 #include "transformer_msp_bridge/decoders/gps_decoder.hpp"
+#include "schema_expectations.hpp"
 
 using namespace transformer_msp_bridge;
+using transformer_msp_bridge::test_utils::expect_payload_matches_schema;
 
 static void spin_for(rclcpp::Node::SharedPtr node, int ms = 80)
 {
@@ -50,6 +53,7 @@ TEST(GpsDecoder, RawGpsBasic)
   push16(123);  // alt m
   push16(1500); // speed cm/s
   push16(900);  // course 90.0 deg
+  expect_payload_matches_schema(MSP_RAW_GPS, pkt.payload);
   decoder.decode(pkt);
   spin_for(node);
   ASSERT_TRUE(fix);
@@ -77,6 +81,7 @@ TEST(GpsDecoder, CompGpsVector)
   MSPPacket pkt;
   pkt.cmd = MSP_COMP_GPS;
   pkt.payload = {0x34, 0x12, 0x78, 0x56}; // dist=0x1234=4660, dir=0x5678=22136
+  expect_payload_matches_schema(MSP_COMP_GPS, pkt.payload);
   decoder.decode(pkt);
   spin_for(node);
   ASSERT_TRUE(home_vec);

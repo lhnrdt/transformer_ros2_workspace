@@ -4,9 +4,12 @@
 #include <sensor_msgs/msg/magnetic_field.hpp>
 #include <chrono>
 #include <thread>
+#include <vector>
 #include "transformer_msp_bridge/decoders/imu_decoder.hpp"
+#include "schema_expectations.hpp"
 
 using namespace transformer_msp_bridge;
+using transformer_msp_bridge::test_utils::expect_payload_matches_schema;
 
 static void spin_for(rclcpp::Node::SharedPtr node, int ms = 60)
 {
@@ -51,6 +54,7 @@ TEST(ImuDecoder, RawImuScaling)
   put16(pkt.payload, 100);  // mx
   put16(pkt.payload, -200); // my
   put16(pkt.payload, 50);   // mz
+  expect_payload_matches_schema(MSP_RAW_IMU, pkt.payload);
 
   decoder.decode(pkt);
   spin_for(node);

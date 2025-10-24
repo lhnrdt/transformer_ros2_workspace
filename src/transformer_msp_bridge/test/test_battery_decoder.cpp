@@ -3,9 +3,12 @@
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/battery_state.hpp>
 #include <thread>
+#include <vector>
 #include "transformer_msp_bridge/decoders/battery_decoder.hpp"
+#include "schema_expectations.hpp"
 
 using namespace transformer_msp_bridge;
+using transformer_msp_bridge::test_utils::expect_payload_matches_schema;
 
 // Helper to spin node briefly (renamed to avoid clash with rclcpp::spin_some)
 static void spin_for(rclcpp::Node::SharedPtr node, int ms = 50)
@@ -36,7 +39,9 @@ TEST(BatteryDecoder, AnalogBasic)
   // MSP_ANALOG schema expects 7 bytes: vbat(U8), mah(U16), rssi(U16), amps(I16)
   MSPPacket pkt;
   pkt.cmd = MSP_ANALOG;
-  pkt.payload = {(uint8_t)123, 0, 0, 0, 0, 0, 0}; // 12.3V, zeros for others
+  const std::vector<uint8_t> payload = {(uint8_t)123, 0, 0, 0, 0, 0, 0}; // 12.3V, zeros for others
+  expect_payload_matches_schema(MSP_ANALOG, payload);
+  pkt.payload = payload;
   // Try a few times to tolerate discovery delays
   for (int i = 0; i < 10 && !last; ++i)
   {
@@ -61,13 +66,15 @@ TEST(BatteryDecoder, ExtendedState)
   // Craft payload: cells=4, capacity(2)=5000 (-> 5 * 3600 = 18000C), mv(2)=1684 (16.84V), current(2)=1234 (12.34A), remaining%=85
   MSPPacket pkt;
   pkt.cmd = MSP_BATTERY_STATE;
-  pkt.payload = {
-      4,          // cells
-      0x88, 0x13, // capacity 5000 (0x1388)
-      0x94, 0x06, // mv 1684
-      0xD2, 0x04, // current 1234
-      85          // remaining %
+  const std::vector<uint8_t> payload = {
+    4,          // cells
+    0x88, 0x13, // capacity 5000 (0x1388)
+    0x94, 0x06, // mv 1684 (0.01V units)
+    0xD2, 0x04, // current 1234 (0.01A units)
+    85          // remaining %
   };
+  expect_payload_matches_schema(MSP_BATTERY_STATE, payload);
+  pkt.payload = payload;
   decoder.decode(pkt);
   spin_for(node);
   ASSERT_TRUE(last);

@@ -3,9 +3,12 @@
 #include <geometry_msgs/msg/vector3.hpp>
 #include <chrono>
 #include <thread>
+#include <vector>
 #include "transformer_msp_bridge/decoders/attitude_decoder.hpp"
+#include "schema_expectations.hpp"
 
 using namespace transformer_msp_bridge;
+using transformer_msp_bridge::test_utils::expect_payload_matches_schema;
 
 static void spin_for(rclcpp::Node::SharedPtr node, int ms = 50)
 {
@@ -35,10 +38,12 @@ TEST(AttitudeDecoder, BasicScaling)
   int16_t yaw = (int16_t)(450);
   MSPPacket pkt;
   pkt.cmd = MSP_ATTITUDE;
-  pkt.payload = {
-      (uint8_t)(roll & 0xFF), (uint8_t)((roll >> 8) & 0xFF),
-      (uint8_t)(pitch & 0xFF), (uint8_t)((pitch >> 8) & 0xFF),
-      (uint8_t)(yaw & 0xFF), (uint8_t)((yaw >> 8) & 0xFF)};
+  const std::vector<uint8_t> payload = {
+    static_cast<uint8_t>(roll & 0xFF), static_cast<uint8_t>((roll >> 8) & 0xFF),
+    static_cast<uint8_t>(pitch & 0xFF), static_cast<uint8_t>((pitch >> 8) & 0xFF),
+    static_cast<uint8_t>(yaw & 0xFF), static_cast<uint8_t>((yaw >> 8) & 0xFF)};
+  expect_payload_matches_schema(MSP_ATTITUDE, payload);
+  pkt.payload = payload;
   decoder.decode(pkt);
   spin_for(node);
   ASSERT_TRUE(last);

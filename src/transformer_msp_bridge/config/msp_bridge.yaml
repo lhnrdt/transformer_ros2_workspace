@@ -51,12 +51,6 @@ transformer_msp_bridge:
     command.msp_sensor_config.rate_hz: 2.0
     command.msp_gpsstatistics.enabled: true
     command.msp_gpsstatistics.rate_hz: 1.0
-    command.msp2_sensor_rangefinder.enabled: true
-    command.msp2_sensor_rangefinder.rate_hz: 5.0
-    command.msp2_sensor_compass.enabled: true
-    command.msp2_sensor_compass.rate_hz: 5.0
-    command.msp2_sensor_barometer.enabled: true
-    command.msp2_sensor_barometer.rate_hz: 5.0
     command.msp2_inav_status.enabled: true
     command.msp2_inav_status.rate_hz: 2.0
     command.msp2_inav_analog.enabled: true
