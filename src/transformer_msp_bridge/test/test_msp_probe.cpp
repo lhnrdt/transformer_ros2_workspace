@@ -1,12 +1,17 @@
 #include <gtest/gtest.h>
 #include <chrono>
+#include <cmath>
 #include <cstdlib>
 #include <cstring>
+#include <functional>
+#include <iomanip>
+#include <iostream>
 #include <map>
 #include <set>
 #include <sstream>
 #include <string>
 #include <thread>
+#include <unordered_map>
 #include "msp/msp_protocol.h"
 #include "transformer_msp_bridge/msp_builders.hpp"
 #include "transformer_msp_bridge/msp_parser.hpp"
@@ -14,6 +19,176 @@
 #include "transformer_msp_bridge/serial_port.hpp"
 
 using namespace transformer_msp_bridge;
+
+namespace
+{
+
+  using Validator = std::function<std::string(const std::vector<double> &, const std::vector<std::string> &)>;
+
+  std::string describe_value(const std::vector<double> &values, const std::vector<std::string> &names)
+  {
+    std::ostringstream oss;
+    oss << "[";
+    for (std::size_t i = 0; i < values.size(); ++i)
+    {
+      if (i)
+        oss << ", ";
+      if (i < names.size() && !names[i].empty())
+        oss << names[i] << "=";
+      oss << values[i];
+    }
+    oss << "]";
+    return oss.str();
+  }
+
+  std::string payload_to_hex(const std::vector<uint8_t> &payload)
+  {
+    if (payload.empty())
+      return "<empty>";
+    std::ostringstream oss;
+    oss << std::uppercase << std::hex << std::setfill('0');
+    for (std::size_t i = 0; i < payload.size(); ++i)
+    {
+      if (i)
+        oss << ' ';
+      oss << std::setw(2) << static_cast<int>(payload[i]);
+    }
+    return oss.str();
+  }
+
+  std::string generic_checks(const std::vector<double> &values, const std::vector<std::string> &names)
+  {
+    constexpr double kDefaultAbsLimit = 1e6;
+    for (std::size_t i = 0; i < values.size(); ++i)
+    {
+      const double v = values[i];
+      if (!std::isfinite(v))
+      {
+        std::ostringstream oss;
+        oss << "non-finite value at index " << i << " " << describe_value(values, names);
+        return oss.str();
+      }
+      if (std::abs(v) > kDefaultAbsLimit)
+      {
+        std::ostringstream oss;
+        oss << "value out of default range at index " << i << " (" << v << ") "
+            << describe_value(values, names);
+        return oss.str();
+      }
+    }
+    return {};
+  }
+
+  std::unordered_map<uint16_t, Validator> build_validators()
+  {
+    std::unordered_map<uint16_t, Validator> validators;
+
+    validators.emplace(MSP_ATTITUDE, [](const std::vector<double> &values, const std::vector<std::string> &names)
+                       {
+      if (values.size() != 3)
+        return std::string("expected 3 attitude fields, got ") + std::to_string(values.size());
+      for (std::size_t i = 0; i < values.size(); ++i)
+      {
+        double v = values[i];
+        if (!std::isfinite(v))
+          return std::string("attitude value not finite: ") + describe_value(values, names);
+        if (std::abs(v) > 720.0)
+          return std::string("attitude value exceeds ±720 deg: ") + describe_value(values, names);
+      }
+      return std::string();
+    });
+
+    validators.emplace(MSP_RAW_IMU, [](const std::vector<double> &values, const std::vector<std::string> &names)
+                       {
+      if (values.size() != 9)
+        return std::string("expected 9 raw IMU fields, got ") + std::to_string(values.size());
+      for (double v : values)
+      {
+        if (!std::isfinite(v))
+          return std::string("raw IMU value not finite: ") + describe_value(values, names);
+        if (std::abs(v) > 200000.0)
+          return std::string("raw IMU value too large: ") + describe_value(values, names);
+      }
+      return std::string();
+    });
+
+    validators.emplace(MSP_ALTITUDE, [](const std::vector<double> &values, const std::vector<std::string> &names)
+                       {
+      if (values.size() != 2)
+        return std::string("expected 2 altitude fields, got ") + std::to_string(values.size());
+      double alt_cm = values[0];
+      double vario = values[1];
+      if (!std::isfinite(alt_cm) || !std::isfinite(vario))
+        return std::string("altitude value not finite: ") + describe_value(values, names);
+      if (std::abs(alt_cm) > 500000.0)
+        return std::string("altitude magnitude unrealistic: ") + describe_value(values, names);
+      if (std::abs(vario) > 20000.0)
+        return std::string("vertical speed unrealistic: ") + describe_value(values, names);
+      return std::string();
+    });
+
+    validators.emplace(MSP_ANALOG, [](const std::vector<double> &values, const std::vector<std::string> &names)
+                       {
+      if (values.size() < 4)
+        return std::string("expected at least 4 analog fields, got ") + std::to_string(values.size());
+      if (values[0] < 0.0 || values[0] > 255.0)
+        return std::string("battery voltage raw out of range: ") + describe_value(values, names);
+      if (values[1] < 0.0 || values[1] > 100000.0)
+        return std::string("mAh value out of range: ") + describe_value(values, names);
+      return std::string();
+    });
+
+    validators.emplace(MSP_RAW_GPS, [](const std::vector<double> &values, const std::vector<std::string> &names)
+                       {
+      if (values.size() != 7)
+        return std::string("expected 7 GPS fields, got ") + std::to_string(values.size());
+      double num_sats = values[0];
+      if (num_sats < 0.0 || num_sats > 50.0)
+        return std::string("GPS sats out of range: ") + describe_value(values, names);
+      double lat = values[2];
+      double lon = values[3];
+      if (std::abs(lat) > 900000000.0 || std::abs(lon) > 1800000000.0)
+        return std::string("GPS lat/lon out of range: ") + describe_value(values, names);
+      return std::string();
+    });
+
+    validators.emplace(MSP_RC, [](const std::vector<double> &values, const std::vector<std::string> &names)
+                       {
+      for (double v : values)
+      {
+        if (v < 250.0 || v > 2250.0)
+          return std::string("RC channel pulse out of 250-2250us range: ") + describe_value(values, names);
+      }
+      return std::string();
+    });
+
+    validators.emplace(MSP_COMP_GPS, [](const std::vector<double> &values, const std::vector<std::string> &names)
+                       {
+      if (values.size() != 2)
+        return std::string("expected 2 compensated GPS fields, got ") + std::to_string(values.size());
+      for (double v : values)
+      {
+        if (v < 0.0 || v > 65000.0)
+          return std::string("ground speed/course out of range: ") + describe_value(values, names);
+      }
+      return std::string();
+    });
+
+    validators.emplace(MSP_STATUS, [](const std::vector<double> &values, const std::vector<std::string> &names)
+                       {
+      if (values.size() != 5)
+        return std::string("expected 5 status fields, got ") + std::to_string(values.size());
+      if (values[0] < 0.0 || values[0] > 0xFFFF)
+        return std::string("status cycleTime out of range: ") + describe_value(values, names);
+      if (values[4] > 255.0)
+        return std::string("status profile out of range: ") + describe_value(values, names);
+      return std::string();
+    });
+
+    return validators;
+  }
+
+} // namespace
 
 TEST(MspProbe, AllDefaultPolledRespondAndValidate)
 {
@@ -38,7 +213,10 @@ TEST(MspProbe, AllDefaultPolledRespondAndValidate)
   auto view = get_default_registry();
   size_t total = 0, ok = 0;
   std::set<uint16_t> missing_ids;
-  std::map<uint16_t, std::string> validation_errors; // removed validation; kept var for minimal diff but unused
+  std::map<uint16_t, std::string> validation_errors;
+  std::map<uint16_t, std::string> last_value_strings;
+  std::map<uint16_t, std::string> last_raw_payloads;
+  const auto validators = build_validators();
 
   auto now = std::chrono::steady_clock::now;
   auto deadline_offset = std::chrono::duration<double>(5.0);
@@ -74,8 +252,77 @@ TEST(MspProbe, AllDefaultPolledRespondAndValidate)
       continue;
     }
     ok++;
-    // No value validation anymore.
+    last_raw_payloads[d.id] = payload_to_hex(last_pkt->payload);
+
+    if (d.response_schema && d.response_schema_count > 0)
+    {
+      ResponseSchema schema{d.response_schema, d.response_schema_count};
+      std::vector<double> values;
+      std::vector<std::string> names;
+      std::string err;
+      if (!parse_to_flat_list(schema, last_pkt->payload, values, &names, &err))
+      {
+        validation_errors[d.id] = std::string("parse failed: ") + err;
+        std::cout << "[MSP Probe] 0x" << std::hex << d.id << std::dec
+                  << " parse failed: " << err
+                  << " | raw=" << last_raw_payloads[d.id] << std::endl;
+        continue;
+      }
+      std::string msg;
+      auto it = validators.find(d.id);
+      if (it != validators.end())
+      {
+        msg = it->second(values, names);
+      }
+      else
+      {
+        msg = generic_checks(values, names);
+      }
+      if (!msg.empty())
+      {
+        validation_errors[d.id] = msg;
+        std::cout << "[MSP Probe] 0x" << std::hex << d.id << std::dec
+                  << " schema validation failed: " << msg
+                  << " | raw=" << last_raw_payloads[d.id] << std::endl;
+      }
+      else
+      {
+        const std::string formatted = describe_value(values, names);
+        last_value_strings[d.id] = formatted;
+        std::cout << "[MSP Probe] 0x" << std::hex << d.id << std::dec
+                  << " : " << formatted
+                  << " | raw=" << last_raw_payloads[d.id] << std::endl;
+      }
+    }
+    else
+    {
+      std::cout << "[MSP Probe] 0x" << std::hex << d.id << std::dec
+                << " (no schema) raw=" << last_raw_payloads[d.id] << std::endl;
+    }
   }
+
+  auto snapshot_to_string = [&]() -> std::string {
+    if (last_value_strings.empty())
+      return {};
+    std::ostringstream oss;
+    oss << "Parsed telemetry snapshot (ID -> values):\n";
+    for (const auto &entry : last_value_strings)
+    {
+      oss << "  0x" << std::hex << entry.first << std::dec << " : " << entry.second << "\n";
+    }
+    if (!last_raw_payloads.empty())
+    {
+      oss << "Raw payloads:\n";
+      for (const auto &entry : last_raw_payloads)
+      {
+        oss << "  0x" << std::hex << entry.first << std::dec
+            << " : " << entry.second << "\n";
+      }
+    }
+    return oss.str();
+  };
+
+  const std::string snapshot_str = snapshot_to_string();
 
   if (!missing_ids.empty())
   {
@@ -87,6 +334,25 @@ TEST(MspProbe, AllDefaultPolledRespondAndValidate)
       for (auto id : missing_ids)
         msg << " 0x" << std::hex << id;
       msg << "\n";
+    }
+    if (!snapshot_str.empty())
+    {
+      msg << snapshot_str;
+    }
+    FAIL() << msg.str();
+  }
+
+  if (!validation_errors.empty())
+  {
+    std::ostringstream msg;
+    msg << "Validation errors for ";
+    for (const auto &kv : validation_errors)
+    {
+      msg << "0x" << std::hex << kv.first << ": " << kv.second << "\n";
+    }
+    if (!snapshot_str.empty())
+    {
+      msg << snapshot_str;
     }
     FAIL() << msg.str();
   }
