@@ -4,8 +4,7 @@
 #include <string>
 #include <vector>
 
-#include <yaml-cpp/yaml.h>
-#include "ament_index_cpp/get_package_share_directory.hpp"
+#include "transformer_msp_bridge/msp_registry.hpp"
 
 TEST(DecoderCoverage, DefaultPolledCommandsHaveDecoders)
 {
@@ -38,40 +37,24 @@ TEST(DecoderCoverage, DefaultPolledCommandsHaveDecoders)
       "MSP2_INAV_ESC_RPM"         // InavGenericDecoder
   };
 
-  std::string share;
-  try
-  {
-    share = ament_index_cpp::get_package_share_directory("transformer_msp_bridge");
-  }
-  catch (const std::exception &)
-  {
-    FAIL() << "Package share directory not found";
-  }
-  const std::string path = share + "/config/registry.yaml";
-  YAML::Node root = YAML::LoadFile(path);
-  ASSERT_TRUE(root && root.IsMap());
-  YAML::Node regs = root["registry"];
-  ASSERT_TRUE(regs && regs.IsSequence());
-
   std::vector<std::string> missing;
-  for (const auto &n : regs)
+  auto view = transformer_msp_bridge::get_default_registry();
+  for (const auto &d : view)
   {
-    const double rate = n["poll_rate_hz"].as<double>(0.0);
+    const double rate = d.poll_rate_hz;
     if (rate <= 0.0)
       continue;
-    const std::string name = n["name"].as<std::string>("");
-    const std::string id_str = n["id"].IsScalar() ? n["id"].as<std::string>("") : std::string();
-    // Treat as v1 if id does not start with "MSP2_"
-    const bool is_v2 = (!id_str.empty() && id_str.rfind("MSP2_", 0) == 0);
+    const std::string name = (d.name != nullptr) ? std::string(d.name) : std::string();
+    const bool is_v2 = d.is_v2();
     if (!is_v2)
     {
       if (covered_v1.find(name) == covered_v1.end())
-        missing.push_back(name.empty() ? id_str : name);
+        missing.push_back(name.empty() ? std::string("id_" + std::to_string(d.id)) : name);
     }
     else
     {
       if (covered_v2.find(name) == covered_v2.end())
-        missing.push_back(name.empty() ? id_str : name);
+        missing.push_back(name.empty() ? std::string("id_" + std::to_string(d.id)) : name);
     }
   }
 

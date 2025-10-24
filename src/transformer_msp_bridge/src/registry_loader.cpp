@@ -1,14 +1,15 @@
 #include "transformer_msp_bridge/registry_loader.hpp"
 
+#include <algorithm>
 #include <cctype>
 #include <cstdlib>
 #include <fstream>
+#include <functional>
+#include <optional>
 #include <sstream>
 #include <stdexcept>
-#include <unordered_map>
-#include <utility>
 
-#include <yaml-cpp/yaml.h>
+#include <nlohmann/json.hpp>
 
 #include "ament_index_cpp/get_package_share_directory.hpp"
 #include "msp/msp_protocol.h"
@@ -20,132 +21,242 @@ namespace transformer_msp_bridge
 
   namespace
   {
+    using json = nlohmann::json;
 
-    FieldType parse_field_type(std::string s)
+    struct ParsedPrimitive
     {
-      // Accept common aliases and C type names; case-insensitive
-      for (auto &ch : s)
-        ch = static_cast<char>(std::tolower(static_cast<unsigned char>(ch)));
-      if (s == "i8" || s == "int8_t")
-        return FieldType::I8;
-      if (s == "u8" || s == "uint8_t")
-        return FieldType::U8;
-      if (s == "i16" || s == "int16_t")
-        return FieldType::I16;
-      if (s == "u16" || s == "uint16_t")
-        return FieldType::U16;
-      if (s == "i32" || s == "int32_t")
-        return FieldType::I32;
-      if (s == "u32" || s == "uint32_t")
-        return FieldType::U32;
-      throw std::runtime_error("Unknown field type: " + s);
+      FieldType field_type;
+      std::size_t element_size;
+      std::size_t repeat;
+    };
+
+    std::string trim_copy(const std::string &input)
+    {
+      auto begin = input.begin();
+      auto end = input.end();
+      while (begin != end && std::isspace(static_cast<unsigned char>(*begin)))
+        ++begin;
+      while (end != begin && std::isspace(static_cast<unsigned char>(*(end - 1))))
+        --end;
+      return std::string(begin, end);
     }
 
-    uint16_t parse_id_scalar(const YAML::Node &n)
+    std::string strip_backticks(const std::string &input)
     {
-      // Accept integer or string forms. Strings may be decimal, hex (0x...), or MSP macro names.
-      if (n.IsScalar())
+      std::string out;
+      out.reserve(input.size());
+      for (char ch : input)
       {
-        const std::string s = n.as<std::string>();
-        // Try numeric first
-        char *endp = nullptr;
-        unsigned long v = 0;
-        if (!s.empty())
+        if (ch != '`')
+          out.push_back(ch);
+      }
+      return trim_copy(out);
+    }
+
+    MessageDirection parse_direction_label(std::string label)
+    {
+      std::string lower;
+      lower.reserve(label.size());
+      for (char ch : label)
+        lower.push_back(static_cast<char>(std::tolower(static_cast<unsigned char>(ch))));
+
+      if (lower == "out" || lower == "outbound")
+        return MessageDirection::Outbound;
+      if (lower == "in" || lower == "inbound")
+        return MessageDirection::Inbound;
+      if (lower == "both" || lower == "bidirectional" || lower == "in/out")
+        return MessageDirection::Bidirectional;
+      if (lower.find("indicator") != std::string::npos)
+        return MessageDirection::Indicator;
+      return MessageDirection::Unknown;
+    }
+
+    bool parse_unsigned(const std::string &text, unsigned long &value)
+    {
+      const std::string trimmed = trim_copy(text);
+      if (trimmed.empty())
+        return false;
+      char *end_ptr = nullptr;
+      int base = 10;
+      if (trimmed.size() > 2 && trimmed[0] == '0' && (trimmed[1] == 'x' || trimmed[1] == 'X'))
+        base = 16;
+      value = std::strtoul(trimmed.c_str(), &end_ptr, base);
+      return end_ptr && *end_ptr == '\0';
+    }
+
+    uint16_t parse_message_id(const json &node)
+    {
+      if (node.is_number_unsigned())
+      {
+        const auto v = node.get<uint64_t>();
+        if (v > 0xFFFFULL)
+          throw std::runtime_error("MSP id exceeds 16-bit range");
+        return static_cast<uint16_t>(v);
+      }
+      if (node.is_number_integer())
+      {
+        const auto v = node.get<int64_t>();
+        if (v < 0 || v > 0xFFFFLL)
+          throw std::runtime_error("MSP id out of range");
+        return static_cast<uint16_t>(v);
+      }
+      if (node.is_string())
+      {
+        unsigned long parsed = 0;
+        const std::string text = node.get<std::string>();
+        if (!parse_unsigned(text, parsed) || parsed > 0xFFFFUL)
+          throw std::runtime_error("Unable to parse MSP id: " + text);
+        return static_cast<uint16_t>(parsed);
+      }
+      throw std::runtime_error("MSP id must be numeric or string");
+    }
+
+    std::optional<std::size_t> parse_repeated_count(const std::string &raw)
+    {
+      const auto open = raw.find('[');
+      if (open == std::string::npos)
+        return std::nullopt;
+      const auto close = raw.find(']', open);
+      if (close == std::string::npos)
+        return std::nullopt;
+      std::string inside = raw.substr(open + 1, close - open - 1);
+      unsigned long parsed = 0;
+      if (!parse_unsigned(inside, parsed))
+        return std::nullopt;
+      return static_cast<std::size_t>(parsed);
+    }
+
+    std::optional<ParsedPrimitive> parse_primitive_ctype(const std::string &raw_ctype)
+    {
+      if (raw_ctype.empty())
+        return std::nullopt;
+
+      std::string cleaned;
+      cleaned.reserve(raw_ctype.size());
+      for (char ch : raw_ctype)
+      {
+        if (!std::isspace(static_cast<unsigned char>(ch)))
+          cleaned.push_back(ch);
+      }
+
+      const auto repeat = parse_repeated_count(cleaned);
+      std::size_t multiplicity = 1;
+      if (repeat.has_value())
+      {
+        multiplicity = *repeat;
+        const auto bracket = cleaned.find('[');
+        cleaned.erase(bracket, cleaned.size() - bracket);
+      }
+
+      std::string lower;
+      lower.reserve(cleaned.size());
+      for (char ch : cleaned)
+        lower.push_back(static_cast<char>(std::tolower(static_cast<unsigned char>(ch))));
+
+      ParsedPrimitive parsed{};
+      parsed.repeat = multiplicity;
+
+      if (lower == "uint8_t" || lower == "uint8" || lower == "u8" || lower == "char")
+      {
+        parsed.field_type = FieldType::U8;
+        parsed.element_size = 1;
+        return parsed;
+      }
+      if (lower == "int8_t" || lower == "int8" || lower == "i8")
+      {
+        parsed.field_type = FieldType::I8;
+        parsed.element_size = 1;
+        return parsed;
+      }
+      if (lower == "uint16_t" || lower == "uint16" || lower == "u16")
+      {
+        parsed.field_type = FieldType::U16;
+        parsed.element_size = 2;
+        return parsed;
+      }
+      if (lower == "int16_t" || lower == "int16" || lower == "i16")
+      {
+        parsed.field_type = FieldType::I16;
+        parsed.element_size = 2;
+        return parsed;
+      }
+      if (lower == "uint32_t" || lower == "uint32" || lower == "u32")
+      {
+        parsed.field_type = FieldType::U32;
+        parsed.element_size = 4;
+        return parsed;
+      }
+      if (lower == "int32_t" || lower == "int32" || lower == "i32")
+      {
+        parsed.field_type = FieldType::I32;
+        parsed.element_size = 4;
+        return parsed;
+      }
+      if (lower == "float" || lower == "float32" || lower == "float32_t")
+      {
+        parsed.field_type = FieldType::F32;
+        parsed.element_size = 4;
+        return parsed;
+      }
+      return std::nullopt;
+    }
+
+    std::optional<std::size_t> parse_declared_size(const std::string &raw_size)
+    {
+      if (raw_size.empty())
+        return std::nullopt;
+      unsigned long parsed = 0;
+      if (!parse_unsigned(raw_size, parsed))
+        return std::nullopt;
+      return static_cast<std::size_t>(parsed);
+    }
+
+    RuntimeRegistry::OwnedSchema build_schema_from_definition(const MessageDefinition &def)
+    {
+      RuntimeRegistry::OwnedSchema schema;
+      const std::size_t count = def.fields.size();
+      schema.count = count;
+      schema.fields = std::make_unique<FieldSpec[]>(count);
+      schema.names = std::make_unique<std::string[]>(count);
+      schema.units = std::make_unique<std::string[]>(count);
+
+      for (std::size_t i = 0; i < count; ++i)
+      {
+        const auto &field = def.fields[i];
+        const auto primitive = parse_primitive_ctype(field.ctype);
+        if (!primitive.has_value() || primitive->repeat == 0)
+          throw std::runtime_error("Unsupported field type for schema: " + field.ctype);
+
+        if (const auto declared_size = parse_declared_size(field.size))
         {
-          if (s.size() > 2 && (s[0] == '0') && (s[1] == 'x' || s[1] == 'X'))
+          const std::size_t expected = primitive->element_size * primitive->repeat;
+          if (*declared_size != expected)
           {
-            v = std::strtoul(s.c_str(), &endp, 16);
-          }
-          else if (std::isdigit(static_cast<unsigned char>(s[0])))
-          {
-            v = std::strtoul(s.c_str(), &endp, 10);
-          }
-          if (endp && *endp == '\0' && v <= 0xFFFFUL)
-          {
-            return static_cast<uint16_t>(v);
+            std::ostringstream oss;
+            oss << "Declared size mismatch for field '" << field.name << "' (expected " << expected
+                << ", got " << *declared_size << ")";
+            throw std::runtime_error(oss.str());
           }
         }
-        // Fallback to name -> id mapping for known MSP symbols
-        static const std::pair<const char *, uint16_t> kPairs[] = {
-            {"MSP_RAW_IMU", MSP_RAW_IMU},
-            {"MSP_SERVO", MSP_SERVO},
-            {"MSP_MOTOR", MSP_MOTOR},
-            {"MSP_RC", MSP_RC},
-            {"MSP_RAW_GPS", MSP_RAW_GPS},
-            {"MSP_COMP_GPS", MSP_COMP_GPS},
-            {"MSP_ATTITUDE", MSP_ATTITUDE},
-            {"MSP_ALTITUDE", MSP_ALTITUDE},
-            {"MSP_ANALOG", MSP_ANALOG},
-            {"MSP_RC_TUNING", MSP_RC_TUNING},
-            {"MSP_BATTERY_STATE", MSP_BATTERY_STATE},
-            {"MSP_RTC", MSP_RTC},
-            {"MSP_STATUS", MSP_STATUS},
-            {"MSP_SENSOR_CONFIG", MSP_SENSOR_CONFIG},
-            {"MSP_GPSSTATISTICS", MSP_GPSSTATISTICS},
-            {"MSP2_SENSOR_RANGEFINDER", MSP2_SENSOR_RANGEFINDER},
-            {"MSP2_SENSOR_COMPASS", MSP2_SENSOR_COMPASS},
-            {"MSP2_SENSOR_BAROMETER", MSP2_SENSOR_BAROMETER},
-            {"MSP2_INAV_STATUS", MSP2_INAV_STATUS},
-            {"MSP2_INAV_ANALOG", MSP2_INAV_ANALOG},
-            {"MSP2_INAV_BATTERY_CONFIG", MSP2_INAV_BATTERY_CONFIG},
-            {"MSP2_INAV_AIR_SPEED", MSP2_INAV_AIR_SPEED},
-            {"MSP2_INAV_TEMPERATURES", MSP2_INAV_TEMPERATURES},
-            {"MSP2_INAV_ESC_RPM", MSP2_INAV_ESC_RPM},
-            {"MSP2_COMMON_SETTING", MSP2_COMMON_SETTING},
-            {"MSP2_COMMON_SET_SETTING", MSP2_COMMON_SET_SETTING},
-        };
-        static const std::unordered_map<std::string, uint16_t> kMap = []
-        {
-          std::unordered_map<std::string, uint16_t> m;
-          for (const auto &p : kPairs)
-            m.emplace(p.first, p.second);
-          return m;
-        }();
-        auto it = kMap.find(s);
-        if (it != kMap.end())
-          return it->second;
-        throw std::runtime_error("Unknown MSP id: " + s);
+
+        schema.names[i] = field.name;
+        schema.units[i] = field.units;
+
+        FieldSpec spec{};
+        spec.name = schema.names[i].c_str();
+        spec.type = primitive->field_type;
+        spec.unit = schema.units[i].empty() ? nullptr : schema.units[i].c_str();
+        spec.scale = 1.0;
+        spec.repeat = primitive->repeat;
+        schema.fields[i] = spec;
       }
-      if (n.IsScalar() || n.IsNull())
-      {
-        throw std::runtime_error("id must be a scalar");
-      }
-      return n.as<uint16_t>();
+
+      return schema;
     }
 
-    RuntimeRegistry::OwnedSchema parse_schema(const YAML::Node &n)
-    {
-      // Minimal schema: a sequence of C type names in wire order.
-      if (!n || !n.IsSequence())
-      {
-        throw std::runtime_error("schema must be a sequence of type strings");
-      }
-      const std::size_t N = n.size();
-      RuntimeRegistry::OwnedSchema os;
-      os.fields = std::make_unique<FieldSpec[]>(N);
-      os.names = std::make_unique<std::string[]>(N);
-      os.units = std::make_unique<std::string[]>(N);
-      os.count = N;
-      for (std::size_t i = 0; i < N; ++i)
-      {
-        const auto &item = n[i];
-        if (!item.IsScalar())
-        {
-          throw std::runtime_error("schema entries must be scalar type names");
-        }
-        const std::string type_str = item.as<std::string>();
-        const FieldType type = parse_field_type(type_str);
-        // Minimal spec: no names/units/scales/repeats; defaults only
-        os.names[i] = std::string();
-        os.units[i] = std::string();
-        os.fields[i] = FieldSpec{os.names[i].c_str(), type, nullptr, 1.0, 1};
-      }
-      return os;
-    }
-
-    // Helper to build request based on id (v1 for id <= 255, v2 otherwise)
     using BuildArgFn = std::function<std::vector<uint8_t>(uint16_t)>;
-    static BuildArgFn builder_for_id(uint16_t id)
+
+    BuildArgFn builder_for_id(uint16_t id)
     {
       if (id <= 255)
       {
@@ -160,93 +271,179 @@ namespace transformer_msp_bridge
       };
     }
 
+    struct DefaultCommand
+    {
+      const char *name;
+      double poll_rate_hz;
+    };
+
+    constexpr DefaultCommand kDefaultCommands[] = {
+        {"MSP_RAW_IMU", 50.0},
+        {"MSP_SERVO", 10.0},
+        {"MSP_MOTOR", 10.0},
+        {"MSP_RC", 5.0},
+        {"MSP_RAW_GPS", 5.0},
+        {"MSP_COMP_GPS", 2.0},
+        {"MSP_ATTITUDE", 10.0},
+        {"MSP_ALTITUDE", 5.0},
+        {"MSP_ANALOG", 2.0},
+        {"MSP_RC_TUNING", 0.2},
+        {"MSP_BATTERY_STATE", 1.0},
+        {"MSP_RTC", 0.5},
+        {"MSP_STATUS", 2.0},
+        {"MSP_SENSOR_CONFIG", 2.0},
+        {"MSP_GPSSTATISTICS", 1.0},
+        {"MSP2_SENSOR_RANGEFINDER", 5.0},
+        {"MSP2_SENSOR_COMPASS", 5.0},
+        {"MSP2_SENSOR_BAROMETER", 5.0},
+        {"MSP2_INAV_STATUS", 2.0},
+        {"MSP2_INAV_ANALOG", 2.0},
+        {"MSP2_INAV_BATTERY_CONFIG", 0.05},
+        {"MSP2_INAV_AIR_SPEED", 5.0},
+        {"MSP2_INAV_TEMPERATURES", 1.0},
+        {"MSP2_INAV_ESC_RPM", 5.0},
+        {"MSP2_COMMON_SETTING", 0.0},
+        {"MSP2_COMMON_SET_SETTING", 0.0},
+    };
+
+    const MessageDefinition *find_message_by_name(const std::vector<MessageDefinition> &defs, const std::string &name)
+    {
+      for (const auto &def : defs)
+        if (def.name == name)
+          return &def;
+      return nullptr;
+    }
+
   } // namespace
 
-  RuntimeRegistry RuntimeRegistry::from_yaml_file(const std::string &yaml_path)
+  RuntimeRegistry RuntimeRegistry::from_json_file(const std::string &json_path)
   {
     RuntimeRegistry rr;
 
-    YAML::Node root = YAML::LoadFile(yaml_path);
-    if (!root || !root.IsMap())
+    std::ifstream stream(json_path);
+    if (!stream)
+      throw std::runtime_error("Failed to open registry JSON: " + json_path);
+
+    json root;
+    try
     {
-      throw std::runtime_error("registry YAML root must be a map");
+      stream >> root;
+    }
+    catch (const json::parse_error &e)
+    {
+      throw std::runtime_error(std::string("Failed to parse registry JSON: ") + e.what());
     }
 
-    // Canonical key is "registry"; accept legacy "commands" as fallback
-    YAML::Node cmds = root["registry"];
-    if (!cmds || !cmds.IsSequence())
-    {
-      cmds = root["commands"]; // accept alternative key
-    }
-    if (!cmds || !cmds.IsSequence())
-    {
-      throw std::runtime_error("registry YAML must contain a 'registry' (or legacy 'commands') sequence");
-    }
+    if (!root.is_array())
+      throw std::runtime_error("Registry JSON root must be an array");
 
-    rr.descriptors_.reserve(cmds.size());
-    rr.owned_names_.reserve(cmds.size());
-    std::vector<RuntimeRegistry::OwnedSchema> owned;
-    owned.reserve(cmds.size());
-    for (const auto &c : cmds)
+    rr.definitions_.reserve(root.size());
+    for (const auto &entry : root)
     {
-      CommandDescriptor d{};
-      d.id = parse_id_scalar(c["id"]);
-      rr.owned_names_.push_back(c["name"].as<std::string>(""));
-      d.name = rr.owned_names_.back().c_str();
-      // Infer builder from id
-      const auto build = builder_for_id(d.id);
-      d.build_request_fn = [build, id = d.id]()
+      if (!entry.is_object())
+        throw std::runtime_error("Registry entry must be an object");
+
+      MessageDefinition def;
+      def.id = parse_message_id(entry.at("id"));
+      def.name = trim_copy(entry.value("name", std::string{}));
+      if (def.name.empty())
+        throw std::runtime_error("Registry entry missing name");
+
+      def.id_hex = trim_copy(entry.value("id_hex", std::string{}));
+      def.description = trim_copy(entry.value("description", std::string{}));
+      def.direction_label = trim_copy(entry.value("direction", std::string{}));
+      def.direction = parse_direction_label(def.direction_label);
+      def.has_variable_length = entry.value("has_variable_length", false);
+
+      if (entry.contains("fields") && entry["fields"].is_array())
       {
-        return build(id);
+        const auto &fields = entry["fields"];
+        def.fields.reserve(fields.size());
+        for (const auto &field_node : fields)
+        {
+          if (!field_node.is_object())
+            throw std::runtime_error("Field entry must be an object");
+          MessageField field;
+          field.name = strip_backticks(field_node.value("name", std::string{}));
+          field.ctype = strip_backticks(field_node.value("ctype", std::string{}));
+          field.size = strip_backticks(field_node.value("size", std::string{}));
+          field.units = strip_backticks(field_node.value("units", std::string{}));
+          field.description = trim_copy(field_node.value("description", std::string{}));
+          def.fields.push_back(std::move(field));
+        }
+      }
+
+      rr.definitions_.push_back(std::move(def));
+    }
+
+    rr.owned_names_.reserve(std::size(kDefaultCommands));
+    rr.descriptors_.reserve(std::size(kDefaultCommands));
+
+    for (const auto &command : kDefaultCommands)
+    {
+      const MessageDefinition *def = find_message_by_name(rr.definitions_, command.name);
+      if (!def)
+      {
+        throw std::runtime_error(std::string("Registry JSON missing definition for ") + command.name);
+      }
+
+      CommandDescriptor descriptor{};
+      descriptor.id = def->id;
+      rr.owned_names_.push_back(def->name);
+      descriptor.name = rr.owned_names_.back().c_str();
+      descriptor.poll_rate_hz = command.poll_rate_hz;
+      const auto builder = builder_for_id(descriptor.id);
+      descriptor.build_request_fn = [builder, id = descriptor.id]()
+      {
+        return builder(id);
       };
-      // Polling rate: canonical key is poll_rate_hz; accept legacy rate_hz
-      d.poll_rate_hz = c["poll_rate_hz"].as<double>(c["rate_hz"].as<double>(0.0));
 
-      if (c["schema"])
+      bool schema_assigned = false;
+      if (!def->has_variable_length && !def->fields.empty())
       {
-        const YAML::Node schemaNode = c["schema"]; // minimal spec: direct list of types
-        if (!schemaNode || !schemaNode.IsSequence())
-          throw std::runtime_error("schema must be a sequence of type strings");
-        owned.emplace_back(parse_schema(schemaNode));
-        const RuntimeRegistry::OwnedSchema &os = owned.back();
-        d.response_schema = os.fields.get();
-        d.response_schema_count = os.count;
-      }
-      else
-      {
-        d.response_schema = nullptr;
-        d.response_schema_count = 0;
+        try
+        {
+          RuntimeRegistry::OwnedSchema schema = build_schema_from_definition(*def);
+          rr.owned_schemas_.push_back(std::move(schema));
+          const auto &stored = rr.owned_schemas_.back();
+          descriptor.response_schema = stored.fields.get();
+          descriptor.response_schema_count = stored.count;
+          schema_assigned = true;
+        }
+        catch (const std::exception &)
+        {
+          // Leave schema unset if parsing fails; decoder may still handle payload manually.
+        }
       }
 
-      rr.descriptors_.push_back(std::move(d));
+      if (!schema_assigned)
+      {
+        descriptor.response_schema = nullptr;
+        descriptor.response_schema_count = 0;
+      }
+
+      rr.descriptors_.push_back(std::move(descriptor));
     }
 
-    // Transfer ownership to member storage to keep pointers valid
-    rr.owned_schemas_ = std::move(owned);
     return rr;
   }
 
-  const CommandDescriptor *RuntimeRegistry::find(uint16_t id, bool v2) const
+  const MessageDefinition *RuntimeRegistry::find_definition(uint16_t id) const
   {
-    for (const auto &d : descriptors_)
-    {
-      if (d.id == id && d.is_v2() == v2)
-        return &d;
-    }
+    for (const auto &def : definitions_)
+      if (def.id == id)
+        return &def;
     return nullptr;
   }
 
-  std::string resolve_default_registry_yaml_path()
+  std::string resolve_default_registry_json_path()
   {
-    // Allow override via env var
-    if (const char *env = std::getenv("TRANSFORMER_MSP_REGISTRY_YAML"))
-    {
+    if (const char *env = std::getenv("TRANSFORMER_MSP_REGISTRY_JSON"))
       return std::string(env);
-    }
     try
     {
       const auto share = ament_index_cpp::get_package_share_directory("transformer_msp_bridge");
-      return share + "/config/registry.yaml";
+      return share + "/config/msp_messages_inav.json";
     }
     catch (const std::exception &)
     {

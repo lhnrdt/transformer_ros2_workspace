@@ -1,5 +1,6 @@
 #include "transformer_msp_bridge/msp_registry.hpp"
 #include <cstddef>
+#include <cstring>
 #include <stdexcept>
 #include "msp/msp_protocol.h"                      // external constants (v1 IDs)
 #include "msp/msp_protocol_v2_sensor.h"            // v2 sensor IDs
@@ -25,6 +26,8 @@ namespace transformer_msp_bridge
         return 2;
       case FieldType::U32:
       case FieldType::I32:
+        return 4;
+      case FieldType::F32:
         return 4;
       default:
         return 0;
@@ -81,6 +84,15 @@ namespace transformer_msp_bridge
         if (!readI32LE(p, off, v))
           return false;
         out_val = static_cast<double>(v) * scale;
+        return true;
+      }
+      case FieldType::F32:
+      {
+        if (p.size() < off + 4)
+          return false;
+        float fv = 0.0F;
+        std::memcpy(&fv, p.data() + off, sizeof(float));
+        out_val = static_cast<double>(fv) * scale;
         return true;
       }
       }
@@ -218,17 +230,17 @@ namespace transformer_msp_bridge
       return buildPacketV2(Id, {}, 0);
     }
 
-    // Runtime registry: loaded from YAML at first use. No fallback.
+    // Runtime registry: loaded from JSON at first use. No fallback.
     static const RuntimeRegistry &runtime_registry()
     {
       static const RuntimeRegistry rr = []
       {
-        const std::string path = resolve_default_registry_yaml_path();
+        const std::string path = resolve_default_registry_json_path();
         if (path.empty())
         {
-          throw std::runtime_error("No registry.yaml found (and no TRANSFORMER_MSP_REGISTRY_YAML set)");
+          throw std::runtime_error("No msp_messages_inav.json found (and no TRANSFORMER_MSP_REGISTRY_JSON set)");
         }
-        return RuntimeRegistry::from_yaml_file(path);
+        return RuntimeRegistry::from_json_file(path);
       }();
       return rr;
     }

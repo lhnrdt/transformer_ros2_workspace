@@ -18,7 +18,8 @@ namespace transformer_msp_bridge
     U16,
     I16,
     U32,
-    I32
+    I32,
+    F32
   };
 
   struct FieldSpec
