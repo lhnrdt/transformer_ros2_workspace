@@ -1,19 +1,27 @@
 // System diagnostics related decoders implementation
 #include "transformer_msp_bridge/decoders/system_decoder.hpp"
 #include <algorithm>
-#include <array>
-#include <iomanip>
-#include <sstream>
+#include <utility>
 
 namespace transformer_msp_bridge
 {
 
-  using diagnostic_msgs::msg::DiagnosticArray;
-  using diagnostic_msgs::msg::DiagnosticStatus;
-  using diagnostic_msgs::msg::KeyValue;
+  const uint16_t SystemDecoder::kMspStatusEx = msp::command_id("MSP_STATUS_EX");
+  const uint16_t SystemDecoder::kMspStatus = msp::command_id("MSP_STATUS");
+  const uint16_t SystemDecoder::kMspSensorStatus = msp::command_id("MSP_SENSOR_STATUS");
+  const uint16_t SystemDecoder::kMspSensorConfig = msp::command_id("MSP_SENSOR_CONFIG");
+  const uint16_t SystemDecoder::kMspGpsStatistics = msp::command_id("MSP_GPSSTATISTICS");
+  const uint16_t SystemDecoder::kMspRcTuning = msp::command_id("MSP_RC_TUNING");
+  const uint16_t SystemDecoder::kMspRtc = msp::command_id("MSP_RTC");
+
+  SystemDecoder::SystemDecoder(Callbacks callbacks) : callbacks_(std::move(callbacks)) {}
+
+  void SystemDecoder::set_callbacks(Callbacks callbacks) { callbacks_ = std::move(callbacks); }
 
   void SystemDecoder::decodeRcTuning(const MSPPacket &pkt)
   {
+    if (pkt.cmd != kMspRcTuning)
+      return;
     if (pkt.payload.size() < 9)
     {
       return;
@@ -38,38 +46,29 @@ namespace transformer_msp_bridge
     uint8_t rcRollRate = rd8(8);
     uint16_t tpa_breakpoint = pkt.payload.size() >= 11 ? rd16(9) : 0;
 
-    DiagnosticStatus st;
-    st.name = "rc_tuning";
-    st.hardware_id = "fc";
-    st.level = DiagnosticStatus::OK;
-    st.message = "rc tuning";
+    if (!callbacks_.rc_tuning)
+      return;
 
-    auto add = [&](const std::string &k, double v)
-    {
-      KeyValue kv;
-      kv.key = k;
-      kv.value = std::to_string(v);
-      st.values.push_back(kv);
-    };
-    add("rc_rate", rcRate8 / 100.0);
-    add("rc_expo", rcExpo8 / 100.0);
-    add("thr_mid", thrMid8 / 100.0);
-    add("thr_expo", thrExpo8 / 100.0);
-    add("dyn_throttle_pid", dynThrPID);
-    add("rc_yaw_expo", rcYawExpo8 / 100.0);
-    add("rc_yaw_rate", rcYawRate / 100.0);
-    add("rc_pitch_rate", rcPitchRate / 100.0);
-    add("rc_roll_rate", rcRollRate / 100.0);
-    add("tpa_breakpoint", tpa_breakpoint);
-
-    DiagnosticArray arr;
-    arr.header.stamp = node_.now();
-    arr.status.push_back(st);
-    status_pub_->publish(arr);
+    RcTuningData data;
+    data.rc_rate = rcRate8 / 100.0;
+    data.rc_expo = rcExpo8 / 100.0;
+    data.throttle_mid = thrMid8 / 100.0;
+    data.throttle_expo = thrExpo8 / 100.0;
+    data.dyn_throttle_pid = dynThrPID;
+    data.rc_yaw_expo = rcYawExpo8 / 100.0;
+    data.rc_yaw_rate = rcYawRate / 100.0;
+    data.rc_pitch_rate = rcPitchRate / 100.0;
+    data.rc_roll_rate = rcRollRate / 100.0;
+    data.tpa_breakpoint = tpa_breakpoint;
+    callbacks_.rc_tuning(data);
   }
 
   void SystemDecoder::decodeStatusEx(const MSPPacket &pkt)
   {
+    if (pkt.cmd != kMspStatusEx && pkt.cmd != kMspStatus)
+    {
+      return;
+    }
     if (pkt.payload.size() < 6)
     {
       return;
@@ -113,43 +112,29 @@ namespace transformer_msp_bridge
     off += (pkt.payload.size() >= off + 4 ? 4 : 0);
     uint8_t accCal = pkt.payload.size() > off ? rd8(off) : 0;
 
-    DiagnosticStatus st;
-    st.name = "status_ex";
-    st.hardware_id = "fc";
-    st.level = DiagnosticStatus::OK;
-    st.message = "status";
+    if (!callbacks_.status_ex)
+      return;
 
-    auto add = [&](const std::string &k, uint64_t v)
-    {
-      KeyValue kv;
-      kv.key = k;
-      kv.value = std::to_string(v);
-      st.values.push_back(kv);
-    };
-    add("cycle_time_us", cycle);
-    add("i2c_errors", i2cErr);
-    add("sensors_mask", sensors);
-    add("mode_flags", modeFlags);
-    add("profile", profile);
-    add("system_load_pct", sysLoad);
-    add("gyro_cycle_time", gyroCycle);
-    add("last_arm_disable", lastArmReason);
-    add("arming_flags", armingFlags);
-    add("acc_cal_running", accCal);
-
-    DiagnosticArray arr;
-    arr.header.stamp = node_.now();
-    arr.status.push_back(st);
-    status_pub_->publish(arr);
+    SystemStatusExData data;
+    data.cycle_time_us = cycle;
+    data.i2c_errors = i2cErr;
+    data.sensors_mask = sensors;
+    data.mode_flags = modeFlags;
+    data.profile = profile;
+    data.system_load_pct = sysLoad;
+    data.gyro_cycle_time_us = gyroCycle;
+    data.last_arm_disable = lastArmReason;
+    data.arming_flags = armingFlags;
+    data.acc_cal_running = accCal;
+    callbacks_.status_ex(data);
   }
 
   void SystemDecoder::decodeSensorStatus(const MSPPacket &pkt)
   {
-    DiagnosticStatus st;
-    st.name = "sensor_status";
-    st.hardware_id = "fc";
-    st.level = DiagnosticStatus::OK;
-    st.message = "sensors";
+    if (pkt.cmd != kMspSensorStatus)
+      return;
+    if (!callbacks_.sensor_status)
+      return;
 
     auto rd16 = [&](size_t o) -> uint16_t
     {
@@ -157,89 +142,49 @@ namespace transformer_msp_bridge
         return 0;
       return static_cast<uint16_t>(pkt.payload[o] | (pkt.payload[o + 1] << 8));
     };
+    SystemSensorStatusData data;
+    data.raw_payload = pkt.payload;
+
     if (pkt.payload.size() >= 4)
     {
-      uint16_t present = rd16(0);
-      uint16_t failing = rd16(2);
-      KeyValue kv1;
-      kv1.key = "present_mask";
-      kv1.value = std::to_string(present);
-      st.values.push_back(kv1);
-      KeyValue kv2;
-      kv2.key = "failing_mask";
-      kv2.value = std::to_string(failing);
-      st.values.push_back(kv2);
+      data.has_masks = true;
+      data.present_mask = rd16(0);
+      data.failing_mask = rd16(2);
     }
     else
     {
-      std::ostringstream hex;
-      for (auto b : pkt.payload)
-      {
-        hex << std::hex << std::uppercase << std::setw(2) << std::setfill('0') << static_cast<int>(b);
-      }
-      KeyValue kv;
-      kv.key = "raw";
-      kv.value = hex.str();
-      st.values.push_back(kv);
+      data.has_masks = false;
+      data.raw_payload = pkt.payload;
     }
-
-    DiagnosticArray arr;
-    arr.header.stamp = node_.now();
-    arr.status.push_back(st);
-    sensor_status_pub_->publish(arr);
+    callbacks_.sensor_status(data);
   }
 
   void SystemDecoder::decodeSensorConfig(const MSPPacket &pkt)
   {
-    DiagnosticStatus st;
-    st.name = "sensor_config";
-    st.hardware_id = "fc";
-    st.level = DiagnosticStatus::OK;
-    st.message = "sensor configuration";
+    if (pkt.cmd != kMspSensorConfig)
+      return;
+    if (!callbacks_.sensor_config)
+      return;
 
-    static constexpr std::array<const char *, 9> kKeys = {
-        "acc_hardware",
-        "baro_hardware",
-        "mag_hardware",
-        "pitot_hardware",
-        "rangefinder_hardware",
-        "opflow_hardware",
-        "gps_hardware",
-        "baro2_hardware",
-        "imu_acc_hardware"};
+    constexpr std::size_t kHardwareIdCount = 9;
+    const std::size_t count = std::min<std::size_t>(pkt.payload.size(), kHardwareIdCount);
 
-    const std::size_t count = std::min<std::size_t>(pkt.payload.size(), kKeys.size());
-    for (std::size_t i = 0; i < count; ++i)
+    SystemSensorConfigData data;
+    data.hardware_ids.assign(pkt.payload.begin(), pkt.payload.begin() + count);
+    if (pkt.payload.size() > count)
     {
-      KeyValue kv;
-      kv.key = kKeys[i];
-      kv.value = std::to_string(pkt.payload[i]);
-      st.values.push_back(std::move(kv));
+      data.raw_tail.assign(pkt.payload.begin() + count, pkt.payload.end());
     }
-
-    if (pkt.payload.size() > kKeys.size())
-    {
-      std::ostringstream hex;
-      for (std::size_t i = kKeys.size(); i < pkt.payload.size(); ++i)
-      {
-        hex << std::hex << std::uppercase << std::setw(2) << std::setfill('0') << static_cast<int>(pkt.payload[i]);
-        if (i + 1 < pkt.payload.size())
-          hex << ' ';
-      }
-      KeyValue kv;
-      kv.key = "raw_tail";
-      kv.value = hex.str();
-      st.values.push_back(std::move(kv));
-    }
-
-    DiagnosticArray arr;
-    arr.header.stamp = node_.now();
-    arr.status.push_back(st);
-    sensor_status_pub_->publish(arr);
+    callbacks_.sensor_config(data);
   }
 
   void SystemDecoder::decodeGpsStatistics(const MSPPacket &pkt)
   {
+    if (pkt.cmd != kMspGpsStatistics)
+      return;
+    if (!callbacks_.gps_statistics)
+      return;
+
     auto rd16 = [&](size_t o) -> uint16_t
     {
       if (pkt.payload.size() < o + 2)
@@ -261,36 +206,21 @@ namespace transformer_msp_bridge
     uint16_t pktCrcErr = rd16(10);
     uint32_t gpsReset = rd32(12);
 
-    DiagnosticStatus st;
-    st.name = "gps_statistics";
-    st.hardware_id = "fc";
-    st.level = DiagnosticStatus::OK;
-    st.message = "gps stats";
-
-    auto add = [&](const std::string &k, uint64_t v)
-    {
-      KeyValue kv;
-      kv.key = k;
-      kv.value = std::to_string(v);
-      st.values.push_back(kv);
-    };
-    add("errors", errors);
-    add("timeouts", timeouts);
-    add("packet_count", pktCount);
-    add("packet_rejected", pktRejected);
-    add("packet_ignored", pktIgnored);
-    add("packet_crc_error", pktCrcErr);
-    add("gps_reset_flags", gpsReset);
-
-    DiagnosticArray arr;
-    arr.header.stamp = node_.now();
-    arr.status.push_back(st);
-    gps_stats_single_pub_->publish(st);
-    status_pub_->publish(arr);
+    SystemGpsStatsData data;
+    data.errors = errors;
+    data.timeouts = timeouts;
+    data.packet_count = pktCount;
+    data.packet_rejected = pktRejected;
+    data.packet_ignored = pktIgnored;
+    data.packet_crc_error = pktCrcErr;
+    data.gps_reset_flags = gpsReset;
+    callbacks_.gps_statistics(data);
   }
 
   void SystemDecoder::decodeRtc(const MSPPacket &pkt)
   {
+    if (pkt.cmd != kMspRtc)
+      return;
     if (pkt.payload.size() < 6)
     {
       return;
@@ -298,24 +228,13 @@ namespace transformer_msp_bridge
     int32_t secs = static_cast<int32_t>(pkt.payload[0] | (pkt.payload[1] << 8) | (pkt.payload[2] << 16) | (pkt.payload[3] << 24));
     uint16_t millis = static_cast<uint16_t>(pkt.payload[4] | (pkt.payload[5] << 8));
 
-    DiagnosticStatus st;
-    st.name = "rtc";
-    st.hardware_id = "fc";
-    st.level = DiagnosticStatus::OK;
-    st.message = "rtc time";
-    KeyValue kv1;
-    kv1.key = "secs";
-    kv1.value = std::to_string(secs);
-    st.values.push_back(kv1);
-    KeyValue kv2;
-    kv2.key = "millis";
-    kv2.value = std::to_string(millis);
-    st.values.push_back(kv2);
+    if (!callbacks_.rtc)
+      return;
 
-    DiagnosticArray arr;
-    arr.header.stamp = node_.now();
-    arr.status.push_back(st);
-    status_pub_->publish(arr);
+    SystemRtcData data;
+    data.seconds = secs;
+    data.millis = millis;
+    callbacks_.rtc(data);
   }
 
 } // namespace transformer_msp_bridge

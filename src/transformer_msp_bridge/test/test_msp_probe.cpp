@@ -13,13 +13,16 @@
 #include <thread>
 #include <unordered_map>
 #include <filesystem>
-#include "msp/msp_protocol.h"
+#include <optional>
 #include "transformer_msp_bridge/msp_builders.hpp"
 #include "transformer_msp_bridge/msp_parser.hpp"
 #include "transformer_msp_bridge/msp_registry.hpp"
 #include "transformer_msp_bridge/serial_port.hpp"
 
-using namespace transformer_msp_bridge;
+using transformer_msp_bridge::MSPPacket;
+using transformer_msp_bridge::MSPParser;
+using transformer_msp_bridge::SerialPort;
+namespace registry = transformer_msp_bridge::msp;
 
 namespace
 {
@@ -114,11 +117,21 @@ namespace
     return {};
   }
 
+  uint16_t require_command_id(const char *name)
+  {
+  const uint16_t id = registry::command_id(name);
+    if (id == 0u)
+    {
+      ADD_FAILURE() << "Unknown MSP command name: " << name;
+    }
+    return id;
+  }
+
   std::unordered_map<uint16_t, Validator> build_validators()
   {
     std::unordered_map<uint16_t, Validator> validators;
 
-    validators.emplace(MSP_ATTITUDE, [](const std::vector<double> &values, const std::vector<std::string> &names)
+    validators.emplace(require_command_id("MSP_ATTITUDE"), [](const std::vector<double> &values, const std::vector<std::string> &names)
                        {
       if (values.size() != 3)
         return std::string("expected 3 attitude fields, got ") + std::to_string(values.size());
@@ -133,7 +146,7 @@ namespace
       return std::string();
     });
 
-    validators.emplace(MSP_RAW_IMU, [](const std::vector<double> &values, const std::vector<std::string> &names)
+    validators.emplace(require_command_id("MSP_RAW_IMU"), [](const std::vector<double> &values, const std::vector<std::string> &names)
                        {
       if (values.size() != 9)
         return std::string("expected 9 raw IMU fields, got ") + std::to_string(values.size());
@@ -147,22 +160,23 @@ namespace
       return std::string();
     });
 
-    validators.emplace(MSP_ALTITUDE, [](const std::vector<double> &values, const std::vector<std::string> &names)
+    validators.emplace(require_command_id("MSP_ALTITUDE"), [](const std::vector<double> &values, const std::vector<std::string> &names)
                        {
-      if (values.size() != 2)
-        return std::string("expected 2 altitude fields, got ") + std::to_string(values.size());
+      if (values.size() != 3)
+        return std::string("expected 3 altitude fields, got ") + std::to_string(values.size());
       double alt_cm = values[0];
       double vario = values[1];
-      if (!std::isfinite(alt_cm) || !std::isfinite(vario))
+      double baro = values[2];
+      if (!std::isfinite(alt_cm) || !std::isfinite(vario) || !std::isfinite(baro))
         return std::string("altitude value not finite: ") + describe_value(values, names);
-      if (std::abs(alt_cm) > 500000.0)
+      if (std::abs(alt_cm) > 500000.0 || std::abs(baro) > 500000.0)
         return std::string("altitude magnitude unrealistic: ") + describe_value(values, names);
       if (std::abs(vario) > 20000.0)
         return std::string("vertical speed unrealistic: ") + describe_value(values, names);
       return std::string();
     });
 
-    validators.emplace(MSP_ANALOG, [](const std::vector<double> &values, const std::vector<std::string> &names)
+    validators.emplace(require_command_id("MSP_ANALOG"), [](const std::vector<double> &values, const std::vector<std::string> &names)
                        {
       if (values.size() < 4)
         return std::string("expected at least 4 analog fields, got ") + std::to_string(values.size());
@@ -173,21 +187,24 @@ namespace
       return std::string();
     });
 
-    validators.emplace(MSP_RAW_GPS, [](const std::vector<double> &values, const std::vector<std::string> &names)
+    validators.emplace(require_command_id("MSP_RAW_GPS"), [](const std::vector<double> &values, const std::vector<std::string> &names)
                        {
-      if (values.size() != 7)
-        return std::string("expected 7 GPS fields, got ") + std::to_string(values.size());
-      double num_sats = values[0];
+      if (values.size() != 8)
+        return std::string("expected 8 GPS fields, got ") + std::to_string(values.size());
+      double num_sats = values[1];
       if (num_sats < 0.0 || num_sats > 50.0)
         return std::string("GPS sats out of range: ") + describe_value(values, names);
       double lat = values[2];
       double lon = values[3];
       if (std::abs(lat) > 900000000.0 || std::abs(lon) > 1800000000.0)
         return std::string("GPS lat/lon out of range: ") + describe_value(values, names);
+      double hdop = values[7];
+      if (hdop < 0.0 || hdop > 2000.0)
+        return std::string("GPS hdop out of range: ") + describe_value(values, names);
       return std::string();
     });
 
-    validators.emplace(MSP_RC, [](const std::vector<double> &values, const std::vector<std::string> &names)
+    validators.emplace(require_command_id("MSP_RC"), [](const std::vector<double> &values, const std::vector<std::string> &names)
                        {
       for (double v : values)
       {
@@ -197,19 +214,23 @@ namespace
       return std::string();
     });
 
-    validators.emplace(MSP_COMP_GPS, [](const std::vector<double> &values, const std::vector<std::string> &names)
+    validators.emplace(require_command_id("MSP_COMP_GPS"), [](const std::vector<double> &values, const std::vector<std::string> &names)
                        {
-      if (values.size() != 2)
-        return std::string("expected 2 compensated GPS fields, got ") + std::to_string(values.size());
-      for (double v : values)
+      if (values.size() != 3)
+        return std::string("expected 3 compensated GPS fields, got ") + std::to_string(values.size());
+      for (std::size_t i = 0; i < 2 && i < values.size(); ++i)
       {
+        double v = values[i];
         if (v < 0.0 || v > 65000.0)
           return std::string("ground speed/course out of range: ") + describe_value(values, names);
       }
+      double heartbeat = values[2];
+      if (heartbeat != 0.0 && heartbeat != 1.0)
+        return std::string("gps heartbeat not boolean: ") + describe_value(values, names);
       return std::string();
     });
 
-    validators.emplace(MSP_STATUS, [](const std::vector<double> &values, const std::vector<std::string> &names)
+    validators.emplace(require_command_id("MSP_STATUS"), [](const std::vector<double> &values, const std::vector<std::string> &names)
                        {
       if (values.size() != 5)
         return std::string("expected 5 status fields, got ") + std::to_string(values.size());
@@ -217,6 +238,47 @@ namespace
         return std::string("status cycleTime out of range: ") + describe_value(values, names);
       if (values[4] > 255.0)
         return std::string("status profile out of range: ") + describe_value(values, names);
+      return std::string();
+    });
+
+    validators.emplace(require_command_id("MSP_RTC"), [](const std::vector<double> &values, const std::vector<std::string> &names)
+                       {
+      if (values.size() != 2)
+        return std::string("expected 2 RTC fields, got ") + std::to_string(values.size());
+      double seconds = values[0];
+      double millis = values[1];
+      if (!std::isfinite(seconds) || !std::isfinite(millis))
+        return std::string("RTC value not finite: ") + describe_value(values, names);
+      if (seconds < 0.0 || seconds > 4.0e9)
+        return std::string("RTC seconds out of range: ") + describe_value(values, names);
+      if (millis < 0.0 || millis >= 1000.0)
+        return std::string("RTC millis out of range: ") + describe_value(values, names);
+      return std::string();
+    });
+
+    validators.emplace(require_command_id("MSP2_INAV_TEMPERATURES"), [](const std::vector<double> &values, const std::vector<std::string> &names)
+                       {
+      if (values.empty())
+        return std::string("expected at least one temperature value, got 0");
+      for (double v : values)
+      {
+        if (!std::isfinite(v))
+          return std::string("temperature not finite: ") + describe_value(values, names);
+        if (v != -1000.0 && (v < -400.0 || v > 400.0))
+          return std::string("temperature out of plausible range: ") + describe_value(values, names);
+      }
+      return std::string();
+    });
+
+    validators.emplace(require_command_id("MSP2_INAV_ESC_RPM"), [](const std::vector<double> &values, const std::vector<std::string> &names)
+                       {
+      if (values.empty())
+        return std::string("expected at least one ESC RPM value, got 0");
+      for (double v : values)
+      {
+        if (v < 0.0 || v > 200000.0)
+          return std::string("ESC RPM out of plausible range: ") + describe_value(values, names);
+      }
       return std::string();
     });
 
@@ -245,7 +307,7 @@ TEST(MspProbe, AllDefaultPolledRespondAndValidate)
     any_rx = true;
     last_pkt = pkt; });
 
-  auto view = get_default_registry();
+  auto view = registry::get_default_registry();
   size_t total = 0, ok = 0;
   std::set<uint16_t> missing_ids;
   std::map<uint16_t, std::string> validation_errors;
@@ -289,11 +351,11 @@ TEST(MspProbe, AllDefaultPolledRespondAndValidate)
     ok++;
     last_raw_payloads[d.id] = payload_to_hex(last_pkt->payload);
 
-    if (d.response_schema && d.response_schema_count > 0)
+    const auto &schema = d.response_schema;
+    if (schema.fields && schema.count > 0)
     {
-      ResponseSchema schema{d.response_schema, d.response_schema_count};
       std::size_t expected_size = 0;
-      if (schema_fixed_size_bytes(schema, expected_size))
+      if (registry::schema_fixed_size_bytes(schema, expected_size))
       {
         if (last_pkt->payload.size() != expected_size)
         {
@@ -309,10 +371,10 @@ TEST(MspProbe, AllDefaultPolledRespondAndValidate)
           continue;
         }
       }
-      std::vector<double> values;
-      std::vector<std::string> names;
-      std::string err;
-      if (!parse_to_flat_list(schema, last_pkt->payload, values, &names, &err))
+    std::vector<double> values;
+    std::vector<std::string> names;
+    std::string err;
+    if (!registry::parse_to_flat_list(schema, last_pkt->payload, values, &names, &err))
       {
         validation_errors[d.id] = std::string("parse failed: ") + err;
         std::cout << "[MSP Probe] 0x" << std::hex << d.id << std::dec

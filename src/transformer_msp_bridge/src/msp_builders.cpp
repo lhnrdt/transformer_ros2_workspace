@@ -1,9 +1,6 @@
 #include "transformer_msp_bridge/msp_builders.hpp"
-#include "msp/msp_protocol.h"
 #include "transformer_msp_bridge/crc.hpp"
-#ifndef MSP_V2_FRAME_ID
-#define MSP_V2_FRAME_ID 255
-#endif
+#include "transformer_msp_bridge/msp_registry.hpp"
 
 namespace transformer_msp_bridge
 {
@@ -126,7 +123,7 @@ namespace transformer_msp_bridge
     inner_frame.push_back(crc8);
 
     // Wrap the v2 frame inside a v1 frame with command MSP_V2_FRAME_ID
-    return buildPacketRaw(static_cast<uint8_t>(MSP_V2_FRAME_ID), inner_frame);
+  return buildPacketRaw(static_cast<uint8_t>(msp::kMspV2FrameId), inner_frame);
   }
 
 } // namespace transformer_msp_bridge

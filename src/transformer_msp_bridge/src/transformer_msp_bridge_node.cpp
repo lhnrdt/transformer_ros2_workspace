@@ -1,17 +1,38 @@
-// Clean reconstruction of node implementation
-#include <diagnostic_msgs/msg/diagnostic_array.hpp>
-#include <diagnostic_msgs/msg/diagnostic_status.hpp>
-#include <rclcpp/rclcpp.hpp>
-#include <sensor_msgs/msg/joint_state.hpp>
-#include <std_msgs/msg/float32.hpp>
-#include <std_msgs/msg/u_int16_multi_array.hpp>
+// MSP Bridge ROS 2 node implementation: connects MSP decoders to ROS topics.
 
-#include "transformer_msp_bridge/msp_builders.hpp"
-#include "transformer_msp_bridge/msp_parser.hpp"
-#include "transformer_msp_bridge/msp_registry.hpp"
-#include "transformer_msp_bridge/serial_port.hpp"
+#include <algorithm>
+#include <atomic>
+#include <array>
+#include <chrono>
+#include <functional>
+#include <iomanip>
+#include <limits>
+#include <memory>
+#include <mutex>
+#include <sstream>
+#include <stdexcept>
+#include <string>
+#include <thread>
+#include <utility>
+#include <vector>
 
-#include "transformer_msp_bridge/decoder_registry.hpp"
+#include "diagnostic_msgs/msg/diagnostic_array.hpp"
+#include "diagnostic_msgs/msg/diagnostic_status.hpp"
+#include "diagnostic_msgs/msg/key_value.hpp"
+#include "geometry_msgs/msg/twist_stamped.hpp"
+#include "geometry_msgs/msg/vector3.hpp"
+#include "geometry_msgs/msg/vector3_stamped.hpp"
+#include "rclcpp/qos.hpp"
+#include "rclcpp/rclcpp.hpp"
+#include "sensor_msgs/msg/battery_state.hpp"
+#include "sensor_msgs/msg/imu.hpp"
+#include "sensor_msgs/msg/joint_state.hpp"
+#include "sensor_msgs/msg/magnetic_field.hpp"
+#include "sensor_msgs/msg/nav_sat_fix.hpp"
+#include "std_msgs/msg/float32.hpp"
+#include "std_msgs/msg/u_int16_multi_array.hpp"
+
+#include "transformer_msp_bridge/decoder_outputs.hpp"
 #include "transformer_msp_bridge/decoders/altitude_decoder.hpp"
 #include "transformer_msp_bridge/decoders/attitude_decoder.hpp"
 #include "transformer_msp_bridge/decoders/battery_decoder.hpp"
@@ -23,512 +44,906 @@
 #include "transformer_msp_bridge/decoders/sensor_decoder.hpp"
 #include "transformer_msp_bridge/decoders/servo_motor_decoder.hpp"
 #include "transformer_msp_bridge/decoders/system_decoder.hpp"
+#include "transformer_msp_bridge/msp_builders.hpp"
+#include "transformer_msp_bridge/msp_registry.hpp"
+#include "transformer_msp_bridge/msp_parser.hpp"
+#include "transformer_msp_bridge/msg/msp_inav_status.hpp"
+#include "transformer_msp_bridge/serial_port.hpp"
 
-#include <algorithm>
-#include <cctype>
-#include <deque>
-#include <iomanip>
-#include <queue>
-#include <unordered_map>
+namespace transformer_msp_bridge
+{
+	namespace
+	{
+		std::string to_hex(const std::vector<uint8_t> &data, bool spaced = true)
+		{
+			std::ostringstream oss;
+			oss << std::hex << std::uppercase << std::setfill('0');
+			for (size_t i = 0; i < data.size(); ++i)
+			{
+				oss << std::setw(2) << static_cast<int>(data[i]);
+				if (spaced && i + 1 < data.size())
+					oss << ' ';
+			}
+			return oss.str();
+		}
 
-using std::placeholders::_1;
+			inline void append_key_value(diagnostic_msgs::msg::DiagnosticStatus &status, const std::string &key, bool value)
+			{
+				diagnostic_msgs::msg::KeyValue kv;
+				kv.key = key;
+				kv.value = value ? "true" : "false";
+				status.values.push_back(std::move(kv));
+			}
 
-namespace transformer_msp_bridge {
+			template <typename T>
+			void append_key_value(diagnostic_msgs::msg::DiagnosticStatus &status, const std::string &key, const T &value)
+		{
+			diagnostic_msgs::msg::KeyValue kv;
+			kv.key = key;
+				std::ostringstream oss;
+				oss << value;
+				kv.value = oss.str();
+			status.values.push_back(std::move(kv));
+		}
+	} // namespace
 
-class MSPBridgeNode : public rclcpp::Node {
- public:
-  MSPBridgeNode() : rclcpp::Node("transformer_msp_bridge") {
-    // Core params
-    port_ = declare_parameter<std::string>("port", "/dev/ttyAMA0");
-    baud_ = declare_parameter<int>("baudrate", 115200);
-    timeout_ms_ = declare_parameter<int>("timeout_ms", 50);
-    rc_channel_count_ = declare_parameter<int>("rc_channel_count", 8);
-    rc_echo_rate_hz_ = declare_parameter<double>("rc_publish_rate_hz", 10.0);
-    rc_override_rate_hz_ = declare_parameter<double>("rc_override_rate_hz", 50.0);
-    rc_override_timeout_sec_ = declare_parameter<double>("rc_override_timeout_sec", 1.0);
-    debug_msp_ = declare_parameter<bool>("debug_msp", false);
-    log_msp_tx_ = declare_parameter<bool>("log_msp_tx", false);
-    log_msp_rx_ = declare_parameter<bool>("log_msp_rx", false);
-    v2_fallback_timeout_sec_ = declare_parameter<double>("v2_fallback_timeout_sec", 5.0);
-    force_msp_v2_ = declare_parameter<bool>("force_msp_v2", false);
-    use_v2_tunnel_ = declare_parameter<bool>("use_v2_tunnel", false);
-    use_v2_for_legacy_ = declare_parameter<bool>("use_v2_for_legacy", false);
+	class TransformerMspBridgeNode : public rclcpp::Node
+	{
+	public:
+		explicit TransformerMspBridgeNode(const rclcpp::NodeOptions &options = rclcpp::NodeOptions());
+		~TransformerMspBridgeNode() override;
 
-    if (!serial_.open(port_, baud_, timeout_ms_)) {
-      RCLCPP_FATAL(get_logger(), "Failed to open %s", port_.c_str());
-      throw std::runtime_error("serial open failed");
-    }
+	private:
+		struct CommandDefinition
+		{
+			const char *param_key;
+			uint16_t command_id;
+			double default_rate_hz;
+			bool default_enabled;
+		};
 
-    parser_ = std::make_unique<MSPParser>([this](const MSPPacket& pkt) { dispatchPacket(pkt); });
-    {
-      auto view = get_default_registry();
-      registry_.assign(view.begin(), view.end());
-    }
-    bootstrap_cmds_ = {(uint16_t)MSP_IDENT, (uint16_t)MSP_API_VERSION, (uint16_t)MSP_FC_VARIANT,
-                       (uint16_t)MSP_FC_VERSION};
+		struct CommandSchedule
+		{
+			CommandDefinition definition;
+			bool enabled{false};
+			double rate_hz{0.0};
+			std::chrono::steady_clock::duration period{std::chrono::steady_clock::duration::zero()};
+			std::chrono::steady_clock::time_point next_fire{};
+		};
 
-    // Register all decoders (interface-based) directly in registry
-    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new ImuDecoder(*this)));
-    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new GpsDecoder(*this)));
-    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new AltitudeDecoder(*this)));
-    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new ServoMotorDecoder(*this)));
-    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new SensorDecoder(*this, debug_msp_)));
-    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new InavStatusDecoder(*this, debug_msp_)));
-    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new InavGenericDecoder(*this)));
-    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new AttitudeDecoder(*this)));
-    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new RcDecoder(*this, std::string("/msp/rc_in"))));
-    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new SystemDecoder(*this)));
-    decoder_registry_.add(std::unique_ptr<IMspDecoder>(new BatteryDecoder(*this)));
+		void configurePublishers();
+		void configureDecoders();
+		void configureCommandSchedules();
+		bool openSerial();
+		void closeSerial();
+		void readLoop();
+		bool sendCommand(uint16_t command_id);
+		void pollCommands();
+		void handlePacket(const MSPPacket &pkt);
 
-    // Validate decoder coverage: Each actively polled (default rate > 0) entry that is expected to yield
-    // telemetry should have at least one decoder. Exempt pure setting/config write commands (rate 0 by default).
-    size_t uncovered = 0;
-    for (auto& d : registry_) {
-      if (d.poll_rate_hz <= 0.0)
-        continue;  // Not auto-polled by default.
-      if (!decoder_registry_.hasDecoder(d.id)) {
-        RCLCPP_WARN(get_logger(), "No decoder registered for polled command id=0x%04X (%s)", d.id,
-                    d.name ? d.name : "<unnamed>");
-        ++uncovered;
-      }
-    }
-    if (uncovered == 0) {
-      RCLCPP_INFO(get_logger(), "All default-polled registry commands have decoder coverage.");
-    }
+		void publishImu(const ImuSample &sample);
+		void publishAttitude(const AttitudeAngles &angles);
+		void publishAltitude(const AltitudeSample &sample);
+		void publishGpsRaw(const GpsRawData &data);
+		void publishGpsHome(const GpsHomeVector &data);
+		void publishRc(const RcChannelsData &data);
+		void publishServo(const ServoPositionData &data);
+		void publishMotor(const MotorOutputData &data);
+		void publishBatteryAnalog(const BatteryAnalogData &data);
+		void publishBatteryStatus(const BatteryStatusData &data);
+		void publishRangefinder(const RangefinderSample &sample);
+		void publishCompass(const CompassSample &sample);
+		void publishBarometer(const BarometerSample &sample);
+		void publishInavStatus(const InavStatusData &data);
+		void publishInavGeneric(const InavGenericFrame &frame);
+		void publishStatusEx(const SystemStatusExData &data);
+		void publishSensorStatus(const SystemSensorStatusData &data);
+		void publishSensorConfig(const SystemSensorConfigData &data);
+		void publishGpsStatistics(const SystemGpsStatsData &data);
+		void publishRcTuning(const RcTuningData &data);
+		void publishRtc(const SystemRtcData &data);
 
-    setupPublishersAndSubs();
-    declareCommandParameters();
-    installParamCallback();
-    setupTimers();
-  }
+		std::string port_{};
+		int baudrate_{115200};
+		int timeout_ms_{50};
+		bool log_msp_tx_{false};
+		bool log_msp_rx_{false};
+		bool debug_msp_{false};
+		bool use_v2_tunnel_{false};
+		bool force_msp_v2_{false};
+		bool use_v2_for_legacy_{false};
+		double v2_fallback_timeout_sec_{5.0};
+		std::size_t rc_channel_count_{8};
+		double rc_publish_rate_hz_{10.0};
 
- private:
-  struct ScheduleEntry {
-    std::chrono::steady_clock::time_point due{};
-    uint16_t id{};
-    ScheduleEntry() = default;
-    ScheduleEntry(std::chrono::steady_clock::time_point d, uint16_t i) : due(d), id(i) {}
-    bool operator<(const ScheduleEntry& o) const { return due > o.due; }
-  };
+		std::string frame_id_imu_{"base_link"};
+		std::string frame_id_mag_{"base_link"};
+		std::string frame_id_gps_{"gps"};
+		std::string frame_id_altitude_{"base_link"};
+		std::string frame_id_rangefinder_{"base_link"};
 
-  static std::string sanitizeName(const char* raw) {
-    if (!raw)
-      return {};
-    std::string s(raw), out;
-    out.reserve(s.size());
-    for (char c : s)
-      out.push_back(std::isalnum((unsigned char)c) ? std::tolower(c) : '_');
-    std::string collapsed;
-    collapsed.reserve(out.size());
-    bool prev = false;
-    for (char c : out) {
-      if (c == '_') {
-        if (!prev)
-          collapsed.push_back(c);
-        prev = true;
-      } else {
-        collapsed.push_back(c);
-        prev = false;
-      }
-    }
-    while (!collapsed.empty() && collapsed.front() == '_')
-      collapsed.erase(collapsed.begin());
-    while (!collapsed.empty() && collapsed.back() == '_')
-      collapsed.pop_back();
-    return collapsed;
-  }
+		SerialPort serial_;
+		std::mutex serial_mutex_;
+		std::thread reader_thread_;
+		std::atomic<bool> running_{false};
+		bool serial_ready_{false};
 
-  void declareCommandParameters() {
-    for (auto& d : registry_) {
-      std::string base = d.name ? sanitizeName(d.name) : std::string();
-      if (base.empty()) {
-        std::ostringstream oss;
-        oss << "cmd_" << std::hex << std::setw(4) << std::setfill('0') << d.id;
-        base = oss.str();
-      }
-      std::string enabled_param = std::string("command.") + base + ".enabled";
-      std::string rate_param = std::string("command.") + base + ".rate_hz";
-      bool def_enabled = d.poll_rate_hz > 0.0;
-      double def_rate = d.poll_rate_hz;
-      bool enabled = declare_parameter<bool>(enabled_param, def_enabled);
-      double rate = declare_parameter<double>(rate_param, def_rate);
-      if (!enabled)
-        rate = 0.0;
-      d.poll_rate_hz = rate;
-      command_param_name_map_[d.id] = {enabled_param, rate_param};
-    }
-  }
+		MSPParser parser_;
+		std::vector<std::unique_ptr<IMspDecoder>> decoders_;
+		std::vector<CommandSchedule> command_schedules_;
+		rclcpp::TimerBase::SharedPtr poll_timer_;
 
-  void installParamCallback() {
-    param_callback_handle_ = add_on_set_parameters_callback([this](const std::vector<rclcpp::Parameter>& params) {
-      rcl_interfaces::msg::SetParametersResult res;
-      res.successful = true;
-      res.reason = "ok";
-      struct Change {
-        CommandDescriptor* desc;
-        double new_rate;
-      };
-      std::vector<Change> changes;
-      for (auto& p : params) {
-        const std::string& name = p.get_name();
-        for (auto& pair : command_param_name_map_) {
-          auto* desc = findDescriptor(pair.first);
-          if (!desc)
-            continue;
-          if (name == pair.second.enabled) {
-            if (p.get_type() != rclcpp::ParameterType::PARAMETER_BOOL) {
-              res.successful = false;
-              res.reason = "type mismatch for enabled";
-              return res;
-            }
-            bool en = p.as_bool();
-            double current = desc->poll_rate_hz;
-            if (!en)
-              changes.push_back({desc, 0.0});
-            else if (current <= 0.0) {
-              double rate_val = get_parameter(pair.second.rate).as_double();
-              if (rate_val <= 0.0) {
-                res.successful = false;
-                res.reason = "enabled true requires rate_hz>0";
-                return res;
-              }
-              changes.push_back({desc, rate_val});
-            }
-          } else if (name == pair.second.rate) {
-            if (p.get_type() != rclcpp::ParameterType::PARAMETER_DOUBLE) {
-              res.successful = false;
-              res.reason = "type mismatch for rate";
-              return res;
-            }
-            double rate_val = p.as_double();
-            if (rate_val < 0.0) {
-              res.successful = false;
-              res.reason = "rate_hz must be >=0";
-              return res;
-            }
-            changes.push_back({desc, rate_val});
-          }
-        }
-      }
-      for (auto& c : changes) {
-        c.desc->poll_rate_hz = c.new_rate;
-        RCLCPP_INFO(get_logger(), "Command 0x%04X new poll_rate_hz=%.3f", c.desc->id, c.new_rate);
-      }
-      if (!changes.empty())
-        schedule_dirty_ = true;
-      return res;
-    });
-  }
+		rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu_pub_;
+		rclcpp::Publisher<sensor_msgs::msg::MagneticField>::SharedPtr mag_pub_;
+		rclcpp::Publisher<geometry_msgs::msg::Vector3>::SharedPtr attitude_pub_;
+		rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr altitude_pub_;
+		rclcpp::Publisher<geometry_msgs::msg::TwistStamped>::SharedPtr vertical_speed_pub_;
+		rclcpp::Publisher<sensor_msgs::msg::NavSatFix>::SharedPtr gps_fix_pub_;
+		rclcpp::Publisher<geometry_msgs::msg::TwistStamped>::SharedPtr gps_vel_pub_;
+		rclcpp::Publisher<geometry_msgs::msg::Vector3Stamped>::SharedPtr gps_home_vec_pub_;
+		rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr gps_home_dist_pub_;
+		rclcpp::Publisher<std_msgs::msg::UInt16MultiArray>::SharedPtr rc_pub_;
+		rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr servo_pub_;
+		rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr motor_pub_;
+		rclcpp::Publisher<sensor_msgs::msg::BatteryState>::SharedPtr battery_pub_;
+		rclcpp::Publisher<sensor_msgs::msg::BatteryState>::SharedPtr battery_extended_pub_;
+		rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr rangefinder_pub_;
+		rclcpp::Publisher<geometry_msgs::msg::Vector3>::SharedPtr compass_pub_;
+		rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr barometer_pub_;
+		rclcpp::Publisher<transformer_msp_bridge::msg::MspInavStatus>::SharedPtr inav_status_pub_;
+		rclcpp::Publisher<diagnostic_msgs::msg::DiagnosticArray>::SharedPtr inav_generic_pub_;
+		rclcpp::Publisher<diagnostic_msgs::msg::DiagnosticArray>::SharedPtr status_pub_;
+		rclcpp::Publisher<diagnostic_msgs::msg::DiagnosticArray>::SharedPtr sensor_status_pub_;
+		rclcpp::Publisher<diagnostic_msgs::msg::DiagnosticStatus>::SharedPtr gps_stats_status_pub_;
+		rclcpp::Publisher<diagnostic_msgs::msg::DiagnosticArray>::SharedPtr gps_stats_array_pub_;
+		rclcpp::Publisher<diagnostic_msgs::msg::DiagnosticArray>::SharedPtr rc_tuning_pub_;
+		rclcpp::Publisher<diagnostic_msgs::msg::DiagnosticArray>::SharedPtr rtc_pub_;
+	};
 
-  void setupPublishersAndSubs() {
-    rc_pub_ = create_publisher<std_msgs::msg::UInt16MultiArray>("/msp/rc_out", 10);
-    airspeed_pub_ = create_publisher<std_msgs::msg::Float32>("/msp/airspeed", 10);
-    temps_pub_ = create_publisher<diagnostic_msgs::msg::DiagnosticArray>("/msp/temps", 10);
-    esc_rpm_pub_ = create_publisher<sensor_msgs::msg::JointState>("/msp/esc/rpm", 10);
-    rc_sub_ = create_subscription<std_msgs::msg::UInt16MultiArray>("/msp/rc_override", 10,
-                                                                   std::bind(&MSPBridgeNode::rcCallback, this, _1));
-    current_rc_.assign(rc_channel_count_, 1500);
-    last_rc_override_msg_time_ = std::chrono::steady_clock::time_point{};  // not set yet
-  }
+	TransformerMspBridgeNode::TransformerMspBridgeNode(const rclcpp::NodeOptions &options)
+			: rclcpp::Node("transformer_msp_bridge", options),
+				parser_(std::bind(&TransformerMspBridgeNode::handlePacket, this, std::placeholders::_1))
+	{
+		port_ = declare_parameter<std::string>("port", "/dev/ttyAMA0");
+		baudrate_ = declare_parameter<int>("baudrate", 115200);
+		timeout_ms_ = declare_parameter<int>("timeout_ms", 50);
+		rc_channel_count_ = static_cast<std::size_t>(declare_parameter<int>("rc_channel_count", 8));
+		rc_publish_rate_hz_ = declare_parameter<double>("rc_publish_rate_hz", 10.0);
+		debug_msp_ = declare_parameter<bool>("debug_msp", false);
+		log_msp_tx_ = declare_parameter<bool>("log_msp_tx", false);
+		log_msp_rx_ = declare_parameter<bool>("log_msp_rx", false);
+		v2_fallback_timeout_sec_ = declare_parameter<double>("v2_fallback_timeout_sec", 5.0);
+		force_msp_v2_ = declare_parameter<bool>("force_msp_v2", false);
+		use_v2_tunnel_ = declare_parameter<bool>("use_v2_tunnel", false);
+		use_v2_for_legacy_ = declare_parameter<bool>("use_v2_for_legacy", false);
 
-  void setupTimers() {
-    read_timer_ = create_wall_timer(std::chrono::milliseconds(5), std::bind(&MSPBridgeNode::readLoop, this));
-    if (rc_echo_rate_hz_ > 0) {
-      rc_timer_ = create_wall_timer(std::chrono::milliseconds((int)(1000.0 / rc_echo_rate_hz_)),
-                                    std::bind(&MSPBridgeNode::publishRC, this));
-    }
-    if (rc_override_rate_hz_ > 0) {
-      rc_send_timer_ = create_wall_timer(std::chrono::milliseconds((int)(1000.0 / rc_override_rate_hz_)),
-                                         std::bind(&MSPBridgeNode::sendRcOverride, this));
-    }
-    poll_timer_ = create_wall_timer(std::chrono::milliseconds(50), std::bind(&MSPBridgeNode::pollTelemetry, this));
-    stats_timer_ = create_wall_timer(std::chrono::seconds(10), std::bind(&MSPBridgeNode::logStats, this));
-  }
+		frame_id_imu_ = declare_parameter<std::string>("frame_id.imu", "base_link");
+		frame_id_mag_ = declare_parameter<std::string>("frame_id.mag", frame_id_imu_);
+		frame_id_gps_ = declare_parameter<std::string>("frame_id.gps", "gps");
+		frame_id_altitude_ = declare_parameter<std::string>("frame_id.altitude", frame_id_imu_);
+		frame_id_rangefinder_ = declare_parameter<std::string>("frame_id.rangefinder", frame_id_imu_);
 
-  void readLoop() {
-    uint8_t buf[256];
-    int n = serial_.readSome(buf, sizeof(buf));
-    for (int i = 0; i < n; i++)
-      parser_->input(buf[i]);
-  }
+		configurePublishers();
+		configureDecoders();
+		configureCommandSchedules();
 
-  void pollTelemetry() {
-    auto now = std::chrono::steady_clock::now();
-    if (!bootstrap_done_) {
-      if (!bootstrap_cmds_.empty()) {
-        uint16_t cmd = bootstrap_cmds_.front();
-        auto frame = buildPacketRaw(static_cast<uint8_t>(cmd), {});
-        writeFrame(frame);
-        bootstrap_cmds_.pop_front();
-        return;
-      } else {
-        bootstrap_done_ = true;
-        bootstrap_completed_time_ = now;
-        schedule_dirty_ = true;
-      }
-    }
-    if (!force_msp_v2_ && v2_enabled_attempted_ && !v2_confirmed_) {
-      double elapsed = std::chrono::duration<double>(now - bootstrap_completed_time_).count();
-      if (elapsed > v2_fallback_timeout_sec_ && !v2_fallback_applied_) {
-        for (auto& d : registry_)
-          if (d.is_v2())
-            d.poll_rate_hz = 0.0;
-        v2_fallback_applied_ = true;
-        RCLCPP_WARN(get_logger(), "No v2 frames within %.1fs -> disabling v2 sensor polling", v2_fallback_timeout_sec_);
-      }
-    }
-    if (schedule_dirty_) {
-      rebuildSchedule(now);
-      schedule_dirty_ = false;
-    }
-    const size_t max_per_tick = 8;
-    size_t sent = 0;
-    while (!schedule_.empty()) {
-      auto entry = schedule_.top();
-      if (entry.due > now)
-        break;
-      schedule_.pop();
-      CommandDescriptor* desc = findDescriptor(entry.id);
-      if (!desc)
-        continue;
-      if (desc->poll_rate_hz <= 0.0)
-        continue;
-      if (desc->is_v2() && !v2_confirmed_) {
-        v2_enabled_attempted_ = true;
-        if (v2_fallback_applied_)
-          continue;
-      }
-      if (desc->build_request_fn) {
-        auto frame = desc->build_request_fn();
-        bool legacy_id = desc->id < 256;
-        if (!desc->is_v2() && use_v2_for_legacy_ && proto_supports_v2_ && legacy_id && !use_v2_tunnel_)
-          frame = buildPacketV2(static_cast<uint16_t>(desc->id), {}, 0);
-        else if (use_v2_tunnel_ && desc->is_v2())
-          frame = buildPacketV2OverV1(desc->id, {}, 0);
-        if (!frame.empty()) {
-          if (frame.size() >= 3 && frame[0] == '$' && frame[1] == 'X')
-            native_v2_tx_++;
-          else if (frame.size() >= 6 && frame[0] == '$' && frame[1] == 'M' && frame[4] == 255)
-            tunneled_v2_tx_++;
-        }
-        writeFrame(frame);
-        last_sent_[desc->id] = now;
-      }
-      if (desc->poll_rate_hz > 0.0) {
-        using Clock = std::chrono::steady_clock;
-        auto period_d = std::chrono::duration<double>(1.0 / desc->poll_rate_hz);
-        auto period = std::chrono::duration_cast<Clock::duration>(period_d);
-        Clock::time_point next_due = entry.due + period;
-        size_t safety = 0;
-        while (next_due < now && safety < 5) {
-          next_due += period;
-          ++safety;
-        }
-        if (next_due < now)
-          next_due = Clock::now() + period;
-        schedule_.emplace(next_due, desc->id);
-      }
-      if (++sent >= max_per_tick)
-        break;
-    }
-  }
+		if (!openSerial())
+		{
+			throw std::runtime_error("Failed to open MSP serial port: " + port_);
+		}
 
-  void dispatchPacket(const MSPPacket& pkt) {
-    if (log_msp_rx_) {
-      const auto& raw = parser_->currentFrameBytes();
-      std::ostringstream oss;
-      oss << (pkt.version == MSPVersion::V2 ? "RX V2 [" : "RX V1 [") << raw.size() << "]:";
-      for (auto b : raw)
-        oss << ' ' << std::hex << std::uppercase << std::setw(2) << std::setfill('0') << (int)b;
-      RCLCPP_INFO(get_logger(), "%s cmd=0x%04X len=%zu", oss.str().c_str(), pkt.cmd, pkt.payload.size());
-    }
-    if (pkt.version == MSPVersion::V1)
-      stats_.frames_v1++;
-    else if (pkt.version == MSPVersion::V2) {
-      stats_.frames_v2++;
-      last_v2_rx_ = std::chrono::steady_clock::now();
-      v2_confirmed_ = true;
-    }
-    if (pkt.version == MSPVersion::V2 && pkt.payload.empty()) {
-      // ack
-    }
-    if (pkt.cmd == MSP_IDENT && !ident_received_) {
-      ident_received_ = true;
-    } else if (pkt.cmd == MSP_API_VERSION && !api_version_received_) {
-      if (pkt.payload.size() >= 3) {
-        uint8_t proto_ver = pkt.payload[2];
-        api_version_received_ = true;
-        if (proto_ver >= 2)
-          proto_supports_v2_ = true;
-        else
-          proto_supports_v2_ = false;
-      }
-    }
-    // Decode polymorphically via registry only (no per-descriptor callbacks)
-    decoder_registry_.dispatch(pkt);
-  }
+		poll_timer_ = create_wall_timer(std::chrono::milliseconds(20), std::bind(&TransformerMspBridgeNode::pollCommands, this));
+	}
 
-  static inline uint16_t clamp_rc(uint16_t v) {
-    if (v < 1000)
-      return 1000;
-    if (v > 2000)
-      return 2000;
-    return v;
-  }
+	TransformerMspBridgeNode::~TransformerMspBridgeNode()
+	{
+		running_.store(false);
+		if (reader_thread_.joinable())
+			reader_thread_.join();
+		closeSerial();
+	}
 
-  void rcCallback(const std_msgs::msg::UInt16MultiArray::SharedPtr msg) {
-    // Optionally grow current_rc_ to accommodate more channels (capped to 16) if publisher provides them.
-    constexpr size_t kMaxRcChannels = 16;
-    if (msg->data.size() > current_rc_.size()) {
-      const size_t new_size = std::min(msg->data.size(), kMaxRcChannels);
-      if (new_size != current_rc_.size()) {
-        current_rc_.resize(new_size, 1500);
-        if ((int)new_size > rc_channel_count_)
-          rc_channel_count_ = static_cast<int>(new_size);
-      }
-    }
-    const size_t n = std::min<size_t>(msg->data.size(), current_rc_.size());
-    if (n == 0)
-      return;
-    for (size_t i = 0; i < n; i++)
-      current_rc_[i] = clamp_rc(msg->data[i]);
-    // Mark that we have recent override input; periodic sender will handle transmission at fixed rate.
-    last_rc_override_msg_time_ = std::chrono::steady_clock::now();
-  }
+	void TransformerMspBridgeNode::configurePublishers()
+	{
+		imu_pub_ = create_publisher<sensor_msgs::msg::Imu>("/msp/imu", rclcpp::SensorDataQoS());
+		mag_pub_ = create_publisher<sensor_msgs::msg::MagneticField>("/msp/mag", rclcpp::SensorDataQoS());
+		attitude_pub_ = create_publisher<geometry_msgs::msg::Vector3>("/msp/attitude", rclcpp::QoS(10));
+		altitude_pub_ = create_publisher<std_msgs::msg::Float32>("/msp/altitude", rclcpp::QoS(10));
+		vertical_speed_pub_ = create_publisher<geometry_msgs::msg::TwistStamped>("/msp/vertical_speed", rclcpp::QoS(10));
+		gps_fix_pub_ = create_publisher<sensor_msgs::msg::NavSatFix>("/msp/gps/fix", rclcpp::QoS(10));
+		gps_vel_pub_ = create_publisher<geometry_msgs::msg::TwistStamped>("/msp/gps/vel", rclcpp::QoS(10));
+		gps_home_vec_pub_ = create_publisher<geometry_msgs::msg::Vector3Stamped>("/msp/home/vector", rclcpp::QoS(10));
+		gps_home_dist_pub_ = create_publisher<std_msgs::msg::Float32>("/msp/home/distance", rclcpp::QoS(10));
+		rc_pub_ = create_publisher<std_msgs::msg::UInt16MultiArray>("/msp/rc", rclcpp::QoS(10));
+		servo_pub_ = create_publisher<sensor_msgs::msg::JointState>("/msp/servo", rclcpp::QoS(10));
+		motor_pub_ = create_publisher<sensor_msgs::msg::JointState>("/msp/motor", rclcpp::QoS(10));
+		battery_pub_ = create_publisher<sensor_msgs::msg::BatteryState>("/msp/battery", rclcpp::QoS(10));
+		battery_extended_pub_ = create_publisher<sensor_msgs::msg::BatteryState>("/msp/battery/dji", rclcpp::QoS(10));
+		rangefinder_pub_ = create_publisher<std_msgs::msg::Float32>("/msp/rangefinder", rclcpp::QoS(10));
+		compass_pub_ = create_publisher<geometry_msgs::msg::Vector3>("/msp/compass", rclcpp::QoS(10));
+		barometer_pub_ = create_publisher<std_msgs::msg::Float32>("/msp/barometer", rclcpp::QoS(10));
+		inav_status_pub_ = create_publisher<transformer_msp_bridge::msg::MspInavStatus>("/msp/inav_status", rclcpp::QoS(10));
+		inav_generic_pub_ = create_publisher<diagnostic_msgs::msg::DiagnosticArray>("/msp/inav_generic", rclcpp::QoS(10));
+		status_pub_ = create_publisher<diagnostic_msgs::msg::DiagnosticArray>("/msp/status_ex", rclcpp::QoS(10));
+		sensor_status_pub_ = create_publisher<diagnostic_msgs::msg::DiagnosticArray>("/msp/sensors/status", rclcpp::QoS(10));
+		gps_stats_status_pub_ = create_publisher<diagnostic_msgs::msg::DiagnosticStatus>("/msp/gps/statistics", rclcpp::QoS(10));
+		gps_stats_array_pub_ = create_publisher<diagnostic_msgs::msg::DiagnosticArray>("/msp/gps/statistics_array", rclcpp::QoS(10));
+		rc_tuning_pub_ = create_publisher<diagnostic_msgs::msg::DiagnosticArray>("/msp/rc/tuning", rclcpp::QoS(10));
+		rtc_pub_ = create_publisher<diagnostic_msgs::msg::DiagnosticArray>("/msp/rtc", rclcpp::QoS(10));
+	}
 
-  void publishRC() {
-    std_msgs::msg::UInt16MultiArray m;
-    m.data = current_rc_;
-    rc_pub_->publish(m);
-  }
+	void TransformerMspBridgeNode::configureDecoders()
+	{
+		decoders_.clear();
 
-  void sendRcOverride() {
-    // Only send if we've received an override message recently (safety)
-    if (rc_override_timeout_sec_ > 0.0) {
-      const auto now = std::chrono::steady_clock::now();
-      if (last_rc_override_msg_time_.time_since_epoch().count() == 0)
-        return;  // never received any override input
-      const double since = std::chrono::duration<double>(now - last_rc_override_msg_time_).count();
-      if (since > rc_override_timeout_sec_)
-        return;  // stale input, skip sending
-    }
-    // Build and send MSPv1 SET_RAW_RC with current channel values
-    auto bytes = buildPacket(MSP_SET_RAW_RC, current_rc_);
-    serial_.writeAll(bytes.data(), bytes.size());
-  }
+		decoders_.emplace_back(std::make_unique<ImuDecoder>(ImuDecoder::Callback([this](const ImuSample &sample) {
+			publishImu(sample);
+		})));
 
-  void rebuildSchedule(std::chrono::steady_clock::time_point now) {
-    while (!schedule_.empty())
-      schedule_.pop();
-    for (auto& d : registry_) {
-      if (d.poll_rate_hz > 0.0) {
-        schedule_.emplace(now, d.id);
-      }
-    }
-  }
+		decoders_.emplace_back(std::make_unique<AttitudeDecoder>(AttitudeDecoder::Callback([this](const AttitudeAngles &angles) {
+			publishAttitude(angles);
+		})));
 
-  void logStats() {
-    RCLCPP_INFO(get_logger(), "Frames v1=%zu v2=%zu native_v2_tx=%zu tunneled_v2_tx=%zu", stats_.frames_v1,
-                stats_.frames_v2, native_v2_tx_, tunneled_v2_tx_);
-  }
+		decoders_.emplace_back(std::make_unique<AltitudeDecoder>(AltitudeDecoder::Callback([this](const AltitudeSample &sample) {
+			publishAltitude(sample);
+		})));
 
-  CommandDescriptor* findDescriptor(uint16_t id) {
-    for (auto& d : registry_) {
-      if (d.id == id)
-        return &d;
-    }
-    return nullptr;
-  }
+		GpsDecoder::Callbacks gps_callbacks;
+		gps_callbacks.raw = [this](const GpsRawData &data) { publishGpsRaw(data); };
+		gps_callbacks.home = [this](const GpsHomeVector &data) { publishGpsHome(data); };
+		decoders_.emplace_back(std::make_unique<GpsDecoder>(gps_callbacks));
 
-  void writeFrame(const std::vector<uint8_t>& frame) {
-    if (frame.empty())
-      return;
-    if (log_msp_tx_) {
-      std::ostringstream oss;
-      oss << "TX [" << frame.size() << "]:";
-      for (auto b : frame)
-        oss << ' ' << std::hex << std::uppercase << std::setw(2) << std::setfill('0') << (int)b;
-      RCLCPP_INFO(get_logger(), "%s", oss.str().c_str());
-    }
-    serial_.writeAll(frame.data(), frame.size());
-  }
+		decoders_.emplace_back(std::make_unique<RcDecoder>(RcDecoder::Callback([this](const RcChannelsData &data) {
+			publishRc(data);
+		})));
 
-  // Members
-  std::string port_;
-  int baud_;
-  int timeout_ms_{};
-  int rc_channel_count_{};
-  double rc_echo_rate_hz_{};
-  double rc_override_rate_hz_{};
-  double rc_override_timeout_sec_{};
-  bool debug_msp_{};
-  bool log_msp_tx_{};
-  bool log_msp_rx_{};
-  double v2_fallback_timeout_sec_{};
-  bool force_msp_v2_{};
-  bool use_v2_tunnel_{};
-  bool use_v2_for_legacy_{};
+		ServoMotorDecoder::Callbacks servo_callbacks;
+		servo_callbacks.servo = [this](const ServoPositionData &data) { publishServo(data); };
+		servo_callbacks.motor = [this](const MotorOutputData &data) { publishMotor(data); };
+		decoders_.emplace_back(std::make_unique<ServoMotorDecoder>(servo_callbacks));
 
-  SerialPort serial_;
-  std::unique_ptr<MSPParser> parser_;
-  std::vector<CommandDescriptor> registry_;
-  std::unordered_map<uint16_t, std::chrono::steady_clock::time_point> last_sent_;
+		BatteryDecoder::Callbacks battery_callbacks;
+		battery_callbacks.analog = [this](const BatteryAnalogData &data) { publishBatteryAnalog(data); };
+		battery_callbacks.status = [this](const BatteryStatusData &data) { publishBatteryStatus(data); };
+		decoders_.emplace_back(std::make_unique<BatteryDecoder>(battery_callbacks));
 
-  struct ParamNames {
-    std::string enabled;
-    std::string rate;
-  };
-  std::unordered_map<uint16_t, ParamNames> command_param_name_map_;
+		SensorDecoder::Callbacks sensor_callbacks;
+		sensor_callbacks.rangefinder = [this](const RangefinderSample &sample) { publishRangefinder(sample); };
+		sensor_callbacks.compass = [this](const CompassSample &sample) { publishCompass(sample); };
+		sensor_callbacks.barometer = [this](const BarometerSample &sample) { publishBarometer(sample); };
+		if (debug_msp_)
+		{
+			sensor_callbacks.log_info = [this](const std::string &message) { RCLCPP_INFO(get_logger(), "%s", message.c_str()); };
+			sensor_callbacks.log_first_frame = true;
+		}
+		decoders_.emplace_back(std::make_unique<SensorDecoder>(sensor_callbacks));
 
-  // Scheduling
-  std::priority_queue<ScheduleEntry> schedule_;
-  bool schedule_dirty_ = true;
+		InavStatusDecoder::Callbacks inav_callbacks;
+		inav_callbacks.status = [this](const InavStatusData &data) { publishInavStatus(data); };
+		if (debug_msp_)
+		{
+			inav_callbacks.log_info = [this](const std::string &message) { RCLCPP_INFO(get_logger(), "%s", message.c_str()); };
+			inav_callbacks.log_first_frame = true;
+		}
+		decoders_.emplace_back(std::make_unique<InavStatusDecoder>(inav_callbacks));
 
-  // Bootstrap
-  std::deque<uint16_t> bootstrap_cmds_;
-  bool bootstrap_done_ = false;
-  bool ident_received_ = false;
-  bool api_version_received_ = false;
-  bool proto_supports_v2_ = false;
-  bool v2_confirmed_ = false;
-  bool v2_enabled_attempted_ = false;
-  bool v2_fallback_applied_ = false;
-  std::chrono::steady_clock::time_point bootstrap_completed_time_;
+		decoders_.emplace_back(std::make_unique<InavGenericDecoder>(InavGenericDecoder::FrameCallback([this](const InavGenericFrame &frame) {
+			publishInavGeneric(frame);
+		})));
 
-  // Stats
-  struct Stats {
-    size_t frames_v1 = 0;
-    size_t frames_v2 = 0;
-  } stats_;
-  size_t native_v2_tx_ = 0, tunneled_v2_tx_ = 0;
-  std::chrono::steady_clock::time_point last_v2_rx_;
+		SystemDecoder::Callbacks system_callbacks;
+		system_callbacks.status_ex = [this](const SystemStatusExData &data) { publishStatusEx(data); };
+		system_callbacks.sensor_status = [this](const SystemSensorStatusData &data) { publishSensorStatus(data); };
+		system_callbacks.sensor_config = [this](const SystemSensorConfigData &data) { publishSensorConfig(data); };
+		system_callbacks.gps_statistics = [this](const SystemGpsStatsData &data) { publishGpsStatistics(data); };
+		system_callbacks.rc_tuning = [this](const RcTuningData &data) { publishRcTuning(data); };
+		system_callbacks.rtc = [this](const SystemRtcData &data) { publishRtc(data); };
+		decoders_.emplace_back(std::make_unique<SystemDecoder>(system_callbacks));
+	}
 
-  // RC state
-  std::vector<uint16_t> current_rc_;
-  std::chrono::steady_clock::time_point last_rc_override_msg_time_{};
+	void TransformerMspBridgeNode::configureCommandSchedules()
+	{
+		static const std::array<CommandDefinition, 22> kCommandDefinitions = {{
+			{"command.msp_raw_imu", msp::command_id("MSP_RAW_IMU"), 50.0, false},
+			{"command.msp_servo", msp::command_id("MSP_SERVO"), 10.0, true},
+			{"command.msp_motor", msp::command_id("MSP_MOTOR"), 10.0, true},
+			{"command.msp_rc", msp::command_id("MSP_RC"), 5.0, true},
+			{"command.msp_raw_gps", msp::command_id("MSP_RAW_GPS"), 5.0, true},
+			{"command.msp_comp_gps", msp::command_id("MSP_COMP_GPS"), 2.0, true},
+			{"command.msp_attitude", msp::command_id("MSP_ATTITUDE"), 10.0, true},
+			{"command.msp_altitude", msp::command_id("MSP_ALTITUDE"), 5.0, true},
+			{"command.msp_analog", msp::command_id("MSP_ANALOG"), 2.0, true},
+			{"command.msp_rc_tuning", msp::command_id("MSP_RC_TUNING"), 0.2, false},
+			{"command.msp_battery_state", msp::command_id("MSP_BATTERY_STATE"), 1.0, true},
+			{"command.msp_rtc", msp::command_id("MSP_RTC"), 0.5, false},
+			{"command.msp_status", msp::command_id("MSP_STATUS_EX"), 2.0, true},
+			{"command.msp_sensor_config", msp::command_id("MSP_SENSOR_CONFIG"), 2.0, true},
+			{"command.msp_sensor_status", msp::command_id("MSP_SENSOR_STATUS"), 2.0, true},
+			{"command.msp_gpsstatistics", msp::command_id("MSP_GPSSTATISTICS"), 1.0, true},
+			{"command.msp2_inav_status", msp::command_id("MSP2_INAV_STATUS"), 2.0, true},
+			{"command.msp2_inav_analog", msp::command_id("MSP2_INAV_ANALOG"), 2.0, true},
+			{"command.msp2_inav_battery_config", msp::command_id("MSP2_INAV_BATTERY_CONFIG"), 0.05, false},
+			{"command.msp2_inav_air_speed", msp::command_id("MSP2_INAV_AIR_SPEED"), 5.0, true},
+			{"command.msp2_inav_temperatures", msp::command_id("MSP2_INAV_TEMPERATURES"), 1.0, true},
+			{"command.msp2_inav_esc_rpm", msp::command_id("MSP2_INAV_ESC_RPM"), 5.0, true},
+		}};
 
-  // Timers
-  rclcpp::TimerBase::SharedPtr read_timer_, rc_timer_, rc_send_timer_, poll_timer_, stats_timer_;
+		command_schedules_.clear();
+		command_schedules_.reserve(kCommandDefinitions.size());
 
-  // Param callback
-  OnSetParametersCallbackHandle::SharedPtr param_callback_handle_;
+		const auto now = std::chrono::steady_clock::now();
+		for (const auto &definition : kCommandDefinitions)
+		{
+			CommandSchedule schedule{};
+			schedule.definition = definition;
+			const std::string enabled_param = std::string(definition.param_key) + ".enabled";
+			const std::string rate_param = std::string(definition.param_key) + ".rate_hz";
 
-  // Publishers / subs
-  rclcpp::Publisher<std_msgs::msg::UInt16MultiArray>::SharedPtr rc_pub_;
-  rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr airspeed_pub_;
-  rclcpp::Publisher<diagnostic_msgs::msg::DiagnosticArray>::SharedPtr temps_pub_;
-  rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr esc_rpm_pub_;
-  rclcpp::Subscription<std_msgs::msg::UInt16MultiArray>::SharedPtr rc_sub_;
+			schedule.enabled = declare_parameter<bool>(enabled_param, definition.default_enabled);
+			schedule.rate_hz = declare_parameter<double>(rate_param, definition.default_rate_hz);
 
-  DecoderRegistry decoder_registry_;
-};
+			if (!schedule.enabled || schedule.rate_hz <= 0.0)
+			{
+				schedule.enabled = false;
+				schedule.period = std::chrono::steady_clock::duration::zero();
+			}
+			else
+			{
+				const double period_seconds = 1.0 / schedule.rate_hz;
+				schedule.period = std::chrono::duration_cast<std::chrono::steady_clock::duration>(
+						std::chrono::duration<double>(period_seconds));
+				if (schedule.period.count() <= 0)
+				{
+					schedule.period = std::chrono::milliseconds(1);
+				}
+				schedule.next_fire = now + schedule.period;
+			}
 
-}  // namespace transformer_msp_bridge
+			command_schedules_.push_back(schedule);
+		}
+	}
 
-int main(int argc, char** argv) {
-  rclcpp::init(argc, argv);
-  auto node = std::make_shared<transformer_msp_bridge::MSPBridgeNode>();
-  rclcpp::spin(node);
-  rclcpp::shutdown();
-  return 0;
+	bool TransformerMspBridgeNode::openSerial()
+	{
+		std::lock_guard<std::mutex> lock(serial_mutex_);
+		if (serial_ready_)
+			return true;
+
+		if (!serial_.open(port_, baudrate_, timeout_ms_))
+		{
+			RCLCPP_ERROR(get_logger(), "Failed to open serial port %s", port_.c_str());
+			serial_ready_ = false;
+			return false;
+		}
+
+		serial_ready_ = true;
+		running_.store(true);
+		reader_thread_ = std::thread(&TransformerMspBridgeNode::readLoop, this);
+		RCLCPP_INFO(get_logger(), "Opened MSP serial port %s @ %d baud", port_.c_str(), baudrate_);
+		return true;
+	}
+
+	void TransformerMspBridgeNode::closeSerial()
+	{
+		std::lock_guard<std::mutex> lock(serial_mutex_);
+		serial_ready_ = false;
+		serial_.close();
+	}
+
+	void TransformerMspBridgeNode::readLoop()
+	{
+		std::array<uint8_t, 512> buffer{};
+		while (running_.load())
+		{
+			int bytes_read = 0;
+			{
+				std::lock_guard<std::mutex> lock(serial_mutex_);
+				if (!serial_ready_)
+					break;
+				bytes_read = serial_.readSome(buffer.data(), buffer.size());
+			}
+
+			if (bytes_read > 0)
+			{
+				if (log_msp_rx_)
+				{
+					std::vector<uint8_t> chunk(buffer.begin(), buffer.begin() + bytes_read);
+					RCLCPP_INFO(get_logger(), "MSP RX [%d]: %s", bytes_read, to_hex(chunk).c_str());
+				}
+				parser_.feed(buffer.data(), static_cast<std::size_t>(bytes_read));
+			}
+			else if (bytes_read == 0)
+			{
+				std::this_thread::sleep_for(std::chrono::milliseconds(2));
+			}
+			else
+			{
+				RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 2000, "Serial read error, retrying");
+				std::this_thread::sleep_for(std::chrono::milliseconds(50));
+			}
+		}
+	}
+
+	bool TransformerMspBridgeNode::sendCommand(uint16_t command_id)
+	{
+		std::vector<uint8_t> frame;
+		const bool is_v2 = msp::is_v2(command_id);
+
+		if (is_v2 || force_msp_v2_ || use_v2_for_legacy_)
+		{
+			if (use_v2_tunnel_ && !force_msp_v2_)
+			{
+				frame = buildPacketV2OverV1(command_id, {});
+			}
+			else
+			{
+				frame = buildPacketV2(command_id, {});
+			}
+		}
+		else
+		{
+			frame = buildPacketRaw(static_cast<uint8_t>(command_id & 0xFF), {});
+		}
+
+		if (frame.empty())
+			return false;
+
+		if (log_msp_tx_)
+		{
+			const std::string_view name = msp::message_name(command_id);
+			if (!name.empty())
+			{
+				RCLCPP_INFO(get_logger(), "MSP TX (%u %.*s): %s", static_cast<unsigned>(command_id),
+							 static_cast<int>(name.size()), name.data(), to_hex(frame).c_str());
+			}
+			else
+			{
+				RCLCPP_INFO(get_logger(), "MSP TX (%u): %s", static_cast<unsigned>(command_id), to_hex(frame).c_str());
+			}
+		}
+
+		std::lock_guard<std::mutex> lock(serial_mutex_);
+		if (!serial_ready_)
+			return false;
+		return serial_.writeAll(frame.data(), frame.size());
+	}
+
+	void TransformerMspBridgeNode::pollCommands()
+	{
+		if (!serial_ready_)
+			return;
+
+		const auto now = std::chrono::steady_clock::now();
+		for (auto &schedule : command_schedules_)
+		{
+			if (!schedule.enabled || schedule.period == std::chrono::steady_clock::duration::zero())
+				continue;
+			if (now < schedule.next_fire)
+				continue;
+
+			if (!sendCommand(schedule.definition.command_id))
+			{
+				RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 5000, "Failed to send MSP command %u",
+														 static_cast<unsigned>(schedule.definition.command_id));
+			}
+			schedule.next_fire = now + schedule.period;
+		}
+	}
+
+	void TransformerMspBridgeNode::handlePacket(const MSPPacket &pkt)
+	{
+		if (debug_msp_)
+		{
+			RCLCPP_DEBUG(get_logger(), "MSP RX cmd=%u len=%zu", static_cast<unsigned>(pkt.cmd), pkt.payload.size());
+		}
+
+		for (auto &decoder : decoders_)
+		{
+			if (decoder && decoder->matches(pkt.cmd))
+			{
+				decoder->decode(pkt);
+			}
+		}
+	}
+
+	void TransformerMspBridgeNode::publishImu(const ImuSample &sample)
+	{
+		if (imu_pub_)
+		{
+			sensor_msgs::msg::Imu msg;
+			msg.header.stamp = now();
+			msg.header.frame_id = frame_id_imu_;
+			msg.orientation_covariance[0] = -1.0;
+			msg.angular_velocity_covariance[0] = -1.0;
+			msg.linear_acceleration_covariance[0] = -1.0;
+			msg.linear_acceleration.x = sample.linear_acceleration_mps2[0];
+			msg.linear_acceleration.y = sample.linear_acceleration_mps2[1];
+			msg.linear_acceleration.z = sample.linear_acceleration_mps2[2];
+			msg.angular_velocity.x = sample.angular_velocity_radps[0];
+			msg.angular_velocity.y = sample.angular_velocity_radps[1];
+			msg.angular_velocity.z = sample.angular_velocity_radps[2];
+			imu_pub_->publish(msg);
+		}
+
+		if (mag_pub_)
+		{
+			sensor_msgs::msg::MagneticField mag;
+			mag.header.stamp = now();
+			mag.header.frame_id = frame_id_mag_;
+			mag.magnetic_field.x = sample.magnetic_field_tesla[0];
+			mag.magnetic_field.y = sample.magnetic_field_tesla[1];
+			mag.magnetic_field.z = sample.magnetic_field_tesla[2];
+			mag_pub_->publish(mag);
+		}
+	}
+
+	void TransformerMspBridgeNode::publishAttitude(const AttitudeAngles &angles)
+	{
+		if (!attitude_pub_)
+			return;
+		geometry_msgs::msg::Vector3 msg;
+		msg.x = angles.roll_deg;
+		msg.y = angles.pitch_deg;
+		msg.z = angles.yaw_deg;
+		attitude_pub_->publish(msg);
+	}
+
+	void TransformerMspBridgeNode::publishAltitude(const AltitudeSample &sample)
+	{
+		if (altitude_pub_)
+		{
+			std_msgs::msg::Float32 msg;
+			msg.data = sample.altitude_m;
+			altitude_pub_->publish(msg);
+		}
+
+		if (vertical_speed_pub_)
+		{
+			geometry_msgs::msg::TwistStamped msg;
+			msg.header.stamp = now();
+			msg.header.frame_id = frame_id_altitude_;
+			msg.twist.linear.z = sample.vertical_speed_mps;
+			vertical_speed_pub_->publish(msg);
+		}
+	}
+
+	void TransformerMspBridgeNode::publishGpsRaw(const GpsRawData &data)
+	{
+		if (!gps_fix_pub_ && !gps_vel_pub_)
+			return;
+
+		if (gps_fix_pub_)
+		{
+			sensor_msgs::msg::NavSatFix fix;
+			fix.header.stamp = now();
+			fix.header.frame_id = frame_id_gps_;
+			fix.latitude = data.latitude_deg;
+			fix.longitude = data.longitude_deg;
+			fix.altitude = data.altitude_m;
+			fix.status.service = sensor_msgs::msg::NavSatStatus::SERVICE_GPS;
+			fix.status.status = data.fix_type > 0 ? sensor_msgs::msg::NavSatStatus::STATUS_FIX
+																						: sensor_msgs::msg::NavSatStatus::STATUS_NO_FIX;
+			fix.position_covariance_type = sensor_msgs::msg::NavSatFix::COVARIANCE_TYPE_UNKNOWN;
+			gps_fix_pub_->publish(fix);
+		}
+
+		if (gps_vel_pub_)
+		{
+			geometry_msgs::msg::TwistStamped vel;
+			vel.header.stamp = now();
+			vel.header.frame_id = frame_id_gps_;
+			vel.twist.linear.x = data.speed_mps;
+			vel.twist.angular.z = data.course_rad;
+			gps_vel_pub_->publish(vel);
+		}
+	}
+
+	void TransformerMspBridgeNode::publishGpsHome(const GpsHomeVector &data)
+	{
+		if (gps_home_vec_pub_)
+		{
+			geometry_msgs::msg::Vector3Stamped vec;
+			vec.header.stamp = now();
+			vec.header.frame_id = frame_id_gps_;
+			vec.vector.x = data.distance_m;
+			vec.vector.y = data.direction_deg;
+			vec.vector.z = 0.0;
+			gps_home_vec_pub_->publish(vec);
+		}
+
+		if (gps_home_dist_pub_)
+		{
+			std_msgs::msg::Float32 dist;
+			dist.data = static_cast<float>(data.distance_m);
+			gps_home_dist_pub_->publish(dist);
+		}
+	}
+
+	void TransformerMspBridgeNode::publishRc(const RcChannelsData &data)
+	{
+		if (!rc_pub_)
+			return;
+		std_msgs::msg::UInt16MultiArray msg;
+		msg.data = data.channels;
+		rc_pub_->publish(msg);
+	}
+
+	void TransformerMspBridgeNode::publishServo(const ServoPositionData &data)
+	{
+		if (!servo_pub_)
+			return;
+		sensor_msgs::msg::JointState msg;
+		msg.header.stamp = now();
+		msg.position = data.positions;
+		servo_pub_->publish(msg);
+	}
+
+	void TransformerMspBridgeNode::publishMotor(const MotorOutputData &data)
+	{
+		if (!motor_pub_)
+			return;
+		sensor_msgs::msg::JointState msg;
+		msg.header.stamp = now();
+		msg.velocity = data.values;
+		motor_pub_->publish(msg);
+	}
+
+	void TransformerMspBridgeNode::publishBatteryAnalog(const BatteryAnalogData &data)
+	{
+		if (!battery_pub_)
+			return;
+		sensor_msgs::msg::BatteryState msg;
+		msg.header.stamp = now();
+		msg.header.frame_id = frame_id_imu_;
+		msg.voltage = data.voltage_v;
+		msg.present = data.present;
+		msg.percentage = std::numeric_limits<float>::quiet_NaN();
+		msg.current = std::numeric_limits<float>::quiet_NaN();
+		msg.charge = std::numeric_limits<float>::quiet_NaN();
+		battery_pub_->publish(msg);
+	}
+
+	void TransformerMspBridgeNode::publishBatteryStatus(const BatteryStatusData &data)
+	{
+		if (!battery_extended_pub_)
+			return;
+		sensor_msgs::msg::BatteryState msg;
+		msg.header.stamp = now();
+		msg.header.frame_id = frame_id_imu_;
+		msg.present = data.present;
+		msg.voltage = data.voltage_v;
+		msg.current = data.current_a;
+		msg.charge = data.charge_c;
+		msg.percentage = data.remaining_fraction;
+		msg.cell_voltage = data.cell_voltage_v;
+		battery_extended_pub_->publish(msg);
+	}
+
+	void TransformerMspBridgeNode::publishRangefinder(const RangefinderSample &sample)
+	{
+		if (!rangefinder_pub_)
+			return;
+		std_msgs::msg::Float32 msg;
+		msg.data = sample.distance_m;
+		rangefinder_pub_->publish(msg);
+	}
+
+	void TransformerMspBridgeNode::publishCompass(const CompassSample &sample)
+	{
+		if (!compass_pub_)
+			return;
+		geometry_msgs::msg::Vector3 msg;
+		msg.x = static_cast<double>(sample.magnetic_field_mgauss[0]);
+		msg.y = static_cast<double>(sample.magnetic_field_mgauss[1]);
+		msg.z = static_cast<double>(sample.magnetic_field_mgauss[2]);
+		compass_pub_->publish(msg);
+	}
+
+	void TransformerMspBridgeNode::publishBarometer(const BarometerSample &sample)
+	{
+		if (!barometer_pub_)
+			return;
+		std_msgs::msg::Float32 msg;
+		msg.data = sample.pressure_pa;
+		barometer_pub_->publish(msg);
+	}
+
+	void TransformerMspBridgeNode::publishInavStatus(const InavStatusData &data)
+	{
+		if (!inav_status_pub_)
+			return;
+		transformer_msp_bridge::msg::MspInavStatus msg;
+		msg.cycle_time_us = data.cycle_time_us;
+		msg.i2c_errors = data.i2c_errors;
+		msg.sensor_status = data.sensor_status_mask;
+		msg.cpu_load_percent = data.cpu_load_percent;
+		msg.config_profile = data.config_profile;
+		msg.battery_profile = data.battery_profile;
+		msg.mixer_profile = data.mixer_profile;
+		msg.arming_flags = data.arming_flags;
+		msg.active_modes = data.active_modes;
+		inav_status_pub_->publish(msg);
+	}
+
+	void TransformerMspBridgeNode::publishInavGeneric(const InavGenericFrame &frame)
+	{
+		if (!inav_generic_pub_)
+			return;
+		diagnostic_msgs::msg::DiagnosticStatus status;
+		status.level = diagnostic_msgs::msg::DiagnosticStatus::OK;
+		status.name = frame.description;
+		status.hardware_id = "fc";
+		diagnostic_msgs::msg::KeyValue kv;
+		kv.key = "payload";
+		kv.value = to_hex(frame.payload, false);
+		status.values.push_back(std::move(kv));
+		diagnostic_msgs::msg::DiagnosticArray array;
+		array.header.stamp = now();
+		array.status.push_back(std::move(status));
+		inav_generic_pub_->publish(array);
+	}
+
+	void TransformerMspBridgeNode::publishStatusEx(const SystemStatusExData &data)
+	{
+		if (!status_pub_)
+			return;
+		diagnostic_msgs::msg::DiagnosticStatus status;
+		status.level = diagnostic_msgs::msg::DiagnosticStatus::OK;
+		status.name = "status_ex";
+		status.hardware_id = "fc";
+		append_key_value(status, "cycle_time_us", data.cycle_time_us);
+		append_key_value(status, "i2c_errors", data.i2c_errors);
+		append_key_value(status, "sensors_mask", data.sensors_mask);
+		append_key_value(status, "mode_flags", data.mode_flags);
+		append_key_value(status, "profile", data.profile);
+		append_key_value(status, "system_load_pct", data.system_load_pct);
+		append_key_value(status, "gyro_cycle_time_us", data.gyro_cycle_time_us);
+		append_key_value(status, "last_arm_disable", data.last_arm_disable);
+		append_key_value(status, "arming_flags", data.arming_flags);
+		append_key_value(status, "acc_cal_running", data.acc_cal_running);
+		diagnostic_msgs::msg::DiagnosticArray array;
+		array.header.stamp = now();
+		array.status.push_back(std::move(status));
+		status_pub_->publish(array);
+	}
+
+	void TransformerMspBridgeNode::publishSensorStatus(const SystemSensorStatusData &data)
+	{
+		if (!sensor_status_pub_)
+			return;
+		diagnostic_msgs::msg::DiagnosticStatus status;
+		status.level = diagnostic_msgs::msg::DiagnosticStatus::OK;
+		status.name = "sensor_status";
+		status.hardware_id = "fc";
+		if (data.has_masks)
+		{
+			append_key_value(status, "present_mask", data.present_mask);
+			append_key_value(status, "failing_mask", data.failing_mask);
+		}
+		else if (!data.raw_payload.empty())
+		{
+			diagnostic_msgs::msg::KeyValue kv;
+			kv.key = "raw";
+			kv.value = to_hex(data.raw_payload);
+			status.values.push_back(std::move(kv));
+		}
+		diagnostic_msgs::msg::DiagnosticArray array;
+		array.header.stamp = now();
+		array.status.push_back(std::move(status));
+		sensor_status_pub_->publish(array);
+	}
+
+	void TransformerMspBridgeNode::publishSensorConfig(const SystemSensorConfigData &data)
+	{
+		if (!sensor_status_pub_)
+			return;
+		diagnostic_msgs::msg::DiagnosticStatus status;
+		status.level = diagnostic_msgs::msg::DiagnosticStatus::OK;
+		status.name = "sensor_config";
+		status.hardware_id = "fc";
+		for (std::size_t i = 0; i < data.hardware_ids.size(); ++i)
+		{
+			diagnostic_msgs::msg::KeyValue kv;
+			kv.key = "hardware[" + std::to_string(i) + "]";
+			kv.value = std::to_string(data.hardware_ids[i]);
+			status.values.push_back(std::move(kv));
+		}
+		if (!data.raw_tail.empty())
+		{
+			diagnostic_msgs::msg::KeyValue kv;
+			kv.key = "raw_tail";
+			kv.value = to_hex(data.raw_tail);
+			status.values.push_back(std::move(kv));
+		}
+		diagnostic_msgs::msg::DiagnosticArray array;
+		array.header.stamp = now();
+		array.status.push_back(std::move(status));
+		sensor_status_pub_->publish(array);
+	}
+
+	void TransformerMspBridgeNode::publishGpsStatistics(const SystemGpsStatsData &data)
+	{
+		diagnostic_msgs::msg::DiagnosticStatus status;
+		status.level = diagnostic_msgs::msg::DiagnosticStatus::OK;
+		status.name = "gps_statistics";
+		status.hardware_id = "fc";
+		append_key_value(status, "errors", data.errors);
+		append_key_value(status, "timeouts", data.timeouts);
+		append_key_value(status, "packet_count", data.packet_count);
+		append_key_value(status, "packet_rejected", data.packet_rejected);
+		append_key_value(status, "packet_ignored", data.packet_ignored);
+		append_key_value(status, "packet_crc_error", data.packet_crc_error);
+		append_key_value(status, "gps_reset_flags", data.gps_reset_flags);
+
+		if (gps_stats_status_pub_)
+		{
+			gps_stats_status_pub_->publish(status);
+		}
+
+		if (gps_stats_array_pub_)
+		{
+			diagnostic_msgs::msg::DiagnosticArray array;
+			array.header.stamp = now();
+			array.status.push_back(std::move(status));
+			gps_stats_array_pub_->publish(array);
+		}
+	}
+
+	void TransformerMspBridgeNode::publishRcTuning(const RcTuningData &data)
+	{
+		if (!rc_tuning_pub_)
+			return;
+		diagnostic_msgs::msg::DiagnosticStatus status;
+		status.level = diagnostic_msgs::msg::DiagnosticStatus::OK;
+		status.name = "rc_tuning";
+		status.hardware_id = "fc";
+		append_key_value(status, "rc_rate", data.rc_rate);
+		append_key_value(status, "rc_expo", data.rc_expo);
+		append_key_value(status, "thr_mid", data.throttle_mid);
+		append_key_value(status, "thr_expo", data.throttle_expo);
+		append_key_value(status, "dyn_throttle_pid", data.dyn_throttle_pid);
+		append_key_value(status, "rc_yaw_expo", data.rc_yaw_expo);
+		append_key_value(status, "rc_yaw_rate", data.rc_yaw_rate);
+		append_key_value(status, "rc_pitch_rate", data.rc_pitch_rate);
+		append_key_value(status, "rc_roll_rate", data.rc_roll_rate);
+		append_key_value(status, "tpa_breakpoint", data.tpa_breakpoint);
+		diagnostic_msgs::msg::DiagnosticArray array;
+		array.header.stamp = now();
+		array.status.push_back(std::move(status));
+		rc_tuning_pub_->publish(array);
+	}
+
+	void TransformerMspBridgeNode::publishRtc(const SystemRtcData &data)
+	{
+		if (!rtc_pub_)
+			return;
+		diagnostic_msgs::msg::DiagnosticStatus status;
+		status.level = diagnostic_msgs::msg::DiagnosticStatus::OK;
+		status.name = "rtc";
+		status.hardware_id = "fc";
+		append_key_value(status, "seconds", data.seconds);
+		append_key_value(status, "millis", data.millis);
+		diagnostic_msgs::msg::DiagnosticArray array;
+		array.header.stamp = now();
+		array.status.push_back(std::move(status));
+		rtc_pub_->publish(array);
+	}
+
+} // namespace transformer_msp_bridge
+
+int main(int argc, char **argv)
+{
+	rclcpp::init(argc, argv);
+	try
+	{
+		auto node = std::make_shared<transformer_msp_bridge::TransformerMspBridgeNode>();
+		rclcpp::spin(node);
+	}
+	catch (const std::exception &ex)
+	{
+		RCLCPP_FATAL(rclcpp::get_logger("transformer_msp_bridge"), "%s", ex.what());
+	}
+	rclcpp::shutdown();
+	return 0;
 }
+

@@ -1,19 +1,25 @@
 #include "transformer_msp_bridge/decoders/rc_decoder.hpp"
+#include "transformer_msp_bridge/msp_registry.hpp"
+#include <utility>
 
 namespace transformer_msp_bridge
 {
 
-  RcDecoder::RcDecoder(rclcpp::Node &node, const std::string &topic)
+  namespace
   {
-    pub_ = node.create_publisher<std_msgs::msg::UInt16MultiArray>(topic, 10);
+  const uint16_t kMspRc = msp::command_id("MSP_RC");
   }
 
-  bool RcDecoder::matches(uint16_t command_id) const { return command_id == MSP_RC; }
+  RcDecoder::RcDecoder(Callback callback) : callback_(std::move(callback)) {}
+
+  void RcDecoder::set_callback(Callback callback) { callback_ = std::move(callback); }
+
+  bool RcDecoder::matches(uint16_t id) const { return id == kMspRc; }
   std::string RcDecoder::name() const { return "rc"; }
 
   void RcDecoder::decode(const MSPPacket &pkt)
   {
-    if (pkt.cmd != MSP_RC || pkt.payload.size() < 16)
+    if (pkt.cmd != kMspRc || pkt.payload.size() < 16)
       return;
     std::vector<uint16_t> chans;
     chans.reserve(pkt.payload.size() / 2);
@@ -21,9 +27,10 @@ namespace transformer_msp_bridge
     {
       chans.push_back(pkt.payload[i] | (pkt.payload[i + 1] << 8));
     }
-    std_msgs::msg::UInt16MultiArray m;
-    m.data = std::move(chans);
-    pub_->publish(m);
+    RcChannelsData data;
+    data.channels = std::move(chans);
+    if (callback_)
+      callback_(data);
   }
 
 } // namespace transformer_msp_bridge

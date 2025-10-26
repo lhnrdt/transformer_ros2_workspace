@@ -1,100 +1,58 @@
 #pragma once
 
+#include <cstddef>
 #include <cstdint>
 #include <functional>
 #include <string>
+#include <string_view>
 #include <vector>
 
-#include "transformer_msp_bridge/msp_parser.hpp" // for MSPPacket
+#include "transformer_msp_bridge/msp_messages_inav.hpp"
 
-namespace transformer_msp_bridge
+namespace transformer_msp_bridge::msp
 {
 
-  // Unified response schema types for MSP payloads.
-  enum class FieldType : uint8_t
-  {
-    U8,
-    I8,
-    U16,
-    I16,
-    U32,
-    I32,
-    F32
-  };
+using ::msp::MspField;
+using ::msp::MspMsg;
 
-  struct FieldSpec
-  {
-    const char *name;   // field name, e.g. "roll"
-    FieldType type;     // storage type on the wire
-    const char *unit;   // optional unit string, e.g. "deg", can be nullptr
-    double scale;       // multiplier to convert raw to unit (e.g. 0.1 for deci-deg to deg)
-    std::size_t repeat; // number of repeated elements (arrays). 1 = scalar
-  };
+inline constexpr uint16_t kMspV2FrameId = 0xFF;
 
-  struct ResponseSchema
-  {
-    const FieldSpec *fields; // pointer to static array of FieldSpec
-    std::size_t count;       // number of FieldSpec entries
-  };
+struct MessageSchema
+{
+  const MspField *fields{nullptr};
+  std::size_t count{0};
+  const MspMsg *message{nullptr};
 
-  // CommandDescriptor
-  //  Description: Metadata + request frame builder for an MSP command the bridge polls or can issue.
-  //  Invariants:
-  //   * id must correspond to an upstream-defined MSP_* constant (no local invention except where
-  //     upstream has not yet published a symbol; such cases should be rare and clearly commented).
-  //   * poll_rate_hz >= 0.0. A value of 0.0 means disabled by default (no periodic polling) but the
-  //     command is still exposed via parameters for manual enabling.
-  //   * MSPv2 usage is inferred automatically as (id > 255); no manual flag required.
-  //   * build_request_fn must be deterministic and return a fully framed MSPv1 or MSPv2 request.
-  //  Extension procedure (see also comments near kRegistry definition):
-  //   1. Add a new entry to kRegistry (keeping category grouping and ordering stable).
-  //   2. If the command should auto-poll, choose a conservative poll_rate_hz.
-  //   3. Update test `StableEntryCountAndOrder` expected count and any other assertions if needed.
-  //   4. Ensure decoding support exists (implement a decoder if telemetry is expected inbound).
-  //   5. Avoid large lambdas capturing state; builder lambdas here are non-capturing.
-  using BuildFn = std::function<std::vector<uint8_t>()>;
+  [[nodiscard]] bool has_fields() const { return fields != nullptr && count > 0; }
+};
 
-  struct CommandDescriptor
-  {
-    uint16_t id;                       // Upstream MSP_* constant.
-    const char *name;                  // Human-readable identifier (stable; used for param name derivation).
-    double poll_rate_hz;               // 0 = not auto-polled; otherwise target frequency.
-    BuildFn build_request_fn;          // Deterministic builder for outbound request frame.
-    const FieldSpec *response_schema;  // Optional pointer to response schema fields (nullptr if none)
-    std::size_t response_schema_count; // Number of fields in schema (0 if none)
-    constexpr bool is_v2() const { return id > 255; }
-  };
+struct RegistryEntry
+{
+  std::string_view name{};
+  uint16_t id{0};
+  double poll_rate_hz{0.0};
+  bool default_polled{false};
+  std::function<std::vector<uint8_t>()> build_request_fn;
+  MessageSchema response_schema{};
+};
 
-  struct RegistryView
-  {
-    const CommandDescriptor *data;
-    std::size_t size;
-    const CommandDescriptor *begin() const { return data; }
-    const CommandDescriptor *end() const { return data + size; }
-  };
+struct RegistryView
+{
+  const RegistryEntry *data{nullptr};
+  std::size_t size{0};
+};
 
-  // Returns a lightweight view over the immutable static registry array. Copy into a std::vector if
-  // mutation (e.g., parameter-driven rate adjustments) is required by the caller.
-  RegistryView get_default_registry();
+[[nodiscard]] uint16_t command_id(std::string_view name);
+[[nodiscard]] const MspMsg *find_message_by_id(uint16_t id);
+[[nodiscard]] const MspMsg *find_message_by_name(std::string_view name);
+[[nodiscard]] bool is_v2(uint16_t id);
+[[nodiscard]] std::string_view message_name(uint16_t id);
+[[nodiscard]] RegistryView get_default_registry();
 
-  // Convenience: find a descriptor by ID (nullptr if not found)
-  const CommandDescriptor *find_descriptor(uint16_t id);
+bool schema_fixed_size_bytes(const MessageSchema &schema, std::size_t &out_bytes);
+bool parse_to_flat_list(const MessageSchema &schema, const std::vector<uint8_t> &payload,
+                        std::vector<double> &out_values,
+                        std::vector<std::string> *field_names = nullptr,
+                        std::string *error = nullptr);
 
-  // Number of entries in the default registry (update tests if this changes intentionally).
-  // Implemented inline because registry array is TU-local; we expose size as constexpr value.
-  inline constexpr std::size_t kDefaultRegistrySize()
-  {
-    return 26;
-  }
-
-  // Schema helpers:
-  //  - compute the total byte size implied by a schema (fixed-length only). Returns true and sets out_size.
-  bool schema_fixed_size_bytes(const ResponseSchema &schema, std::size_t &out_size);
-
-  // Parse payload according to schema and output flattened, scaled values in field order.
-  // If out_names is non-null, it will be filled with names (arrays are suffixed with [i]).
-  bool parse_to_flat_list(const ResponseSchema &schema, const std::vector<uint8_t> &payload,
-                          std::vector<double> &out_values, std::vector<std::string> *out_names = nullptr,
-                          std::string *err = nullptr);
-
-} // namespace transformer_msp_bridge
+} // namespace transformer_msp_bridge::msp

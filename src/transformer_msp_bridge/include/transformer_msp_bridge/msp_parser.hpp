@@ -6,13 +6,6 @@
 namespace transformer_msp_bridge
 {
 
-// External iNav MSP protocol constants
-#include "msp/msp_protocol.h"
-
-#ifndef MSP_IDENT
-#define MSP_IDENT 100
-#endif
-
   enum class MSPVersion : uint8_t
   {
     V1 = 1,

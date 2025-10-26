@@ -27,13 +27,8 @@
 
 #include "transformer_msp_bridge/msp_parser.hpp"
 #include "transformer_msp_bridge/crc.hpp"
+#include "transformer_msp_bridge/msp_registry.hpp"
 #include "transformer_msp_bridge/msp_utils.hpp"
-
-// Keep MSP_V2_FRAME_ID compatibility if external header doesn't define it
-#include "msp/msp_protocol.h"
-#ifndef MSP_V2_FRAME_ID
-#define MSP_V2_FRAME_ID 255
-#endif
 
 namespace transformer_msp_bridge
 {
@@ -99,7 +94,7 @@ namespace transformer_msp_bridge
   void MSPParser::handleTunneledV2()
   {
     // Layout: [flags][cmd_le(2)][len_le(2)][payload...][crc8]
-    if (v1_command_ != 255 || payload_buffer_.size() < 6)
+  if (v1_command_ != msp::kMspV2FrameId || payload_buffer_.size() < 6)
     {
       emitV1();
       return;

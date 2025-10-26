@@ -1,19 +1,22 @@
 #pragma once
-#include <rclcpp/rclcpp.hpp>
-#include <std_msgs/msg/u_int16_multi_array.hpp>
 #include "transformer_msp_bridge/msp_parser.hpp"
 #include "transformer_msp_bridge/decoder_base.hpp"
+#include "transformer_msp_bridge/decoder_outputs.hpp"
+#include <functional>
 namespace transformer_msp_bridge
 {
   class RcDecoder : public IMspDecoder
   {
   public:
-    RcDecoder(rclcpp::Node &node, const std::string &topic);
+    using Callback = std::function<void(const RcChannelsData &)>;
+
+    explicit RcDecoder(Callback callback = {});
+    void set_callback(Callback callback);
     void decode(const MSPPacket &pkt) override;
     bool matches(uint16_t command_id) const override;
     std::string name() const override;
 
   private:
-    rclcpp::Publisher<std_msgs::msg::UInt16MultiArray>::SharedPtr pub_;
+    Callback callback_;
   };
 } // namespace transformer_msp_bridge

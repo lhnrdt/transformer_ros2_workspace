@@ -1,19 +1,23 @@
 #include "transformer_msp_bridge/decoders/imu_decoder.hpp"
 #include "transformer_msp_bridge/msp_registry.hpp"
 #include "transformer_msp_bridge/msp_utils.hpp"
+#include <utility>
 
 namespace transformer_msp_bridge
 {
 
-  ImuDecoder::ImuDecoder(rclcpp::Node &node)
+  namespace
   {
-    imu_pub_ = node.create_publisher<sensor_msgs::msg::Imu>("/msp/imu", 10);
-    mag_pub_ = node.create_publisher<sensor_msgs::msg::MagneticField>("/msp/mag", 10);
+  const uint16_t kMspRawImu = msp::command_id("MSP_RAW_IMU");
   }
 
-  bool ImuDecoder::matches(uint16_t command_id) const
+  ImuDecoder::ImuDecoder(Callback callback) : callback_(std::move(callback)) {}
+
+  void ImuDecoder::set_callback(Callback callback) { callback_ = std::move(callback); }
+
+  bool ImuDecoder::matches(uint16_t id) const
   {
-    return command_id == MSP_RAW_IMU;
+    return id == kMspRawImu;
   }
   std::string ImuDecoder::name() const
   {
@@ -22,35 +26,32 @@ namespace transformer_msp_bridge
 
   void ImuDecoder::decode(const MSPPacket &pkt)
   {
-    if (pkt.cmd == MSP_RAW_IMU)
+    if (pkt.cmd == kMspRawImu)
       decodeRawImu(pkt);
   }
 
   void ImuDecoder::decodeRawImu(const MSPPacket &pkt)
   {
-    if (pkt.payload.size() < 18)
+    if (pkt.cmd != kMspRawImu || pkt.payload.size() < 18)
       return;
     int16_t ax, ay, az, gx, gy, gz, mx, my, mz;
     if (!readI16LE(pkt.payload, 0, ax) || !readI16LE(pkt.payload, 2, ay) || !readI16LE(pkt.payload, 4, az) ||
         !readI16LE(pkt.payload, 6, gx) || !readI16LE(pkt.payload, 8, gy) || !readI16LE(pkt.payload, 10, gz) ||
         !readI16LE(pkt.payload, 12, mx) || !readI16LE(pkt.payload, 14, my) || !readI16LE(pkt.payload, 16, mz))
       return;
-
-    sensor_msgs::msg::Imu imu; // orientation left unset
-    constexpr double g = 9.80665;
-    imu.linear_acceleration.x = (ax / 512.0) * g;
-    imu.linear_acceleration.y = (ay / 512.0) * g;
-    imu.linear_acceleration.z = (az / 512.0) * g;
-    imu.angular_velocity.x = (gx / 16.0) * (M_PI / 180.0);
-    imu.angular_velocity.y = (gy / 16.0) * (M_PI / 180.0);
-    imu.angular_velocity.z = (gz / 16.0) * (M_PI / 180.0);
-    imu_pub_->publish(imu);
-
-    sensor_msgs::msg::MagneticField mag;
-    mag.magnetic_field.x = mx * 1e-6; // rough scaling; adjust with calibration if needed
-    mag.magnetic_field.y = my * 1e-6;
-    mag.magnetic_field.z = mz * 1e-6;
-    mag_pub_->publish(mag);
+    constexpr double gravity = 9.80665;
+    constexpr double deg_to_rad = 3.14159265358979323846 / 180.0;
+    ImuSample sample;
+    sample.linear_acceleration_mps2 = {static_cast<double>(ax) * gravity / 512.0,
+                                       static_cast<double>(ay) * gravity / 512.0,
+                                       static_cast<double>(az) * gravity / 512.0};
+    sample.angular_velocity_radps = {static_cast<double>(gx) * deg_to_rad / 16.0,
+                                     static_cast<double>(gy) * deg_to_rad / 16.0,
+                                     static_cast<double>(gz) * deg_to_rad / 16.0};
+    sample.magnetic_field_tesla = {static_cast<double>(mx) * 1e-6, static_cast<double>(my) * 1e-6,
+                                   static_cast<double>(mz) * 1e-6};
+    if (callback_)
+      callback_(sample);
   }
 
 } // namespace transformer_msp_bridge

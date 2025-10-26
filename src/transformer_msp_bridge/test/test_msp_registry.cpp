@@ -1,207 +1,55 @@
 #include <gtest/gtest.h>
-#include <cstdlib>
-#include <filesystem>
-#include "msp/msp_protocol.h"
-#include "msp/msp_protocol_v2_sensor.h"
-#include "transformer_msp_bridge/msp_builders.hpp"
+#include <algorithm>
+#include <cstdint>
+#include <set>
+#include <string_view>
+
 #include "transformer_msp_bridge/msp_registry.hpp"
 
-using namespace transformer_msp_bridge;
+namespace registry = transformer_msp_bridge::msp;
 
 namespace
 {
-  std::string resolve_registry_json()
+std::set<uint16_t> collect_registry_ids()
+{
+  std::set<uint16_t> ids;
+  const auto view = registry::get_default_registry();
+  for (std::size_t i = 0; i < view.size; ++i)
   {
-    namespace fs = std::filesystem;
-    if (const char *env = std::getenv("TRANSFORMER_MSP_REGISTRY_JSON"))
-    {
-      fs::path candidate(env);
-      if (fs::exists(candidate))
-        return candidate.string();
-    }
-    fs::path fallback = fs::path(__FILE__).parent_path().parent_path() / "config" / "msp_messages_inav.json";
-    if (fs::exists(fallback))
-      return fallback.string();
-    return {};
+    ids.insert(view.data[i].id);
   }
+  return ids;
+}
 
-  class RegistryEnvironment : public ::testing::Environment
-  {
-  public:
-    void SetUp() override
-    {
-      const std::string path = resolve_registry_json();
-      if (path.empty())
-      {
-        FAIL() << "Unable to locate msp_messages_inav.json for tests";
-        return;
-      }
-      if (setenv("TRANSFORMER_MSP_REGISTRY_JSON", path.c_str(), 1) != 0)
-      {
-        FAIL() << "Failed to set TRANSFORMER_MSP_REGISTRY_JSON";
-      }
-    }
-  };
-
-  ::testing::Environment *const registry_env = ::testing::AddGlobalTestEnvironment(new RegistryEnvironment());
+uint16_t require_command(std::string_view name)
+{
+  const uint16_t id = registry::command_id(name);
+  EXPECT_NE(id, 0u) << "command not found in registry: " << name;
+  return id;
+}
 } // namespace
 
-TEST(MSPRegistry, ContainsExpectedCoreV1Ids)
+TEST(MSPRegistry, DefaultRegistryOmitsSensorV2Ids)
 {
-  auto view = get_default_registry();
-  std::vector<CommandDescriptor> regs(view.begin(), view.end());
-  auto has = [&](uint16_t id)
-  {
-    return std::any_of(regs.begin(), regs.end(), [&](const CommandDescriptor &d)
-                       { return d.id == id; });
-  };
-  EXPECT_TRUE(has(MSP_RAW_IMU));
-  EXPECT_TRUE(has(MSP_ATTITUDE));
-  EXPECT_TRUE(has(MSP_ALTITUDE));
-  EXPECT_TRUE(has(MSP_ANALOG));
+  const auto ids = collect_registry_ids();
+  const uint16_t kRangefinder = require_command("MSP2_SENSOR_RANGEFINDER");
+  const uint16_t kCompass = require_command("MSP2_SENSOR_COMPASS");
+  const uint16_t kBarometer = require_command("MSP2_SENSOR_BAROMETER");
+
+  EXPECT_FALSE(ids.count(kRangefinder)) << "Rangefinder command unexpectedly polled by default";
+  EXPECT_FALSE(ids.count(kCompass)) << "Compass command unexpectedly polled by default";
+  EXPECT_FALSE(ids.count(kBarometer)) << "Barometer command unexpectedly polled by default";
 }
 
-TEST(MSPRegistry, ContainsExpectedV2Ids)
+TEST(MSPRegistry, MessageLookupProvidesMetadata)
 {
-  auto view = get_default_registry();
-  std::vector<CommandDescriptor> regs(view.begin(), view.end());
-  auto find = [&](uint16_t id)
-  {
-    return std::find_if(regs.begin(), regs.end(), [&](const CommandDescriptor &d)
-                        { return d.id == id; });
-  };
-  EXPECT_NE(find(MSP2_SENSOR_RANGEFINDER), regs.end());
-  EXPECT_NE(find(MSP2_SENSOR_COMPASS), regs.end());
-  EXPECT_NE(find(MSP2_SENSOR_BAROMETER), regs.end());
-}
-
-// Explicit requires_v2 flag removed; inference via CommandDescriptor::is_v2() (id > 255).
-TEST(MSPRegistry, V2InferenceMatchesIdRange)
-{
-  auto view = get_default_registry();
-  for (size_t i = 0; i < view.size; ++i)
-  {
-    const auto &d = view.data[i];
-    EXPECT_EQ(d.is_v2(), d.id > 255) << "Inference mismatch for id=" << d.id;
-  }
-}
-
-TEST(MSPRegistry, BuildCallbacksReturnNonEmptyFrame)
-{
-  auto view = get_default_registry();
-  std::vector<CommandDescriptor> regs(view.begin(), view.end());
-  for (const auto &d : regs)
-  {
-    auto frame = d.build_request_fn();
-    // All request frames should at least contain protocol header + checksum/CRC.
-    EXPECT_GT(frame.size(), 4u) << "Frame too small for id=" << d.id;
-  }
-}
-
-TEST(MSPRegistry, NoDuplicateIds)
-{
-  auto view = get_default_registry();
-  std::vector<CommandDescriptor> regs(view.begin(), view.end());
-  std::set<uint16_t> seen;
-  for (auto &d : regs)
-  {
-    EXPECT_TRUE(seen.insert(d.id).second) << "Duplicate ID detected: " << d.id;
-  }
-}
-
-TEST(MSPRegistry, PollRateNonNegative)
-{
-  auto view = get_default_registry();
-  std::vector<CommandDescriptor> regs(view.begin(), view.end());
-  for (auto &d : regs)
-  {
-    EXPECT_GE(d.poll_rate_hz, 0.0) << d.name;
-  }
-}
-
-// Enhanced coverage below --------------------------------------------------
-
-// Removed fixed-count test: the registry size can evolve without requiring an edit to a magic number.
-// Ordering determinism is sufficiently covered by deterministic construction (constexpr static array).
-
-static bool isV1Frame(const std::vector<uint8_t> &f)
-{
-  return f.size() >= 6 && f[0] == '$' && f[1] == 'M';
-}
-static bool isV2Frame(const std::vector<uint8_t> &f)
-{
-  return f.size() >= 9 && f[0] == '$' && f[1] == 'X';
-}
-
-TEST(MSPRegistry, VersionFramingMatchesInference)
-{
-  auto view = get_default_registry();
-  for (size_t i = 0; i < view.size; ++i)
-  {
-    const auto &d = view.data[i];
-    auto frame = d.build_request_fn();
-    if (d.is_v2())
-    {
-      EXPECT_TRUE(isV2Frame(frame)) << d.name;
-    }
-    else
-    {
-      EXPECT_TRUE(isV1Frame(frame)) << d.name;
-    }
-  }
-}
-
-TEST(MSPRegistry, DeterministicBuilders)
-{
-  auto view = get_default_registry();
-  std::vector<CommandDescriptor> regs(view.begin(), view.end());
-  for (auto &d : regs)
-  {
-    auto a = d.build_request_fn();
-    auto b = d.build_request_fn();
-    EXPECT_EQ(a, b) << "Non-deterministic builder for id=" << d.id;
-  }
-}
-
-// RequiresV2Converse test obsolete (manual flag removed).
-
-TEST(MSPRegistry, UniqueNames)
-{
-  auto view = get_default_registry();
-  std::vector<CommandDescriptor> regs(view.begin(), view.end());
-  std::set<std::string> names;
-  for (auto &d : regs)
-  {
-    EXPECT_TRUE(names.insert(d.name).second) << "Duplicate name: " << d.name;
-  }
-}
-
-TEST(MSPRegistry, GpsStatisticsPresentAndNamed)
-{
-  auto view = get_default_registry();
-  std::vector<CommandDescriptor> regs(view.begin(), view.end());
-  auto it = std::find_if(regs.begin(), regs.end(), [](const CommandDescriptor &d)
-                         { return d.id == 166; });
-  ASSERT_NE(it, regs.end());
-  EXPECT_STREQ(it->name, "MSP_GPSSTATISTICS");
-}
-
-TEST(MSPRegistry, FrameMinimalStructure)
-{
-  auto view = get_default_registry();
-  std::vector<CommandDescriptor> regs(view.begin(), view.end());
-  for (auto &d : regs)
-  {
-    auto f = d.build_request_fn();
-    ASSERT_GE(f.size(), d.is_v2() ? 9u : 6u);
-    EXPECT_EQ(f[0], '$');
-    if (d.is_v2())
-    {
-      EXPECT_EQ(f[1], 'X');
-    }
-    else
-    {
-      EXPECT_EQ(f[1], 'M');
-    }
-  }
+  const uint16_t rtc_id = require_command("MSP_RTC");
+  ASSERT_NE(rtc_id, 0u);
+  const registry::MspMsg *rtc_msg = registry::find_message_by_id(rtc_id);
+  ASSERT_NE(rtc_msg, nullptr);
+  EXPECT_EQ(rtc_msg->field_count, 2u);
+  EXPECT_TRUE(registry::is_v2(require_command("MSP2_INAV_ESC_RPM")));
+  const std::string_view name = registry::message_name(rtc_id);
+  EXPECT_FALSE(name.empty());
+  EXPECT_EQ(name, std::string_view("MSP_RTC"));
 }

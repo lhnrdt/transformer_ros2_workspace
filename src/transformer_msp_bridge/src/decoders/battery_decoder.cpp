@@ -1,38 +1,40 @@
 #include "transformer_msp_bridge/decoders/battery_decoder.hpp"
 #include <limits>
-#include "transformer_msp_bridge/msp_registry.hpp"
+#include <utility>
 
 namespace transformer_msp_bridge
 {
 
+  const uint16_t BatteryDecoder::kAnalogCommand = msp::command_id("MSP_ANALOG");
+  const uint16_t BatteryDecoder::kBatteryStateCommand = msp::command_id("MSP_BATTERY_STATE");
+
+  BatteryDecoder::BatteryDecoder(Callbacks callbacks) : callbacks_(std::move(callbacks)) {}
+
+  void BatteryDecoder::set_callbacks(Callbacks callbacks) { callbacks_ = std::move(callbacks); }
+
   void BatteryDecoder::decodeAnalog(const MSPPacket &pkt)
   {
-    if (pkt.cmd != MSP_ANALOG)
+    if (pkt.cmd != kAnalogCommand)
       return;
-    sensor_msgs::msg::BatteryState b;
-    bool published = false;
-    if (!pkt.payload.empty())
-    {
-      uint8_t vbat_deciv = pkt.payload[0];
-      b.voltage = vbat_deciv / 10.0f;
-      published = true;
-    }
-    if (published)
-    {
-      b.present = true;
-      b.percentage = std::numeric_limits<float>::quiet_NaN();
-      b.current = std::numeric_limits<float>::quiet_NaN();
-      b.charge = std::numeric_limits<float>::quiet_NaN();
-      analog_pub_->publish(b);
-    }
+    if (pkt.payload.empty() || !callbacks_.analog)
+      return;
+    BatteryAnalogData data;
+    data.voltage_v = static_cast<float>(pkt.payload[0]) / 10.0F;
+    data.present = true;
+    callbacks_.analog(data);
   }
 
   void BatteryDecoder::decodeBatteryState(const MSPPacket &pkt)
   {
+    if (pkt.cmd != kBatteryStateCommand)
+      return;
     if (pkt.payload.size() < 1)
     {
       return;
     }
+
+    if (!callbacks_.status)
+      return;
 
     size_t off = 0;
     auto rd8 = [&](size_t o) -> uint8_t
@@ -49,37 +51,37 @@ namespace transformer_msp_bridge
     uint8_t cells = rd8(off);
     off += 1;
 
-    sensor_msgs::msg::BatteryState b;
-    b.header.stamp = node_.now();
-    b.present = true;
-    b.cell_voltage.resize(cells, std::numeric_limits<float>::quiet_NaN());
+    BatteryStatusData data;
+    data.present = true;
+    data.cell_count = cells;
+    data.cell_voltage_v.assign(cells, std::numeric_limits<float>::quiet_NaN());
 
     if (pkt.payload.size() >= off + 2)
     {
       uint16_t cap = rd16(off);
       off += 2;
       // capacity reported in mAh * 10? original used /1000 *3600 (convert mAh to Coulombs)
-      b.charge = cap / 1000.0f * 3600.0f;
+      data.charge_c = cap / 1000.0f * 3600.0f;
     }
     if (pkt.payload.size() >= off + 2)
     {
       uint16_t mv = rd16(off);
       off += 2;
-      b.voltage = mv / 100.0f;
+      data.voltage_v = mv / 100.0f;
     }
     if (pkt.payload.size() >= off + 2)
     {
       uint16_t mc = rd16(off);
       off += 2;
-      b.current = mc / 100.0f;
+      data.current_a = mc / 100.0f;
     }
     if (pkt.payload.size() > off)
     {
       uint8_t rem = rd8(off);
-      b.percentage = rem / 100.0f;
+      data.remaining_fraction = rem / 100.0f;
     }
 
-    extended_pub_->publish(b);
+    callbacks_.status(data);
   }
 
 } // namespace transformer_msp_bridge

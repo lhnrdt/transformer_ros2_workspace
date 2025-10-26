@@ -1,19 +1,23 @@
 #include "transformer_msp_bridge/decoders/altitude_decoder.hpp"
 #include "transformer_msp_bridge/msp_registry.hpp"
 #include "transformer_msp_bridge/msp_utils.hpp"
+#include <utility>
 
 namespace transformer_msp_bridge
 {
 
-  AltitudeDecoder::AltitudeDecoder(rclcpp::Node &node)
+  namespace
   {
-    alt_pub_ = node.create_publisher<std_msgs::msg::Float32>("/msp/altitude", 10);
-    vs_pub_ = node.create_publisher<geometry_msgs::msg::TwistStamped>("/msp/vertical_speed", 10);
+  const uint16_t kMspAltitude = msp::command_id("MSP_ALTITUDE");
   }
 
-  bool AltitudeDecoder::matches(uint16_t command_id) const
+  AltitudeDecoder::AltitudeDecoder(Callback callback) : callback_(std::move(callback)) {}
+
+  void AltitudeDecoder::set_callback(Callback callback) { callback_ = std::move(callback); }
+
+  bool AltitudeDecoder::matches(uint16_t id) const
   {
-    return command_id == MSP_ALTITUDE;
+    return id == kMspAltitude;
   }
   std::string AltitudeDecoder::name() const
   {
@@ -27,7 +31,7 @@ namespace transformer_msp_bridge
 
   void AltitudeDecoder::decodeAltitude(const MSPPacket &pkt)
   {
-    if (pkt.cmd != MSP_ALTITUDE)
+    if (pkt.cmd != kMspAltitude)
       return;
     if (pkt.payload.size() < 6)
       return;
@@ -35,12 +39,11 @@ namespace transformer_msp_bridge
     int16_t vs_cms;
     if (!readI32LE(pkt.payload, 0, alt_cm) || !readI16LE(pkt.payload, 4, vs_cms))
       return;
-    std_msgs::msg::Float32 alt;
-    alt.data = static_cast<float>(alt_cm / 100.0);
-    alt_pub_->publish(alt);
-    geometry_msgs::msg::TwistStamped vs;
-    vs.twist.linear.z = vs_cms / 100.0;
-    vs_pub_->publish(vs);
+    AltitudeSample sample;
+    sample.altitude_m = static_cast<float>(alt_cm) / 100.0F;
+    sample.vertical_speed_mps = static_cast<float>(vs_cms) / 100.0F;
+    if (callback_)
+      callback_(sample);
   }
 
 } // namespace transformer_msp_bridge

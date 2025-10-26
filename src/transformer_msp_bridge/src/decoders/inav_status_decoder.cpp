@@ -1,16 +1,26 @@
 #include "transformer_msp_bridge/decoders/inav_status_decoder.hpp"
+#include "transformer_msp_bridge/msp_registry.hpp"
+#include <iomanip>
+#include <sstream>
+#include <utility>
 
 namespace transformer_msp_bridge
 {
 
-  InavStatusDecoder::InavStatusDecoder(rclcpp::Node &node, bool debug) : debug_(debug)
+  namespace
   {
-    pub_ = node.create_publisher<transformer_msp_bridge::msg::MspInavStatus>("/msp/inav_status", 10);
+  const uint16_t kMsp2InavStatus = msp::command_id("MSP2_INAV_STATUS");
   }
 
-  bool InavStatusDecoder::matches(uint16_t command_id) const
+  InavStatusDecoder::InavStatusDecoder() = default;
+
+  InavStatusDecoder::InavStatusDecoder(Callbacks callbacks) : callbacks_(std::move(callbacks)) {}
+
+  void InavStatusDecoder::set_callbacks(Callbacks callbacks) { callbacks_ = std::move(callbacks); }
+
+  bool InavStatusDecoder::matches(uint16_t id) const
   {
-    return command_id == MSP2_INAV_STATUS;
+    return id == kMsp2InavStatus;
   }
   std::string InavStatusDecoder::name() const
   {
@@ -19,7 +29,7 @@ namespace transformer_msp_bridge
 
   void InavStatusDecoder::decode(const MSPPacket &pkt)
   {
-    if (pkt.cmd != MSP2_INAV_STATUS)
+    if (pkt.cmd != kMsp2InavStatus)
       return;
     if (pkt.payload.size() < 2 + 2 + 2 + 2 + 1 + 4 + 1)
       return;
@@ -40,27 +50,31 @@ namespace transformer_msp_bridge
     size_t mixerProfilePos = pkt.payload.size() - 1;
     uint8_t mixerProfile = pkt.payload[mixerProfilePos];
     size_t activeModesLen = mixerProfilePos - activeModesStart;
-    transformer_msp_bridge::msg::MspInavStatus msg;
-    msg.cycle_time_us = cycleTime;
-    msg.i2c_errors = i2cErrors;
-    msg.sensor_status = sensorStatus;
-    msg.cpu_load_percent = cpuLoad;
-    msg.config_profile = (uint8_t)(profileAndBatt & 0x0F);
-    msg.battery_profile = (uint8_t)((profileAndBatt >> 4) & 0x0F);
-    msg.mixer_profile = mixerProfile;
-    msg.arming_flags = armingFlags;
+    InavStatusData data;
+    data.cycle_time_us = cycleTime;
+    data.i2c_errors = i2cErrors;
+    data.sensor_status_mask = sensorStatus;
+    data.cpu_load_percent = cpuLoad;
+    data.config_profile = static_cast<uint8_t>(profileAndBatt & 0x0F);
+    data.battery_profile = static_cast<uint8_t>((profileAndBatt >> 4) & 0x0F);
+    data.mixer_profile = mixerProfile;
+    data.arming_flags = armingFlags;
     if (activeModesLen > 0)
     {
-      msg.active_modes.assign(pkt.payload.begin() + activeModesStart,
-                              pkt.payload.begin() + activeModesStart + activeModesLen);
+      data.active_modes.assign(pkt.payload.begin() + activeModesStart,
+                               pkt.payload.begin() + activeModesStart + activeModesLen);
     }
-    pub_->publish(msg);
-    if (debug_ && !logged_)
+    if (callbacks_.status)
+      callbacks_.status(data);
+    if (callbacks_.log_first_frame && callbacks_.log_info && !logged_)
     {
-      RCLCPP_INFO(rclcpp::get_logger("InavStatusDecoder"),
-                  "INAV_STATUS: cycle=%u cpu=%u%% i2c=%u sensorMask=0x%04X modes=%zu profile=%u batt=%u mixer=%u",
-                  cycleTime, cpuLoad, i2cErrors, sensorStatus, activeModesLen, (unsigned)(profileAndBatt & 0x0F),
-                  (unsigned)((profileAndBatt >> 4) & 0x0F), mixerProfile);
+      std::ostringstream oss;
+      oss << "INAV_STATUS: cycle=" << cycleTime << " cpu=" << cpuLoad << "% i2c=" << i2cErrors
+          << " sensorMask=0x" << std::hex << std::uppercase << sensorStatus << std::dec << " modes=" << activeModesLen
+          << " profile=" << static_cast<unsigned>(profileAndBatt & 0x0F)
+          << " batt=" << static_cast<unsigned>((profileAndBatt >> 4) & 0x0F) << " mixer="
+          << static_cast<unsigned>(mixerProfile);
+      callbacks_.log_info(oss.str());
       logged_ = true;
     }
   }

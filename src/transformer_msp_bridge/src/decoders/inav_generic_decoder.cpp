@@ -1,78 +1,62 @@
 #include "transformer_msp_bridge/decoders/inav_generic_decoder.hpp"
-#include <iomanip>
-#include <sstream>
-#include "msp/msp_protocol_v2_inav.h"
+#include "transformer_msp_bridge/msp_registry.hpp"
+#include <utility>
 
 namespace transformer_msp_bridge
 {
 
-  using diagnostic_msgs::msg::DiagnosticArray;
-  using diagnostic_msgs::msg::DiagnosticStatus;
-  using diagnostic_msgs::msg::KeyValue;
-
-  static inline std::string to_hex(const std::vector<uint8_t> &data)
+  namespace
   {
-    std::ostringstream oss;
-    for (uint8_t b : data)
-    {
-      oss << std::hex << std::uppercase << std::setw(2) << std::setfill('0') << (int)b;
-    }
-    return oss.str();
+  const uint16_t kMsp2InavAnalog = msp::command_id("MSP2_INAV_ANALOG");
+  const uint16_t kMsp2InavBatteryConfig = msp::command_id("MSP2_INAV_BATTERY_CONFIG");
+  const uint16_t kMsp2InavAirSpeed = msp::command_id("MSP2_INAV_AIR_SPEED");
+  const uint16_t kMsp2InavTemperatures = msp::command_id("MSP2_INAV_TEMPERATURES");
+  const uint16_t kMsp2InavEscRpm = msp::command_id("MSP2_INAV_ESC_RPM");
   }
+
+  InavGenericDecoder::InavGenericDecoder(FrameCallback callback) : callback_(std::move(callback)) {}
+
+  void InavGenericDecoder::set_callback(FrameCallback callback) { callback_ = std::move(callback); }
 
   bool InavGenericDecoder::matches(uint16_t command_id) const
   {
-    switch (command_id)
-    {
-    case MSP2_INAV_ANALOG:
-    case MSP2_INAV_BATTERY_CONFIG:
-    case MSP2_INAV_AIR_SPEED:
-    case MSP2_INAV_TEMPERATURES:
-    case MSP2_INAV_ESC_RPM:
-      return true;
-    default:
-      return false;
-    }
+    return command_id == kMsp2InavAnalog || command_id == kMsp2InavBatteryConfig ||
+           command_id == kMsp2InavAirSpeed || command_id == kMsp2InavTemperatures ||
+           command_id == kMsp2InavEscRpm;
   }
 
   void InavGenericDecoder::publishRaw(const MSPPacket &pkt, const std::string &title)
   {
-    DiagnosticStatus st;
-    st.name = title;
-    st.hardware_id = "fc";
-    st.level = DiagnosticStatus::OK;
-    st.message = "raw";
-    KeyValue kv;
-    kv.key = "payload";
-    kv.value = to_hex(pkt.payload);
-    st.values.push_back(kv);
-    DiagnosticArray arr;
-    arr.header.stamp = node_.now();
-    arr.status.push_back(st);
-    diag_pub_->publish(arr);
+    if (!callback_)
+      return;
+    InavGenericFrame frame;
+    frame.command_id = pkt.cmd;
+    frame.description = title;
+    frame.payload = pkt.payload;
+    callback_(frame);
   }
 
   void InavGenericDecoder::decode(const MSPPacket &pkt)
   {
-    switch (pkt.cmd)
+    if (pkt.cmd == kMsp2InavAnalog)
     {
-    case MSP2_INAV_ANALOG:
       publishRaw(pkt, "inav_analog");
-      break;
-    case MSP2_INAV_BATTERY_CONFIG:
+    }
+    else if (pkt.cmd == kMsp2InavBatteryConfig)
+    {
       publishRaw(pkt, "inav_battery_config");
-      break;
-    case MSP2_INAV_AIR_SPEED:
+    }
+    else if (pkt.cmd == kMsp2InavAirSpeed)
+    {
       publishRaw(pkt, "inav_air_speed");
-      break;
-    case MSP2_INAV_TEMPERATURES:
+    }
+    else if (pkt.cmd == kMsp2InavTemperatures)
+    {
       publishRaw(pkt, "inav_temperatures");
-      break;
-    case MSP2_INAV_ESC_RPM:
+    }
+    else if (pkt.cmd == kMsp2InavEscRpm)
+    {
       publishRaw(pkt, "inav_esc_rpm");
-      break;
-    default:
-      break;
     }
   }
 

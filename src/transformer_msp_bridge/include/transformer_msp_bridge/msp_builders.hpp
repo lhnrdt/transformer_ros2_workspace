@@ -1,3 +1,10 @@
+/**
+ * Handles Building MSP frames. v1, v2 or v2 tunneled through v1
+ */
+
+
+
+
 #pragma once
 #include <cstdint>
 #include <vector>
@@ -8,7 +15,7 @@ namespace transformer_msp_bridge
     // Builder helpers for composing MSP frames.
     // V1: size byte, cmd (8-bit), XOR checksum.
     // V2: extended header with flags, 16-bit command & length, CRC8 DVB-S2.
-    // Tunneled V2-over-V1: a V2 frame (header+payload+CRC8) transported inside a V1 frame with cmd=MSP_V2_FRAME_ID.
+    // Tunneled V2-over-V1: a V2 frame (header+payload+CRC8) transported inside a V1 frame using the MSP v2 tunnel command id.
 
     std::vector<uint8_t> buildPacket(uint8_t cmd, const std::vector<uint16_t> &rc_values);
     std::vector<uint8_t> buildPacketRaw(uint8_t cmd, const std::vector<uint8_t> &payload);

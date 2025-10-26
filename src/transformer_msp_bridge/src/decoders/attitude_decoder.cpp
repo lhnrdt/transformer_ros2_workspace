@@ -1,18 +1,23 @@
 #include "transformer_msp_bridge/decoders/attitude_decoder.hpp"
 #include "transformer_msp_bridge/msp_registry.hpp"
 #include "transformer_msp_bridge/msp_utils.hpp"
+#include <utility>
 
 namespace transformer_msp_bridge
 {
 
-  AttitudeDecoder::AttitudeDecoder(rclcpp::Node &node)
+  namespace
   {
-    pub_ = node.create_publisher<geometry_msgs::msg::Vector3>("/msp/attitude", 10);
+  const uint16_t kMspAttitude = msp::command_id("MSP_ATTITUDE");
   }
 
-  bool AttitudeDecoder::matches(uint16_t command_id) const
+  AttitudeDecoder::AttitudeDecoder(Callback callback) : callback_(std::move(callback)) {}
+
+  void AttitudeDecoder::set_callback(Callback callback) { callback_ = std::move(callback); }
+
+  bool AttitudeDecoder::matches(uint16_t id) const
   {
-    return command_id == MSP_ATTITUDE;
+    return id == kMspAttitude;
   }
   std::string AttitudeDecoder::name() const
   {
@@ -21,18 +26,19 @@ namespace transformer_msp_bridge
 
   void AttitudeDecoder::decode(const MSPPacket &pkt)
   {
-    if (pkt.cmd != MSP_ATTITUDE)
+    if (pkt.cmd != kMspAttitude)
       return;
     if (pkt.payload.size() < 6)
       return;
     int16_t roll, pitch, yaw;
     if (!readI16LE(pkt.payload, 0, roll) || !readI16LE(pkt.payload, 2, pitch) || !readI16LE(pkt.payload, 4, yaw))
       return;
-    geometry_msgs::msg::Vector3 v;
-    v.x = roll / 10.0;
-    v.y = pitch / 10.0;
-    v.z = yaw / 10.0;
-    pub_->publish(v);
+    AttitudeAngles data;
+    data.roll_deg = roll / 10.0;
+    data.pitch_deg = pitch / 10.0;
+    data.yaw_deg = yaw / 10.0;
+    if (callback_)
+      callback_(data);
   }
 
 } // namespace transformer_msp_bridge

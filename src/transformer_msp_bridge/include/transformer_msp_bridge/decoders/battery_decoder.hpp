@@ -1,38 +1,44 @@
 #pragma once
-#include <rclcpp/rclcpp.hpp>
-#include <sensor_msgs/msg/battery_state.hpp>
-#include <diagnostic_msgs/msg/diagnostic_array.hpp>
-#include "transformer_msp_bridge/msp_parser.hpp"
 #include "transformer_msp_bridge/decoder_base.hpp"
+#include "transformer_msp_bridge/decoder_outputs.hpp"
+#include "transformer_msp_bridge/msp_parser.hpp"
+#include "transformer_msp_bridge/msp_registry.hpp"
+#include <functional>
 namespace transformer_msp_bridge
 {
   class BatteryDecoder : public IMspDecoder
   {
   public:
-    BatteryDecoder(rclcpp::Node &node) : node_(node)
+    using AnalogCallback = std::function<void(const BatteryAnalogData &)>;
+    using StatusCallback = std::function<void(const BatteryStatusData &)>;
+
+    struct Callbacks
     {
-      analog_pub_ = node_.create_publisher<sensor_msgs::msg::BatteryState>("/msp/battery", 10);
-      extended_pub_ = node_.create_publisher<sensor_msgs::msg::BatteryState>("/msp/battery/dji", 10);
-    }
+      AnalogCallback analog;
+      StatusCallback status;
+    };
+
+    explicit BatteryDecoder(Callbacks callbacks = {});
+    void set_callbacks(Callbacks callbacks);
     void decodeAnalog(const MSPPacket &pkt);
     void decodeBatteryState(const MSPPacket &pkt);
     // IMspDecoder implementation
-    bool matches(uint16_t command_id) const override
+    bool matches(uint16_t id) const override
     {
-      return command_id == MSP_ANALOG || command_id == MSP_BATTERY_STATE;
+      return id == kAnalogCommand || id == kBatteryStateCommand;
     }
     void decode(const MSPPacket &pkt) override
     {
-      if (pkt.cmd == MSP_ANALOG)
+      if (pkt.cmd == kAnalogCommand)
         decodeAnalog(pkt);
-      else if (pkt.cmd == MSP_BATTERY_STATE)
+      else if (pkt.cmd == kBatteryStateCommand)
         decodeBatteryState(pkt);
     }
     std::string name() const override { return "battery"; }
 
   private:
-    rclcpp::Node &node_;
-    rclcpp::Publisher<sensor_msgs::msg::BatteryState>::SharedPtr analog_pub_;
-    rclcpp::Publisher<sensor_msgs::msg::BatteryState>::SharedPtr extended_pub_;
+  static const uint16_t kAnalogCommand;
+  static const uint16_t kBatteryStateCommand;
+    Callbacks callbacks_{};
   };
 } // namespace transformer_msp_bridge

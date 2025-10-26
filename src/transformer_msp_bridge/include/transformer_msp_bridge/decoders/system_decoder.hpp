@@ -1,68 +1,87 @@
 #pragma once
-#include <diagnostic_msgs/msg/diagnostic_array.hpp>
-#include <diagnostic_msgs/msg/diagnostic_status.hpp>
-#include <rclcpp/rclcpp.hpp>
 #include "transformer_msp_bridge/decoder_base.hpp"
+#include "transformer_msp_bridge/decoder_outputs.hpp"
 #include "transformer_msp_bridge/msp_parser.hpp"
+#include "transformer_msp_bridge/msp_registry.hpp"
+#include <functional>
 namespace transformer_msp_bridge
 {
   class SystemDecoder : public IMspDecoder
   {
   public:
-    SystemDecoder(rclcpp::Node &node) : node_(node)
+    using StatusCallback = std::function<void(const SystemStatusExData &)>;
+    using SensorStatusCallback = std::function<void(const SystemSensorStatusData &)>;
+    using SensorConfigCallback = std::function<void(const SystemSensorConfigData &)>;
+    using GpsStatsCallback = std::function<void(const SystemGpsStatsData &)>;
+    using RcTuningCallback = std::function<void(const RcTuningData &)>;
+    using RtcCallback = std::function<void(const SystemRtcData &)>;
+
+    struct Callbacks
     {
-      status_pub_ = node_.create_publisher<diagnostic_msgs::msg::DiagnosticArray>("/msp/status_ex", 10);
-      sensor_status_pub_ = node_.create_publisher<diagnostic_msgs::msg::DiagnosticArray>("/msp/sensors/status", 10);
-      gps_stats_single_pub_ = node_.create_publisher<diagnostic_msgs::msg::DiagnosticStatus>("/msp/gps/statistics", 10);
-    }
+      StatusCallback status_ex;
+      SensorStatusCallback sensor_status;
+      SensorConfigCallback sensor_config;
+      GpsStatsCallback gps_statistics;
+      RcTuningCallback rc_tuning;
+      RtcCallback rtc;
+    };
+
+    explicit SystemDecoder(Callbacks callbacks = {});
+    void set_callbacks(Callbacks callbacks);
     void decodeStatusEx(const MSPPacket &pkt);
     void decodeStatus(const MSPPacket &pkt) { decodeStatusEx(pkt); }
     void decodeSensorStatus(const MSPPacket &pkt);
-  void decodeSensorConfig(const MSPPacket &pkt);
+    void decodeSensorConfig(const MSPPacket &pkt);
     void decodeGpsStatistics(const MSPPacket &pkt);
     void decodeRcTuning(const MSPPacket &pkt);
     void decodeRtc(const MSPPacket &pkt);
-    bool matches(uint16_t command_id) const override
+    bool matches(uint16_t id) const override
     {
-      return command_id == MSP_STATUS_EX || command_id == MSP_STATUS || command_id == MSP_SENSOR_STATUS ||
-        command_id == MSP_SENSOR_CONFIG || command_id == MSP_GPSSTATISTICS || command_id == MSP_RC_TUNING ||
-        command_id == MSP_RTC;
+      return id == kMspStatusEx || id == kMspStatus || id == kMspSensorStatus ||
+             id == kMspSensorConfig || id == kMspGpsStatistics || id == kMspRcTuning ||
+             id == kMspRtc;
     }
     void decode(const MSPPacket &pkt) override
     {
-      switch (pkt.cmd)
+      if (pkt.cmd == kMspStatusEx)
       {
-      case MSP_STATUS_EX:
         decodeStatusEx(pkt);
-        break;
-      case MSP_STATUS:
+      }
+      else if (pkt.cmd == kMspStatus)
+      {
         decodeStatus(pkt);
-        break;
-      case MSP_SENSOR_STATUS:
+      }
+      else if (pkt.cmd == kMspSensorStatus)
+      {
         decodeSensorStatus(pkt);
-        break;
-      case MSP_SENSOR_CONFIG:
+      }
+      else if (pkt.cmd == kMspSensorConfig)
+      {
         decodeSensorConfig(pkt);
-        break;
-      case MSP_GPSSTATISTICS:
+      }
+      else if (pkt.cmd == kMspGpsStatistics)
+      {
         decodeGpsStatistics(pkt);
-        break;
-      case MSP_RC_TUNING:
+      }
+      else if (pkt.cmd == kMspRcTuning)
+      {
         decodeRcTuning(pkt);
-        break;
-      case MSP_RTC:
+      }
+      else if (pkt.cmd == kMspRtc)
+      {
         decodeRtc(pkt);
-        break;
-      default:
-        break;
       }
     }
     std::string name() const override { return "system"; }
 
   private:
-    rclcpp::Node &node_;
-    rclcpp::Publisher<diagnostic_msgs::msg::DiagnosticArray>::SharedPtr status_pub_;
-    rclcpp::Publisher<diagnostic_msgs::msg::DiagnosticArray>::SharedPtr sensor_status_pub_;
-    rclcpp::Publisher<diagnostic_msgs::msg::DiagnosticStatus>::SharedPtr gps_stats_single_pub_;
+  static const uint16_t kMspStatusEx;
+  static const uint16_t kMspStatus;
+  static const uint16_t kMspSensorStatus;
+  static const uint16_t kMspSensorConfig;
+  static const uint16_t kMspGpsStatistics;
+  static const uint16_t kMspRcTuning;
+  static const uint16_t kMspRtc;
+    Callbacks callbacks_{};
   };
 } // namespace transformer_msp_bridge

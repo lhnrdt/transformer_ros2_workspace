@@ -2,10 +2,8 @@
 
 #include "transformer_msp_bridge/msp_parser.hpp"
 #include "transformer_msp_bridge/decoder_base.hpp"
-#include <rclcpp/rclcpp.hpp>
-#include <sensor_msgs/msg/imu.hpp>
-#include <sensor_msgs/msg/magnetic_field.hpp>
-#include <cmath>
+#include "transformer_msp_bridge/decoder_outputs.hpp"
+#include <functional>
 
 namespace transformer_msp_bridge
 {
@@ -13,15 +11,17 @@ namespace transformer_msp_bridge
   class ImuDecoder : public IMspDecoder
   {
   public:
-    explicit ImuDecoder(rclcpp::Node &node);
+    using Callback = std::function<void(const ImuSample &)>;
+
+    explicit ImuDecoder(Callback callback = {});
+    void set_callback(Callback callback);
     void decode(const MSPPacket &pkt) override;
     bool matches(uint16_t command_id) const override;
     std::string name() const override;
 
   private:
     void decodeRawImu(const MSPPacket &pkt);
-    rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu_pub_;
-    rclcpp::Publisher<sensor_msgs::msg::MagneticField>::SharedPtr mag_pub_;
+    Callback callback_;
   };
 
 } // namespace transformer_msp_bridge
