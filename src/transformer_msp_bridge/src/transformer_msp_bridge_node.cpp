@@ -12,6 +12,7 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "transformer_msp_bridge/msp_builders.hpp"
+#include "tf2_ros/transform_broadcaster.h"
 
 namespace transformer_msp_bridge
 {
@@ -99,6 +100,15 @@ TransformerMspBridgeNode::TransformerMspBridgeNode(const rclcpp::NodeOptions &op
   frame_id_mag_ = declare_parameter<std::string>("frame_id.mag", frame_id_imu_);
   frame_id_gps_ = declare_parameter<std::string>("frame_id.gps", "gps");
   frame_id_altitude_ = declare_parameter<std::string>("frame_id.altitude", frame_id_imu_);
+  broadcast_attitude_tf_ = declare_parameter<bool>("attitude_tf.enabled", false);
+  attitude_tf_parent_frame_ = declare_parameter<std::string>("attitude_tf.parent_frame", "map");
+  const std::string default_tf_child = frame_id_imu_;
+  attitude_tf_child_frame_ = declare_parameter<std::string>("attitude_tf.child_frame", default_tf_child);
+
+  if (broadcast_attitude_tf_)
+  {
+    tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(this);
+  }
 
   configurePublishers();
   configureDecoders();

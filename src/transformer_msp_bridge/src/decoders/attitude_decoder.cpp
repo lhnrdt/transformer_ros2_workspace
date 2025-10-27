@@ -33,10 +33,12 @@ namespace transformer_msp_bridge
     int16_t roll, pitch, yaw;
     if (!readI16LE(pkt.payload, 0, roll) || !readI16LE(pkt.payload, 2, pitch) || !readI16LE(pkt.payload, 4, yaw))
       return;
-    AttitudeAngles data;
-    data.roll_deg = roll / 10.0;
-    data.pitch_deg = pitch / 10.0;
-    data.yaw_deg = yaw / 10.0;
+  // MSP encodes roll and pitch in decidegrees, yaw in whole degrees.
+  constexpr double kDeciDegreesToDegrees = 0.1;
+  AttitudeAngles data;
+  data.roll_deg = static_cast<double>(roll) * kDeciDegreesToDegrees;
+  data.pitch_deg = static_cast<double>(pitch) * kDeciDegreesToDegrees;
+  data.yaw_deg = static_cast<double>(yaw);
     if (callback_)
       callback_(data);
   }

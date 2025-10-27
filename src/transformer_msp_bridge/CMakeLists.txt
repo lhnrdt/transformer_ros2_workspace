@@ -16,6 +16,9 @@ find_package(sensor_msgs REQUIRED)
 find_package(diagnostic_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(ament_index_cpp REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
 
 include_directories(include)
 
@@ -67,7 +70,15 @@ add_executable(transformer_msp_bridge_node
   src/transformer_msp_bridge_node_publishers.cpp
 )
 target_link_libraries(transformer_msp_bridge_node msp_protocol serial_port ${PROJECT_NAME}_decoders)
-ament_target_dependencies(transformer_msp_bridge_node rclcpp std_msgs geometry_msgs sensor_msgs diagnostic_msgs)
+ament_target_dependencies(transformer_msp_bridge_node
+  rclcpp
+  std_msgs
+  geometry_msgs
+  sensor_msgs
+  diagnostic_msgs
+  tf2
+  tf2_ros
+  tf2_geometry_msgs)
 rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")
 target_link_libraries(transformer_msp_bridge_node ${cpp_typesupport_target})
 add_dependencies(transformer_msp_bridge_node ${PROJECT_NAME}__cpp)
@@ -98,7 +109,7 @@ install(DIRECTORY config
 
 # Export include directories and dependencies before ament_package
 ament_export_include_directories(include)
-ament_export_dependencies(rclcpp std_msgs geometry_msgs sensor_msgs rosidl_default_runtime)
+ament_export_dependencies(rclcpp std_msgs geometry_msgs sensor_msgs rosidl_default_runtime tf2 tf2_ros tf2_geometry_msgs)
 
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)

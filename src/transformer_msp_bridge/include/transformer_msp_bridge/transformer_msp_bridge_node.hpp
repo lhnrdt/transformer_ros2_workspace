@@ -36,6 +36,11 @@
 #include "transformer_msp_bridge/msg/msp_inav_status.hpp"
 #include "transformer_msp_bridge/serial_port.hpp"
 
+namespace tf2_ros
+{
+class TransformBroadcaster;
+}
+
 namespace transformer_msp_bridge
 {
 namespace detail
@@ -115,6 +120,7 @@ private:
   void publishGpsStatistics(const SystemGpsStatsData &data);
   void publishRcTuning(const RcTuningData &data);
   void publishRtc(const SystemRtcData &data);
+  void broadcastAttitudeTransform(const AttitudeAngles &angles);
 
   struct PendingRequest
   {
@@ -139,6 +145,10 @@ private:
   std::string frame_id_mag_{"base_link"};
   std::string frame_id_gps_{"gps"};
   std::string frame_id_altitude_{"base_link"};
+  bool broadcast_attitude_tf_{false};
+  std::string attitude_tf_parent_frame_{"map"};
+  std::string attitude_tf_child_frame_{"base_link"};
+  std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
 
   SerialPort serial_;
   std::mutex serial_mutex_;

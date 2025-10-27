@@ -5,6 +5,10 @@
 #include <limits>
 
 #include "rclcpp/qos.hpp"
+#include "geometry_msgs/msg/transform_stamped.hpp"
+#include "tf2/LinearMath/Quaternion.h"
+#include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
+#include "tf2_ros/transform_broadcaster.h"
 
 namespace transformer_msp_bridge
 {
@@ -68,15 +72,19 @@ void TransformerMspBridgeNode::publishImu(const ImuSample &sample)
 
 void TransformerMspBridgeNode::publishAttitude(const AttitudeAngles &angles)
 {
-  if (!attitude_pub_)
+  if (attitude_pub_)
   {
-    return;
+    geometry_msgs::msg::Vector3 msg;
+    msg.x = angles.roll_deg;
+    msg.y = angles.pitch_deg;
+    msg.z = angles.yaw_deg;
+    attitude_pub_->publish(msg);
   }
-  geometry_msgs::msg::Vector3 msg;
-  msg.x = angles.roll_deg;
-  msg.y = angles.pitch_deg;
-  msg.z = angles.yaw_deg;
-  attitude_pub_->publish(msg);
+
+  if (broadcast_attitude_tf_)
+  {
+    broadcastAttitudeTransform(angles);
+  }
 }
 
 void TransformerMspBridgeNode::publishAltitude(const AltitudeSample &sample)
@@ -449,6 +457,33 @@ void TransformerMspBridgeNode::publishRtc(const SystemRtcData &data)
   array.header.stamp = now();
   array.status.push_back(std::move(status));
   rtc_pub_->publish(array);
+}
+
+void TransformerMspBridgeNode::broadcastAttitudeTransform(const AttitudeAngles &angles)
+{
+  if (!tf_broadcaster_ || attitude_tf_parent_frame_.empty() || attitude_tf_child_frame_.empty())
+  {
+    return;
+  }
+
+  geometry_msgs::msg::TransformStamped tf_msg;
+  tf_msg.header.stamp = now();
+  tf_msg.header.frame_id = attitude_tf_parent_frame_;
+  tf_msg.child_frame_id = attitude_tf_child_frame_;
+  tf_msg.transform.translation.x = 0.0;
+  tf_msg.transform.translation.y = 0.0;
+  tf_msg.transform.translation.z = 0.0;
+
+  static constexpr double kDegToRad = 3.14159265358979323846 / 180.0;
+  const double roll = static_cast<double>(angles.roll_deg) * kDegToRad;
+  const double pitch = static_cast<double>(angles.pitch_deg) * kDegToRad;
+  const double yaw = static_cast<double>(angles.yaw_deg) * kDegToRad;
+
+  tf2::Quaternion q;
+  q.setRPY(roll, pitch, yaw);
+  tf_msg.transform.rotation = tf2::toMsg(q);
+
+  tf_broadcaster_->sendTransform(tf_msg);
 }
 
 } // namespace transformer_msp_bridge

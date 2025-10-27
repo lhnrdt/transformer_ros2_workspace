@@ -18,6 +18,9 @@ transformer_msp_bridge:
     force_msp_v2: false
     use_v2_tunnel: false
     use_v2_for_legacy: false
+    attitude_tf.enabled: true
+    attitude_tf.parent_frame: "map"
+    attitude_tf.child_frame: "base_link"
 
     # Per-command polling (generated from registry names; adjust as needed)
     # Set enabled=false OR rate_hz=0.0 to disable polling.
@@ -34,7 +37,7 @@ transformer_msp_bridge:
     command.msp_comp_gps.enabled: true
     command.msp_comp_gps.rate_hz: 2.0
     command.msp_attitude.enabled: true
-    command.msp_attitude.rate_hz: 25.0
+    command.msp_attitude.rate_hz: 50.0
     command.msp_altitude.enabled: true
     command.msp_altitude.rate_hz: 25.0
     command.msp_analog.enabled: false
