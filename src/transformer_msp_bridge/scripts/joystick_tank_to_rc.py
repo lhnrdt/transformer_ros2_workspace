@@ -63,7 +63,7 @@ class JoystickTankToRC(Node):
         # Axis interpretation options (defaults chosen to match provided semantics)
         self.declare_parameter('steer_left_positive', True)  # Positive steer means 'left' per sample
         self.declare_parameter('direct_axes_invert', True)   # Direct axes: 1.0->0%, -1.0->100%
-        self.declare_parameter('min_pwm', 1500)
+        self.declare_parameter('min_pwm', 1540)
         self.declare_parameter('max_pwm', 1600)
         self.declare_parameter('deadzone', 0.05)
         self.declare_parameter('channel_count', 16)
@@ -81,6 +81,9 @@ class JoystickTankToRC(Node):
         self.direct_axes_invert = bool(self.get_parameter('direct_axes_invert').value)
         self.min_pwm = int(self.get_parameter('min_pwm').value)
         self.max_pwm = int(self.get_parameter('max_pwm').value)
+        if self.max_pwm < self.min_pwm:
+            self.get_logger().warn('max_pwm is less than min_pwm; adjusting max_pwm to match min_pwm')
+            self.max_pwm = self.min_pwm
         self.deadzone = float(self.get_parameter('deadzone').value)
         self.channel_count = int(self.get_parameter('channel_count').value)
         self.left_channel = int(self.get_parameter('left_channel_index').value)
@@ -158,7 +161,7 @@ class JoystickTankToRC(Node):
             left_pwm = norm_to_pwm(lx, self.deadzone, self.min_pwm, self.max_pwm)
             right_pwm = norm_to_pwm(rx, self.deadzone, self.min_pwm, self.max_pwm)
 
-        arr = [1500] * self.channel_count
+        arr = [self.min_pwm] * self.channel_count
         # Forward-only tank: map to channels 11 and 12 (indices 10, 11)
         if self.left_channel < self.channel_count:
             arr[self.left_channel] = left_pwm

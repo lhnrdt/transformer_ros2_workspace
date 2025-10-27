@@ -142,6 +142,18 @@ private:
   std::atomic<bool> running_{false};
   bool serial_ready_{false};
 
+  // Link-level statistics
+  std::atomic<std::uint64_t> tx_bytes_{0};
+  std::atomic<std::uint64_t> rx_bytes_{0};
+  std::atomic<std::uint64_t> tx_messages_{0};
+  std::atomic<std::uint64_t> rx_packets_{0};
+  std::chrono::steady_clock::time_point stats_window_start_{};
+  std::uint64_t stats_window_tx_bytes_{0};
+  std::uint64_t stats_window_rx_bytes_{0};
+  std::uint64_t stats_window_tx_messages_{0};
+  std::uint64_t stats_window_rx_packets_{0};
+  rclcpp::TimerBase::SharedPtr stats_timer_;
+
   MSPParser parser_;
   std::vector<std::unique_ptr<IMspDecoder>> decoders_;
   std::vector<CommandSchedule> command_schedules_;

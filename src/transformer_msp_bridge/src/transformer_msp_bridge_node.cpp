@@ -4,6 +4,7 @@
 #include <array>
 #include <cctype>
 #include <chrono>
+#include <cstdint>
 #include <iomanip>
 #include <limits>
 #include <vector>
@@ -104,6 +105,64 @@ TransformerMspBridgeNode::TransformerMspBridgeNode(const rclcpp::NodeOptions &op
   configureDecoders();
   configureCommandSchedules();
   configureRcOverride();
+
+  stats_window_start_ = std::chrono::steady_clock::now();
+  stats_window_tx_bytes_ = 0;
+  stats_window_rx_bytes_ = 0;
+  stats_window_tx_messages_ = 0;
+  stats_window_rx_packets_ = 0;
+  stats_timer_ = create_wall_timer(std::chrono::seconds(5), [this]() {
+    const auto now = std::chrono::steady_clock::now();
+    const auto elapsed = now - stats_window_start_;
+    if (elapsed <= std::chrono::steady_clock::duration::zero())
+    {
+      return;
+    }
+
+    const double elapsed_sec = std::chrono::duration<double>(elapsed).count();
+    if (elapsed_sec <= 0.0)
+    {
+      return;
+    }
+
+    const std::uint64_t tx_bytes = tx_bytes_.load(std::memory_order_relaxed);
+    const std::uint64_t rx_bytes = rx_bytes_.load(std::memory_order_relaxed);
+    const std::uint64_t tx_msgs = tx_messages_.load(std::memory_order_relaxed);
+    const std::uint64_t rx_pkts = rx_packets_.load(std::memory_order_relaxed);
+
+    const std::uint64_t delta_tx_bytes = tx_bytes - stats_window_tx_bytes_;
+    const std::uint64_t delta_rx_bytes = rx_bytes - stats_window_rx_bytes_;
+    const std::uint64_t delta_tx_msgs = tx_msgs - stats_window_tx_messages_;
+    const std::uint64_t delta_rx_pkts = rx_pkts - stats_window_rx_packets_;
+
+    const double tx_kbytes_per_sec = static_cast<double>(delta_tx_bytes) / 1024.0 / elapsed_sec;
+    const double rx_kbytes_per_sec = static_cast<double>(delta_rx_bytes) / 1024.0 / elapsed_sec;
+    const double tx_bits_per_sec = static_cast<double>(delta_tx_bytes) * 8.0 / elapsed_sec;
+    const double rx_bits_per_sec = static_cast<double>(delta_rx_bytes) * 8.0 / elapsed_sec;
+    const double link_capacity_bps = baudrate_ > 0 ? static_cast<double>(baudrate_) : 0.0;
+    const double tx_load_pct = link_capacity_bps > 0.0 ? (tx_bits_per_sec / link_capacity_bps) * 100.0 : 0.0;
+    const double rx_load_pct = link_capacity_bps > 0.0 ? (rx_bits_per_sec / link_capacity_bps) * 100.0 : 0.0;
+
+    if (tx_load_pct > 90.0)
+    {
+      RCLCPP_WARN(get_logger(), "\nMSP link warning: TX load %.1f%%", tx_load_pct);
+    }
+
+    if (rx_load_pct > 90.0)
+    {
+      RCLCPP_WARN(get_logger(), "\nMSP link warning: RX load %.1f%%", rx_load_pct);
+    }
+
+    RCLCPP_INFO(get_logger(), "\nMSP link stats: tx %.2f kB/s (%llu msgs, load %.1f%%) | rx %.2f kB/s (%llu packets, load %.1f%%)",
+                tx_kbytes_per_sec, static_cast<unsigned long long>(delta_tx_msgs), tx_load_pct,
+                rx_kbytes_per_sec, static_cast<unsigned long long>(delta_rx_pkts), rx_load_pct);
+
+    stats_window_tx_bytes_ = tx_bytes;
+    stats_window_rx_bytes_ = rx_bytes;
+    stats_window_tx_messages_ = tx_msgs;
+    stats_window_rx_packets_ = rx_pkts;
+    stats_window_start_ = now;
+  });
 
   if (!openSerial())
   {
@@ -225,6 +284,7 @@ void TransformerMspBridgeNode::readLoop()
 
     if (bytes_read > 0)
     {
+  rx_bytes_.fetch_add(static_cast<std::uint64_t>(bytes_read), std::memory_order_relaxed);
       if (log_msp_rx_)
       {
         std::vector<uint8_t> chunk(buffer.begin(), buffer.begin() + bytes_read);
@@ -290,7 +350,13 @@ bool TransformerMspBridgeNode::sendCommand(uint16_t command_id, const std::vecto
   {
     return false;
   }
-  return serial_.writeAll(frame.data(), frame.size());
+  const bool wrote = serial_.writeAll(frame.data(), frame.size());
+  if (wrote)
+  {
+    tx_bytes_.fetch_add(static_cast<std::uint64_t>(frame.size()), std::memory_order_relaxed);
+    tx_messages_.fetch_add(1ULL, std::memory_order_relaxed);
+  }
+  return wrote;
 }
 
 void TransformerMspBridgeNode::pollCommands()
@@ -382,6 +448,8 @@ void TransformerMspBridgeNode::handleRcOverride(const std_msgs::msg::UInt16Multi
     rc_override_last_msg_ = now;
     rc_override_active_ = true;
   }
+
+  tickRcOverride();
 }
 
 void TransformerMspBridgeNode::tickRcOverride()
@@ -429,6 +497,7 @@ void TransformerMspBridgeNode::tickRcOverride()
 void TransformerMspBridgeNode::handlePacket(const MSPPacket &pkt)
 {
   // Offer each decoder the packet; decoders filter by command ID internally.
+  rx_packets_.fetch_add(1ULL, std::memory_order_relaxed);
   if (debug_msp_)
   {
     RCLCPP_DEBUG(get_logger(), "MSP RX cmd=%u len=%zu", static_cast<unsigned>(pkt.cmd), pkt.payload.size());
