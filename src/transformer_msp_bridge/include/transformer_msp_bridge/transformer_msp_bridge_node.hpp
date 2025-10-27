@@ -4,6 +4,7 @@
 #include <atomic>
 #include <chrono>
 #include <cstdint>
+#include <deque>
 #include <memory>
 #include <mutex>
 #include <string>
@@ -117,6 +118,12 @@ private:
   void publishRcTuning(const RcTuningData &data);
   void publishRtc(const SystemRtcData &data);
 
+  struct PendingRequest
+  {
+    uint16_t command_id{0};
+    std::chrono::steady_clock::time_point sent_at{};
+  };
+
   std::string port_{};
   int baudrate_{115200};
   int timeout_ms_{50};
@@ -147,12 +154,18 @@ private:
   std::atomic<std::uint64_t> rx_bytes_{0};
   std::atomic<std::uint64_t> tx_messages_{0};
   std::atomic<std::uint64_t> rx_packets_{0};
+  std::atomic<std::uint64_t> response_time_sum_ns_{0};
+  std::atomic<std::uint64_t> response_time_count_{0};
   std::chrono::steady_clock::time_point stats_window_start_{};
   std::uint64_t stats_window_tx_bytes_{0};
   std::uint64_t stats_window_rx_bytes_{0};
   std::uint64_t stats_window_tx_messages_{0};
   std::uint64_t stats_window_rx_packets_{0};
+  std::uint64_t stats_window_response_sum_ns_{0};
+  std::uint64_t stats_window_response_count_{0};
   rclcpp::TimerBase::SharedPtr stats_timer_;
+  std::mutex pending_request_mutex_;
+  std::deque<PendingRequest> pending_requests_;
 
   MSPParser parser_;
   std::vector<std::unique_ptr<IMspDecoder>> decoders_;

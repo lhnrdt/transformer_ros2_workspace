@@ -111,6 +111,8 @@ TransformerMspBridgeNode::TransformerMspBridgeNode(const rclcpp::NodeOptions &op
   stats_window_rx_bytes_ = 0;
   stats_window_tx_messages_ = 0;
   stats_window_rx_packets_ = 0;
+  stats_window_response_sum_ns_ = 0;
+  stats_window_response_count_ = 0;
   stats_timer_ = create_wall_timer(std::chrono::seconds(5), [this]() {
     const auto now = std::chrono::steady_clock::now();
     const auto elapsed = now - stats_window_start_;
@@ -129,16 +131,21 @@ TransformerMspBridgeNode::TransformerMspBridgeNode(const rclcpp::NodeOptions &op
     const std::uint64_t rx_bytes = rx_bytes_.load(std::memory_order_relaxed);
     const std::uint64_t tx_msgs = tx_messages_.load(std::memory_order_relaxed);
     const std::uint64_t rx_pkts = rx_packets_.load(std::memory_order_relaxed);
+  const std::uint64_t resp_sum_ns = response_time_sum_ns_.load(std::memory_order_relaxed);
+  const std::uint64_t resp_count = response_time_count_.load(std::memory_order_relaxed);
 
     const std::uint64_t delta_tx_bytes = tx_bytes - stats_window_tx_bytes_;
     const std::uint64_t delta_rx_bytes = rx_bytes - stats_window_rx_bytes_;
     const std::uint64_t delta_tx_msgs = tx_msgs - stats_window_tx_messages_;
     const std::uint64_t delta_rx_pkts = rx_pkts - stats_window_rx_packets_;
+  const std::uint64_t delta_resp_count = resp_count - stats_window_response_count_;
+  const std::uint64_t delta_resp_sum_ns = resp_sum_ns - stats_window_response_sum_ns_;
 
     const double tx_kbytes_per_sec = static_cast<double>(delta_tx_bytes) / 1024.0 / elapsed_sec;
     const double rx_kbytes_per_sec = static_cast<double>(delta_rx_bytes) / 1024.0 / elapsed_sec;
     const double tx_bits_per_sec = static_cast<double>(delta_tx_bytes) * 8.0 / elapsed_sec;
     const double rx_bits_per_sec = static_cast<double>(delta_rx_bytes) * 8.0 / elapsed_sec;
+  const double avg_resp_ms = delta_resp_count > 0 ? (static_cast<double>(delta_resp_sum_ns) / 1'000'000.0 / static_cast<double>(delta_resp_count)) : 0.0;
     const double link_capacity_bps = baudrate_ > 0 ? static_cast<double>(baudrate_) : 0.0;
     const double tx_load_pct = link_capacity_bps > 0.0 ? (tx_bits_per_sec / link_capacity_bps) * 100.0 : 0.0;
     const double rx_load_pct = link_capacity_bps > 0.0 ? (rx_bits_per_sec / link_capacity_bps) * 100.0 : 0.0;
@@ -153,14 +160,17 @@ TransformerMspBridgeNode::TransformerMspBridgeNode(const rclcpp::NodeOptions &op
       RCLCPP_WARN(get_logger(), "\nMSP link warning: RX load %.1f%%", rx_load_pct);
     }
 
-    RCLCPP_INFO(get_logger(), "\nMSP link stats: tx %.2f kB/s (%llu msgs, load %.1f%%) | rx %.2f kB/s (%llu packets, load %.1f%%)",
+    RCLCPP_INFO(get_logger(), "\nMSP link stats: tx %.2f kB/s (%llu msgs, load %.1f%%) | rx %.2f kB/s (%llu packets, load %.1f%%) | resp avg %.2f ms (%llu samples)",
                 tx_kbytes_per_sec, static_cast<unsigned long long>(delta_tx_msgs), tx_load_pct,
-                rx_kbytes_per_sec, static_cast<unsigned long long>(delta_rx_pkts), rx_load_pct);
+                rx_kbytes_per_sec, static_cast<unsigned long long>(delta_rx_pkts), rx_load_pct,
+                avg_resp_ms, static_cast<unsigned long long>(delta_resp_count));
 
     stats_window_tx_bytes_ = tx_bytes;
     stats_window_rx_bytes_ = rx_bytes;
     stats_window_tx_messages_ = tx_msgs;
     stats_window_rx_packets_ = rx_pkts;
+    stats_window_response_sum_ns_ = resp_sum_ns;
+    stats_window_response_count_ = resp_count;
     stats_window_start_ = now;
   });
 
@@ -355,6 +365,16 @@ bool TransformerMspBridgeNode::sendCommand(uint16_t command_id, const std::vecto
   {
     tx_bytes_.fetch_add(static_cast<std::uint64_t>(frame.size()), std::memory_order_relaxed);
     tx_messages_.fetch_add(1ULL, std::memory_order_relaxed);
+    if (command_id != kMspSetRawRc)
+    {
+      const auto now = std::chrono::steady_clock::now();
+      std::lock_guard<std::mutex> pending_lock(pending_request_mutex_);
+      pending_requests_.push_back(PendingRequest{command_id, now});
+      while (pending_requests_.size() > 256)
+      {
+        pending_requests_.pop_front();
+      }
+    }
   }
   return wrote;
 }
@@ -498,6 +518,37 @@ void TransformerMspBridgeNode::handlePacket(const MSPPacket &pkt)
 {
   // Offer each decoder the packet; decoders filter by command ID internally.
   rx_packets_.fetch_add(1ULL, std::memory_order_relaxed);
+  const auto now = std::chrono::steady_clock::now();
+  std::chrono::steady_clock::time_point sent_time{};
+  bool matched_request = false;
+  if (pkt.cmd != 0)
+  {
+    std::lock_guard<std::mutex> lock(pending_request_mutex_);
+    while (!pending_requests_.empty() && now - pending_requests_.front().sent_at > std::chrono::seconds(2))
+    {
+      pending_requests_.pop_front();
+    }
+
+    const auto rit = std::find_if(pending_requests_.rbegin(), pending_requests_.rend(), [cmd = pkt.cmd](const PendingRequest &entry) {
+      return entry.command_id == cmd;
+    });
+    if (rit != pending_requests_.rend())
+    {
+      sent_time = rit->sent_at;
+      auto erase_it = rit.base();
+      --erase_it;
+      pending_requests_.erase(erase_it);
+      matched_request = true;
+    }
+  }
+
+  if (matched_request)
+  {
+    const auto rtt_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(now - sent_time).count();
+    response_time_sum_ns_.fetch_add(static_cast<std::uint64_t>(rtt_ns), std::memory_order_relaxed);
+    response_time_count_.fetch_add(1ULL, std::memory_order_relaxed);
+  }
+
   if (debug_msp_)
   {
     RCLCPP_DEBUG(get_logger(), "MSP RX cmd=%u len=%zu", static_cast<unsigned>(pkt.cmd), pkt.payload.size());
