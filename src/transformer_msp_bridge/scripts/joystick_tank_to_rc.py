@@ -27,19 +27,25 @@ from std_msgs.msg import UInt16MultiArray
 DEFAULT_AXES: List[float] = [0.0] * 8
 
 
-def norm_to_pwm(x: float, deadzone: float = 0.00, min_pwm: int = 1000, max_pwm: int = 2000) -> int:
-    """Forward-only mapping from joystick to PWM.
+def norm_to_pwm(x: float, deadzone: float = 0.00, min_pwm: int = 1000, max_pwm: int = 2000, *, full_span: bool = False) -> int:
+    """Map joystick input to PWM.
 
     - Input x in [-1, 1]
     - Apply deadzone around 0
-    - For forward-only motors: x <= 0 maps to min_pwm (stop), x > 0 maps linearly to [min_pwm, max_pwm]
+    - When ``full_span`` is False (mix/forward mode), clamp negatives to ``min_pwm`` and scale positives
+    - When ``full_span`` is True (direct mode), linearly map [-1, 1] to [max_pwm, min_pwm]
     """
-    # Deadzone around 0 to avoid drift
     if abs(x) < deadzone:
         x = 0.0
-    # Forward-only: negatives and zero -> 0, positives -> [0,1]
-    y = max(0.0, x)  # [0,1]
-    pwm = int(min_pwm + y * (max_pwm - min_pwm))
+
+    if not full_span:
+        y = max(0.0, x)  # [0,1]
+        pwm = int(min_pwm + y * (max_pwm - min_pwm))
+    else:
+        # Normalize to [0, 1] with 1.0 -> min_pwm and -1.0 -> max_pwm
+        y = 0.5 * (1.0 - x)
+        pwm = int(min_pwm + y * (max_pwm - min_pwm))
+
     return max(min_pwm, min(max_pwm, pwm))
 
 
@@ -62,7 +68,7 @@ class JoystickTankToRC(Node):
         self.declare_parameter('steer_axis', 3)         # mix mode: steering axis (axes[3])
         # Axis interpretation options (defaults chosen to match provided semantics)
         self.declare_parameter('steer_left_positive', True)  # Positive steer means 'left' per sample
-        self.declare_parameter('direct_axes_invert', True)   # Direct axes: 1.0->0%, -1.0->100%
+        self.declare_parameter('direct_axes_invert', False)  # Direct axes: 1.0 -> min, -1.0 -> max
         self.declare_parameter('min_pwm', 1540)
         self.declare_parameter('max_pwm', 1600)
         self.declare_parameter('deadzone', 0.05)
@@ -154,12 +160,12 @@ class JoystickTankToRC(Node):
             # Direct mode: read left/right axes directly
             lx = get_axis(self.left_axis)
             rx = get_axis(self.right_axis)
-            # Invert per provided semantics (1.0 -> 0%, -1.0 -> 100%)
+            # Invert per provided semantics (optional)
             if self.direct_axes_invert:
                 lx = -lx
                 rx = -rx
-            left_pwm = norm_to_pwm(lx, self.deadzone, self.min_pwm, self.max_pwm)
-            right_pwm = norm_to_pwm(rx, self.deadzone, self.min_pwm, self.max_pwm)
+            left_pwm = norm_to_pwm(lx, self.deadzone, self.min_pwm, self.max_pwm, full_span=True)
+            right_pwm = norm_to_pwm(rx, self.deadzone, self.min_pwm, self.max_pwm, full_span=True)
 
         arr = [self.min_pwm] * self.channel_count
         # Forward-only tank: map to channels 11 and 12 (indices 10, 11)
