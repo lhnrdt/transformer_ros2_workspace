@@ -1,3 +1,4 @@
+// Declares the streaming MSP frame parser and supporting packet types.
 #pragma once
 #include <cstdint>
 #include <vector>

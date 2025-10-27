@@ -1,3 +1,4 @@
+// Declares decoders for MSP analog and battery status telemetry.
 #pragma once
 #include "transformer_msp_bridge/decoder_base.hpp"
 #include "transformer_msp_bridge/decoder_outputs.hpp"

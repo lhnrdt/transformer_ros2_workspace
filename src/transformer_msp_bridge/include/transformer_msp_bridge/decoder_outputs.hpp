@@ -1,3 +1,4 @@
+// Defines plain-old-data structs that decoders populate before ROS publication.
 #pragma once
 
 #include <array>

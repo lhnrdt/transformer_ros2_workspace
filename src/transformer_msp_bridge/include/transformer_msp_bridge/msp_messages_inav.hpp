@@ -1,3 +1,4 @@
+// Auto-generated registry describing all INAV MSP messages consumed by the bridge.
 #pragma once
 // Auto-generated compact MSP header (INAV MSPv1+v2).
 // One macro call per message; hex-only IDs; no registry list.

@@ -1,3 +1,4 @@
+// Declares the MSP servo and motor output decoder callbacks.
 #pragma once
 
 #include "transformer_msp_bridge/msp_parser.hpp"

@@ -1,3 +1,4 @@
+// Declares decoders for MSP rangefinder, compass, and barometer telemetry.
 #pragma once
 
 #include "transformer_msp_bridge/decoder_base.hpp"

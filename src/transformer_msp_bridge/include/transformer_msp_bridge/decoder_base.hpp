@@ -1,3 +1,4 @@
+// Declares the common interface that all MSP decoders implement.
 #pragma once
 
 #include <string>

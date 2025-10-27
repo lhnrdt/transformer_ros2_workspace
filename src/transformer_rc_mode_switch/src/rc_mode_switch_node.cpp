@@ -19,7 +19,7 @@ public:
     tolerance_ = declare_parameter<int>("tolerance", 300);
     debounce_ms_ = declare_parameter<int>("debounce_ms", 500);
     min_publish_channels_ = declare_parameter<int>("min_channels", 6);
-    rc_topic_ = declare_parameter<std::string>("rc_topic", "/msp/rc_in");
+    rc_topic_ = declare_parameter<std::string>("rc_topic", "/msp/rc");
 
     transform_client_ = rclcpp_action::create_client<TransformMode>(this, "transform_mode");
 

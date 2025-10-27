@@ -1,3 +1,4 @@
+// Declares the INAV status decoder for MSPv2 diagnostics and logging.
 #pragma once
 
 #include "transformer_msp_bridge/msp_parser.hpp"

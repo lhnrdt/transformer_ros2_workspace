@@ -1,3 +1,4 @@
+// Declares lookups and schema helpers for the MSP command registry.
 #pragma once
 
 #include <cstddef>

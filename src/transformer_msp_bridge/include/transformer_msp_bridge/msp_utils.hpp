@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿// Provides safe little-endian readers for MSP payload parsing.
+#pragma once
 #include <cstdint>
 #include <vector>
 

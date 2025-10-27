@@ -9,8 +9,8 @@ transformer_msp_bridge:
     port: "/dev/ttyAMA0"
     baudrate: 115200
     timeout_ms: 50
-    rc_channel_count: 8
-    rc_publish_rate_hz: 10.0
+    rc_channel_count: 16
+    rc_publish_rate_hz: 50.0
     debug_msp: false
     log_msp_tx: false
     log_msp_rx: false

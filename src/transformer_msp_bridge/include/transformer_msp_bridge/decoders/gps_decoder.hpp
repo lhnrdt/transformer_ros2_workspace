@@ -1,3 +1,4 @@
+// Declares the MSP GPS decoder handling raw and home-vector telemetry.
 #pragma once
 
 #include "transformer_msp_bridge/msp_parser.hpp"

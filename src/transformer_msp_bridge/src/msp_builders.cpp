@@ -1,3 +1,4 @@
+// Implements helpers for constructing MSP frames used for outbound traffic.
 #include "transformer_msp_bridge/msp_builders.hpp"
 #include "transformer_msp_bridge/crc.hpp"
 #include "transformer_msp_bridge/msp_registry.hpp"

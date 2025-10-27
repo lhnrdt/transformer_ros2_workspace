@@ -1,4 +1,4 @@
-// MSP Parser Implementation
+// Implements the streaming MultiWii/iNav MSP parser used by the bridge.
 // -------------------------
 // This file implements a streaming parser for the MultiWii/iNav MSP (Multiwii Serial Protocol)
 // supporting:

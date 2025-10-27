@@ -1,3 +1,4 @@
+// Declares the MSP RC channels decoder for servo input telemetry.
 #pragma once
 #include "transformer_msp_bridge/msp_parser.hpp"
 #include "transformer_msp_bridge/decoder_base.hpp"

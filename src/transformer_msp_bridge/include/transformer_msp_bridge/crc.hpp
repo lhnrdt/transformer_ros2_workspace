@@ -1,3 +1,4 @@
+// Declares CRC8 (DVB-S2 polynomial) utilities used to validate MSP frames.
 #pragma once
 #include <cstdint>
 #include <vector>

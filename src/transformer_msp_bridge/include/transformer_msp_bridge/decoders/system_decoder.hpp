@@ -1,3 +1,4 @@
+// Declares decoders for MSP system status, sensor, and tuning telemetry.
 #pragma once
 #include "transformer_msp_bridge/decoder_base.hpp"
 #include "transformer_msp_bridge/decoder_outputs.hpp"

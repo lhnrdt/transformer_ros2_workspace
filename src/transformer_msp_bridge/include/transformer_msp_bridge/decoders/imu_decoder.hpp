@@ -1,3 +1,4 @@
+// Declares the MSP IMU decoder that emits inertial samples.
 #pragma once
 
 #include "transformer_msp_bridge/msp_parser.hpp"

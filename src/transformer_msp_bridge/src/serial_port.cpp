@@ -1,3 +1,4 @@
+// Implements the lightweight POSIX serial wrapper used by the MSP bridge.
 #include "transformer_msp_bridge/serial_port.hpp"
 #include <termios.h>
 #include <unistd.h>

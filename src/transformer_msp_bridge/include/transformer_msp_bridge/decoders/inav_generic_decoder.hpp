@@ -1,3 +1,4 @@
+// Declares a catch-all decoder for MSPv2 INAV frames without dedicated handlers.
 #pragma once
 
 #include "transformer_msp_bridge/decoder_base.hpp"

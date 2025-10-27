@@ -64,6 +64,8 @@ target_compile_features(${PROJECT_NAME}_decoders PUBLIC cxx_std_17)
 
 add_executable(transformer_msp_bridge_node
   src/transformer_msp_bridge_node.cpp
+  src/transformer_msp_bridge_node_decoders.cpp
+  src/transformer_msp_bridge_node_publishers.cpp
 )
 target_link_libraries(transformer_msp_bridge_node msp_protocol serial_port ${PROJECT_NAME}_decoders)
 ament_target_dependencies(transformer_msp_bridge_node rclcpp std_msgs geometry_msgs sensor_msgs diagnostic_msgs)
@@ -141,7 +143,7 @@ if(BUILD_TESTING)
     test/test_msp_probe.cpp)
   if(TARGET test_msp_probe)
     target_compile_features(test_msp_probe PUBLIC cxx_std_17)
-    target_link_libraries(test_msp_probe msp_protocol serial_port)
+    target_link_libraries(test_msp_probe msp_protocol serial_port ${PROJECT_NAME}_decoders)
     ament_target_dependencies(test_msp_probe rclcpp)
   endif()
 endif()

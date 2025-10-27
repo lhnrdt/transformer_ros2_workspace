@@ -1,3 +1,4 @@
+// Implements registry lookups and default polling metadata for MSP commands.
 #include "transformer_msp_bridge/msp_registry.hpp"
 
 #include <algorithm>

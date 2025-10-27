@@ -1,4 +1,6 @@
 #include "transformer_msp_bridge/decoders/battery_decoder.hpp"
+#include "transformer_msp_bridge/msp_utils.hpp"
+#include <algorithm>
 #include <limits>
 #include <utility>
 
@@ -26,61 +28,65 @@ namespace transformer_msp_bridge
 
   void BatteryDecoder::decodeBatteryState(const MSPPacket &pkt)
   {
-    if (pkt.cmd != kBatteryStateCommand)
+    if (pkt.cmd != kBatteryStateCommand || pkt.payload.size() < 11)
       return;
-    if (pkt.payload.size() < 1)
-    {
-      return;
-    }
-
     if (!callbacks_.status)
       return;
 
-    size_t off = 0;
-    auto rd8 = [&](size_t o) -> uint8_t
-    {
-      return o < pkt.payload.size() ? pkt.payload[o] : 0;
-    };
-    auto rd16 = [&](size_t o) -> uint16_t
-    {
-      if (pkt.payload.size() < o + 2)
-        return 0;
-      return static_cast<uint16_t>(pkt.payload[o] | (pkt.payload[o + 1] << 8));
-    };
+    uint8_t cell_count = 0;
+    uint16_t capacity_mah = 0;
+    uint8_t voltage_deci = 0;
+    uint16_t consumed_mah = 0;
+    int16_t current_centiamp = 0;
+    uint8_t battery_state = 0;
+    uint16_t voltage_centi = 0;
 
-    uint8_t cells = rd8(off);
-    off += 1;
+    size_t offset = 0;
+    if (!readU8(pkt.payload, offset, cell_count))
+      return;
+    offset += 1;
+    if (!readU16LE(pkt.payload, offset, capacity_mah))
+      return;
+    offset += 2;
+    if (!readU8(pkt.payload, offset, voltage_deci))
+      return;
+    offset += 1;
+    if (!readU16LE(pkt.payload, offset, consumed_mah))
+      return;
+    offset += 2;
+    if (!readI16LE(pkt.payload, offset, current_centiamp))
+      return;
+    offset += 2;
+    if (!readU8(pkt.payload, offset, battery_state))
+      return;
+    offset += 1;
+    if (!readU16LE(pkt.payload, offset, voltage_centi))
+      return;
 
     BatteryStatusData data;
     data.present = true;
-    data.cell_count = cells;
-    data.cell_voltage_v.assign(cells, std::numeric_limits<float>::quiet_NaN());
+    data.cell_count = cell_count;
+    data.cell_voltage_v.assign(cell_count, std::numeric_limits<float>::quiet_NaN());
+    data.voltage_v = static_cast<float>(voltage_centi) / 100.0F;
+    data.current_a = static_cast<float>(current_centiamp) / 100.0F;
 
-    if (pkt.payload.size() >= off + 2)
+    const float total_coulombs = capacity_mah > 0 ? static_cast<float>(capacity_mah) / 1000.0F * 3600.0F
+                                                  : std::numeric_limits<float>::quiet_NaN();
+    const float consumed_coulombs = static_cast<float>(consumed_mah) / 1000.0F * 3600.0F;
+    if (capacity_mah > 0)
     {
-      uint16_t cap = rd16(off);
-      off += 2;
-      // capacity reported in mAh * 10? original used /1000 *3600 (convert mAh to Coulombs)
-      data.charge_c = cap / 1000.0f * 3600.0f;
+      data.charge_c = std::max(0.0F, total_coulombs - consumed_coulombs);
+      data.remaining_fraction = std::clamp(1.0F - static_cast<float>(consumed_mah) / static_cast<float>(capacity_mah),
+                                           0.0F, 1.0F);
     }
-    if (pkt.payload.size() >= off + 2)
+    else
     {
-      uint16_t mv = rd16(off);
-      off += 2;
-      data.voltage_v = mv / 100.0f;
-    }
-    if (pkt.payload.size() >= off + 2)
-    {
-      uint16_t mc = rd16(off);
-      off += 2;
-      data.current_a = mc / 100.0f;
-    }
-    if (pkt.payload.size() > off)
-    {
-      uint8_t rem = rd8(off);
-      data.remaining_fraction = rem / 100.0f;
+      data.charge_c = std::numeric_limits<float>::quiet_NaN();
+      data.remaining_fraction = std::numeric_limits<float>::quiet_NaN();
     }
 
+    (void)voltage_deci;
+    (void)battery_state;
     callbacks_.status(data);
   }
 

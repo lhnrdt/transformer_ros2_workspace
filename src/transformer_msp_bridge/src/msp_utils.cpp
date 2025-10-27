@@ -1,3 +1,4 @@
+// Implements defensive little-endian readers for MSP payload parsing.
 #include "transformer_msp_bridge/msp_utils.hpp"
 
 namespace transformer_msp_bridge

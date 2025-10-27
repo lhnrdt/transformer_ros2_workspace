@@ -1,10 +1,4 @@
-/**
- * Handles Building MSP frames. v1, v2 or v2 tunneled through v1
- */
-
-
-
-
+// Declares helper functions for constructing MSP v1, v2, and tunneled frames.
 #pragma once
 #include <cstdint>
 #include <vector>

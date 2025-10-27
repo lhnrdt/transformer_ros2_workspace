@@ -16,7 +16,7 @@ def generate_launch_description():
                 'tolerance': 300,
                 'debounce_ms': 800,
                 'min_channels': 6,
-                'rc_topic': '/msp/rc_in'
+                'rc_topic': '/msp/rc'
             }]
         )
     ])

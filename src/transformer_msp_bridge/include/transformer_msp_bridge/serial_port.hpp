@@ -1,3 +1,4 @@
+// Declares a minimal POSIX serial wrapper tailored for MSP transport.
 #pragma once
 #include <string>
 #include <vector>
