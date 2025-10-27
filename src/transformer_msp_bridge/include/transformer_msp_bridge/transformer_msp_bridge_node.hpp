@@ -187,6 +187,7 @@ private:
   rclcpp::Publisher<geometry_msgs::msg::Vector3>::SharedPtr attitude_pub_;
   rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr altitude_pub_;
   rclcpp::Publisher<geometry_msgs::msg::TwistStamped>::SharedPtr vertical_speed_pub_;
+  rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr baro_altitude_pub_;
   rclcpp::Publisher<sensor_msgs::msg::NavSatFix>::SharedPtr gps_fix_pub_;
   rclcpp::Publisher<geometry_msgs::msg::TwistStamped>::SharedPtr gps_vel_pub_;
   rclcpp::Publisher<geometry_msgs::msg::Vector3Stamped>::SharedPtr gps_home_vec_pub_;

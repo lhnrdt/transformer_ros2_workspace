@@ -28,6 +28,7 @@ namespace transformer_msp_bridge
   {
     float altitude_m{std::numeric_limits<float>::quiet_NaN()};
     float vertical_speed_mps{std::numeric_limits<float>::quiet_NaN()};
+    float baro_altitude_m{std::numeric_limits<float>::quiet_NaN()};
   };
 
   struct GpsRawData

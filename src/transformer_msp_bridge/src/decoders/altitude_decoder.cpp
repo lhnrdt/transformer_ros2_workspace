@@ -33,15 +33,18 @@ namespace transformer_msp_bridge
   {
     if (pkt.cmd != kMspAltitude)
       return;
-    if (pkt.payload.size() < 6)
+    if (pkt.payload.size() < 10)
       return;
     int32_t alt_cm;
     int16_t vs_cms;
-    if (!readI32LE(pkt.payload, 0, alt_cm) || !readI16LE(pkt.payload, 4, vs_cms))
+    int32_t baro_cm;
+    if (!readI32LE(pkt.payload, 0, alt_cm) || !readI16LE(pkt.payload, 4, vs_cms) ||
+        !readI32LE(pkt.payload, 6, baro_cm))
       return;
     AltitudeSample sample;
     sample.altitude_m = static_cast<float>(alt_cm) / 100.0F;
     sample.vertical_speed_mps = static_cast<float>(vs_cms) / 100.0F;
+    sample.baro_altitude_m = static_cast<float>(baro_cm) / 100.0F;
     if (callback_)
       callback_(sample);
   }

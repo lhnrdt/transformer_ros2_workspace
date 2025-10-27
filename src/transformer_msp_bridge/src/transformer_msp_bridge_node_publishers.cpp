@@ -14,6 +14,7 @@ void TransformerMspBridgeNode::configurePublishers()
   attitude_pub_ = create_publisher<geometry_msgs::msg::Vector3>("/msp/attitude", rclcpp::QoS(10));
   altitude_pub_ = create_publisher<std_msgs::msg::Float32>("/msp/altitude", rclcpp::QoS(10));
   vertical_speed_pub_ = create_publisher<geometry_msgs::msg::TwistStamped>("/msp/vertical_speed", rclcpp::QoS(10));
+  baro_altitude_pub_ = create_publisher<std_msgs::msg::Float32>("/msp/barometer_altitude", rclcpp::QoS(10));
   gps_fix_pub_ = create_publisher<sensor_msgs::msg::NavSatFix>("/msp/gps/fix", rclcpp::QoS(10));
   gps_vel_pub_ = create_publisher<geometry_msgs::msg::TwistStamped>("/msp/gps/vel", rclcpp::QoS(10));
   gps_home_vec_pub_ = create_publisher<geometry_msgs::msg::Vector3Stamped>("/msp/home/vector", rclcpp::QoS(10));
@@ -96,6 +97,13 @@ void TransformerMspBridgeNode::publishAltitude(const AltitudeSample &sample)
     msg.header.frame_id = frame_id_altitude_;
     msg.twist.linear.z = sample.vertical_speed_mps;
     vertical_speed_pub_->publish(msg);
+  }
+
+  if (baro_altitude_pub_)
+  {
+    std_msgs::msg::Float32 msg;
+    msg.data = sample.baro_altitude_m;
+    baro_altitude_pub_->publish(msg);
   }
 }
 

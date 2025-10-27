@@ -171,13 +171,15 @@ std::unordered_map<uint16_t, Validator> build_validators()
   });
 
   validators.emplace(require_command_id("MSP_ALTITUDE"), [](const std::vector<double> &values, const std::vector<std::string> &names) {
-    if (values.size() != 2)
+    if (values.size() != 3)
     {
-      return std::string("expected altitude (m) and vertical speed (m/s), got ") + std::to_string(values.size());
+      return std::string("expected altitude (m), vertical speed (m/s), and barometric altitude (m), got ") +
+             std::to_string(values.size());
     }
     const double altitude_m = values[0];
     const double vertical_speed = values[1];
-    if (!std::isfinite(altitude_m) || !std::isfinite(vertical_speed))
+    const double baro_altitude_m = values[2];
+    if (!std::isfinite(altitude_m) || !std::isfinite(vertical_speed) || !std::isfinite(baro_altitude_m))
     {
       return std::string("altitude sample not finite: ") + describe_value(values, names);
     }
@@ -188,6 +190,10 @@ std::unordered_map<uint16_t, Validator> build_validators()
     if (std::abs(vertical_speed) > 500.0)
     {
       return std::string("vertical speed magnitude >500 m/s: ") + describe_value(values, names);
+    }
+    if (std::abs(baro_altitude_m) > 10000.0)
+    {
+      return std::string("barometric altitude magnitude >10km: ") + describe_value(values, names);
     }
     return std::string();
   });
@@ -428,8 +434,10 @@ DecodedData decode_with_existing_decoders(const MSPPacket &pkt)
 
   {
     transformer_msp_bridge::AltitudeDecoder decoder([&](const transformer_msp_bridge::AltitudeSample &sample) {
-      set_result({static_cast<double>(sample.altitude_m), static_cast<double>(sample.vertical_speed_mps)},
-                 {"altitude_m", "vertical_speed_mps"},
+      set_result({static_cast<double>(sample.altitude_m),
+                  static_cast<double>(sample.vertical_speed_mps),
+                  static_cast<double>(sample.baro_altitude_m)},
+                 {"altitude_m", "vertical_speed_mps", "baro_altitude_m"},
                  "AltitudeDecoder");
     });
     if (decoder.matches(pkt.cmd))
@@ -784,26 +792,6 @@ void log_command_result(const CommandProbeResult &result)
     std::cout << "  values: <not available>" << '\n';
   }
   std::cout.flush();
-}
-
-std::string build_snapshot(const ProbeSummary &summary)
-{
-  std::ostringstream oss;
-  bool any = false;
-  for (const auto &cmd : summary.commands)
-  {
-    if (!cmd.responded)
-    {
-      continue;
-    }
-    any = true;
-    oss << "  " << format_command_result(cmd) << '\n';
-  }
-  if (!any)
-  {
-    return {};
-  }
-  return oss.str();
 }
 
 class MspProbeTest : public ::testing::Test
