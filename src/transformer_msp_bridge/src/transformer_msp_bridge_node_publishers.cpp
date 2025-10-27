@@ -1,5 +1,7 @@
 #include "transformer_msp_bridge/transformer_msp_bridge_node.hpp"
 
+#include <algorithm>
+#include <cmath>
 #include <limits>
 
 #include "rclcpp/qos.hpp"
@@ -23,7 +25,6 @@ void TransformerMspBridgeNode::configurePublishers()
   servo_pub_ = create_publisher<sensor_msgs::msg::JointState>("/msp/servo", rclcpp::QoS(10));
   motor_pub_ = create_publisher<sensor_msgs::msg::JointState>("/msp/motor", rclcpp::QoS(10));
   battery_pub_ = create_publisher<sensor_msgs::msg::BatteryState>("/msp/battery", rclcpp::QoS(10));
-  battery_extended_pub_ = create_publisher<sensor_msgs::msg::BatteryState>("/msp/battery/dji", rclcpp::QoS(10));
   inav_status_pub_ = create_publisher<transformer_msp_bridge::msg::MspInavStatus>("/msp/inav_status", rclcpp::QoS(10));
   inav_generic_pub_ = create_publisher<diagnostic_msgs::msg::DiagnosticArray>("/msp/inav_generic", rclcpp::QoS(10));
   status_pub_ = create_publisher<diagnostic_msgs::msg::DiagnosticArray>("/msp/status_ex", rclcpp::QoS(10));
@@ -202,30 +203,57 @@ void TransformerMspBridgeNode::publishBatteryAnalog(const BatteryAnalogData &dat
   sensor_msgs::msg::BatteryState msg;
   msg.header.stamp = now();
   msg.header.frame_id = frame_id_imu_;
-  msg.voltage = data.voltage_v;
-  msg.present = data.present;
-  msg.percentage = std::numeric_limits<float>::quiet_NaN();
-  msg.current = std::numeric_limits<float>::quiet_NaN();
-  msg.charge = std::numeric_limits<float>::quiet_NaN();
-  battery_pub_->publish(msg);
-}
-
-void TransformerMspBridgeNode::publishBatteryStatus(const BatteryStatusData &data)
-{
-  if (!battery_extended_pub_)
-  {
-    return;
-  }
-  sensor_msgs::msg::BatteryState msg;
-  msg.header.stamp = now();
-  msg.header.frame_id = frame_id_imu_;
   msg.present = data.present;
   msg.voltage = data.voltage_v;
   msg.current = data.current_a;
-  msg.charge = data.charge_c;
-  msg.percentage = data.remaining_fraction;
-  msg.cell_voltage = data.cell_voltage_v;
-  battery_extended_pub_->publish(msg);
+  msg.power_supply_status = data.battery_state;
+  msg.percentage = (data.percentage >= 0.0F && data.percentage <= 100.0F) ? data.percentage / 100.0F
+                                                                           : std::numeric_limits<float>::quiet_NaN();
+  msg.charge = std::numeric_limits<float>::quiet_NaN();
+  msg.capacity = std::numeric_limits<float>::quiet_NaN();
+  msg.design_capacity = std::numeric_limits<float>::quiet_NaN();
+
+  if (data.capacity_unit == 0 && std::isfinite(data.remaining_capacity_mah))
+  {
+    msg.charge = data.remaining_capacity_mah / 1000.0F;
+  }
+  else if (data.capacity_unit == 1 && std::isfinite(data.remaining_capacity_mwh) && data.voltage_v > 0.0F)
+  {
+    msg.charge = data.remaining_capacity_mwh / (1000.0F * data.voltage_v);
+  }
+
+  {
+    std::lock_guard<std::mutex> lock(battery_config_mutex_);
+    if (last_battery_config_)
+    {
+      const auto &config = *last_battery_config_;
+      if (config.capacity_unit == 0 && std::isfinite(config.capacity_mah))
+      {
+        msg.capacity = config.capacity_mah / 1000.0F; // convert mAh to Ah
+        msg.design_capacity = msg.capacity;
+      }
+      else if (config.capacity_unit == 1 && std::isfinite(config.capacity_mwh) && data.voltage_v > 0.0F)
+      {
+        const float capacity_ah = config.capacity_mwh / (1000.0F * data.voltage_v);
+        msg.capacity = capacity_ah;
+        msg.design_capacity = capacity_ah;
+      }
+      msg.cell_voltage.resize(config.cell_count);
+      std::fill(msg.cell_voltage.begin(), msg.cell_voltage.end(), std::numeric_limits<float>::quiet_NaN());
+    }
+    else
+    {
+      msg.cell_voltage.resize(data.cell_count);
+      std::fill(msg.cell_voltage.begin(), msg.cell_voltage.end(), std::numeric_limits<float>::quiet_NaN());
+    }
+  }
+  battery_pub_->publish(msg);
+}
+
+void TransformerMspBridgeNode::handleBatteryConfig(const BatteryConfigData &data)
+{
+  std::lock_guard<std::mutex> lock(battery_config_mutex_);
+  last_battery_config_ = data;
 }
 
 void TransformerMspBridgeNode::publishInavStatus(const InavStatusData &data)

@@ -7,6 +7,7 @@
 #include <deque>
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <thread>
@@ -105,7 +106,7 @@ private:
   void publishServo(const ServoPositionData &data);
   void publishMotor(const MotorOutputData &data);
   void publishBatteryAnalog(const BatteryAnalogData &data);
-  void publishBatteryStatus(const BatteryStatusData &data);
+  void handleBatteryConfig(const BatteryConfigData &data);
   void publishInavStatus(const InavStatusData &data);
   void publishInavGeneric(const InavGenericFrame &frame);
   void publishStatusEx(const SystemStatusExData &data);
@@ -178,6 +179,9 @@ private:
   std::chrono::steady_clock::time_point rc_override_last_msg_{};
   bool rc_override_active_{false};
 
+  std::mutex battery_config_mutex_;
+  std::optional<BatteryConfigData> last_battery_config_;
+
   rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu_pub_;
   rclcpp::Publisher<sensor_msgs::msg::MagneticField>::SharedPtr mag_pub_;
   rclcpp::Publisher<geometry_msgs::msg::Vector3>::SharedPtr attitude_pub_;
@@ -192,7 +196,6 @@ private:
   rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr servo_pub_;
   rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr motor_pub_;
   rclcpp::Publisher<sensor_msgs::msg::BatteryState>::SharedPtr battery_pub_;
-  rclcpp::Publisher<sensor_msgs::msg::BatteryState>::SharedPtr battery_extended_pub_;
   rclcpp::Publisher<transformer_msp_bridge::msg::MspInavStatus>::SharedPtr inav_status_pub_;
   rclcpp::Publisher<diagnostic_msgs::msg::DiagnosticArray>::SharedPtr inav_generic_pub_;
   rclcpp::Publisher<diagnostic_msgs::msg::DiagnosticArray>::SharedPtr status_pub_;

@@ -198,10 +198,10 @@ std::unordered_map<uint16_t, Validator> build_validators()
     return std::string();
   });
 
-  validators.emplace(require_command_id("MSP_ANALOG"), [](const std::vector<double> &values, const std::vector<std::string> &names) {
-    if (values.size() != 1)
+  validators.emplace(require_command_id("MSP2_INAV_ANALOG"), [](const std::vector<double> &values, const std::vector<std::string> &names) {
+    if (values.empty())
     {
-      return std::string("expected decoded battery voltage, got ") + std::to_string(values.size());
+      return std::string("expected at least battery voltage value, got 0");
     }
     const double voltage = values[0];
     if (!std::isfinite(voltage))
@@ -211,6 +211,29 @@ std::unordered_map<uint16_t, Validator> build_validators()
     if (voltage < 0.0 || voltage > 100.0)
     {
       return std::string("battery voltage out of range (0-100V): ") + describe_value(values, names);
+    }
+    for (std::size_t i = 1; i < values.size(); ++i)
+    {
+      if (!std::isfinite(values[i]))
+      {
+        return std::string("additional analog field not finite: ") + describe_value(values, names);
+      }
+    }
+    return std::string();
+  });
+
+  validators.emplace(require_command_id("MSP2_INAV_BATTERY_CONFIG"), [](const std::vector<double> &values, const std::vector<std::string> &names) {
+    if (values.size() < 3)
+    {
+      return std::string("expected battery config fields (scale, cell count, capacity), got ") + std::to_string(values.size());
+    }
+    if (values[0] <= 0.0)
+    {
+      return std::string("voltage scale should be positive: ") + describe_value(values, names);
+    }
+    if (values[1] < 0.0 || values[1] > 12.0)
+    {
+      return std::string("cell count outside 0-12: ") + describe_value(values, names);
     }
     return std::string();
   });
@@ -451,35 +474,44 @@ DecodedData decode_with_existing_decoders(const MSPPacket &pkt)
   {
     transformer_msp_bridge::BatteryDecoder::Callbacks callbacks;
     callbacks.analog = [&](const transformer_msp_bridge::BatteryAnalogData &sample) {
-      set_result({static_cast<double>(sample.voltage_v)}, {"voltage_v"}, "BatteryDecoder::analog");
-    };
-    callbacks.status = [&](const transformer_msp_bridge::BatteryStatusData &sample) {
       std::vector<double> values;
       std::vector<std::string> names;
-      if (!std::isnan(sample.voltage_v))
-      {
-        values.push_back(sample.voltage_v);
-        names.emplace_back("voltage_v");
-      }
-      if (!std::isnan(sample.current_a))
-      {
-        values.push_back(sample.current_a);
-        names.emplace_back("current_a");
-      }
-      if (!std::isnan(sample.charge_c))
-      {
-        values.push_back(sample.charge_c);
-        names.emplace_back("charge_c");
-      }
-      if (!std::isnan(sample.remaining_fraction))
-      {
-        values.push_back(sample.remaining_fraction);
-        names.emplace_back("remaining_fraction");
-      }
+      const auto accumulate = [&](double value, const char *name) {
+        if (std::isfinite(value))
+        {
+          values.push_back(value);
+          names.emplace_back(name);
+        }
+      };
+      accumulate(sample.voltage_v, "voltage_v");
+      accumulate(sample.current_a, "current_a");
+      accumulate(sample.power_w, "power_w");
+      accumulate(sample.consumed_mah, "consumed_mah");
+      accumulate(sample.consumed_mwh, "consumed_mwh");
+      accumulate(sample.percentage, "percentage");
       if (!values.empty())
       {
-        set_result(std::move(values), std::move(names), "BatteryDecoder::status");
+        set_result(std::move(values), std::move(names), "BatteryDecoder::analog");
       }
+    };
+    callbacks.config = [&](const transformer_msp_bridge::BatteryConfigData &sample) {
+      std::vector<double> values;
+      std::vector<std::string> names;
+      values.push_back(sample.voltage_scale);
+      names.emplace_back("voltage_scale");
+      values.push_back(sample.cell_count);
+      names.emplace_back("cell_count");
+      if (std::isfinite(sample.capacity_mah))
+      {
+        values.push_back(sample.capacity_mah);
+        names.emplace_back("capacity_mah");
+      }
+      else if (std::isfinite(sample.capacity_mwh))
+      {
+        values.push_back(sample.capacity_mwh);
+        names.emplace_back("capacity_mwh");
+      }
+      set_result(std::move(values), std::move(names), "BatteryDecoder::config");
     };
     transformer_msp_bridge::BatteryDecoder decoder(callbacks);
     if (decoder.matches(pkt.cmd))

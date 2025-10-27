@@ -46,7 +46,7 @@ void TransformerMspBridgeNode::configureDecoders()
 
   BatteryDecoder::Callbacks battery_callbacks;
   battery_callbacks.analog = [this](const BatteryAnalogData &data) { publishBatteryAnalog(data); };
-  battery_callbacks.status = [this](const BatteryStatusData &data) { publishBatteryStatus(data); };
+  battery_callbacks.config = [this](const BatteryConfigData &data) { handleBatteryConfig(data); };
   decoders_.emplace_back(std::make_unique<BatteryDecoder>(battery_callbacks));
 
   InavStatusDecoder::Callbacks inav_callbacks;

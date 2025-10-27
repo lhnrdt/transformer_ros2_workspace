@@ -66,18 +66,41 @@ namespace transformer_msp_bridge
   struct BatteryAnalogData
   {
     float voltage_v{std::numeric_limits<float>::quiet_NaN()};
+    float current_a{std::numeric_limits<float>::quiet_NaN()};
+    float power_w{std::numeric_limits<float>::quiet_NaN()};
+    float consumed_mah{std::numeric_limits<float>::quiet_NaN()};
+    float consumed_mwh{std::numeric_limits<float>::quiet_NaN()};
+    float remaining_capacity_mah{std::numeric_limits<float>::quiet_NaN()};
+    float remaining_capacity_mwh{std::numeric_limits<float>::quiet_NaN()};
+    float percentage{std::numeric_limits<float>::quiet_NaN()};
+    uint16_t rssi_raw{0};
+    bool rssi_valid{false};
+    bool full_on_plugin{false};
+    bool use_capacity_thresholds{false};
+    uint8_t battery_state{0};
+    uint8_t cell_count{0};
+  uint8_t capacity_unit{std::numeric_limits<uint8_t>::max()};
     bool present{false};
   };
 
-  struct BatteryStatusData
+  struct BatteryConfigData
   {
+    float voltage_scale{std::numeric_limits<float>::quiet_NaN()};
+    uint8_t voltage_source{0};
     uint8_t cell_count{0};
-    std::vector<float> cell_voltage_v;
-    float voltage_v{std::numeric_limits<float>::quiet_NaN()};
-    float current_a{std::numeric_limits<float>::quiet_NaN()};
-    float charge_c{std::numeric_limits<float>::quiet_NaN()};
-    float remaining_fraction{std::numeric_limits<float>::quiet_NaN()};
-    bool present{false};
+    float cell_detect_voltage_v{std::numeric_limits<float>::quiet_NaN()};
+    float cell_min_voltage_v{std::numeric_limits<float>::quiet_NaN()};
+    float cell_max_voltage_v{std::numeric_limits<float>::quiet_NaN()};
+    float cell_warning_voltage_v{std::numeric_limits<float>::quiet_NaN()};
+    float current_offset_mv{std::numeric_limits<float>::quiet_NaN()};
+    float current_scale{std::numeric_limits<float>::quiet_NaN()};
+    float capacity_mah{std::numeric_limits<float>::quiet_NaN()};
+    float capacity_warning_mah{std::numeric_limits<float>::quiet_NaN()};
+    float capacity_critical_mah{std::numeric_limits<float>::quiet_NaN()};
+    float capacity_mwh{std::numeric_limits<float>::quiet_NaN()};
+    float capacity_warning_mwh{std::numeric_limits<float>::quiet_NaN()};
+    float capacity_critical_mwh{std::numeric_limits<float>::quiet_NaN()};
+  uint8_t capacity_unit{std::numeric_limits<uint8_t>::max()};
   };
 
   struct InavStatusData
