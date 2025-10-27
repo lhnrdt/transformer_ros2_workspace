@@ -80,25 +80,6 @@ namespace transformer_msp_bridge
     bool present{false};
   };
 
-  struct RangefinderSample
-  {
-    float distance_m{std::numeric_limits<float>::quiet_NaN()};
-    uint8_t quality{0};
-  };
-
-  struct CompassSample
-  {
-    uint8_t instance{0};
-    std::array<int16_t, 3> magnetic_field_mgauss{};
-  };
-
-  struct BarometerSample
-  {
-    uint8_t instance{0};
-    float pressure_pa{std::numeric_limits<float>::quiet_NaN()};
-    float temperature_c{std::numeric_limits<float>::quiet_NaN()};
-  };
-
   struct InavStatusData
   {
     uint16_t cycle_time_us{0};

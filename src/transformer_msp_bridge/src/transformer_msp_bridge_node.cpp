@@ -99,7 +99,6 @@ TransformerMspBridgeNode::TransformerMspBridgeNode(const rclcpp::NodeOptions &op
   frame_id_mag_ = declare_parameter<std::string>("frame_id.mag", frame_id_imu_);
   frame_id_gps_ = declare_parameter<std::string>("frame_id.gps", "gps");
   frame_id_altitude_ = declare_parameter<std::string>("frame_id.altitude", frame_id_imu_);
-  frame_id_rangefinder_ = declare_parameter<std::string>("frame_id.rangefinder", frame_id_imu_);
 
   configurePublishers();
   configureDecoders();

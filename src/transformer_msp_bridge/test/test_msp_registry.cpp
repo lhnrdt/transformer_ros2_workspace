@@ -10,16 +10,6 @@ namespace registry = transformer_msp_bridge::msp;
 
 namespace
 {
-std::set<uint16_t> collect_registry_ids()
-{
-  std::set<uint16_t> ids;
-  const auto view = registry::get_default_registry();
-  for (std::size_t i = 0; i < view.size; ++i)
-  {
-    ids.insert(view.data[i].id);
-  }
-  return ids;
-}
 
 uint16_t require_command(std::string_view name)
 {
@@ -28,18 +18,6 @@ uint16_t require_command(std::string_view name)
   return id;
 }
 } // namespace
-
-TEST(MSPRegistry, DefaultRegistryOmitsSensorV2Ids)
-{
-  const auto ids = collect_registry_ids();
-  const uint16_t kRangefinder = require_command("MSP2_SENSOR_RANGEFINDER");
-  const uint16_t kCompass = require_command("MSP2_SENSOR_COMPASS");
-  const uint16_t kBarometer = require_command("MSP2_SENSOR_BAROMETER");
-
-  EXPECT_FALSE(ids.count(kRangefinder)) << "Rangefinder command unexpectedly polled by default";
-  EXPECT_FALSE(ids.count(kCompass)) << "Compass command unexpectedly polled by default";
-  EXPECT_FALSE(ids.count(kBarometer)) << "Barometer command unexpectedly polled by default";
-}
 
 TEST(MSPRegistry, MessageLookupProvidesMetadata)
 {

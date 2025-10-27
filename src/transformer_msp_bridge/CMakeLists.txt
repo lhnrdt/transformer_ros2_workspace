@@ -55,7 +55,6 @@ add_library(${PROJECT_NAME}_decoders
   src/decoders/rc_decoder.cpp
   src/decoders/altitude_decoder.cpp
   src/decoders/inav_status_decoder.cpp
-  src/decoders/sensor_decoder.cpp
   src/decoders/inav_generic_decoder.cpp
   src/decoders/servo_motor_decoder.cpp
 )

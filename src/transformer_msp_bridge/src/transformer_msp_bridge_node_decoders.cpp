@@ -8,7 +8,6 @@
 #include "transformer_msp_bridge/decoders/inav_generic_decoder.hpp"
 #include "transformer_msp_bridge/decoders/inav_status_decoder.hpp"
 #include "transformer_msp_bridge/decoders/rc_decoder.hpp"
-#include "transformer_msp_bridge/decoders/sensor_decoder.hpp"
 #include "transformer_msp_bridge/decoders/servo_motor_decoder.hpp"
 #include "transformer_msp_bridge/decoders/system_decoder.hpp"
 
@@ -49,17 +48,6 @@ void TransformerMspBridgeNode::configureDecoders()
   battery_callbacks.analog = [this](const BatteryAnalogData &data) { publishBatteryAnalog(data); };
   battery_callbacks.status = [this](const BatteryStatusData &data) { publishBatteryStatus(data); };
   decoders_.emplace_back(std::make_unique<BatteryDecoder>(battery_callbacks));
-
-  SensorDecoder::Callbacks sensor_callbacks;
-  sensor_callbacks.rangefinder = [this](const RangefinderSample &sample) { publishRangefinder(sample); };
-  sensor_callbacks.compass = [this](const CompassSample &sample) { publishCompass(sample); };
-  sensor_callbacks.barometer = [this](const BarometerSample &sample) { publishBarometer(sample); };
-  if (debug_msp_)
-  {
-    sensor_callbacks.log_info = [this](const std::string &message) { RCLCPP_INFO(get_logger(), "%s", message.c_str()); };
-    sensor_callbacks.log_first_frame = true;
-  }
-  decoders_.emplace_back(std::make_unique<SensorDecoder>(sensor_callbacks));
 
   InavStatusDecoder::Callbacks inav_callbacks;
   inav_callbacks.status = [this](const InavStatusData &data) { publishInavStatus(data); };

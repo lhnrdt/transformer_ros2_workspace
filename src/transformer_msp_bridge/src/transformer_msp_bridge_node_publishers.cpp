@@ -24,9 +24,6 @@ void TransformerMspBridgeNode::configurePublishers()
   motor_pub_ = create_publisher<sensor_msgs::msg::JointState>("/msp/motor", rclcpp::QoS(10));
   battery_pub_ = create_publisher<sensor_msgs::msg::BatteryState>("/msp/battery", rclcpp::QoS(10));
   battery_extended_pub_ = create_publisher<sensor_msgs::msg::BatteryState>("/msp/battery/dji", rclcpp::QoS(10));
-  rangefinder_pub_ = create_publisher<std_msgs::msg::Float32>("/msp/rangefinder", rclcpp::QoS(10));
-  compass_pub_ = create_publisher<geometry_msgs::msg::Vector3>("/msp/compass", rclcpp::QoS(10));
-  barometer_pub_ = create_publisher<std_msgs::msg::Float32>("/msp/barometer", rclcpp::QoS(10));
   inav_status_pub_ = create_publisher<transformer_msp_bridge::msg::MspInavStatus>("/msp/inav_status", rclcpp::QoS(10));
   inav_generic_pub_ = create_publisher<diagnostic_msgs::msg::DiagnosticArray>("/msp/inav_generic", rclcpp::QoS(10));
   status_pub_ = create_publisher<diagnostic_msgs::msg::DiagnosticArray>("/msp/status_ex", rclcpp::QoS(10));
@@ -229,41 +226,6 @@ void TransformerMspBridgeNode::publishBatteryStatus(const BatteryStatusData &dat
   msg.percentage = data.remaining_fraction;
   msg.cell_voltage = data.cell_voltage_v;
   battery_extended_pub_->publish(msg);
-}
-
-void TransformerMspBridgeNode::publishRangefinder(const RangefinderSample &sample)
-{
-  if (!rangefinder_pub_)
-  {
-    return;
-  }
-  std_msgs::msg::Float32 msg;
-  msg.data = sample.distance_m;
-  rangefinder_pub_->publish(msg);
-}
-
-void TransformerMspBridgeNode::publishCompass(const CompassSample &sample)
-{
-  if (!compass_pub_)
-  {
-    return;
-  }
-  geometry_msgs::msg::Vector3 msg;
-  msg.x = static_cast<double>(sample.magnetic_field_mgauss[0]);
-  msg.y = static_cast<double>(sample.magnetic_field_mgauss[1]);
-  msg.z = static_cast<double>(sample.magnetic_field_mgauss[2]);
-  compass_pub_->publish(msg);
-}
-
-void TransformerMspBridgeNode::publishBarometer(const BarometerSample &sample)
-{
-  if (!barometer_pub_)
-  {
-    return;
-  }
-  std_msgs::msg::Float32 msg;
-  msg.data = sample.pressure_pa;
-  barometer_pub_->publish(msg);
 }
 
 void TransformerMspBridgeNode::publishInavStatus(const InavStatusData &data)

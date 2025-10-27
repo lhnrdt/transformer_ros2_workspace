@@ -106,9 +106,6 @@ private:
   void publishMotor(const MotorOutputData &data);
   void publishBatteryAnalog(const BatteryAnalogData &data);
   void publishBatteryStatus(const BatteryStatusData &data);
-  void publishRangefinder(const RangefinderSample &sample);
-  void publishCompass(const CompassSample &sample);
-  void publishBarometer(const BarometerSample &sample);
   void publishInavStatus(const InavStatusData &data);
   void publishInavGeneric(const InavGenericFrame &frame);
   void publishStatusEx(const SystemStatusExData &data);
@@ -141,7 +138,6 @@ private:
   std::string frame_id_mag_{"base_link"};
   std::string frame_id_gps_{"gps"};
   std::string frame_id_altitude_{"base_link"};
-  std::string frame_id_rangefinder_{"base_link"};
 
   SerialPort serial_;
   std::mutex serial_mutex_;
@@ -197,9 +193,6 @@ private:
   rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr motor_pub_;
   rclcpp::Publisher<sensor_msgs::msg::BatteryState>::SharedPtr battery_pub_;
   rclcpp::Publisher<sensor_msgs::msg::BatteryState>::SharedPtr battery_extended_pub_;
-  rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr rangefinder_pub_;
-  rclcpp::Publisher<geometry_msgs::msg::Vector3>::SharedPtr compass_pub_;
-  rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr barometer_pub_;
   rclcpp::Publisher<transformer_msp_bridge::msg::MspInavStatus>::SharedPtr inav_status_pub_;
   rclcpp::Publisher<diagnostic_msgs::msg::DiagnosticArray>::SharedPtr inav_generic_pub_;
   rclcpp::Publisher<diagnostic_msgs::msg::DiagnosticArray>::SharedPtr status_pub_;
