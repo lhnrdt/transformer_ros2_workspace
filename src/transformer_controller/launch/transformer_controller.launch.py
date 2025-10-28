@@ -10,14 +10,17 @@ def generate_launch_description():
             name='transformer_controller',
             output='screen',
             parameters=[{
-                'retract_speed_percent': -100,
-                'retract_time_ms': 5000,
-                'extend_speed_percent': 100,
-                'extend_time_ms': 6000,
-                'flight_servos_pulse': 450,
-                'drive_servos_pulse': 2200,
-                'servo_move_speed_us_per_s': 3000,
-                'startup_retract': True,
+                # Actuator configuration
+                    'retract_speed_percent': -100,
+                    'retract_time_ms': 5000,
+                    'extend_speed_percent': 100,
+                    'extend_time_ms': 6000,
+                    'startup_retract': True,
+
+                    # Servo configuration
+                    'flight_servos_pulse': 450,
+                    'drive_servos_pulse': 2200,
+                    'servo_move_speed_us_per_s': 3000,
             }]
         )
     ])
