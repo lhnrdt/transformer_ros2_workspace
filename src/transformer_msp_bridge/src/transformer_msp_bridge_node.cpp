@@ -101,8 +101,9 @@ TransformerMspBridgeNode::TransformerMspBridgeNode(const rclcpp::NodeOptions &op
   frame_id_gps_ = declare_parameter<std::string>("frame_id.gps", "gps");
   frame_id_altitude_ = declare_parameter<std::string>("frame_id.altitude", frame_id_imu_);
   broadcast_attitude_tf_ = declare_parameter<bool>("attitude_tf.enabled", false);
-  attitude_tf_parent_frame_ = declare_parameter<std::string>("attitude_tf.parent_frame", "map");
-  const std::string default_tf_child = frame_id_imu_;
+  const std::string default_tf_parent = frame_id_imu_;
+  attitude_tf_parent_frame_ = declare_parameter<std::string>("attitude_tf.parent_frame", default_tf_parent);
+  const std::string default_tf_child = frame_id_imu_ + "_attitude";
   attitude_tf_child_frame_ = declare_parameter<std::string>("attitude_tf.child_frame", default_tf_child);
 
   if (broadcast_attitude_tf_)

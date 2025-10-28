@@ -19,8 +19,8 @@ transformer_msp_bridge:
     use_v2_tunnel: false
     use_v2_for_legacy: false
     attitude_tf.enabled: true
-    attitude_tf.parent_frame: "map"
-    attitude_tf.child_frame: "base_link"
+    attitude_tf.parent_frame: "base_link"
+    attitude_tf.child_frame: "base_link_attitude"
 
     # Per-command polling (generated from registry names; adjust as needed)
     # Set enabled=false OR rate_hz=0.0 to disable polling.

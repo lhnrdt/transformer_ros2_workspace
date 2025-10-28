@@ -14,6 +14,7 @@ find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(diagnostic_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(ament_index_cpp REQUIRED)
 find_package(tf2 REQUIRED)
@@ -83,7 +84,6 @@ rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typ
 target_link_libraries(transformer_msp_bridge_node ${cpp_typesupport_target})
 add_dependencies(transformer_msp_bridge_node ${PROJECT_NAME}__cpp)
 target_compile_features(transformer_msp_bridge_node PUBLIC cxx_std_17)
-
 
 install(PROGRAMS
   scripts/joystick_tank_to_rc.py
