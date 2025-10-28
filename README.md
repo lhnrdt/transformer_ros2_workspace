@@ -1,96 +1,102 @@
 # Transformer ROS 2 Workspace
 
-Key points:
-- Submodules:
-  - `src/serial-ros2` (RoverRobotics fork)
-  - `src/ros2_wheeltec_n100_imu`
-  - `src/external/inav` (sparse/partial checkout of only `inav/src/main/msp`)
-- Helper script: `scripts/setup_submodules.sh` ensures submodules are initialized shallowly and that only the MSP headers/sources from INAV are checked out.
+This repository bundles the bringup, hardware interfaces, and controller logic for the Transformer hybrid ground/flight robot. The instructions below focus on making sure every required dependency is in place before you build or launch the stack.
 
-## Prerequisites
+> **Tested with:** Ubuntu 24.04 (Noble) + ROS 2 Jazzy Jalisco
 
-- Linux (tested on Ubuntu; other distros should work with ROS 2 installed)
-- ROS 2 (Humble or newer recommended)
-- colcon and build tools
+## 1. Install ROS 2 Jazzy and system prerequisites
 
-Install ROS 2 and colcon as per your platform’s official instructions:
-- https://docs.ros.org/en/ (select your OS and distro)
-
-Ensure environment is sourced before building:
 ```bash
-source /opt/ros/<your_ros2_distro>/setup.bash
+sudo apt update
+sudo apt install curl gnupg lsb-release software-properties-common
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list
+sudo apt update
+sudo apt install ros-jazzy-desktop
 ```
 
-## Clone and initialize
+Add the ROS environment to your shell profile so new terminals source it automatically:
 
 ```bash
-# clone
+echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+```
+
+## 2. Install build and tooling dependencies
+
+```bash
+sudo apt install \
+  python3-colcon-common-extensions \
+  python3-vcstool \
+  python3-rosdep \
+  build-essential \
+  cmake \
+  git
+```
+
+Initialize `rosdep` once (per machine) so it can resolve package dependencies:
+
+```bash
+sudo rosdep init  # skip if this machine has been initialized before
+rosdep update
+```
+
+## 3. Clone the workspace
+
+```bash
+cd ~
 git clone https://github.com/lhnrdt/transformer_ros2_workspace.git
-cd transformer_ros2_workspace  # this is the ros2_ws root
-
-# initialize submodules (shallow) and sparse-checkout INAV MSP only
-bash scripts/setup_submodules.sh
+cd transformer_ros2_workspace
+# If you already have a clone, pull the latest changes instead.
 ```
 
-What the script does:
-- Initializes all submodules shallowly with a blob-less filter.
-- Configures `src/external/inav` as a partial clone with sparse-checkout targeting only `src/main/msp`.
-- Checks out the superproject-pinned commit if available, otherwise the latest `master` from INAV.
-
-Notes on INAV sparse checkout:
-- Only `src/main/msp` is present in the INAV working tree.
-- You may still see `src/` directories at the top level of the submodule; that’s expected. Only the MSP files are materialized.
-
-## Build
+## 4. Resolve package dependencies
 
 From the workspace root:
+
 ```bash
-bash scripts/build.sh
+cd ~/transformer_ros2_workspace
+rosdep install --from-paths src --ignore-src -r -y
 ```
 
-## Run
+`rosdep` will pull every ROS package listed in each `package.xml`. Pay special attention to the following system libraries and optional sensor stacks:
 
-This depends on your packages and launch files. Common options:
-- Use the provided helper (if applicable):
-  ```bash
-  ./start_transformer.sh
-  ```
-- Or run/launch specific nodes (examples):
-  ```bash
-  # Example: bringup (adjust package/launch names as needed)
-  ros2 launch transformer_bringup bringup.launch.py
-  ```
+- `libgpiod-dev`: required for the servo backend (`transformer_hw_servos`). If rosdep cannot find it automatically, install manually: `sudo apt install libgpiod-dev`.
+- `realsense2_camera`: optional but enabled by default in `start_transformer.sh`. Install via `sudo apt install ros-jazzy-realsense2-camera librealsense2-udev-rules`.
+- `wheeltec_n100_imu`: built from source in this workspace. Ensure your user is in the `dialout` group (`sudo usermod -a -G dialout $USER`), then re-login so the IMU serial device is accessible.
 
-## Updating the workspace
+After installing new udev rules (e.g., from RealSense) unplug/replug the device or reboot to apply them.
 
-Pull latest changes and refresh submodules:
-```bash
-# Update the superproject
-git pull --rebase
-
-# Re-apply submodule init and sparse checkout
-bash scripts/setup_submodules.sh
-```
-
-Updating the INAV submodule pointer:
-```bash
-# Enter the submodule
-cd src/external/inav
-# Optionally sync to latest master (sparse/shallow is preserved)
-git fetch --depth=1 --filter=blob:none origin master
-git checkout -f FETCH_HEAD
-cd -
-# Record new pointer in the superproject
-git add src/external/inav
-git commit -m "chore: bump INAV submodule"
-```
-
-## Cleaning the workspace
+## 5. Build the workspace
 
 ```bash
-# From repo root
-rm -rf build/ install/ log/
-
-# Rebuild
+cd ~/transformer_ros2_workspace
+source /opt/ros/jazzy/setup.bash
 colcon build --symlink-install
 ```
+
+Re-source the workspace overlay whenever you open a new shell:
+
+```bash
+source install/setup.bash
+```
+
+## 6. Launch the bringup
+
+Once the build completes and dependencies are satisfied, the main bringup launch file can be started via the provided helper script:
+
+```bash
+./start_transformer.sh
+```
+
+The script sources the installed overlay and launches `transformer_bringup`, enabling the RealSense and Wheeltec IMU drivers by default. Override launch arguments as needed, for example to disable sensors on headless rigs:
+
+```bash
+ros2 launch transformer_bringup transformer_bringup.launch.py start_realsense:=false start_wheeltec_imu:=false
+```
+
+## Troubleshooting checklist
+
+- Re-run `rosdep install --from-paths src --ignore-src -r -y` after adding ROS packages or enabling new options in launch files.
+- Confirm devices are enumerated: `ls /dev/ttyUSB*` (for IMU) and `rs-enumerate-devices` (for RealSense).
+- Verify the correct ROS environment is active: `echo $ROS_DISTRO` should return `jazzy` before building or launching.

@@ -13,6 +13,7 @@ find_package(rclcpp REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(rosidl_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
+find_package(builtin_interfaces REQUIRED)
 find_package(transformer_hw_actuators REQUIRED)
 find_package(transformer_hw_servos REQUIRED)
 
@@ -39,5 +40,6 @@ install(DIRECTORY action launch config DESTINATION share/${PROJECT_NAME} OPTIONA
 install(DIRECTORY include/ DESTINATION include)
 
 ament_export_include_directories(include)
+ament_export_dependencies(rosidl_default_runtime)
 
 ament_package()

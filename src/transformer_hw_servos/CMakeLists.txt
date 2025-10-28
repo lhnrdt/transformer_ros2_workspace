@@ -9,10 +9,12 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
+find_package(builtin_interfaces REQUIRED)
 
 # Interface (action definition)
 rosidl_generate_interfaces(${PROJECT_NAME}
   "action/MoveServo.action"
+  DEPENDENCIES builtin_interfaces
 )
 
 find_package(Threads REQUIRED)
@@ -45,11 +47,16 @@ install(DIRECTORY launch/
 install(DIRECTORY config/
   DESTINATION share/${PROJECT_NAME}/config)
 
+install(DIRECTORY action/
+  DESTINATION share/${PROJECT_NAME}/action)
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   set(ament_cmake_copyright_FOUND TRUE)
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+ament_export_dependencies(rosidl_default_runtime)
 
 ament_package()
