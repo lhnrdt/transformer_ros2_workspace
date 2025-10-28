@@ -30,12 +30,6 @@ transformer_hw_servos:
     enable_trapezoid: true # If goal.use_trapezoid is false, this can still enable trapezoid globally
     accel_us_per_s2: 30000 # Heuristic if 0 or goal.accel_us_per_s2 <= 0
 
-    # Startup move: smoothly apply offsets from initial_us (logical) to (initial_us + offset)
-    startup_move.enable: true
-    startup_move.speed_us_per_s: 500
-    startup_move.accel_us_per_s2: 4000
-    startup_move.use_trapezoid: true
-
     # Real-time tuning (mainly relevant for lgpio software PWM)
     use_realtime: true
     rt_priority: 90
@@ -45,6 +39,3 @@ transformer_hw_servos:
 
     # Number of pulses to send (0 = infinite; lgpio backend only)
     servo_cycles: 0
-
-    # tail_spin_us parameter looked unused in refactored code; retained here only if future logic needs it
-    # tail_spin_us: 100
