@@ -191,7 +191,7 @@ class ServoControllerNode : public rclcpp::Node {
     }
 
     if (worker_thread_.joinable()) {
-      RCLCPP_WARN(get_logger(), "Joining previous servo worker thread before starting new");
+      RCLCPP_DEBUG(get_logger(), "Joining previous servo worker thread before starting new");
       worker_thread_.join();
     }
 
