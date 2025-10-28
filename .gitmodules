@@ -4,9 +4,3 @@
 [submodule "src/ros2_wheeltec_n100_imu"]
 	path = src/ros2_wheeltec_n100_imu
 	url = https://github.com/lhnrdt/ros2_wheeltec_n100_imu.git
-
-# [submodule "src/external/inav"]
-# 	path = src/external/inav
-# 	url = https://github.com/iNavFlight/inav.git
-# 	shallow = true
-# 	branch = master
