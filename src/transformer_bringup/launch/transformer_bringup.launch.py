@@ -173,7 +173,7 @@ def generate_launch_description():
         output='screen',
         parameters=[{
             'use_sim_time': False,
-            'robot_description': ParameterValue(Command(['xacro', str(xacro_file)]), value_type=str),
+            'robot_description': ParameterValue(Command(['xacro ', str(xacro_file)]), value_type=str),
         }],
         condition=IfCondition(start_description)
     )
