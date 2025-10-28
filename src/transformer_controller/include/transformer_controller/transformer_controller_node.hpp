@@ -1,6 +1,6 @@
 /**
- * \file transformer_controller_node.hpp
- * \brief Declaration of the TransformerControllerNode responsible for drive/flight mode orchestration.
+ * @file transformer_controller_node.hpp
+ * @brief Declaration of the TransformerControllerNode responsible for drive/flight mode orchestration.
  */
 
 #pragma once
@@ -23,7 +23,7 @@
 #include "transformer_hw_servos/action/move_servo.hpp"
 
 namespace transformer_controller {
-/** \brief Main ROS 2 node coordinating actuator and servo motions for transformer modes. */
+/** @brief Main ROS 2 node coordinating actuator and servo motions for transformer modes. */
 class TransformerControllerNode : public rclcpp::Node {
  public:
   using MoveActuator = transformer_hw_actuators::action::MoveActuator;
@@ -33,17 +33,17 @@ class TransformerControllerNode : public rclcpp::Node {
   using TransformMode = transformer_controller::action::TransformMode;
   using TransformHandle = rclcpp_action::ServerGoalHandle<TransformMode>;
 
-  /** \brief Construct the node and declare runtime parameters. */
+  /** @brief Construct the node and declare runtime parameters. */
   TransformerControllerNode();
 
-  /** \brief Ensure worker threads shut down before destruction. */
+  /** @brief Ensure worker threads shut down before destruction. */
   ~TransformerControllerNode() override;
 
  private:
-  /** \brief Enumerates supported controller states. */
+  /** @brief Enumerates supported controller states. */
   enum class Mode { kUnknown, kInit, kIdle, kDrive, kFlight };
 
-  /** \brief Runtime configuration derived from ROS parameters. */
+  /** @brief Runtime configuration derived from ROS parameters. */
   struct ControllerConfig {
     int retract_speed_percent = kDefaultRetractSpeedPercent;
     int retract_time_ms = kDefaultRetractTimeMs;
@@ -56,133 +56,133 @@ class TransformerControllerNode : public rclcpp::Node {
 
   // === Initialization Flow ===
 
-  /** \brief Load configurable parameters from the ROS parameter server. */
+  /** @brief Load configurable parameters from the ROS parameter server. */
   void LoadParameters();
 
-  /** \brief Periodically poll action servers until they are available. */
+  /** @brief Periodically poll action servers until they are available. */
   void StartInitializationTick();
 
-  /** \brief Execute the baseline retract sequence executed at startup. */
+  /** @brief Execute the baseline retract sequence executed at startup. */
   void RunStartupRetract();
 
-  /** \brief Publish the transform action server once initialization completes. */
+  /** @brief Publish the transform action server once initialization completes. */
   void AdvertiseTransformServer();
 
   // === Transform Action Callbacks ===
 
   /**
-   * \brief Validate an incoming goal before accepting it.
-   * \param uuid Unique identifier supplied by the action server for this goal.
-   * \param goal Requested transform mode payload from the caller.
-   * \return Decision describing whether execution should proceed.
+   * @brief Validate an incoming goal before accepting it.
+   * @param uuid Unique identifier supplied by the action server for this goal.
+   * @param goal Requested transform mode payload from the caller.
+   * @return Decision describing whether execution should proceed.
    */
   rclcpp_action::GoalResponse HandleGoal(const rclcpp_action::GoalUUID& uuid,
                                          std::shared_ptr<const TransformMode::Goal> goal);
 
   /**
-   * \brief Cancel handler for transform goals.
-   * \param goal_handle Goal instance invoking the cancellation.
-   * \return Whether cancellation is accepted.
+   * @brief Cancel handler for transform goals.
+   * @param goal_handle Goal instance invoking the cancellation.
+   * @return Whether cancellation is accepted.
    */
   rclcpp_action::CancelResponse HandleCancel(const std::shared_ptr<TransformHandle>& goal_handle);
 
   /**
-   * \brief Spawn the execution worker when a goal is accepted.
-   * \param goal_handle Accepted goal to execute.
+   * @brief Spawn the execution worker when a goal is accepted.
+   * @param goal_handle Accepted goal to execute.
    */
   void HandleAccepted(const std::shared_ptr<TransformHandle> goal_handle);
 
   /**
-   * \brief Execute the transform workflow on a background thread.
-   * \param goal_handle Goal to process until completion.
+   * @brief Execute the transform workflow on a background thread.
+   * @param goal_handle Goal to process until completion.
    */
   void ExecuteTransform(const std::shared_ptr<TransformHandle> goal_handle);
 
   // === Motion Helpers ===
 
   /**
-   * \brief Wrapper to synchronously command actuator movement.
-   * \param speed_percent Desired actuator speed percentage.
-   * \param duration_ms Movement duration in milliseconds.
-   * \return True when the action server reports success.
+   * @brief Wrapper to synchronously command actuator movement.
+   * @param speed_percent Desired actuator speed percentage.
+   * @param duration_ms Movement duration in milliseconds.
+   * @return True when the action server reports success.
    */
   [[nodiscard]] bool RunActuatorTimedGoal(int speed_percent, int duration_ms);
 
   /**
-   * \brief Retract both actuators using configured parameters.
-   * \return True when the retract action succeeds.
+   * @brief Retract both actuators using configured parameters.
+   * @return True when the retract action succeeds.
    */
   [[nodiscard]] bool RetractActuators();
 
   /**
-   * \brief Extend both actuators using configured parameters.
-   * \return True when the extend action succeeds.
+   * @brief Extend both actuators using configured parameters.
+   * @return True when the extend action succeeds.
    */
   [[nodiscard]] bool ExtendActuators();
 
   /**
-   * \brief Move the wing servos to the requested pulse width.
-   * \param pulse Target PWM pulse width in microseconds.
-   * \return True when the servo action reports success.
+   * @brief Move the wing servos to the requested pulse width.
+   * @param pulse Target PWM pulse width in microseconds.
+   * @return True when the servo action reports success.
    */
   [[nodiscard]] bool MoveServos(int pulse);
 
   /**
-   * \brief Await a future with polling to avoid blocking spinning threads.
+   * @brief Await a future with polling to avoid blocking spinning threads.
    * \tparam FutureT Future-like type returned by action calls.
    * \tparam Rep Rep type for the supplied timeout duration.
    * \tparam Period Period type for the supplied timeout duration.
-   * \param fut Future instance to monitor.
-   * \param timeout Maximum time to wait for readiness.
-   * \return True if the future becomes ready before the timeout expires.
+   * @param fut Future instance to monitor.
+   * @param timeout Maximum time to wait for readiness.
+   * @return True if the future becomes ready before the timeout expires.
    */
   template <typename FutureT, typename Rep, typename Period>
   [[nodiscard]] bool WaitForFuture(FutureT& fut, const std::chrono::duration<Rep, Period>& timeout);
 
   // === Shutdown Coordination ===
 
-  /** \brief Stop outstanding work and join worker threads. */
+  /** @brief Stop outstanding work and join worker threads. */
   void BeginShutdown();
 
-  /** \brief Abort the active goal when shutting down. */
+  /** @brief Abort the active goal when shutting down. */
   void CancelActiveGoalForShutdown();
 
-  /** \brief Clear the current active goal pointer under lock. */
+  /** @brief Clear the current active goal pointer under lock. */
   void ClearActiveGoal();
 
   // === Mode Utilities ===
 
   /**
-   * \brief Record the controller mode.
-   * \param mode New controller mode to persist.
+   * @brief Record the controller mode.
+   * @param mode New controller mode to persist.
    */
   void SetCurrentMode(Mode mode);
 
   /**
-   * \brief Retrieve the controller mode.
-   * \return Current controller mode value.
+   * @brief Retrieve the controller mode.
+   * @return Current controller mode value.
    */
   [[nodiscard]] Mode GetCurrentMode() const;
 
   /**
-   * \brief Convert a mode into a string for logging/results.
-   * \param mode Mode to stringify.
-   * \return String view referencing the mode label.
+   * @brief Convert a mode into a string for logging/results.
+   * @param mode Mode to stringify.
+   * @return String view referencing the mode label.
    */
   [[nodiscard]] std::string_view ModeToString(Mode mode) const;
 
   /**
-   * \brief Translate textual goal input into a Mode.
-   * \param raw_mode Raw mode string from the action goal.
-   * \param parsed_mode Output storage for the resolved mode.
-   * \return True if the mode string is recognised.
+   * @brief Translate textual goal input into a Mode.
+   * @param raw_mode Raw mode string from the action goal.
+   * @param parsed_mode Output storage for the resolved mode.
+   * @return True if the mode string is recognised.
    */
   [[nodiscard]] bool TryParseGoalMode(const std::string& raw_mode, Mode* parsed_mode) const;
 
   /**
-   * \brief Indicate whether a mode allows transformations.
-   * \param mode Mode to evaluate for transform eligibility.
-   * \return True when transforms are permitted.
+   * @brief Indicate whether a mode allows transformations.
+   * @param mode Mode to evaluate for transform eligibility.
+   * @return True when transforms are permitted.
    */
   [[nodiscard]] bool IsTransformable(Mode mode) const;
 
