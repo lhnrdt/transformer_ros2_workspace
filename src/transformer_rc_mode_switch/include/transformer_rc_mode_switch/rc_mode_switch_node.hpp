@@ -112,7 +112,7 @@ class RcModeSwitchNode : public rclcpp::Node {
   std::string rc_topic_;
 
   Mode last_sent_mode_{Mode::kUnknown};
-  std::chrono::steady_clock::time_point last_goal_time_{std::chrono::steady_clock::time_point::min()};
+  std::chrono::steady_clock::time_point last_goal_time_{};
 
   rclcpp_action::Client<TransformMode>::SharedPtr transform_client_;
   rclcpp::Subscription<std_msgs::msg::UInt16MultiArray>::SharedPtr rc_subscription_;

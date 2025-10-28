@@ -163,6 +163,11 @@ bool RcModeSwitchNode::IsDebounced(const std::chrono::steady_clock::time_point n
     return true;
   }
 
+  // Permit the first command immediately by treating the epoch timestamp as untouched state.
+  if (last_goal_time_.time_since_epoch().count() == 0) {
+    return true;
+  }
+
   return (now - last_goal_time_) >= debounce_period_;
 }
 
