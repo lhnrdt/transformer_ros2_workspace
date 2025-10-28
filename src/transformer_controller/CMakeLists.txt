@@ -23,6 +23,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 )
 
 add_executable(transformer_controller_node src/transformer_controller_node.cpp)
+target_include_directories(transformer_controller_node PUBLIC include)
 ament_target_dependencies(transformer_controller_node rclcpp rclcpp_action transformer_hw_actuators transformer_hw_servos)
 
 # Replace deprecated rosidl_target_interfaces with modern pattern
@@ -32,5 +33,8 @@ target_link_libraries(transformer_controller_node "${cpp_typesupport_target}")
 install(TARGETS transformer_controller_node DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY action launch config DESTINATION share/${PROJECT_NAME} OPTIONAL)
+install(DIRECTORY include/ DESTINATION include)
+
+ament_export_include_directories(include)
 
 ament_package()
