@@ -39,6 +39,9 @@ __pycache__/
 .coverage
 htmlcov/
 
+#github
+.github/
+
 # Ignore nested build artifacts in packages (safety)
 src/**/build/
 src/**/install/
