@@ -60,7 +60,8 @@ ServoControllerNode::ServoControllerNode(const rclcpp::NodeOptions& options) : N
   // Defer action advertisement until hardware has had a moment to reach a stable idle state.
   StartAdvertiseTimer();
 
-  RCLCPP_INFO(get_logger(), "Servo controller initialised backend=%s freq=%dHz channels=%d advertise_delay=%ldms",
+  RCLCPP_INFO(get_logger(),
+              "\033[32m[READY] Servo controller initialised backend=%s freq=%dHz channels=%d advertise_delay=%ldms\033[0m",
               backend_type_.c_str(), frequency_hz_, channels_in_use_, settle_delay_.count());
 
   rclcpp::on_shutdown([this]() { BeginShutdown(); });
@@ -188,7 +189,8 @@ void ServoControllerNode::CreateActionServer() {
       std::bind(&ServoControllerNode::HandleCancel, this, std::placeholders::_1),
       std::bind(&ServoControllerNode::HandleAccepted, this, std::placeholders::_1));
 
-  RCLCPP_INFO(get_logger(), "Servo action server advertised backend=%s", backend_type_.c_str());
+  RCLCPP_INFO(get_logger(), "\033[32m[READY] Servo action server advertised backend=%s\033[0m",
+              backend_type_.c_str());
 }
 
 void ServoControllerNode::BeginShutdown() {

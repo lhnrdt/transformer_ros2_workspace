@@ -103,7 +103,7 @@ void TransformerControllerNode::RunStartupRetract() {
 
   SetCurrentMode(Mode::kIdle);
   init_complete_.store(true);
-  RCLCPP_INFO(get_logger(), "[INIT] Initialization complete. Mode=IDLE (actuators retracted)");
+  RCLCPP_INFO(get_logger(), "\033[32m[READY] Initialization complete. Mode=IDLE (actuators retracted)\033[0m");
 
   if (startup_timer_) {
     startup_timer_->cancel();
@@ -126,7 +126,7 @@ void TransformerControllerNode::AdvertiseTransformServer() {
       [this](const std::shared_ptr<TransformHandle>& goal_handle) { return HandleCancel(goal_handle); },
       [this](const std::shared_ptr<TransformHandle>& goal_handle) { HandleAccepted(goal_handle); });
 
-  RCLCPP_INFO(get_logger(), "Transform action server advertised");
+  RCLCPP_INFO(get_logger(), "\033[32m[READY] Transform action server advertised\033[0m");
 }
 
 rclcpp_action::GoalResponse TransformerControllerNode::HandleGoal(const rclcpp_action::GoalUUID&,

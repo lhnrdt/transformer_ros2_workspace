@@ -97,7 +97,7 @@ ActuatorNode::ActuatorNode(const rclcpp::NodeOptions& options) : Node(kNodeName,
   ApplyInitialDirections();
   ConfigureActionServer();
 
-  RCLCPP_INFO(get_logger(), "Actuator node ready: pwmchip=%d period=%ldns", pwmchip_index_,
+  RCLCPP_INFO(get_logger(), "\033[32m[READY] Actuator node ready: pwmchip=%d period=%ldns\033[0m", pwmchip_index_,
               static_cast<long>(period_ns_));
 }
 

@@ -190,6 +190,9 @@ TransformerMspBridgeNode::TransformerMspBridgeNode(const rclcpp::NodeOptions &op
   }
 
   poll_timer_ = create_wall_timer(std::chrono::milliseconds(20), std::bind(&TransformerMspBridgeNode::pollCommands, this));
+
+  RCLCPP_INFO(get_logger(), "\033[32m[READY] Transformer MSP bridge ready on %s @ %d baud\033[0m", port_.c_str(),
+              baudrate_);
 }
 
 TransformerMspBridgeNode::~TransformerMspBridgeNode()

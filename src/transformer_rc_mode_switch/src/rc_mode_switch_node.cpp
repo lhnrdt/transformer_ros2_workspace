@@ -48,7 +48,7 @@ RcModeSwitchNode::RcModeSwitchNode() : Node(kNodeName) {
   InitializeSubscription();
 
   RCLCPP_INFO(get_logger(),
-              "RC mode switch online | channel_index=%d drive_center=%d flight_center=%d tolerance=%d debounce_ms=%ld",
+              "\033[32m[READY] RC mode switch online | channel_index=%d drive_center=%d flight_center=%d tolerance=%d debounce_ms=%ld\033[0m",
               channel_index_, drive_high_center_, flight_low_center_, tolerance_,
               static_cast<long>(debounce_period_.count()));
 }
@@ -178,8 +178,8 @@ void RcModeSwitchNode::DispatchGoal(const Mode mode, const int channel_value,
   goal.target_mode = ModeToString(mode);
 
   const int human_channel_number = channel_index_ + 1;
-  RCLCPP_INFO(get_logger(), "Issuing transform goal | mode=%s channel=%d value=%d", goal.target_mode.c_str(),
-              human_channel_number, channel_value);
+  RCLCPP_INFO(get_logger(), "\033[34m[TRANSITION] Issuing transform goal | mode=%s channel=%d value=%d\033[0m",
+              goal.target_mode.c_str(), human_channel_number, channel_value);
 
   auto goal_future = transform_client_->async_send_goal(goal);
   (void)goal_future;  // The future is intentionally unused; fire-and-forget behavior is sufficient here.
