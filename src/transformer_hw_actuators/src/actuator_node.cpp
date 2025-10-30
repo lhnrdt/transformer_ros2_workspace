@@ -229,6 +229,8 @@ void ActuatorNode::ConfigureActionServer() {
       std::bind(&ActuatorNode::HandleGoal, this, std::placeholders::_1, std::placeholders::_2),
       std::bind(&ActuatorNode::HandleCancel, this, std::placeholders::_1),
       std::bind(&ActuatorNode::HandleAccepted, this, std::placeholders::_1));
+
+  RCLCPP_INFO(get_logger(), "\033[32m[READY] Actuator action server advertised name=%s\033[0m", kActionName);
 }
 
 void ActuatorNode::BeginShutdown() {
@@ -286,12 +288,12 @@ std::string ActuatorNode::ChannelPath(int channel, const std::string& leaf) cons
 bool ActuatorNode::WriteFile(const std::string& path, const std::string& value, std::string& err) {
   std::ofstream file(path);
   if (!file.is_open()) {
-    err = "open failed";
+    err = std::string("open failed: ") + std::strerror(errno);
     return false;
   }
   file << value;
   if (!file.good()) {
-    err = "write failed";
+    err = std::string("write failed: ") + std::strerror(errno);
     return false;
   }
   return true;

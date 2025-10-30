@@ -6,7 +6,7 @@ from pathlib import Path
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, TimerAction, OpaqueFunction
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import (
@@ -31,6 +31,56 @@ def generate_launch_description():
     controller_launch = controller_pkg / 'launch' / 'transformer_controller.launch.py'
     realsense_launch = realsense_pkg / 'launch' / 'rs_launch.py'
 
+    """ Optional device readiness gate to improve boot reliability on SBCs """
+    wait_for_devices_arg = DeclareLaunchArgument(
+        'wait_for_devices', default_value='true',
+        description='Block launch until core device files (gpiochip, pwmchip, serial) appear or timeout')
+    device_wait_timeout_arg = DeclareLaunchArgument(
+        'device_wait_timeout', default_value='20',
+        description='Max seconds to wait for device files before proceeding')
+    wait_for_devices = LaunchConfiguration('wait_for_devices')
+    device_wait_timeout = LaunchConfiguration('device_wait_timeout')
+
+    def _wait_for_paths(context):
+        import os
+        import time
+        # Resolve launch-time values
+        should_wait = str(wait_for_devices.perform(context)).lower() == 'true'
+        timeout_s = float(device_wait_timeout.perform(context) or '20')
+        serial_port = LaunchConfiguration('wheeltec_serial_port').perform(context)
+        # Known device paths based on default configs
+        required = [
+            '/dev/gpiochip4',            # default gpiochip for direction lines
+            '/sys/class/pwm/pwmchip0',   # default pwmchip
+        ]
+        # Serial is optional unless IMU is enabled; still safe to wait briefly
+        if serial_port:
+            required.append(serial_port)
+
+        if not should_wait:
+            print('[bringup] Device wait disabled; continuing without probing')
+            return []
+
+        deadline = time.time() + max(0.0, timeout_s)
+        pending = set(required)
+        last_report = 0.0
+        while pending and time.time() < deadline:
+            found = {p for p in pending if os.path.exists(p)}
+            pending -= found
+            now = time.time()
+            if now - last_report > 2.0:
+                print('[bringup] Waiting for devices: {} (timeout {}s)'.format(sorted(pending), int(deadline-now)))
+                last_report = now
+            time.sleep(0.25)
+
+        if pending:
+            print('[bringup] Proceeding despite missing devices: {}'.format(sorted(pending)))
+        else:
+            print('[bringup] All required devices are present')
+        return []
+
+    device_probe = OpaqueFunction(function=_wait_for_paths)
+
     """ Servos """
     servos_include = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(str(servos_launch))
@@ -45,6 +95,13 @@ def generate_launch_description():
     controller_include = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(str(controller_launch))
     )
+    controller_start_delay_arg = DeclareLaunchArgument(
+        'controller_start_delay',
+        # Increase default delay to allow PWM/GPIO exports and backend initialisation on slower SBCs
+        default_value='6.0',
+        description='Seconds to wait before starting the transformer controller so hardware nodes are ready')
+    controller_start_delay = LaunchConfiguration('controller_start_delay')
+    controller_start = TimerAction(period=controller_start_delay, actions=[controller_include])
 
     """ MSP Bridge """
     start_msp_arg = DeclareLaunchArgument(
@@ -70,6 +127,13 @@ def generate_launch_description():
     rc_switch_include = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(str(rc_switch_launch)),
         condition=IfCondition(start_rc_switch))
+    rc_switch_start_delay_arg = DeclareLaunchArgument(
+        'rc_switch_start_delay',
+        # Give controller extra time to finish initialization before RC client starts
+        default_value='8.0',
+        description='Seconds to wait before starting the RC mode switch so the controller is available')
+    rc_switch_start_delay = LaunchConfiguration('rc_switch_start_delay')
+    rc_switch_start = TimerAction(period=rc_switch_start_delay, actions=[rc_switch_include])
 
     """ RealSense D4xx Camera """
     start_realsense_arg = DeclareLaunchArgument(
@@ -179,20 +243,25 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        wait_for_devices_arg,
+        device_wait_timeout_arg,
         start_msp_arg,
         start_rc_switch_arg,
         start_realsense_arg,
         start_description_arg,
+        controller_start_delay_arg,
+        rc_switch_start_delay_arg,
         camera_namespace_arg,
         camera_name_arg,
         start_wheeltec_imu_arg,
         wheeltec_serial_port_arg,
         wheeltec_serial_baud_arg,
+        device_probe,
         servos_include,
         actuators_include,
-        controller_include,
+        controller_start,
         msp_node,
-        rc_switch_include,
+        rc_switch_start,
         robot_state_publisher,
         realsense_include,
         relay_aligned_info,
