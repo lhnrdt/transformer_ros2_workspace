@@ -79,8 +79,8 @@
     <origin xyz="${gps_xyz}" rpy="${gps_rpy}"/>
   </joint>
 
-  <!-- Intel RealSense D435i base link (matches realsense2_camera frame name) -->
-  <link name="D435I_link">
+  <!-- Intel RealSense D435i base link (aligned with realsense2_camera frame names) -->
+  <link name="camera_D435I_link">
     <visual>
       <geometry>
         <box size="0.09 0.025 0.025"/>
@@ -88,9 +88,9 @@
       <material name="black"><color rgba="0.1 0.1 0.1 1.0"/></material>
     </visual>
   </link>
-  <joint name="D435I_joint" type="fixed">
+  <joint name="camera_D435I_joint" type="fixed">
     <parent link="base_link"/>
-    <child link="D435I_link"/>
+    <child link="camera_D435I_link"/>
     <origin xyz="${d435i_xyz}" rpy="${d435i_rpy}"/>
   </joint>
 </robot>

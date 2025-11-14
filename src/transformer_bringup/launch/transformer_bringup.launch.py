@@ -12,8 +12,6 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import (
     Command,
     LaunchConfiguration,
-    PathJoinSubstitution,
-    TextSubstitution,
 )
 from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
@@ -24,12 +22,12 @@ def generate_launch_description():
     servos_pkg = Path(get_package_share_directory('transformer_hw_servos'))
     actuators_pkg = Path(get_package_share_directory('transformer_hw_actuators'))
     controller_pkg = Path(get_package_share_directory('transformer_controller'))
-    realsense_pkg = Path(get_package_share_directory('realsense2_camera'))
 
     servos_launch = servos_pkg / 'launch' / 'servos.launch.py'
     actuators_launch = actuators_pkg / 'launch' / 'actuator.launch.py'
     controller_launch = controller_pkg / 'launch' / 'transformer_controller.launch.py'
-    realsense_launch = realsense_pkg / 'launch' / 'rs_launch.py'
+    # Using direct node instantiation instead of rs_launch to ensure params YAML is applied at configure time
+    # realsense_launch = realsense_pkg / 'launch' / 'rs_launch.py'
 
     """ Optional device readiness gate to improve boot reliability on SBCs """
     wait_for_devices_arg = DeclareLaunchArgument(
@@ -91,7 +89,7 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(str(actuators_launch))
     )
 
-    """ Transformation Controller """
+    """ Transformer Controller (delayed start) """
     controller_include = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(str(controller_launch))
     )
@@ -139,66 +137,26 @@ def generate_launch_description():
     start_realsense_arg = DeclareLaunchArgument(
         'start_realsense', default_value='false', description='Start Intel RealSense D4xx camera node')
     start_realsense = LaunchConfiguration('start_realsense')
+    bringup_pkg = Path(get_package_share_directory('transformer_bringup'))
+    realsense_config = bringup_pkg / 'config' / 'realsense.yaml'
     camera_namespace_arg = DeclareLaunchArgument(
         'camera_namespace', default_value='transformer', description='Namespace for the RealSense camera')
     camera_name_arg = DeclareLaunchArgument(
         'camera_name', default_value='D435I', description='Logical camera name')
     camera_namespace = LaunchConfiguration('camera_namespace')
     camera_name = LaunchConfiguration('camera_name')
-    realsense_include = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(str(realsense_launch)),
-        condition=IfCondition(start_realsense),
-        launch_arguments={
-            # Flatten topics so RViz defaults find them: /camera/<stream>/...
-            'camera_namespace': camera_namespace,
-            'camera_name': camera_name,
-            'enable_color': 'true',
-            'enable_depth': 'true',
-
-            # Profiles per docs
-            'rgb_camera.profile': '1280x720x30',
-            'depth_module.profile': '848x480x30',
-
-            # Filters and sync
-            'align_depth.enable': 'true',
-            'enable_sync': 'true',
-            'pointcloud.enable': 'true',
-            'pointcloud.pointcloud_qos': 'SENSOR_DATA',
-
-        }.items()
-    )
-    # Relay CameraInfo to nested image_raw path so tools expecting
-    # <image_topic>/camera_info can find it next to image_raw
-    camera_root = PathJoinSubstitution([
-        TextSubstitution(text='/'),
-        camera_namespace,
-        camera_name,
-    ])
-    relay_aligned_info = Node(
-        package='topic_tools',
-        executable='relay',
-        name='relay_aligned_depth_to_color_info',
+    realsense_node = Node(
+        package='realsense2_camera',
+        executable='realsense2_camera_node',
+        name=camera_name,
+        namespace=camera_namespace,
         output='screen',
-        arguments=[
-            PathJoinSubstitution([camera_root, TextSubstitution(text='aligned_depth_to_color/camera_info')]),
-            PathJoinSubstitution([camera_root, TextSubstitution(text='aligned_depth_to_color/image_raw/camera_info')]),
-        ],
-        parameters=[{'type': 'sensor_msgs/msg/CameraInfo'}],
+        parameters=[str(realsense_config)],
+        # Suppress noisy WARNs about stream re-enable at startup for the camera node
+        arguments=['--ros-args', '--log-level', 'transformer.D435I:=error'],
         condition=IfCondition(start_realsense),
     )
-
-    relay_color_info = Node(
-        package='topic_tools',
-        executable='relay',
-        name='relay_color_info',
-        output='screen',
-        arguments=[
-            PathJoinSubstitution([camera_root, TextSubstitution(text='color/camera_info')]),
-            PathJoinSubstitution([camera_root, TextSubstitution(text='color/image_raw/camera_info')]),
-        ],
-        parameters=[{'type': 'sensor_msgs/msg/CameraInfo'}],
-        condition=IfCondition(start_realsense),
-    )
+    # Use native camera_info topics published by the driver; avoid relays to prevent QoS/timestamp mismatches
 
     """ Wheeltec N100 IMU """
     start_wheeltec_imu_arg = DeclareLaunchArgument(
@@ -263,8 +221,6 @@ def generate_launch_description():
         msp_node,
         rc_switch_start,
         robot_state_publisher,
-        realsense_include,
-        relay_aligned_info,
-        relay_color_info,
+        realsense_node,
         wheeltec_imu_node,
     ])

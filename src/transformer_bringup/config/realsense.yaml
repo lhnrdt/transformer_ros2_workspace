@@ -1,0 +1,137 @@
+/**:
+  ros__parameters:
+    # Fixed stream profiles applied at configuration time to avoid re-enable warnings
+    rgb_camera.color_profile: "640x360x30"
+    depth_module.depth_profile: "640x360x30"
+    # depth_module.infra_profile: "640x360x30"
+
+    # Typical defaults used in this workspace
+    # Enable streams explicitly to avoid toggling (which triggers restart warnings)
+    enable_color: true
+    enable_depth: true
+    enable_infra1: false
+    enable_infra2: false
+
+    # Apply alignment and pointcloud processing
+    align_depth.enable: true
+    pointcloud.enable: true
+    pointcloud.pointcloud_qos: "SENSOR_DATA"
+
+    # Avoid stream re-enable warnings by configuring before start/resetting device
+    initial_reset: true
+
+    # Disable IMU to avoid IIO/HID permission errors and crashes unless explicitly needed
+    enable_gyro: false
+    enable_accel: false
+
+    # Ensure TF frames are published using the names observed from the driver
+    publish_tf: true
+    # Provide raw frame ids; the driver prefixes them with "camera_" internally
+    base_frame_id: "D435I_link"
+    depth_frame_id: "depth_frame"
+    depth_optical_frame_id: "depth_optical_frame"
+    color_frame_id: "color_frame"
+    color_optical_frame_id: "color_optical_frame"
+    infra1_frame_id: "infra1_frame"
+    infra1_optical_frame_id: "infra1_optical_frame"
+    infra2_frame_id: "infra2_frame"
+    infra2_optical_frame_id: "infra2_optical_frame"
+
+
+# Stream Profiles supported by Stereo Module
+#  Supported modes:
+#     STREAM      RESOLUTION     FORMAT      FPS
+#     Infrared 1  1280x800       Y16         @ 25/15 Hz
+#     Infrared 1      |          Y8          @ 30/15 Hz
+#     Infrared 1  1280x720       Y8          @ 30/15/6 Hz
+#     Infrared 1   848x480       Y8          @ 90/60/30/15/6 Hz
+#     Infrared 1   848x100       Y8          @ 300/100 Hz
+#     Infrared 1   640x480       Y8          @ 90/60/30/15/6 Hz
+#     Infrared 1   640x400       Y16         @ 25/15 Hz
+#     Infrared 1   640x360       Y8          @ 90/60/30/15/6 Hz
+#     Infrared 1   480x270       Y8          @ 90/60/30/15/6 Hz
+#     Infrared 1   424x240       Y8          @ 90/60/30/15/6 Hz
+#     Infrared 2  1280x800       Y16         @ 25/15 Hz
+#     Infrared 2      |          Y8          @ 30/15 Hz
+#     Infrared 2  1280x720       Y8          @ 30/15/6 Hz
+#     Infrared 2   848x480       Y8          @ 90/60/30/15/6 Hz
+#     Infrared 2   848x100       Y8          @ 300/100 Hz
+#     Infrared 2   640x480       Y8          @ 90/60/30/15/6 Hz
+#     Infrared 2   640x400       Y16         @ 25/15 Hz
+#     Infrared 2   640x360       Y8          @ 90/60/30/15/6 Hz
+#     Infrared 2   480x270       Y8          @ 90/60/30/15/6 Hz
+#     Infrared 2   424x240       Y8          @ 90/60/30/15/6 Hz
+#     Depth       1280x720       Z16         @ 30/15/6 Hz
+#     Depth        848x480       Z16         @ 90/60/30/15/6 Hz
+#     Depth        848x100       Z16         @ 300/100 Hz
+#     Depth        640x480       Z16         @ 90/60/30/15/6 Hz
+#     Depth        640x360       Z16         @ 90/60/30/15/6 Hz
+#     Depth        480x270       Z16         @ 90/60/30/15/6 Hz
+#     Depth        424x240       Z16         @ 90/60/30/15/6 Hz
+#     Depth        256x144       Z16         @ 300/90 Hz
+
+# Stream Profiles supported by RGB Camera
+#  Supported modes:
+#     STREAM      RESOLUTION     FORMAT      FPS
+#     Color       1920x1080      RGB8        @ 30/15/6 Hz
+#     Color           |          Y8          @ 30/15/6 Hz
+#     Color           |          BGRA8       @ 30/15/6 Hz
+#     Color           |          RGBA8       @ 30/15/6 Hz
+#     Color           |          BGR8        @ 30/15/6 Hz
+#     Color           |          YUYV        @ 30/15/6 Hz
+#     Color       1280x720       RGB8        @ 30/15/6 Hz
+#     Color           |          Y8          @ 30/15/6 Hz
+#     Color           |          BGRA8       @ 30/15/6 Hz
+#     Color           |          RGBA8       @ 30/15/6 Hz
+#     Color           |          BGR8        @ 30/15/6 Hz
+#     Color           |          YUYV        @ 30/15/6 Hz
+#     Color        960x540       RGB8        @ 60/30/15/6 Hz
+#     Color           |          Y8          @ 60/30/15/6 Hz
+#     Color           |          BGRA8       @ 60/30/15/6 Hz
+#     Color           |          RGBA8       @ 60/30/15/6 Hz
+#     Color           |          BGR8        @ 60/30/15/6 Hz
+#     Color           |          YUYV        @ 60/30/15/6 Hz
+#     Color        848x480       RGB8        @ 60/30/15/6 Hz
+#     Color           |          Y8          @ 60/30/15/6 Hz
+#     Color           |          BGRA8       @ 60/30/15/6 Hz
+#     Color           |          RGBA8       @ 60/30/15/6 Hz
+#     Color           |          BGR8        @ 60/30/15/6 Hz
+#     Color           |          YUYV        @ 60/30/15/6 Hz
+#     Color        640x480       RGB8        @ 60/30/15/6 Hz
+#     Color           |          Y8          @ 60/30/15/6 Hz
+#     Color           |          BGRA8       @ 60/30/15/6 Hz
+#     Color           |          RGBA8       @ 60/30/15/6 Hz
+#     Color           |          BGR8        @ 60/30/15/6 Hz
+#     Color           |          YUYV        @ 60/30/15/6 Hz
+#     Color        640x360       RGB8        @ 60/30/15/6 Hz
+#     Color           |          Y8          @ 60/30/15/6 Hz
+#     Color           |          BGRA8       @ 60/30/15/6 Hz
+#     Color           |          RGBA8       @ 60/30/15/6 Hz
+#     Color           |          BGR8        @ 60/30/15/6 Hz
+#     Color           |          YUYV        @ 60/30/15/6 Hz
+#     Color        424x240       RGB8        @ 60/30/15/6 Hz
+#     Color           |          Y8          @ 60/30/15/6 Hz
+#     Color           |          BGRA8       @ 60/30/15/6 Hz
+#     Color           |          RGBA8       @ 60/30/15/6 Hz
+#     Color           |          BGR8        @ 60/30/15/6 Hz
+#     Color           |          YUYV        @ 60/30/15/6 Hz
+#     Color        320x240       RGB8        @ 60/30/6 Hz
+#     Color           |          Y8          @ 60/30/6 Hz
+#     Color           |          BGRA8       @ 60/30/6 Hz
+#     Color           |          RGBA8       @ 60/30/6 Hz
+#     Color           |          BGR8        @ 60/30/6 Hz
+#     Color           |          YUYV        @ 60/30/6 Hz
+#     Color        320x180       RGB8        @ 60/30/6 Hz
+#     Color           |          Y8          @ 60/30/6 Hz
+#     Color           |          BGRA8       @ 60/30/6 Hz
+#     Color           |          RGBA8       @ 60/30/6 Hz
+#     Color           |          BGR8        @ 60/30/6 Hz
+#     Color           |          YUYV        @ 60/30/6 Hz
+
+# Stream Profiles supported by Motion Module
+#  Supported modes:
+#     STREAM      FORMAT         FPS
+#     Accel       MOTION_XYZ32F  @ 400/200/100 Hz
+#     Gyro        MOTION_XYZ32F  @ 400/200 Hz
+
+# atvpi@atvpi:~$ 
