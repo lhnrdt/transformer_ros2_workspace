@@ -194,7 +194,7 @@ TransformerMspBridgeNode::TransformerMspBridgeNode(const rclcpp::NodeOptions& op
     const double rx_bits_per_sec = static_cast<double>(delta_rx_bytes) * 8.0 / elapsed_sec;
     const double avg_resp_ms =
         delta_resp_count > 0
-            ? (static_cast<double>(delta_resp_sum_ns) / 1 '000' 000.0 / static_cast<double>(delta_resp_count))
+            ? (static_cast<double>(delta_resp_sum_ns) / 1000000.0 / static_cast<double>(delta_resp_count))
             : 0.0;
     const double link_capacity_bps = baudrate_ > 0 ? static_cast<double>(baudrate_) : 0.0;
     const double tx_load_pct = link_capacity_bps > 0.0 ? (tx_bits_per_sec / link_capacity_bps) * 100.0 : 0.0;

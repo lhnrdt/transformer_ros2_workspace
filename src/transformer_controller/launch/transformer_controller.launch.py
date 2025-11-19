@@ -18,7 +18,7 @@ def generate_launch_description():
                     'startup_retract': True,
 
                     # Servo configuration
-                    'flight_servos_pulse': 400,
+                    'flight_servos_pulse': 500,
                     'drive_servos_pulse': 2200,
                     'servo_move_speed_us_per_s': 3000,
             }]

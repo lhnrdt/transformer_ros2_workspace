@@ -16,14 +16,14 @@ transformer_hw_servos:
 
     # Common timing
     period_us: 20000 # 50 Hz
-    initial_us: 450
+    initial_us: 500
     channels_in_use: 2
 
     # Additive mechanical position offsets (logical -> physical = logical + offset) per channel (1-based in docs, 0-based here)
-    position_offsets_us: [0, 50]
+    position_offsets_us: [-40, 50]
 
     # Ranges [WARNING: Changing these values to incorrect ones may damage hardware]
-    min_us: 400
+    min_us: 500
     max_us: 2200
 
     # Default motion profile behavior (can be overridden per action goal)
