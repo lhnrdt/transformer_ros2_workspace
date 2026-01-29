@@ -1,5 +1,5 @@
 # Transformer ROS 2 Workspace
-
+![Final Robot](readme_image.png)
 This repository bundles the bringup, hardware interfaces, and controller logic for the Transformer hybrid ground/flight robot. The instructions below focus on making sure every required dependency is in place before you build or launch the stack.
 
 > **Tested with:** Ubuntu 24.04 (Noble) + ROS 2 Jazzy Jalisco
